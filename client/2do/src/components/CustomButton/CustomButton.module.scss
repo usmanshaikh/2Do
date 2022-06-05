@@ -1,0 +1,38 @@
+.buttonContainer {
+  padding: 10px 15px;
+  .commonButton {
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    box-shadow: none;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    background-color: #ffffff;
+    &.white {
+      background-color: #ffffff;
+      color: #333333;
+    }
+    &.red {
+      background-color: #f96060;
+    }
+    &.blue {
+      background-color: #6074f9;
+    }
+    &.transparent {
+      background-color: transparent;
+    }
+    &.small {
+      width: 50%;
+    }
+    &.large {
+      width: 100%;
+    }
+  }
+}

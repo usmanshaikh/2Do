@@ -1,0 +1,52 @@
+.sliderComponentWrapper {
+  .swiper-slide {
+    height: 100vh;
+    background-color: #ffffff;
+  }
+  .swiper-pagination {
+    top: 55%;
+    left: 50%;
+    bottom: auto;
+    position: absolute;
+    transform: translate(-50%, -55%);
+    .swiper-pagination-bullet {
+      transition: all 0.5s;
+    }
+    .swiper-pagination-bullet-active {
+      background-color: #333;
+      &:nth-child(1) {
+        background-color: #f96060;
+      }
+      &:nth-child(2) {
+        background-color: #6075f9;
+      }
+      &:nth-child(3) {
+        background-color: #81c2bb;
+      }
+    }
+  }
+  .sliderContent {
+    padding: 20px;
+    text-align: center;
+  }
+  .infoTxtBox {
+    padding: 40px 0;
+  }
+  .title {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 500;
+  }
+  .subTitle {
+    font-size: 15px;
+  }
+  .SliderMainImg {
+    height: 260px;
+    object-fit: contain;
+  }
+  .bgLayer {
+    position: absolute;
+    bottom: 0;
+    height: auto;
+  }
+}
