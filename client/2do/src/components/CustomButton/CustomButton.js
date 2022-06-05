@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CustomButton.module.scss";
 
-const CustomButton = ({ color = "red", name = "name", size = "large", disabled = false, onClick }) => {
+const CustomButton = ({ color = "red", name = "name", size = "large", disabled = false, onClick, type = "button" }) => {
   const onButtonClick = () => {
     if (onClick) {
       onClick(name);
@@ -11,7 +11,7 @@ const CustomButton = ({ color = "red", name = "name", size = "large", disabled =
   return (
     <div className={styles.buttonContainer}>
       <button
-        type="button"
+        type={type}
         disabled={disabled}
         className={`${styles.commonButton} ${styles[color]} ${styles[size]}`}
         onClick={onButtonClick}>
