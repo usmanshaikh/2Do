@@ -4,6 +4,7 @@ import styles from "./CustomButton.module.scss";
 const CustomButton = ({ color = "red", name = "name", size = "large", disabled = false, onClick, type = "button" }) => {
   const onButtonClick = () => {
     if (onClick) {
+      // Pass any parameter
       onClick(name);
     }
   };

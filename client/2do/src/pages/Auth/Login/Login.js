@@ -1,18 +1,24 @@
 import React from "react";
-import { useFormik } from "formik";
 import * as yup from "yup";
+import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
+import * as Constants from "../../../utils/constants/message.constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
+import styles from "./Login.module.scss";
 
 const validationSchema = yup.object({
-  email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+  email: yup.string().email(Constants.EMAIL_INVALID).required(Constants.EMAIL_REQUIRED),
+  password: yup.string().min(Constants.PASSWORD_LENGTH, Constants.PASSWORD_MIN).required(Constants.PASSWORD_REQUIRED),
 });
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const onLoginHandler = () => {
+    navigate("/task");
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,12 +26,14 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log({ values });
     },
   });
 
   return (
-    <div>
+    <div className={styles.loginPageWrapper}>
+      <h1>Login</h1>
+      <span>Hello Again! Welcome back</span>
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
@@ -33,6 +41,7 @@ const Login = () => {
           id="email"
           name="email"
           label="Email"
+          autoComplete="off"
           value={formik.values.email}
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
@@ -50,7 +59,14 @@ const Login = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
-        <CustomButton name="Log In" type="submit" />
+        <Link to="/forgot-password">Forgot Password</Link>
+        <CustomButton name="Login" type="submit" onClick={onLoginHandler} />
+        <span>
+          Don't have an account?{" "}
+          <b>
+            <Link to="/signup">Create</Link>
+          </b>
+        </span>
       </form>
     </div>
   );
