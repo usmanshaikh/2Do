@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import * as Constants from "../../../utils/constants/message.constants";
+import * as Msg from "../../../utils/constants/message.constants";
+import * as Path from "../../../utils/constants/routePath.constants";
 import styles from "./ForgotPassword.module.scss";
 
 const validationSchema = yup.object({
-  email: yup.string().email(Constants.EMAIL_INVALID).required(Constants.EMAIL_REQUIRED),
+  email: yup.string().email(Msg.EMAIL_INVALID).required(Msg.EMAIL_REQUIRED),
 });
 
 const ForgotPassword = () => {
@@ -25,7 +26,7 @@ const ForgotPassword = () => {
 
   return (
     <div className={styles.forgotPageWrapper}>
-      <Link to="/login">
+      <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
         <KeyboardBackspaceIcon />
       </Link>
       <h1>Forgot Password</h1>
@@ -45,7 +46,7 @@ const ForgotPassword = () => {
         />
         <CustomButton name="Send Request" type="submit" />
       </form>
-      <Link to="/reset-password">Reset Password</Link>
+      <Link to={`/${Path.AUTH}/${Path.RESET_PASSWORD}`}>Reset Password</Link>
     </div>
   );
 };

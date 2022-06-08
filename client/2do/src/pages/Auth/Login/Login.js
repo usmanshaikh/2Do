@@ -3,20 +3,21 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
-import * as Constants from "../../../utils/constants/message.constants";
+import * as Msg from "../../../utils/constants/message.constants";
+import * as Path from "../../../utils/constants/routePath.constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import styles from "./Login.module.scss";
 
 const validationSchema = yup.object({
-  email: yup.string().email(Constants.EMAIL_INVALID).required(Constants.EMAIL_REQUIRED),
-  password: yup.string().min(Constants.PASSWORD_LENGTH, Constants.PASSWORD_MIN).required(Constants.PASSWORD_REQUIRED),
+  email: yup.string().email(Msg.EMAIL_INVALID).required(Msg.EMAIL_REQUIRED),
+  password: yup.string().min(Msg.PASSWORD_LENGTH, Msg.PASSWORD_MIN).required(Msg.PASSWORD_REQUIRED),
 });
 
 const Login = () => {
   const navigate = useNavigate();
 
   const onLoginHandler = () => {
-    navigate("/task");
+    navigate(`/${Path.MY_TASK}`);
   };
 
   const formik = useFormik({
@@ -59,12 +60,12 @@ const Login = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
-        <Link to="/forgot-password">Forgot Password</Link>
+        <Link to={`/${Path.AUTH}/${Path.FORGOT_PASSWORD}`}>Forgot Password</Link>
         <CustomButton name="Login" type="submit" onClick={onLoginHandler} />
         <span>
-          Don't have an account?{" "}
+          Don't have an account?
           <b>
-            <Link to="/signup">Create</Link>
+            <Link to={`/${Path.AUTH}/${Path.SIGNUP}`}>Create</Link>
           </b>
         </span>
       </form>

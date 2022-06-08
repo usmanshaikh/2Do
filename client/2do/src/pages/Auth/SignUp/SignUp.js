@@ -5,19 +5,20 @@ import { TextField } from "@mui/material";
 import * as yup from "yup";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import * as Constants from "../../../utils/constants/message.constants";
+import * as Msg from "../../../utils/constants/message.constants";
+import * as Path from "../../../utils/constants/routePath.constants";
 import styles from "./SignUp.module.scss";
 
 const validationSchema = yup.object({
   name: yup
     .string()
-    .required(Constants.NAME_REQUIRED)
-    .matches(/^[aA-zZ\s]+$/, Constants.NAME_ONLY_ALPHABETS),
-  email: yup.string().email(Constants.EMAIL_INVALID).required(Constants.EMAIL_REQUIRED),
-  password: yup.string().min(Constants.PASSWORD_LENGTH, Constants.PASSWORD_MIN).required(Constants.PASSWORD_REQUIRED),
+    .required(Msg.NAME_REQUIRED)
+    .matches(/^[aA-zZ\s]+$/, Msg.NAME_ONLY_ALPHABETS),
+  email: yup.string().email(Msg.EMAIL_INVALID).required(Msg.EMAIL_REQUIRED),
+  password: yup.string().min(Msg.PASSWORD_LENGTH, Msg.PASSWORD_MIN).required(Msg.PASSWORD_REQUIRED),
   confirmPassword: yup.string().when("password", {
     is: (val) => (val && val.length > 0 ? true : false),
-    then: yup.string().oneOf([yup.ref("password")], Constants.PASSWORD_NOT_MATCH),
+    then: yup.string().oneOf([yup.ref("password")], Msg.PASSWORD_NOT_MATCH),
   }),
 });
 
@@ -37,7 +38,7 @@ const SignUp = () => {
 
   return (
     <div className={styles.signUpPageWrapper}>
-      <Link to="/login">
+      <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
         <KeyboardBackspaceIcon />
       </Link>
       <h1>Create Account</h1>
@@ -94,9 +95,9 @@ const SignUp = () => {
         <CustomButton name="Sign up" type="submit" />
       </form>
       <span>
-        Already have a account?{" "}
+        Already have a account?
         <b>
-          <Link to="/login">Login</Link>
+          <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>Login</Link>
         </b>
       </span>
     </div>

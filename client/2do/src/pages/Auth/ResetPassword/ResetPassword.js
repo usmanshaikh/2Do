@@ -5,22 +5,16 @@ import { TextField } from "@mui/material";
 import * as yup from "yup";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import * as Constants from "../../../utils/constants/message.constants";
+import * as Msg from "../../../utils/constants/message.constants";
+import * as Path from "../../../utils/constants/routePath.constants";
 import styles from "./ResetPassword.module.scss";
 
 const validationSchema = yup.object({
-  resetCode: yup
-    .number()
-    .typeError(Constants.RESET_CODE)
-    .min(6, Constants.RESET_CODE)
-    .required(Constants.RESET_CODE_REQUIRED),
-  newPassword: yup
-    .string()
-    .min(Constants.PASSWORD_LENGTH, Constants.PASSWORD_MIN)
-    .required(Constants.PASSWORD_REQUIRED),
+  resetCode: yup.number().typeError(Msg.RESET_CODE).min(6, Msg.RESET_CODE).required(Msg.RESET_CODE_REQUIRED),
+  newPassword: yup.string().min(Msg.PASSWORD_LENGTH, Msg.PASSWORD_MIN).required(Msg.PASSWORD_REQUIRED),
   confirmPassword: yup.string().when("newPassword", {
     is: (val) => (val && val.length > 0 ? true : false),
-    then: yup.string().oneOf([yup.ref("newPassword")], Constants.PASSWORD_NOT_MATCH),
+    then: yup.string().oneOf([yup.ref("newPassword")], Msg.PASSWORD_NOT_MATCH),
   }),
 });
 
@@ -39,7 +33,7 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.resetPageWrapper}>
-      <Link to="/login">
+      <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
         <KeyboardBackspaceIcon />
       </Link>
       <h1>Reset Password</h1>
