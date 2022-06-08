@@ -8,7 +8,11 @@ import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
 import ResetPasswordSuccess from "../pages/Auth/ResetPassword/ResetPasswordSuccess";
 import SignUp from "../pages/Auth/SignUp/SignUp";
 import MyTask from "../pages/MyTask/MyTask";
+import Category from "../pages/Category/Category";
+import Quick from "../pages/Quick/Quick";
+import Profile from "../pages/Profile/Profile";
 import Walkthrough from "../pages/Walkthrough/Walkthrough";
+import NotFound from "../components/NotFound/NotFound";
 
 const AppRoute = () => {
   return (
@@ -24,7 +28,10 @@ const AppRoute = () => {
         </Route>
         <Route path={`/${Path.WALKTHROUGH}`} element={<Walkthrough />} />
         <Route path={`/${Path.MY_TASK}`} element={<MyTask />} />
-        <Route path="*" element={<p>Not Found!!!</p>} />
+        <Route path={`/${Path.CATEGORY}`} element={<Category />} />
+        <Route path={`/${Path.QUICK}`} element={<Quick />} />
+        <Route path={`/${Path.PROFILE}`} element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

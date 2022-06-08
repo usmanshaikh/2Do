@@ -6,3 +6,6 @@ export const RESET_PASSWORD = "reset-password";
 export const RESET_PASSWORD_SUCCESS = "reset-password-success";
 export const WALKTHROUGH = "walkthrough";
 export const MY_TASK = "my-task";
+export const CATEGORY = "category";
+export const QUICK = "quick";
+export const PROFILE = "profile";

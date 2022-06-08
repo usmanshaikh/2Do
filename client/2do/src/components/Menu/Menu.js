@@ -1,29 +1,30 @@
 import React from "react";
 import MenuItem from "./MenuItem";
+import * as Path from "../../utils/constants/routePath.constants";
 
 const MENU_ITEM = [
   {
     icon: "check_circle",
     name: "My Task",
-    url: "profile",
+    url: Path.MY_TASK,
     position: 1,
   },
   {
     icon: "widgets",
-    name: "Menu",
-    url: "profile",
+    name: "Category",
+    url: Path.CATEGORY,
     position: 2,
   },
   {
     icon: "fact_check",
     name: "Quick",
-    url: "profile",
+    url: Path.QUICK,
     position: 3,
   },
   {
     icon: "person",
     name: "Profile",
-    url: "profile",
+    url: Path.PROFILE,
     position: 4,
   },
 ];
