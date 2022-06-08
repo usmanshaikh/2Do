@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { TextField } from "@mui/material";
+import { Icon, TextField } from "@mui/material";
 import * as yup from "yup";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
@@ -34,7 +33,7 @@ const ResetPassword = () => {
   return (
     <div className={styles.resetPageWrapper}>
       <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
-        <KeyboardBackspaceIcon />
+        <Icon>keyboard_backspace</Icon>
       </Link>
       <h1>Reset Password</h1>
       <span>Reset code was sent to your email. Please enter the code and create new password.</span>

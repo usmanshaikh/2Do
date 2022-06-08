@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { TextField } from "@mui/material";
+import { Icon, TextField } from "@mui/material";
 import * as yup from "yup";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
@@ -39,7 +38,7 @@ const SignUp = () => {
   return (
     <div className={styles.signUpPageWrapper}>
       <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
-        <KeyboardBackspaceIcon />
+        <Icon>keyboard_backspace</Icon>
       </Link>
       <h1>Create Account</h1>
       <span>Hello! Sign up to get started</span>

@@ -1,10 +1,9 @@
 import React from "react";
 import { useFormik } from "formik";
-import { TextField } from "@mui/material";
+import { Icon, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import styles from "./ForgotPassword.module.scss";
@@ -27,7 +26,7 @@ const ForgotPassword = () => {
   return (
     <div className={styles.forgotPageWrapper}>
       <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
-        <KeyboardBackspaceIcon />
+        <Icon>keyboard_backspace</Icon>
       </Link>
       <h1>Forgot Password</h1>
       <span>Please enter your email below to received your password reset instructions</span>
