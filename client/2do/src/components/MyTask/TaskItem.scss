@@ -1,0 +1,17 @@
+.actionContent {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  box-sizing: border-box;
+  color: #eee;
+  user-select: none;
+  &.rejected {
+    background-color: yellow;
+  }
+  &.deleted {
+    background-color: red;
+  }
+}
