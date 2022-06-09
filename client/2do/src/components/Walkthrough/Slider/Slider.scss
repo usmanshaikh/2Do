@@ -1,6 +1,5 @@
 .sliderComponentWrapper {
   .swiper-slide {
-    height: 100vh;
     background-color: #ffffff;
   }
   .swiper-pagination {
@@ -26,11 +25,14 @@
     }
   }
   .sliderContent {
-    padding: 20px;
+    height: 100vh;
     text-align: center;
   }
+  .infoBox {
+    height: 60vh;
+  }
   .infoTxtBox {
-    padding: 40px 0;
+    padding-top: 40px;
   }
   .title {
     font-size: 22px;
@@ -40,13 +42,21 @@
   .subTitle {
     font-size: 15px;
   }
-  .SliderMainImg {
-    height: 260px;
+  .sliderMainImg {
+    height: 60%;
     object-fit: contain;
   }
-  .bgLayer {
+  .bgLayerBox {
     position: absolute;
     bottom: 0;
-    height: auto;
+    height: 40vh;
+    z-index: -1;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  .content {
+    height: 100%;
+    padding: 15px;
   }
 }
