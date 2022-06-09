@@ -1,5 +1,8 @@
 .buttonContainer {
-  padding: 10px 15px;
+  padding: 10px 0;
+  &.pd15 {
+    padding: 10px 15px;
+  }
   .commonButton {
     border-radius: 4px;
     text-align: center;

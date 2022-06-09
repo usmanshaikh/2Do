@@ -1,7 +1,15 @@
 import React from "react";
 import styles from "./CustomButton.module.scss";
 
-const CustomButton = ({ color = "red", name = "name", size = "large", disabled = false, onClick, type = "button" }) => {
+const CustomButton = ({
+  color = "red",
+  name = "name",
+  size = "large",
+  disabled = false,
+  onClick,
+  type = "button",
+  isPadding = false,
+}) => {
   const onButtonClick = () => {
     if (onClick) {
       // Pass any parameter
@@ -9,8 +17,11 @@ const CustomButton = ({ color = "red", name = "name", size = "large", disabled =
     }
   };
 
+  let btnClass = styles.buttonContainer;
+  if (isPadding) btnClass = `${styles.buttonContainer} ${styles.pd15} `;
+
   return (
-    <div className={styles.buttonContainer}>
+    <div className={btnClass}>
       <button
         type={type}
         disabled={disabled}

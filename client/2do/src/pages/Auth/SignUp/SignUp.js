@@ -7,6 +7,7 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import styles from "./SignUp.module.scss";
+import "../Auth.scss";
 
 const validationSchema = yup.object({
   name: yup
@@ -36,69 +37,91 @@ const SignUp = () => {
   });
 
   return (
-    <div className={styles.signUpPageWrapper}>
-      <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
-        <Icon>keyboard_backspace</Icon>
-      </Link>
-      <h1>Create Account</h1>
-      <span>Hello! Sign up to get started</span>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          variant="standard"
-          id="name"
-          name="name"
-          label="Name"
-          autoComplete="off"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-        />
-        <TextField
-          fullWidth
-          variant="standard"
-          id="email"
-          name="email"
-          label="Email"
-          autoComplete="off"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-        />
-        <TextField
-          fullWidth
-          variant="standard"
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-        />
-        <TextField
-          fullWidth
-          variant="standard"
-          id="confirmPassword"
-          name="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          value={formik.values.confirmPassword}
-          onChange={formik.handleChange}
-          error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-          helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-        />
-        <CustomButton name="Sign up" type="submit" />
-      </form>
-      <span>
-        Already have a account?
-        <b>
-          <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>Login</Link>
-        </b>
-      </span>
+    <div className="signUpPageWrapper commonAuthWrapper">
+      <div className="backBtnWrap">
+        <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
+          <Icon>keyboard_backspace</Icon>
+        </Link>
+      </div>
+      <h1 className="heading">Create Account</h1>
+      <span className="subHeading">Hello! Sign up to get started</span>
+      <div className="formWrapper">
+        <form onSubmit={formik.handleSubmit}>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="name"
+              name="name"
+              label="Name"
+              autoComplete="off"
+              className="commonInputFormControl"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          </div>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="email"
+              name="email"
+              label="Email"
+              autoComplete="off"
+              className="commonInputFormControl"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+          </div>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              className="commonInputFormControl"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+          </div>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              className="commonInputFormControl"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+              helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+            />
+          </div>
+          <div className="actionBtnWrap">
+            <CustomButton name="Sign up" type="submit" />
+          </div>
+        </form>
+      </div>
+      <div className="accountOrLoginOptWrap">
+        <span className="txt">
+          Already have a account?
+          <b>
+            <Link className="aLink" to={`/${Path.AUTH}/${Path.LOGIN}`}>
+              Login
+            </Link>
+          </b>
+        </span>
+      </div>
     </div>
   );
 };

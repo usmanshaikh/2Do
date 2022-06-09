@@ -18,7 +18,7 @@ const Walkthrough = () => {
         <Slider />
         <div className={styles.actionGrpButton}>
           <div className="w100">
-            <CustomButton color="white" name="Get Started" onClick={onGoToLoginPageHandler} />
+            <CustomButton color="white" name="Get Started" onClick={onGoToLoginPageHandler} isPadding={true} />
           </div>
         </div>
       </div>

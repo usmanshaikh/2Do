@@ -7,6 +7,7 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import styles from "./ResetPassword.module.scss";
+import "../Auth.scss";
 
 const validationSchema = yup.object({
   resetCode: yup.number().typeError(Msg.RESET_CODE).min(6, Msg.RESET_CODE).required(Msg.RESET_CODE_REQUIRED),
@@ -31,51 +32,68 @@ const ResetPassword = () => {
   });
 
   return (
-    <div className={styles.resetPageWrapper}>
-      <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
-        <Icon>keyboard_backspace</Icon>
-      </Link>
-      <h1>Reset Password</h1>
-      <span>Reset code was sent to your email. Please enter the code and create new password.</span>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          variant="standard"
-          id="resetCode"
-          name="resetCode"
-          label="Reset Code"
-          autoComplete="off"
-          value={formik.values.resetCode}
-          onChange={formik.handleChange}
-          error={formik.touched.resetCode && Boolean(formik.errors.resetCode)}
-          helperText={formik.touched.resetCode && formik.errors.resetCode}
-        />
-        <TextField
-          fullWidth
-          variant="standard"
-          id="newPassword"
-          name="newPassword"
-          label="New Password"
-          type="password"
-          value={formik.values.newPassword}
-          onChange={formik.handleChange}
-          error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
-          helperText={formik.touched.newPassword && formik.errors.newPassword}
-        />
-        <TextField
-          fullWidth
-          variant="standard"
-          id="confirmPassword"
-          name="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          value={formik.values.confirmPassword}
-          onChange={formik.handleChange}
-          error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-          helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-        />
-        <CustomButton name="Change Password" type="submit" />
-      </form>
+    <div className="resetPageWrapper commonAuthWrapper">
+      <div className="backBtnWrap">
+        <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
+          <Icon>keyboard_backspace</Icon>
+        </Link>
+      </div>
+      <h1 className="heading">Reset Password</h1>
+      <span className="subHeading">
+        Reset code was sent to your email. Please enter the code and create new password.
+      </span>
+      <div className="formWrapper">
+        <form onSubmit={formik.handleSubmit}>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="resetCode"
+              name="resetCode"
+              label="Reset Code"
+              autoComplete="off"
+              className="commonInputFormControl"
+              value={formik.values.resetCode}
+              onChange={formik.handleChange}
+              error={formik.touched.resetCode && Boolean(formik.errors.resetCode)}
+              helperText={formik.touched.resetCode && formik.errors.resetCode}
+            />
+          </div>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="newPassword"
+              name="newPassword"
+              label="New Password"
+              type="password"
+              className="commonInputFormControl"
+              value={formik.values.newPassword}
+              onChange={formik.handleChange}
+              error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
+              helperText={formik.touched.newPassword && formik.errors.newPassword}
+            />
+          </div>
+          <div className="commonInputWrap">
+            <TextField
+              fullWidth
+              variant="standard"
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              className="commonInputFormControl"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+              helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+            />
+          </div>
+          <div className="actionBtnWrap">
+            <CustomButton name="Change Password" type="submit" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
