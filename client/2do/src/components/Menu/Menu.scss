@@ -1,0 +1,59 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.menuComponentWrapper {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  background-color: #363e62;
+  .flexContainer {
+    position: relative;
+    display: flex;
+  }
+  .menuItem {
+    width: 20%;
+    padding: 10px;
+    text-align: center;
+    &.active {
+      .menuIcon,
+      .menuName {
+        color: $white;
+      }
+    }
+    .menuIcon {
+      margin: 0 auto;
+      display: block;
+      font-size: 20px;
+      color: rgb(226, 223, 223, 70%);
+    }
+    .menuName {
+      display: block;
+      padding: 5px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgb(226, 223, 223, 50%);
+    }
+    &.blank {
+      .menuName {
+        display: none;
+      }
+    }
+    &.add {
+      position: absolute;
+      @include translateCenter();
+      top: 0%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      background: $red;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      .menuIcon {
+        color: $white;
+      }
+      .menuName {
+        display: none;
+      }
+    }
+  }
+}
