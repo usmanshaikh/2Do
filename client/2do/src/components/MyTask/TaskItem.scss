@@ -1,17 +1,55 @@
-.actionContent {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  box-sizing: border-box;
-  color: #eee;
-  user-select: none;
-  &.rejected {
-    background-color: yellow;
+@import "../../assets/scss/mixin_variables.scss";
+
+.taskItemWrapper {
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 5%), 0 6px 20px 0 rgb(0 0 0 / 5%);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  min-height: 65px;
+  .flexContainer {
+    width: 100%;
+    @include flexbox();
+    .flexItemOne {
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flexItemTwo {
+      flex: auto;
+      padding-left: 10px;
+    }
   }
-  &.deleted {
-    background-color: red;
+  .title {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: $black1;
+  }
+  .time {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #919191;
+  }
+  .taskChecked {
+    display: none;
+  }
+  .actionContent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    box-sizing: border-box;
+    color: #eee;
+    user-select: none;
+    &.edited {
+      background-color: yellow;
+    }
+    &.deleted {
+      background-color: red;
+    }
   }
 }

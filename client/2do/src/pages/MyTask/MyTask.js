@@ -31,38 +31,8 @@ const MyTask = () => {
           </div>
           <div className="tabContentbox">
             <TabContent value={tabTitle} index={0}>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates molestias
-                obcaecati voluptate sapiente harum consectetur earum voluptatibus. Minima tempore distinctio molestias
-                eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed sit
-                commodi, vero voluptates molestias obcaecati voluptate sapiente harum consectetur earum voluptatibus.
-                Minima tempore distinctio molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor sit amet
-                consectetur adipisicing elit. Sed sit commodi, vero voluptates molestias obcaecati voluptate sapiente
-                harum consectetur earum voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut, eum
-                ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates
-                molestias obcaecati voluptate sapiente harum consectetur earum voluptatibus. Minima tempore distinctio
-                molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                sit commodi, vero voluptates molestias obcaecati voluptate sapiente harum consectetur earum
-                voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor
-                sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates molestias obcaecati voluptate
-                sapiente harum consectetur earum voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut,
-                eum ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates
-                molestias obcaecati voluptate sapiente harum consectetur earum voluptatibus. Minima tempore distinctio
-                molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                sit commodi, vero voluptates molestias obcaecati voluptate sapiente harum consectetur earum
-                voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor
-                sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates molestias obcaecati voluptate
-                sapiente harum consectetur earum voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut,
-                eum ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates
-                molestias obcaecati voluptate sapiente harum consectetur earum voluptatibus. Minima tempore distinctio
-                molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                sit commodi, vero voluptates molestias obcaecati voluptate sapiente harum consectetur earum
-                voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut, eum ipsam!LoremLorem ipsum dolor
-                sit amet consectetur adipisicing elit. Sed sit commodi, vero voluptates molestias obcaecati voluptate
-                sapiente harum consectetur earum voluptatibus. Minima tempore distinctio molestias eveniet saepe! Ut,
-                eum ipsam!Lorem
-              </p>
-              {/* <TaskItem /> */}
+              <TaskItem />
+              <TaskItem />
             </TabContent>
             <TabContent value={tabTitle} index={1}>
               {/* <TaskItem /> */}

@@ -1,33 +1,27 @@
 import React from "react";
 import { Icon } from "@mui/material";
-import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions } from "react-swipeable-list";
+import { SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskItem.scss";
 
 const TaskItem = () => {
-  const handleReject = () => {
-    console.log("[Handle REJECT]");
+  const onEditHandler = (data) => {
+    console.log("[Handle EDIT]", data);
   };
 
-  const handleDelete = () => {
-    console.log("[Handle DELETE]");
+  const onDeleteHandler = (data) => {
+    console.log("[Handle DELETE]", data);
   };
 
-  const leadingActions = () => (
-    <LeadingActions>
-      <SwipeAction onClick={() => console.info("swipe action triggered")}>Action name</SwipeAction>
-    </LeadingActions>
-  );
-
-  const trailingActions = () => (
+  const trailingActions = (data) => (
     <TrailingActions>
-      <SwipeAction onClick={handleReject()}>
-        <div className="actionContent rejected">
+      <SwipeAction onClick={() => onEditHandler("DATA")}>
+        <div className="actionContent edited">
           <Icon>edit</Icon>
           Edit
         </div>
       </SwipeAction>
-      <SwipeAction onClick={handleDelete()}>
+      <SwipeAction onClick={() => onDeleteHandler("DATA")}>
         <div className="actionContent deleted">
           <Icon>delete</Icon>
           Delete
@@ -38,12 +32,19 @@ const TaskItem = () => {
 
   return (
     <>
-      <div>
-        <SwipeableList>
-          <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-            <Icon>radio_button_unchecked</Icon>
-            <Icon>task_alt</Icon>
-            Item content
+      <div className="taskItemWrapper">
+        <SwipeableList type={ListType.IOS}>
+          <SwipeableListItem trailingActions={trailingActions("usman")}>
+            <div className="flexContainer">
+              <div className="flexItemOne">
+                <Icon className="taskChecked">task_alt</Icon>
+                <Icon className="taskUnchecked">radio_button_unchecked</Icon>
+              </div>
+              <div className="flexItemTwo">
+                <span className="title">Create 2Do App</span>
+                <span className="time">9:00am</span>
+              </div>
+            </div>
           </SwipeableListItem>
         </SwipeableList>
       </div>
