@@ -92,10 +92,16 @@
   font-style: normal;
 }
 
-@mixin raleway_thinItalic() {
-  font-family: "Raleway";
-  font-weight: 100;
-  font-style: italic;
+@mixin poppins_regular() {
+  font-family: "Poppins";
+  font-weight: normal;
+  font-style: normal;
+}
+
+@mixin poppins_medium() {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-style: normal;
 }
 
 @mixin imgFluid() {
@@ -169,3 +175,4 @@ $black: #000000;
 $white: #ffffff;
 $black1: #1f1f1f;
 $red: #f96060;
+$blue: #6074f9;

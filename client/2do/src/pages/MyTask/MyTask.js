@@ -32,7 +32,6 @@ const MyTask = () => {
           <div className="tabContentbox">
             <TabContent value={tabTitle} index={0}>
               <TaskItem />
-              <TaskItem />
             </TabContent>
             <TabContent value={tabTitle} index={1}>
               {/* <TaskItem /> */}

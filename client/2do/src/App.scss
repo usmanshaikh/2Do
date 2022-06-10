@@ -28,3 +28,11 @@ body {
 .w100 {
   width: 100%;
 }
+
+.numberReg {
+  @include poppins_regular();
+}
+
+.numberMed {
+  @include poppins_medium();
+}

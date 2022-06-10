@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Icon } from "@mui/material";
 import FilterTaskModal from "../Modals/FilterTaskModal";
 import style from "./Header.module.scss";
+import Images from "../../assets/img/images.js";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ const Header = () => {
           </div>
           <div className={style.filterBtnBox}>
             <Button className={style.filterBtn} variant="outlined" onClick={openFiterModalHandler}>
-              <Icon>tune</Icon>
+              <img src={Images.FilterSVG} alt="filter" className="filterImg" />
             </Button>
             <FilterTaskModal selectedValue={selectedValue} open={open} onClose={closeFiterModalHandler} />
           </div>

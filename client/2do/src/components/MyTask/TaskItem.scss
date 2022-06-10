@@ -1,14 +1,44 @@
 @import "../../assets/scss/mixin_variables.scss";
 
-.taskItemWrapper {
-  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 5%), 0 6px 20px 0 rgb(0 0 0 / 5%);
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  min-height: 65px;
+.swipeListTaskWrapper {
+  &.taskPending {
+    .taskItemWrapper::after {
+      background-color: $blue;
+    }
+  }
+  &.taskCompleted {
+    .taskItemWrapper::after {
+      background-color: $red;
+    }
+    .time,
+    .title {
+      color: #9e9e9e;
+      text-decoration: line-through;
+    }
+  }
+  .swipeable-list-item {
+    padding: 10px 15px;
+  }
+  .taskItemWrapper {
+    width: 100%;
+    padding: 10px;
+    min-height: 65px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+    position: relative;
+    &::after {
+      content: "";
+      top: 30%;
+      right: 0px;
+      width: 3px;
+      z-index: 1;
+      height: 25px;
+      position: absolute;
+    }
+  }
   .flexContainer {
     width: 100%;
-    @include flexbox();
+    @include flexbox($wrap: nowrap);
     .flexItemOne {
       width: 30px;
       display: flex;
@@ -17,39 +47,70 @@
     }
     .flexItemTwo {
       flex: auto;
+      overflow: hidden;
       padding-left: 10px;
     }
   }
   .title {
     display: block;
-    font-size: 14px;
-    font-weight: 600;
     color: $black1;
+    font-size: 14px;
+    padding-bottom: 5px;
+    @include raleway_semiBold();
+    @include textNowrap();
   }
   .time {
     display: block;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 11px;
     color: #919191;
   }
   .taskChecked {
-    display: none;
+    color: $red;
   }
-  .actionContent {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    box-sizing: border-box;
-    color: #eee;
-    user-select: none;
-    &.edited {
-      background-color: yellow;
+  .taskUnchecked {
+    color: $blue;
+  }
+  .swipeListTaskActionBtnWrapper {
+    .mIcon {
+      color: $red;
     }
-    &.deleted {
-      background-color: red;
+    .actionBtn {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+    }
+    .actionImg {
+      width: 22px;
+      display: block;
+    }
+  }
+  .swipeable-list-item__trailing-actions {
+    top: 10px;
+    border-radius: 4px;
+    height: calc(100% - 20px);
+    box-shadow: rgb(0 0 0 / 13%) 1px 1px 8px 0px, rgb(255 255 255 / 5%) 0px 6px 20px 0px;
+  }
+  .swipeListTaskActionBtnWrapper {
+    .actionContent {
+      height: 100%;
+      padding: 8px;
+      display: flex;
+      color: #eee;
+      font-size: 12px;
+      font-weight: 500;
+      user-select: none;
+      align-items: center;
+      box-sizing: border-box;
+      &.edited {
+        background-color: yellow;
+      }
+      &.deleted {
+        background-color: red;
+      }
     }
   }
 }
