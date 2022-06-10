@@ -17,6 +17,10 @@ body {
   padding-top: 70px;
 }
 
+.App {
+  @include maxFixedWidth($noFixed: true);
+}
+
 .fluidImg {
   @include imgFluid();
 }

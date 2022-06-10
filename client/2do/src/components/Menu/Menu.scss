@@ -2,8 +2,7 @@
 
 .menuComponentWrapper {
   bottom: 0;
-  width: 100%;
-  position: fixed;
+  @include maxFixedWidth();
   background-color: #363e62;
   .flexContainer {
     position: relative;

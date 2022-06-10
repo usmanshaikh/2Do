@@ -153,6 +153,16 @@
   overflow: hidden;
 }
 
+@mixin maxFixedWidth($noFixed: false) {
+  width: 100%;
+  margin: 0 auto;
+  position: fixed;
+  max-width: 1000px;
+  @if $noFixed {
+    position: static;
+  }
+}
+
 $media-small: "only screen and (max-width: 767px)";
 
 $black: #000000;

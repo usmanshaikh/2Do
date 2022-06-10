@@ -5,8 +5,7 @@
   .tabWrapper {
     .tabHeaderbox {
       top: 69px;
-      width: 100%;
-      position: fixed;
+      @include maxFixedWidth();
       background-color: $red;
       button {
         color: $white;
