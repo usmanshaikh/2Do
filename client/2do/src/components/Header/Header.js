@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Icon } from "@mui/material";
 import FilterTaskModal from "../Modals/FilterTaskModal";
+import style from "./Header.module.scss";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -17,13 +18,13 @@ const Header = () => {
 
   return (
     <>
-      <div>
-        <div>
+      <div className={style.headerComponentWrapper}>
+        <div className={style.titleBox}>
           <div>
-            <span>work list</span>
+            <span className={style.title}>work list</span>
           </div>
-          <div>
-            <Button variant="outlined" onClick={openFiterModalHandler}>
+          <div className={style.filterBtnBox}>
+            <Button className={style.filterBtn} variant="outlined" onClick={openFiterModalHandler}>
               <Icon>tune</Icon>
             </Button>
             <FilterTaskModal selectedValue={selectedValue} open={open} onClose={closeFiterModalHandler} />

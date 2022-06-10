@@ -1,0 +1,28 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.headerComponentWrapper {
+  padding: 20px;
+  position: relative;
+  background-color: $red;
+  .titleBox {
+    display: flex;
+    justify-content: center;
+  }
+  .title {
+    color: $white;
+    font-size: 20px;
+    text-transform: capitalize;
+    @include raleway_medium();
+  }
+  .filterBtnBox {
+    right: 15px;
+    position: absolute;
+  }
+  .filterBtn {
+    border: none;
+    color: $white;
+    &:hover {
+      border: none;
+    }
+  }
+}
