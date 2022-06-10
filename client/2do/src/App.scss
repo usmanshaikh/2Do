@@ -13,6 +13,10 @@ ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, t
   font-style: normal;
 }
 
+body {
+  padding-top: 70px;
+}
+
 .fluidImg {
   @include imgFluid();
 }

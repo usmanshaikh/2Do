@@ -1,8 +1,12 @@
 @import "../../assets/scss/mixin_variables.scss";
 
 .myTaskPageWrapper {
+  background-color: #fdfdfd;
   .tabWrapper {
     .tabHeaderbox {
+      top: 69px;
+      width: 100%;
+      position: fixed;
       background-color: $red;
       button {
         color: $white;
