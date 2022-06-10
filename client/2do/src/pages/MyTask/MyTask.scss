@@ -1,0 +1,16 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.myTaskPageWrapper {
+  .tabWrapper {
+    .tabHeaderbox {
+      background-color: $red;
+      button {
+        color: $white;
+      }
+    }
+    .MuiTabs-indicator {
+      height: 4px;
+      background-color: $white;
+    }
+  }
+}
