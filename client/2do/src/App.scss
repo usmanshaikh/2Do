@@ -1,3 +1,6 @@
+@import "./assets/scss/fonts.scss";
+@import "./assets/scss/mixin_variables.scss";
+
 html,
 body {
   height: 100%;
@@ -6,12 +9,12 @@ body {
 // prettier-ignore
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ol,
 ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td {
-  font-family: Raleway, Roboto;
+  font-family: "Raleway";
+  font-style: normal;
 }
 
 .fluidImg {
-  width: 100%;
-  height: 100%;
+  @include imgFluid();
 }
 
 .w100 {
