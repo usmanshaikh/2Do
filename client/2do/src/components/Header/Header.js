@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Icon } from "@mui/material";
-import FilterTaskModal from "../Modals/FilterTaskModal";
+import FilterTaskModal from "../Modals/FilterTaskModal/FilterTaskModal";
 import style from "./Header.module.scss";
 import Images from "../../assets/img/images.js";
 

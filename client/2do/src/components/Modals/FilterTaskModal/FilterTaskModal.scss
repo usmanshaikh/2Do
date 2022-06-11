@@ -1,0 +1,17 @@
+@import "../../../assets/scss/mixin_variables.scss";
+
+.filterTaskModalComponentWrapper {
+  .modalHeading {
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 5px;
+  }
+  .filterName span {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .mCheckIcon {
+    color: #7ed321;
+  }
+}
