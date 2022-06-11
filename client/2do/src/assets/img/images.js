@@ -4,6 +4,7 @@ import SliderBgTeal from "./bg-teal.png";
 import SliderOne from "./slider-one.png";
 import SliderTwo from "./slider-two.png";
 import SliderThree from "./slider-three.png";
+import ResetPasswordSuccess from "./reset-password-success.png";
 import EditSVG from "./edit.svg";
 import DeleteSVG from "./delete.svg";
 import FilterSVG from "./filter.svg";
@@ -15,6 +16,7 @@ const images = {
   SliderOne,
   SliderTwo,
   SliderThree,
+  ResetPasswordSuccess,
   EditSVG,
   DeleteSVG,
   FilterSVG,

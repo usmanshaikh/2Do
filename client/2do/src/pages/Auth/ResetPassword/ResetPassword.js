@@ -93,6 +93,7 @@ const ResetPassword = () => {
             <CustomButton name="Change Password" type="submit" />
           </div>
         </form>
+        <Link to={`/${Path.AUTH}/${Path.RESET_PASSWORD_SUCCESS}`}>Success</Link>
       </div>
     </div>
   );
