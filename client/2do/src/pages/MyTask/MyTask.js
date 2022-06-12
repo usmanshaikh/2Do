@@ -3,7 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabContent from "../../components/MyTask/TabContent";
 import TaskItem from "../../components/MyTask/TaskItem";
-import MonthTask from "../../components/MyTask/MonthTask";
+import Calendar from "../../components/MyTask/Calendar";
 import "./MyTask.scss";
 
 const MyTask = () => {
@@ -35,8 +35,8 @@ const MyTask = () => {
               <TaskItem />
             </TabContent>
             <TabContent value={tabTitle} index={1}>
-              {/* <TaskItem /> */}
-              <MonthTask />
+              <Calendar />
+              <TaskItem />
             </TabContent>
           </div>
         </div>

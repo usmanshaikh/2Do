@@ -2,6 +2,7 @@
 
 .menuComponentWrapper {
   bottom: 0;
+  z-index: $zIdxFooterMenu;
   @include maxFixedWidth();
   background-color: #363e62;
   .flexContainer {
