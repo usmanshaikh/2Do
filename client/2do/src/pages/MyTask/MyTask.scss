@@ -5,8 +5,9 @@
   .tabWrapper {
     .tabHeaderbox {
       top: 69px;
-      @include maxFixedWidth();
       background-color: $red;
+      @include maxFixedWidth();
+      z-index: $zIdxMyTaskHeader;
       button {
         color: $white;
       }
