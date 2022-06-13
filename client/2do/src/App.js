@@ -3,7 +3,7 @@ import AppRoute from "./routes/AppRoute";
 import Menu from "./components/Menu/Menu";
 import Header from "./components/Header/Header";
 import AddTaskModal from "./components/Modals/AddTaskModal/AddTaskModal";
-import { AddTaskModalContext } from "./utils/contexts/addTaskModalContext";
+import { AddTaskModalContext } from "./utils/contexts/AddTaskModalContext";
 import "./App.scss";
 
 function App() {

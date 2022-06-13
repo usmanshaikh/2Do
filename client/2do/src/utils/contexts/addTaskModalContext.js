@@ -1,3 +1,5 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 
-export const AddTaskModalContext = createContext();
+export const AddTaskModalContext = createContext({
+  openAddTaskModal: () => {},
+});

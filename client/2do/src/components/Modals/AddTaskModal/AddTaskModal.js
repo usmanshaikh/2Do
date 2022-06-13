@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogTitle, Icon, List, ListItem, ListItemText } from "@mui/material";
+import { Dialog, List, ListItem, ListItemText } from "@mui/material";
 import "./AddTaskModal.scss";
 
 const AddTaskModal = (props) => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Icon from "@mui/material/Icon";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AddTaskModalContext } from "../../utils/contexts/addTaskModalContext";
+import { AddTaskModalContext } from "../../utils/contexts/AddTaskModalContext";
 
 const MenuItem = (props) => {
   const addTaskModalContext = useContext(AddTaskModalContext);
