@@ -1,0 +1,16 @@
+@import "../../../assets/scss/mixin_variables.scss";
+
+.addTaskModalComponentWrapper {
+  .MuiListItem-button {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    &:not(:last-child) {
+      border-bottom: 1px solid #cecece;
+    }
+  }
+  .title span {
+    font-size: 19px;
+    font-weight: 700;
+    text-align: center;
+  }
+}
