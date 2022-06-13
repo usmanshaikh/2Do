@@ -34,13 +34,14 @@
     font-weight: 700;
     margin-top: 50px;
     margin-bottom: 5px;
+    letter-spacing: 0.2px;
     text-transform: capitalize;
   }
   .count-info {
     display: block;
-    font-size: 16px;
+    font-size: 15px;
     color: #8e8e8e;
-    font-weight: 500;
+    @include poppins_regular();
     .count {
       @include poppins_regular();
     }
