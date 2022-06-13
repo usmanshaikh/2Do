@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Icon from "@mui/material/Icon";
 import CategoryCard from "../../components/Category/CategoryCard/CategoryCard";
+import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
 import "./Category.scss";
 
 const CATEGORY_ITEM = [
@@ -25,6 +26,16 @@ const CATEGORY_ITEM = [
 ];
 
 const Category = () => {
+  const [openAddNewCategoryModal, setOpenAddNewCategoryModal] = useState(false);
+
+  const openAddNewCategoryHandler = () => {
+    setOpenAddNewCategoryModal(true);
+  };
+
+  const closeAddNewCategoryModalHandler = () => {
+    setOpenAddNewCategoryModal(false);
+  };
+
   return (
     <>
       <div className="categoryPageWrapper">
@@ -36,10 +47,11 @@ const Category = () => {
           ))}
         </div>
         <div className="addCardWrapper">
-          <div className="cardAction">
+          <div className="cardAction" onClick={openAddNewCategoryHandler}>
             <Icon className="menuIcon">add</Icon>
           </div>
         </div>
+        <AddNewCategoryModal open={openAddNewCategoryModal} onClose={closeAddNewCategoryModalHandler} />
       </div>
     </>
   );
