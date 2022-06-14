@@ -1,0 +1,73 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.chooseColorComponentWrapper {
+  margin: 20px 0 0;
+  .label {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .colorBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+  }
+  .checkIcon {
+    color: $white;
+    font-size: 30px;
+  }
+  .flexContainer {
+    margin-top: 15px;
+    @include flexbox();
+    .flexItem {
+      width: 55px;
+      height: 55px;
+      margin-right: 10px;
+      margin-bottom: 15px;
+      &:nth-child(1) {
+        .colorBox {
+          background-color: #728cfb;
+        }
+      }
+      &:nth-child(2) {
+        .colorBox {
+          background-color: #ed467e;
+        }
+      }
+      &:nth-child(3) {
+        .colorBox {
+          background-color: #ff6900;
+        }
+      }
+      &:nth-child(4) {
+        margin-right: 0;
+        .colorBox {
+          background-color: #0693e3;
+        }
+      }
+      &:nth-child(5) {
+        .colorBox {
+          background-color: #eb144c;
+        }
+      }
+      &:nth-child(6) {
+        .colorBox {
+          background-color: #ffeb3b;
+        }
+      }
+      &:nth-child(7) {
+        .colorBox {
+          background-color: #00d084;
+        }
+      }
+      &:nth-child(8) {
+        margin-right: 0;
+        .colorBox {
+          background-color: #f78da7;
+        }
+      }
+    }
+  }
+}

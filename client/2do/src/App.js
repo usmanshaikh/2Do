@@ -13,7 +13,7 @@ function App() {
     setOpenAddTaskModal(true);
   };
 
-  const closeAddTaskModalHandler = (value) => {
+  const closeAddTaskModalHandler = () => {
     setOpenAddTaskModal(false);
   };
 

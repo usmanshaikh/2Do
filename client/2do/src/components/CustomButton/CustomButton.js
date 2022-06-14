@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mui/material";
 import styles from "./CustomButton.module.scss";
 
 const CustomButton = ({
@@ -22,13 +23,14 @@ const CustomButton = ({
 
   return (
     <div className={btnClass}>
-      <button
+      <Button
+        variant="contained"
         type={type}
         disabled={disabled}
         className={`${styles.commonButton} ${styles[color]} ${styles[size]}`}
         onClick={onButtonClick}>
         {name}
-      </button>
+      </Button>
     </div>
   );
 };

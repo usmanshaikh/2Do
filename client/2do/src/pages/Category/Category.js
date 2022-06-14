@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import Icon from "@mui/material/Icon";
+import { Button } from "@mui/material";
 import CategoryCard from "../../components/Category/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
 import "./Category.scss";
 
 const CATEGORY_ITEM = [
   {
-    color: "#718cfb",
+    color: "#728cfb",
     title: "Personal",
     count: 10,
     id: 1,
   },
   {
-    color: "#ec4379",
+    color: "#ed467e",
     title: "Home",
     count: 7,
     id: 2,
   },
   {
-    color: "#69c369",
+    color: "#ff6900",
     title: "Office",
     count: 19,
     id: 3,
@@ -47,9 +48,9 @@ const Category = () => {
           ))}
         </div>
         <div className="addCardWrapper">
-          <div className="cardAction" onClick={openAddNewCategoryHandler}>
-            <Icon className="menuIcon">add</Icon>
-          </div>
+          <Button variant="contained" className="cardAction" onClick={openAddNewCategoryHandler}>
+            <Icon className="addIcon">add</Icon>
+          </Button>
         </div>
         <AddNewCategoryModal open={openAddNewCategoryModal} onClose={closeAddNewCategoryModalHandler} />
       </div>

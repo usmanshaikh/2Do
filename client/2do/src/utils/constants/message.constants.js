@@ -12,3 +12,5 @@ export const PASSWORD_NOT_MATCH = "Password and Confirm Password does not match"
 
 export const RESET_CODE_REQUIRED = "Reset code is required";
 export const RESET_CODE = "Please enter the 6 digit code";
+
+export const TITLE_REQUIRED = "Title is required";
