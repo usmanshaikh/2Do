@@ -19,54 +19,44 @@
     font-size: 30px;
   }
   .flexContainer {
-    margin-top: 15px;
-    @include flexbox();
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
     .flexItem {
-      width: 55px;
-      height: 55px;
-      margin-right: 10px;
-      margin-bottom: 15px;
+      height: 50px;
+      border-radius: 6px;
       &:nth-child(1) {
-        .colorBox {
-          background-color: #728cfb;
-        }
+        background-color: #728cfb;
       }
       &:nth-child(2) {
-        .colorBox {
-          background-color: #ed467e;
-        }
+        background-color: #673ab7;
       }
       &:nth-child(3) {
-        .colorBox {
-          background-color: #ff6900;
-        }
+        background-color: #ff6900;
       }
       &:nth-child(4) {
-        margin-right: 0;
-        .colorBox {
-          background-color: #0693e3;
-        }
+        background-color: #0693e3;
       }
       &:nth-child(5) {
-        .colorBox {
-          background-color: #eb144c;
-        }
+        background-color: #eb144c;
       }
       &:nth-child(6) {
-        .colorBox {
-          background-color: #ffeb3b;
-        }
+        background-color: #ffeb3b;
       }
       &:nth-child(7) {
-        .colorBox {
-          background-color: #00d084;
-        }
+        background-color: #00d084;
       }
       &:nth-child(8) {
-        margin-right: 0;
-        .colorBox {
-          background-color: #f78da7;
-        }
+        background-color: #555555;
+      }
+      &:nth-child(9) {
+        background-color: #fa28ff;
+      }
+      &:nth-child(10) {
+        background-color: #cddc39;
       }
     }
   }

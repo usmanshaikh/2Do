@@ -8,7 +8,7 @@ const ChooseColor = () => {
       <div className="chooseColorComponentWrapper">
         <span className="label">Choose Color</span>
         <div className="flexContainer">
-          {Array.from(Array(8)).map((_, i) => {
+          {Array.from(Array(10)).map((_, i) => {
             return (
               <Fragment key={i}>
                 <div className="flexItem">
