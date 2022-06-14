@@ -1,31 +1,51 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import { Dialog, List, ListItem, ListItemText } from "@mui/material";
+import * as Path from "../../../utils/constants/routePath.constants";
 import "./AddTaskModal.scss";
 
 const AddTaskModal = (props) => {
+  const navigate = useNavigate();
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
+  const handleListItemClick = (url) => {
+    console.log({ url });
+    navigate(`/${Path[url]}`);
+    onClose();
   };
+
+  const LIST = [
+    {
+      title: "Add Task",
+      url: "ADD_TASK",
+    },
+    {
+      title: "Add Quick Note",
+      url: "ADD_QUICK_NOTE",
+    },
+    {
+      title: "Add Check List",
+      url: "ADD_CHECK_LIST",
+    },
+  ];
 
   return (
     <>
       <Dialog className="addTaskModalComponentWrapper" onClose={handleClose} open={open} fullWidth={true}>
         <List>
-          <ListItem button onClick={() => handleListItemClick()}>
-            <ListItemText className="title" primary="Add Task" />
-          </ListItem>
-          <ListItem button onClick={() => handleListItemClick()}>
-            <ListItemText className="title" primary="Add Quick Note" />
-          </ListItem>
-          <ListItem button onClick={() => handleListItemClick()}>
-            <ListItemText className="title" primary="Add Check List" />
-          </ListItem>
+          {LIST.map((item) => {
+            return (
+              <Fragment key={item.title}>
+                <ListItem button onClick={() => handleListItemClick(item.url)}>
+                  <ListItemText className="title" primary={item.title} />
+                </ListItem>
+              </Fragment>
+            );
+          })}
         </List>
       </Dialog>
     </>

@@ -9,3 +9,6 @@ export const MY_TASK = "my-task";
 export const CATEGORY = "category";
 export const QUICK = "quick";
 export const PROFILE = "profile";
+export const ADD_TASK = "add-task";
+export const ADD_QUICK_NOTE = "add-quick-note";
+export const ADD_CHECK_LIST = "add-check-list";
