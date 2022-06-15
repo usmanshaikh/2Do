@@ -1,4 +1,13 @@
 @import "../../assets/scss/mixin_variables.scss";
 
 .addTaskPageWrapper {
+  padding: 15px;
+  .cardWrapper {
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+    .MuiInputBase-inputMultiline {
+      min-height: 150px;
+    }
+  }
 }
