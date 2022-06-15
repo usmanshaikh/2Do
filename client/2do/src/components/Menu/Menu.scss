@@ -11,7 +11,7 @@
   }
   .menuItem {
     width: 20%;
-    padding: 10px;
+    padding: 10px 5px;
     text-align: center;
     &.active {
       .menuIcon,
@@ -30,6 +30,7 @@
       padding: 5px 0;
       font-size: 12px;
       font-weight: 500;
+      white-space: nowrap;
       color: rgb(226, 223, 223, 70%);
     }
     &.blank {

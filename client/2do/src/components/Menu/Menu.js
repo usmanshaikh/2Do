@@ -11,9 +11,9 @@ const MENU_ITEM = [
     position: 1,
   },
   {
-    icon: "widgets",
-    name: "Category",
-    url: Path.CATEGORY,
+    icon: "checklist",
+    name: "Check List",
+    url: Path.CHECK_LIST,
     position: 2,
   },
   {
@@ -23,9 +23,9 @@ const MENU_ITEM = [
     position: 3,
   },
   {
-    icon: "fact_check",
-    name: "Quick",
-    url: Path.QUICK,
+    icon: "widgets",
+    name: "Category",
+    url: Path.CATEGORY,
     position: 4,
   },
   {
