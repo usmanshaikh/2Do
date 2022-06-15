@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { TextField, Checkbox, Icon, Button } from "@mui/material";
 import ChooseColor from "../../components/ChooseColor/ChooseColor";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import ChooseCategory from "../../components/ChooseCategory/ChooseCategory";
+import SetDateTime from "../../components/SetDateTime/SetDateTime";
 import * as Msg from "../../utils/constants/message.constants";
 import "./AddCheckList.scss";
 
@@ -37,14 +39,15 @@ const AddCheckList = () => {
           <div className="formWrapper">
             <form onSubmit={formik.handleSubmit}>
               <div className="commonInputWrap">
+                <span className="commonLabel">Title</span>
                 <TextField
                   fullWidth
                   multiline
                   id="title"
                   name="title"
-                  label="Title"
                   autoComplete="off"
                   className="commonInputFormControl"
+                  placeholder="Enter Title"
                   value={formik.values.title}
                   onChange={formik.handleChange}
                   error={formik.touched.title && Boolean(formik.errors.title)}
@@ -94,6 +97,8 @@ const AddCheckList = () => {
                   </div>
                 </div>
               </div>
+              <ChooseCategory />
+              <SetDateTime />
               <ChooseColor />
               <CustomButton name="Done" type="submit" onClick={onAddCheckListHandler} />
             </form>

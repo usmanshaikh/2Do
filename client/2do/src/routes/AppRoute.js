@@ -9,13 +9,12 @@ import ResetPasswordSuccess from "../pages/Auth/ResetPassword/ResetPasswordSucce
 import SignUp from "../pages/Auth/SignUp/SignUp";
 import MyTask from "../pages/MyTask/MyTask";
 import Category from "../pages/Category/Category";
-import Quick from "../pages/Quick/Quick";
 import Profile from "../pages/Profile/Profile";
 import Walkthrough from "../pages/Walkthrough/Walkthrough";
 import NotFound from "../components/NotFound/NotFound";
 import AddCheckList from "../pages/AddCheckList/AddCheckList";
-import AddQuickNote from "../pages/AddQuickNote/AddQuickNote";
 import AddTask from "../pages/AddTask/AddTask";
+import CheckList from "../pages/CheckList/CheckList";
 
 const AppRoute = () => {
   return (
@@ -32,9 +31,8 @@ const AppRoute = () => {
         <Route path={`/${Path.WALKTHROUGH}`} element={<Walkthrough />} />
         <Route path={`/${Path.MY_TASK}`} element={<MyTask />} />
         <Route path={`/${Path.CATEGORY}`} element={<Category />} />
-        <Route path={`/${Path.QUICK}`} element={<Quick />} />
+        <Route path={`/${Path.CHECK_LIST}`} element={<CheckList />} />
         <Route path={`/${Path.ADD_TASK}`} element={<AddTask />} />
-        <Route path={`/${Path.ADD_QUICK_NOTE}`} element={<AddQuickNote />} />
         <Route path={`/${Path.ADD_CHECK_LIST}`} element={<AddCheckList />} />
         <Route path={`/${Path.PROFILE}`} element={<Profile />} />
         <Route path="*" element={<NotFound />} />
