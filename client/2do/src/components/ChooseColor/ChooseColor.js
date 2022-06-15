@@ -6,7 +6,7 @@ const ChooseColor = () => {
   return (
     <>
       <div className="chooseColorComponentWrapper">
-        <span className="label">Choose Color</span>
+        <span className="commonLabel">Choose Color</span>
         <div className="flexContainer">
           {Array.from(Array(10)).map((_, i) => {
             return (
