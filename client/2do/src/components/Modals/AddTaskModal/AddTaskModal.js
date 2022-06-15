@@ -13,7 +13,6 @@ const AddTaskModal = (props) => {
   };
 
   const handleListItemClick = (url) => {
-    console.log({ url });
     navigate(`/${Path[url]}`);
     onClose();
   };
