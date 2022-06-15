@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Icon from "@mui/material/Icon";
 import { Button } from "@mui/material";
-import CategoryCard from "../../components/Category/CategoryCard/CategoryCard";
+import CategoryCard from "../../components/Cards/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
 import "./Category.scss";
 

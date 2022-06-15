@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import Slider from "../../components/Walkthrough/Slider/Slider";
+import Slider from "../../components/Slider/Slider";
 import * as Path from "../../utils/constants/routePath.constants";
 import styles from "./Walkthrough.module.scss";
 

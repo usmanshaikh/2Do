@@ -1,12 +1,12 @@
 import React from "react";
 import { Icon, CardActionArea, Card } from "@mui/material";
-import { truncateString } from "../../utils/Helpers/Helpers";
-import "./CheckboxCard.scss";
+import { truncateString } from "../../../utils/Helpers/Helpers";
+import "./CheckListCard.scss";
 
-const CheckboxCard = () => {
+const CheckListCard = () => {
   return (
     <>
-      <Card className="checkboxCardComponentWrapper">
+      <Card className="checkListCardComponentWrapper">
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#eb144c" }}></span>
@@ -42,7 +42,7 @@ const CheckboxCard = () => {
           </div>
         </CardActionArea>
       </Card>
-      <Card className="checkboxCardComponentWrapper">
+      <Card className="checkListCardComponentWrapper">
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#0693e3" }}></span>
@@ -65,7 +65,7 @@ const CheckboxCard = () => {
           </div>
         </CardActionArea>
       </Card>
-      <Card className="checkboxCardComponentWrapper">
+      <Card className="checkListCardComponentWrapper">
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#00d084" }}></span>
@@ -105,4 +105,4 @@ const CheckboxCard = () => {
   );
 };
 
-export default CheckboxCard;
+export default CheckListCard;

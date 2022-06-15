@@ -1,9 +1,7 @@
 import React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import TabContent from "../../components/MyTask/TabContent";
-import TaskItem from "../../components/MyTask/TaskItem";
-import Calendar from "../../components/MyTask/Calendar";
+import { Tabs, Tab } from "@mui/material";
+import TaskCard from "../../components/Cards/TaskCard/TaskCard";
+import Calendar from "../../components/Calendar/Calendar";
 import "./MyTask.scss";
 
 const MyTask = () => {
@@ -31,13 +29,13 @@ const MyTask = () => {
             </Tabs>
           </div>
           <div className="tabContentbox">
-            <TabContent value={tabTitle} index={0}>
-              <TaskItem />
-            </TabContent>
-            <TabContent value={tabTitle} index={1}>
+            <div role="tabcontent" hidden={tabTitle !== 0} id="full-width-tabcontent-0">
+              <TaskCard />
+            </div>
+            <div role="tabcontent" hidden={tabTitle !== 1} id="full-width-tabcontent-1">
               <Calendar />
-              <TaskItem />
-            </TabContent>
+              <TaskCard />
+            </div>
           </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import { Icon } from "@mui/material";
 import { SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
-import Images from "../../assets/img/images.js";
-import { truncateString } from "../../utils/Helpers/Helpers.js";
+import Images from "../../../assets/img/images.js";
+import { truncateString } from "../../../utils/Helpers/Helpers.js";
 import "react-swipeable-list/dist/styles.css";
-import "./TaskItem.scss";
+import "./TaskCard.scss";
 
-const TaskItem = () => {
+const TaskCard = () => {
   const onEditHandler = (data) => {
     console.log("[Handle EDIT]", data);
   };
@@ -100,4 +100,4 @@ const TaskItem = () => {
   );
 };
 
-export default TaskItem;
+export default TaskCard;
