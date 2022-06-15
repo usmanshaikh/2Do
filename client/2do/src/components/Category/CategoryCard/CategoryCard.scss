@@ -1,9 +1,11 @@
 @import "../../../assets/scss/mixin_variables.scss";
 
-.categoryCard {
-  padding: 20px;
+.categoryCardComponentWrapper {
   border-radius: 6px;
-  box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+  box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%) !important;
+  .cardWrap {
+    padding: 20px;
+  }
   .circle {
     top: 5px;
     left: 5px;
