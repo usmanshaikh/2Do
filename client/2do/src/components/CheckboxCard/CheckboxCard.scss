@@ -1,13 +1,15 @@
 @import "../../assets/scss/mixin_variables.scss";
 
 .checkboxCardComponentWrapper {
-  width: 100%;
-  padding: 15px;
-  min-height: 65px;
-  position: relative;
-  border-radius: 4px;
   margin-bottom: 20px;
-  box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+  box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%) !important;
+  .cardWrap {
+    padding: 15px;
+    width: 100%;
+    min-height: 65px;
+    position: relative;
+    border-radius: 4px;
+  }
   .bgLine {
     top: 0;
     left: 0px;
@@ -22,6 +24,7 @@
     display: block;
     font-size: 16px;
     font-weight: 600;
+    line-height: 25px;
     margin-bottom: 10px;
   }
   .description {
@@ -37,7 +40,7 @@
   }
   .listItemWrap {
     padding: 0;
-    margin: 0;
+    margin: 10px 0 0 0;
     .item {
       display: flex;
       margin-bottom: 3px;
