@@ -36,12 +36,12 @@ const AddNewCategoryModal = (props) => {
       <Dialog className="addNewCategoryComponentWrapper" onClose={handleClose} open={open} fullWidth={true}>
         <form onSubmit={formik.handleSubmit}>
           <div className="commonInputWrap">
+            <span className="commonLabel">Title</span>
             <TextField
               fullWidth
               variant="standard"
               id="title"
               name="title"
-              label="Title"
               autoComplete="off"
               className="commonInputFormControl"
               value={formik.values.title}

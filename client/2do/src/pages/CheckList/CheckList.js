@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "./CheckList.scss";
+import CheckboxCard from "../../components/CheckboxCard/CheckboxCard";
+import "./CheckList.scss";
 
 const CheckList = () => {
   return (
     <>
-      <div className={styles.checkListPageWrapper}>
-        <h1>CheckList</h1>
+      <div className="checkListPageWrapper">
+        <CheckboxCard />
       </div>
     </>
   );
