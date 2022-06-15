@@ -24,10 +24,6 @@ const AddTaskModal = (props) => {
       url: "ADD_TASK",
     },
     {
-      title: "Add Quick Note",
-      url: "ADD_QUICK_NOTE",
-    },
-    {
       title: "Add Check List",
       url: "ADD_CHECK_LIST",
     },
