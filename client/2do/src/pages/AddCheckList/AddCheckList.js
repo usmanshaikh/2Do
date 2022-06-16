@@ -100,8 +100,8 @@ const AddCheckList = () => {
               </div>
               <ChooseCategory />
               <SetDateTime />
-              <ChooseColor />
               <GetAlert />
+              <ChooseColor />
               <CustomButton name="Done" type="submit" onClick={onAddCheckListHandler} />
             </form>
           </div>

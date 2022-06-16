@@ -1,4 +1,8 @@
 @import "../../assets/scss/mixin_variables.scss";
 
 .getAlertComponentWrapper {
+  margin: 30px 0 10px;
+  .flexContainer {
+    @include flexbox();
+  }
 }

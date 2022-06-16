@@ -8,8 +8,14 @@ const GetAlert = () => {
   return (
     <>
       <div className="getAlertComponentWrapper">
-        <span>Get alert for this task</span>
-        <Switch {...label} defaultChecked />
+        <div className="flexContainer">
+          <div>
+            <span className="commonLabel">Get alert for this task</span>
+          </div>
+          <div>
+            <Switch {...label} defaultChecked />
+          </div>
+        </div>
       </div>
     </>
   );

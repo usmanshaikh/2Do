@@ -29,12 +29,16 @@ const MyTask = () => {
             </Tabs>
           </div>
           <div className="tabContentbox">
-            <div role="tabcontent" hidden={tabTitle !== 0} id="full-width-tabcontent-0">
-              <TaskCard />
+            <div hidden={tabTitle !== 0} id="full-width-tabcontent-0">
+              {tabTitle === 0 && <TaskCard />}
             </div>
-            <div role="tabcontent" hidden={tabTitle !== 1} id="full-width-tabcontent-1">
-              <Calendar />
-              <TaskCard />
+            <div hidden={tabTitle !== 1} id="full-width-tabcontent-1">
+              {tabTitle === 1 && (
+                <>
+                  <Calendar />
+                  <TaskCard />
+                </>
+              )}
             </div>
           </div>
         </div>
