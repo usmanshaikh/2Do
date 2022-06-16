@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon, CardActionArea, Card } from "@mui/material";
 import { truncateString } from "../../../utils/Helpers/Helpers";
+import DateTime from "../../DateTime/DateTime";
 import "./CheckListCard.scss";
 
 const CheckListCard = () => {
@@ -39,6 +40,9 @@ const CheckListCard = () => {
               <span className="seeMoreTxt numberReg">+2 more</span>
               <Icon className="arrowRightIcon">keyboard_double_arrow_right</Icon>
             </div>
+            <div className="dateTimeWrap">
+              <DateTime />
+            </div>
           </div>
         </CardActionArea>
       </Card>
@@ -62,6 +66,9 @@ const CheckListCard = () => {
                 <span className="description">{truncateString("Buy a milk")}</span>
               </li>
             </ul>
+            <div className="dateTimeWrap">
+              <DateTime />
+            </div>
           </div>
         </CardActionArea>
       </Card>
@@ -97,6 +104,9 @@ const CheckListCard = () => {
             <div className="seeMoreWrap">
               <span className="seeMoreTxt numberReg">+12 more</span>
               <Icon className="arrowRightIcon">keyboard_double_arrow_right</Icon>
+            </div>
+            <div className="dateTimeWrap">
+              <DateTime />
             </div>
           </div>
         </CardActionArea>

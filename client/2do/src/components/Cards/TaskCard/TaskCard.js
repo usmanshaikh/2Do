@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Icon } from "@mui/material";
 import { SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import Images from "../../../assets/img/images.js";
+import DateTime from "../../DateTime/DateTime.js";
 import { truncateString } from "../../../utils/Helpers/Helpers.js";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskCard.scss";
@@ -49,7 +50,7 @@ const TaskCard = () => {
                           "Add NPM package for React DOM and DateTimePicker.Add NPM package for React DOM and DateTimePicker.Add NPM package for React DOM and DateTimePicker."
                         )}
                       </span>
-                      <span className="time numberReg">9:00 am</span>
+                      <DateTime />
                     </div>
                   </div>
                 </div>
@@ -67,7 +68,7 @@ const TaskCard = () => {
                       <span className="title">
                         {truncateString("Create 2Do App by using ReactJS, NodeJs and Mongodb.")}
                       </span>
-                      <span className="time numberReg">7:00 pm</span>
+                      <DateTime />
                     </div>
                   </div>
                 </div>
@@ -87,7 +88,7 @@ const TaskCard = () => {
                           "Create component and HTML structure. Create 2Do App by using ReactJS, NodeJs and Mongodb."
                         )}
                       </span>
-                      <span className="time numberReg">1:00 pm</span>
+                      <DateTime />
                     </div>
                   </div>
                 </div>

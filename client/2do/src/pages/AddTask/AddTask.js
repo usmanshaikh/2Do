@@ -6,6 +6,7 @@ import ChooseColor from "../../components/ChooseColor/ChooseColor";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import ChooseCategory from "../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../components/SetDateTime/SetDateTime";
+import GetAlert from "../../components/GetAlert/GetAlert";
 import * as Msg from "../../utils/constants/message.constants";
 import "./AddTask.scss";
 
@@ -51,6 +52,7 @@ const AddTask = () => {
               <ChooseCategory />
               <SetDateTime />
               <ChooseColor />
+              <GetAlert />
               <CustomButton name="Done" type="submit" onClick={onAddQuickNoteHandler} />
             </form>
           </div>

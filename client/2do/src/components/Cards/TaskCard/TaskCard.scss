@@ -52,11 +52,6 @@
     padding-bottom: 5px;
     @include raleway_semiBold();
   }
-  .time {
-    display: block;
-    font-size: 11px;
-    color: #919191;
-  }
   .taskChecked {
     color: $red;
   }

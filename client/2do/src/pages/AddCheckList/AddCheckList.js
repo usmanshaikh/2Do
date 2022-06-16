@@ -7,6 +7,7 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import ChooseCategory from "../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../components/SetDateTime/SetDateTime";
 import * as Msg from "../../utils/constants/message.constants";
+import GetAlert from "../../components/GetAlert/GetAlert";
 import "./AddCheckList.scss";
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
@@ -100,6 +101,7 @@ const AddCheckList = () => {
               <ChooseCategory />
               <SetDateTime />
               <ChooseColor />
+              <GetAlert />
               <CustomButton name="Done" type="submit" onClick={onAddCheckListHandler} />
             </form>
           </div>
