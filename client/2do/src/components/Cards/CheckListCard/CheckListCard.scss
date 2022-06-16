@@ -23,14 +23,13 @@
   .heading {
     display: block;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 25px;
     margin-bottom: 10px;
   }
   .description {
     display: block;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
     padding-left: 5px;
     line-height: 25px;
   }
@@ -73,8 +72,7 @@
     margin-top: 10px;
     @include flexbox($justify: center);
     .seeMoreTxt {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 13px;
       text-transform: none;
     }
     .arrowRightIcon {
