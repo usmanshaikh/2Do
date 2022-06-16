@@ -8,7 +8,8 @@ const DateTime = () => {
       <div className="dateTimeComponentWrapper">
         <Icon className="alarmIcon material-icons-round">alarm</Icon>
         <p className="dateTimeTxtWrap">
-          <span className="dateTime numberReg">8:36 am - </span>
+          <span className="dateTime numberReg">8:36 am</span>
+          <span className="dateTime numberReg">&nbsp;-&nbsp;</span>
           <span className="dateTime numberReg">16 Jun 22</span>
         </p>
       </div>
