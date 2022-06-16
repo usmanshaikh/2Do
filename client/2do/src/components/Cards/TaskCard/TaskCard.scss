@@ -48,9 +48,9 @@
     display: block;
     color: $black1;
     font-size: 14px;
+    font-weight: 600;
     line-height: 25px;
     padding-bottom: 5px;
-    @include raleway_semiBold();
   }
   .taskChecked {
     color: $red;

@@ -37,7 +37,7 @@ const CheckListCard = () => {
               </li>
             </ul>
             <div className="seeMoreWrap">
-              <span className="seeMoreTxt numberReg">+2 more</span>
+              <span className="seeMoreTxt">+2 more</span>
               <Icon className="arrowRightIcon">keyboard_double_arrow_right</Icon>
             </div>
             <div className="dateTimeWrap">
@@ -102,7 +102,7 @@ const CheckListCard = () => {
               </li>
             </ul>
             <div className="seeMoreWrap">
-              <span className="seeMoreTxt numberReg">+12 more</span>
+              <span className="seeMoreTxt">+12 more</span>
               <Icon className="arrowRightIcon">keyboard_double_arrow_right</Icon>
             </div>
             <div className="dateTimeWrap">

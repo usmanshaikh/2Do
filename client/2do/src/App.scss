@@ -9,9 +9,10 @@ body {
 // prettier-ignore
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ol,
 ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td {
-  font-family: "Raleway";
-  font-style: normal;
   color: $black1;
+  font-style: normal;
+  font-weight: normal;
+  font-family: "Poppins";
 }
 
 body {
@@ -30,14 +31,6 @@ body {
 
 .w100 {
   width: 100%;
-}
-
-.numberReg {
-  @include poppins_regular();
-}
-
-.numberMed {
-  @include poppins_medium();
 }
 
 .commonLabel {

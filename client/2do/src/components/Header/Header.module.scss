@@ -16,8 +16,8 @@
   .title {
     color: $white;
     font-size: 20px;
+    font-weight: 500;
     text-transform: capitalize;
-    @include raleway_medium();
   }
   .filterBtnBox {
     right: -15px;
