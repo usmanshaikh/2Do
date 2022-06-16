@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./Profile.module.scss";
+import "./Profile.scss";
 
 const Profile = () => {
   return (
     <>
-      <div className={styles.profilePageWrapper}>
+      <div className="profilePageWrapper">
         <h1>Profile</h1>
       </div>
     </>

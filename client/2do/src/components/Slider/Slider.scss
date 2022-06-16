@@ -1,6 +1,8 @@
+@import "../../assets/scss/mixin_variables.scss";
+
 .sliderComponentWrapper {
   .swiper-slide {
-    background-color: #ffffff;
+    background-color: $white;
   }
   .swiper-pagination {
     top: 55%;

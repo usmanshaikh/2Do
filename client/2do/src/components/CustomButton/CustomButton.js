@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
-import styles from "./CustomButton.module.scss";
+import "./CustomButton.scss";
 
 const CustomButton = ({
   color = "red",
@@ -18,16 +18,13 @@ const CustomButton = ({
     }
   };
 
-  let btnClass = styles.buttonContainer;
-  if (isPadding) btnClass = `${styles.buttonContainer} ${styles.pd15} `;
-
   return (
-    <div className={btnClass}>
+    <div className={`customButtonComponentWrapper ${isPadding ? "pd15" : null}`}>
       <Button
         variant="contained"
         type={type}
         disabled={disabled}
-        className={`${styles.commonButton} ${styles[color]} ${styles[size]}`}
+        className={`commonButton ${color} ${size}`}
         onClick={onButtonClick}>
         {name}
       </Button>
