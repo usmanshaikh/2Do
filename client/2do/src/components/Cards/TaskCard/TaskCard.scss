@@ -11,13 +11,15 @@
   .swipeable-list-item {
     padding: 10px 15px;
   }
+  .taskCardWrap {
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%) !important;
+  }
   .taskItemWrapper {
     width: 100%;
     padding: 10px;
     min-height: 65px;
     position: relative;
     border-radius: 4px;
-    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
   }
   .bgLine {
     top: 0;

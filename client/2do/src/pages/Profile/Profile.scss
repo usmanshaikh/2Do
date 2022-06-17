@@ -1,4 +1,62 @@
 @import "../../assets/scss/mixin_variables.scss";
 
 .profilePageWrapper {
+  padding: 15px;
+  .profileCardWrap {
+    padding: 15px;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+    .userInfo {
+      &.flexContainer {
+        margin-bottom: 20px;
+        @include flexbox($wrap: nowrap, $justify: flex-start);
+        .flexItemTwo {
+          padding-left: 10px;
+          @include textNowrap();
+        }
+      }
+      .name {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+      .email {
+        margin: 0;
+        color: #919191;
+        font-weight: 300;
+        font-size: 13px;
+        @include textNowrap();
+      }
+    }
+    .heading {
+      text-align: center;
+      display: block;
+    }
+    .taskInfo {
+      &.flexContainer {
+        margin-bottom: 20px;
+        @include flexbox($wrap: nowrap);
+        .flexItemOne,
+        .flexItemTwo {
+          width: 50%;
+        }
+        .flexItemTwo {
+          padding-left: 10px;
+          @include textNowrap();
+        }
+      }
+      .count {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+      .label {
+        margin: 0;
+        color: #919191;
+        font-size: 15px;
+        @include textNowrap();
+      }
+    }
+  }
 }

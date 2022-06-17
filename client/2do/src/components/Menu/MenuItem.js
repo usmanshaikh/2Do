@@ -10,8 +10,8 @@ const MenuItem = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const path = location.pathname.split("/").join("");
-    setCurrentActiveLink(path);
+    const menuClass = `menuItem ${props.name.toLowerCase()} ${location.pathname.includes(props.url) ? "active" : ""}`;
+    setCurrentActiveLink(menuClass);
   }, [location]);
 
   const onPageChangeHandler = (url, name) => {
@@ -22,11 +22,9 @@ const MenuItem = (props) => {
     }
   };
 
-  const menuItem = `menuItem ${props.name.toLowerCase()} ${currentActiveLink === props.url ? "active" : ""}`;
-
   return (
     <>
-      <Button onClick={() => onPageChangeHandler(props.url, props.name)} className={menuItem}>
+      <Button onClick={() => onPageChangeHandler(props.url, props.name)} className={currentActiveLink}>
         <Icon className="menuIcon">{props.icon}</Icon>
         <span className="menuName">{props.name}</span>
       </Button>
