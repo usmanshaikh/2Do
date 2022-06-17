@@ -6,7 +6,6 @@ import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
-import styles from "./SignUp.module.scss";
 import "../Auth.scss";
 
 const validationSchema = yup.object({

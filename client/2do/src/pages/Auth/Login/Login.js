@@ -6,7 +6,6 @@ import { TextField } from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import styles from "./Login.module.scss";
 import "../Auth.scss";
 
 const validationSchema = yup.object({
@@ -18,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onLoginHandler = () => {
-    navigate(`/${Path.MY_TASK}`);
+    navigate(`/${Path.TASK}`);
   };
 
   const formik = useFormik({

@@ -6,6 +6,7 @@ import "./AddTaskModal.scss";
 
 const AddTaskModal = (props) => {
   const navigate = useNavigate();
+
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
@@ -13,7 +14,11 @@ const AddTaskModal = (props) => {
   };
 
   const handleListItemClick = (url) => {
-    navigate(`/${Path[url]}`);
+    if (url === "ADD_TASK") {
+      navigate(`/${Path.TASK}/${Path[url]}`);
+    } else if (url === "ADD_CHECK_LIST") {
+      navigate(`/${Path.CHECK_LIST}/${Path[url]}`);
+    }
     onClose();
   };
 

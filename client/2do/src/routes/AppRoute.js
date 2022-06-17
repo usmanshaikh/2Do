@@ -15,6 +15,8 @@ import NotFound from "../components/NotFound/NotFound";
 import AddCheckList from "../pages/AddCheckList/AddCheckList";
 import AddTask from "../pages/AddTask/AddTask";
 import CheckList from "../pages/CheckList/CheckList";
+import EditCheckList from "../pages/EditCheckList/EditCheckList";
+import EditTask from "../pages/EditTask/EditTask";
 
 const AppRoute = () => {
   return (
@@ -29,12 +31,14 @@ const AppRoute = () => {
           <Route path={`${Path.RESET_PASSWORD_SUCCESS}`} element={<ResetPasswordSuccess />} />
         </Route>
         <Route path={`/${Path.WALKTHROUGH}`} element={<Walkthrough />} />
-        <Route path={`/${Path.MY_TASK}`} element={<MyTask />} />
         <Route path={`/${Path.CATEGORY}`} element={<Category />} />
-        <Route path={`/${Path.CHECK_LIST}`} element={<CheckList />} />
-        <Route path={`/${Path.ADD_TASK}`} element={<AddTask />} />
-        <Route path={`/${Path.ADD_CHECK_LIST}`} element={<AddCheckList />} />
         <Route path={`/${Path.PROFILE}`} element={<Profile />} />
+        <Route path={`/${Path.TASK}`} element={<MyTask />} />
+        <Route path={`/${Path.TASK}/${Path.ADD_TASK}`} element={<AddTask />} />
+        <Route path={`/${Path.TASK}/${Path.EDIT_TASK}`} element={<EditTask />} />
+        <Route path={`/${Path.CHECK_LIST}`} element={<CheckList />} />
+        <Route path={`/${Path.CHECK_LIST}/${Path.ADD_CHECK_LIST}`} element={<AddCheckList />} />
+        <Route path={`/${Path.CHECK_LIST}/${Path.EDIT_CHECK_LIST}`} element={<EditCheckList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

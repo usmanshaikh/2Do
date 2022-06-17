@@ -1,13 +1,22 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Icon, CardActionArea, Card } from "@mui/material";
 import { truncateString } from "../../../utils/Helpers/Helpers";
 import DateTime from "../../DateTime/DateTime";
+import * as Path from "../../../utils/constants/routePath.constants";
 import "./CheckListCard.scss";
 
 const CheckListCard = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const onEditCheckListHandler = () => {
+    navigate(`${location.pathname}/${Path.EDIT_CHECK_LIST}`);
+  };
+
   return (
     <>
-      <Card className="checkListCardComponentWrapper">
+      <Card className="checkListCardComponentWrapper" onClick={onEditCheckListHandler}>
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#eb144c" }}></span>
@@ -46,7 +55,7 @@ const CheckListCard = () => {
           </div>
         </CardActionArea>
       </Card>
-      <Card className="checkListCardComponentWrapper">
+      <Card className="checkListCardComponentWrapper" onClick={onEditCheckListHandler}>
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#0693e3" }}></span>
@@ -72,7 +81,7 @@ const CheckListCard = () => {
           </div>
         </CardActionArea>
       </Card>
-      <Card className="checkListCardComponentWrapper">
+      <Card className="checkListCardComponentWrapper" onClick={onEditCheckListHandler}>
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#00d084" }}></span>

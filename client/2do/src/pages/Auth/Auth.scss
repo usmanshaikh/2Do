@@ -3,14 +3,14 @@ $black31: #313131;
   padding: 15px;
   .heading {
     margin: 0;
-    font-size: 28px;
+    font-size: 25px;
     color: $black31;
+    font-weight: 600;
     margin-bottom: 5px;
   }
   .subHeading {
-    font-size: 16px;
+    font-size: 15px;
     color: #9b9b9b;
-    font-weight: 500;
   }
   .formWrapper {
     padding: 20px 0;
@@ -18,7 +18,7 @@ $black31: #313131;
       margin: 20px 0;
       .commonInputFormControl {
         .MuiInputLabel-formControl {
-          font-size: 18px;
+          font-size: 16px;
           color: $black31;
           font-weight: 500;
         }
@@ -26,7 +26,7 @@ $black31: #313131;
           margin-top: 25px;
         }
         .MuiInput-input {
-          font-size: 16px;
+          font-size: 14px;
           color: $black31;
           font-weight: 500;
         }
@@ -38,7 +38,7 @@ $black31: #313131;
     .aLink {
       font-size: 15px;
       color: $black31;
-      font-weight: 600;
+      font-weight: 500;
       text-decoration: none;
     }
   }
@@ -54,10 +54,6 @@ $black31: #313131;
   }
   .accountOrLoginOptWrap {
     text-align: center;
-    .txt {
-      font-size: 16px;
-      font-weight: 500;
-    }
     .aLink {
       font-size: 15px;
       color: $black31;

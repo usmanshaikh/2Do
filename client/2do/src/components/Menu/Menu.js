@@ -7,7 +7,7 @@ const MENU_ITEM = [
   {
     icon: "check_circle",
     name: "My Task",
-    url: Path.MY_TASK,
+    url: Path.TASK,
     position: 1,
   },
   {
