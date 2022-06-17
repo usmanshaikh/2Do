@@ -2,12 +2,12 @@ import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { TextField, Checkbox, Icon, Button } from "@mui/material";
-import ChooseColor from "../../components/ChooseColor/ChooseColor";
-import CustomButton from "../../components/CustomButton/CustomButton";
-import ChooseCategory from "../../components/ChooseCategory/ChooseCategory";
-import SetDateTime from "../../components/SetDateTime/SetDateTime";
-import * as Msg from "../../utils/constants/message.constants";
-import GetAlert from "../../components/GetAlert/GetAlert";
+import ChooseColor from "../../../components/ChooseColor/ChooseColor";
+import CustomButton from "../../../components/CustomButton/CustomButton";
+import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
+import SetDateTime from "../../../components/SetDateTime/SetDateTime";
+import * as Msg from "../../../utils/constants/message.constants";
+import GetAlert from "../../../components/GetAlert/GetAlert";
 import "./AddCheckList.scss";
 
 const label = { inputProps: { "aria-label": "Checkbox" } };

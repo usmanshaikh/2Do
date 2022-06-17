@@ -2,9 +2,9 @@ import React from "react";
 import { Tabs, Tab } from "@mui/material";
 import TaskCard from "../../components/Cards/TaskCard/TaskCard";
 import Calendar from "../../components/Calendar/Calendar";
-import "./MyTask.scss";
+import "./Task.scss";
 
-const MyTask = () => {
+const Task = () => {
   const [tabTitle, setTabTitle] = React.useState(0);
 
   const onChangeTabHandler = (event, newValue) => {
@@ -20,7 +20,7 @@ const MyTask = () => {
 
   return (
     <>
-      <div className="myTaskPageWrapper">
+      <div className="taskPageWrapper">
         <div className="tabWrapper">
           <div className="tabHeaderbox">
             <Tabs value={tabTitle} variant="fullWidth" onChange={onChangeTabHandler}>
@@ -47,4 +47,4 @@ const MyTask = () => {
   );
 };
 
-export default MyTask;
+export default Task;

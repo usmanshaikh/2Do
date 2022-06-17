@@ -2,12 +2,12 @@ import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
-import ChooseColor from "../../components/ChooseColor/ChooseColor";
-import CustomButton from "../../components/CustomButton/CustomButton";
-import ChooseCategory from "../../components/ChooseCategory/ChooseCategory";
-import SetDateTime from "../../components/SetDateTime/SetDateTime";
-import GetAlert from "../../components/GetAlert/GetAlert";
-import * as Msg from "../../utils/constants/message.constants";
+import ChooseColor from "../../../components/ChooseColor/ChooseColor";
+import CustomButton from "../../../components/CustomButton/CustomButton";
+import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
+import SetDateTime from "../../../components/SetDateTime/SetDateTime";
+import GetAlert from "../../../components/GetAlert/GetAlert";
+import * as Msg from "../../../utils/constants/message.constants";
 import "./AddTask.scss";
 
 const validationSchema = yup.object({
