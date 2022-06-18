@@ -4,10 +4,12 @@
   padding: 15px;
   .profileCardWrap {
     padding: 15px;
+    border-radius: 4px;
     box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
     .userInfo {
+      position: relative;
       &.flexContainer {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         @include flexbox($wrap: nowrap, $justify: flex-start);
         .flexItemTwo {
           padding-left: 10px;
@@ -28,14 +30,19 @@
         @include textNowrap();
       }
     }
-    .heading {
-      text-align: center;
-      display: block;
-    }
     .taskInfo {
-      &.flexContainer {
-        margin-bottom: 20px;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .flexContainer {
         @include flexbox($wrap: nowrap);
+        border: 1px solid $black1;
+        border-bottom: none;
+        padding: 5px;
+        &:last-child {
+          border-bottom: 1px solid $black1;
+        }
         .flexItemOne,
         .flexItemTwo {
           width: 50%;
@@ -45,17 +52,29 @@
           @include textNowrap();
         }
       }
-      .count {
-        margin: 0;
-        font-size: 16px;
+      .heading {
+        text-align: center;
+        display: block;
         font-weight: 600;
-        text-transform: capitalize;
+        font-size: 17px;
+        border: 1px solid $black1;
+        border-bottom: none;
       }
+      .count,
       .label {
-        margin: 0;
-        color: #919191;
-        font-size: 15px;
-        @include textNowrap();
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+    .editProfileBtnWrap {
+      right: 0;
+      top: -5px;
+      position: absolute;
+      .iconBtn {
+        background-color: $red;
+      }
+      .manageAccountsIcon {
+        color: $white;
       }
     }
   }

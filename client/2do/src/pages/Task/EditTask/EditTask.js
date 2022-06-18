@@ -5,7 +5,7 @@ const EditTask = () => {
   return (
     <>
       <div className="editTaskPageWrapper">
-        <h1>editTaskPageWrapper</h1>
+        <h1>edit Task</h1>
       </div>
     </>
   );

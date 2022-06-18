@@ -5,7 +5,7 @@ const EditCheckList = () => {
   return (
     <>
       <div className="editCheckListPageWrapper">
-        <h1>EditCheckList</h1>
+        <h1>Edit CheckList</h1>
       </div>
     </>
   );
