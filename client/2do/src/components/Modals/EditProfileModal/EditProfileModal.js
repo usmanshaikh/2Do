@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Input, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Icon,
+  IconButton,
+  Input,
+  TextField,
+} from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
 import "./EditProfileModal.scss";
 
@@ -29,21 +39,21 @@ const EditProfileModal = (props) => {
   const onCancelHandler = () => {
     onClose();
   };
+
   const handleChange = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
   };
 
+  const removePhotoHandler = () => {
+    setFile(null);
+  };
+
   return (
     <>
-      <Dialog
-        className="editProfileModalComponentWrapper"
-        onClose={onCancelHandler}
-        open={open}
-        fullWidth={true}
-        onBackdropClick="false">
+      <Dialog className="editProfileModalComponentWrapper" onClose={onCancelHandler} open={open} fullWidth={true}>
         <form onSubmit={formik.handleSubmit}>
-          <DialogTitle>Edit Profile</DialogTitle>
-          <DialogContent dividers>
+          <DialogTitle className="heading">Edit Profile</DialogTitle>
+          <DialogContent dividers className="modalContent">
             <div className="formWrapper">
               <div className="commonInputWrap">
                 <TextField
@@ -61,24 +71,33 @@ const EditProfileModal = (props) => {
                 />
               </div>
               <div>
-                {file && (
-                  <div className="previewImgWrap">
-                    <img src={file} alt="portrait" className="previewImg fluidImg" />
+                <div className="previewImgWrap">
+                  {file && (
+                    <>
+                      <IconButton
+                        aria-label="remove"
+                        className="removePhotoBtn"
+                        size="small"
+                        onClick={removePhotoHandler}>
+                        <Icon className="closeIcon">close</Icon>
+                      </IconButton>
+                      <img src={file} alt="portrait" className="previewImg fluidImg" />
+                    </>
+                  )}
+                  <div className="uploadFileWrap">
+                    <label htmlFor="contained-button-file">
+                      <Input
+                        accept="image/*"
+                        id="contained-button-file"
+                        type="file"
+                        className="uploadFileInputWrap"
+                        onChange={handleChange}
+                      />
+                      <Button variant="contained" component="span">
+                        Upload
+                      </Button>
+                    </label>
                   </div>
-                )}
-                <div className="uploadFileWrap">
-                  <label htmlFor="contained-button-file">
-                    <Input
-                      accept="image/*"
-                      id="contained-button-file"
-                      type="file"
-                      className="uploadFileInputWrap"
-                      onChange={handleChange}
-                    />
-                    <Button variant="contained" component="span">
-                      Upload
-                    </Button>
-                  </label>
                 </div>
               </div>
             </div>

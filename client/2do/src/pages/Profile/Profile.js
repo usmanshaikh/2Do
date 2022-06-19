@@ -33,39 +33,39 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="taskInfo">
-            <span className="heading">Task</span>
-            <div className="flexContainer">
-              <span className="label">Create</span>
-              <span className="count">106</span>
-            </div>
-            <div className="flexContainer">
-              <span className="label">Completed</span>
-              <span className="count">50</span>
-            </div>
-            <div className="flexContainer">
-              <span className="label">Pending</span>
-              <span className="count">98</span>
-            </div>
-          </div>
-          <div className="taskInfo">
-            <span className="heading">Check List</span>
-            <div className="flexContainer">
-              <span className="label">Create</span>
-              <span className="count">106</span>
-            </div>
-            <div className="flexContainer">
-              <span className="label">Completed</span>
-              <span className="count">50</span>
-            </div>
-            <div className="flexContainer">
-              <span className="label">Pending</span>
-              <span className="count">98</span>
-            </div>
-          </div>
         </div>
         <div className="statisticCardWrap">
-          <h1>Statistic</h1>
+          <h1 className="heading">Statistic</h1>
+          <div className="taskInfo">
+            <span className="title">Task</span>
+            <div className="flexContainer">
+              <span className="label">Create</span>
+              <span className="count">106</span>
+            </div>
+            <div className="flexContainer">
+              <span className="label">Completed</span>
+              <span className="count">50</span>
+            </div>
+            <div className="flexContainer">
+              <span className="label">Pending</span>
+              <span className="count">98</span>
+            </div>
+          </div>
+          <div className="taskInfo">
+            <span className="title">Check List</span>
+            <div className="flexContainer">
+              <span className="label">Create</span>
+              <span className="count">106</span>
+            </div>
+            <div className="flexContainer">
+              <span className="label">Completed</span>
+              <span className="count">50</span>
+            </div>
+            <div className="flexContainer">
+              <span className="label">Pending</span>
+              <span className="count">98</span>
+            </div>
+          </div>
           <div className="chartBox">
             <span>Task</span>
           </div>

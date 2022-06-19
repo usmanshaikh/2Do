@@ -4,12 +4,12 @@
   padding: 15px;
   .profileCardWrap {
     padding: 15px;
+    margin-bottom: 20px;
     border-radius: 4px;
     box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
     .userInfo {
       position: relative;
       &.flexContainer {
-        margin-bottom: 30px;
         @include flexbox($wrap: nowrap, $justify: flex-start);
         .flexItemTwo {
           padding-left: 10px;
@@ -29,6 +29,28 @@
         font-size: 13px;
         @include textNowrap();
       }
+    }
+    .editProfileBtnWrap {
+      right: 0;
+      top: -5px;
+      position: absolute;
+      .iconBtn {
+        background-color: $red;
+      }
+      .manageAccountsIcon {
+        color: $white;
+      }
+    }
+  }
+  .statisticCardWrap {
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+    .heading {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
     .taskInfo {
       margin-bottom: 10px;
@@ -52,7 +74,7 @@
           @include textNowrap();
         }
       }
-      .heading {
+      .title {
         text-align: center;
         display: block;
         font-weight: 600;
@@ -64,17 +86,6 @@
       .label {
         font-size: 14px;
         font-weight: 500;
-      }
-    }
-    .editProfileBtnWrap {
-      right: 0;
-      top: -5px;
-      position: absolute;
-      .iconBtn {
-        background-color: $red;
-      }
-      .manageAccountsIcon {
-        color: $white;
       }
     }
   }
