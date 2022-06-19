@@ -20,9 +20,10 @@ const Header = () => {
   return (
     <>
       <div className={style.headerComponentWrapper}>
+        {/* <img src={Images.Logo} alt="filter" className="filterImg" /> */}
         <div className={style.titleBox}>
           <div>
-            <span className={style.title}>work list</span>
+            <span className={style.title}>Personal</span>
           </div>
           <div className={style.filterBtnBox}>
             <Button className={style.filterBtn} variant="outlined" onClick={openFiterModalHandler}>

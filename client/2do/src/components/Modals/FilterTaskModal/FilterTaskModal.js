@@ -16,6 +16,19 @@ const FilterTaskModal = (props) => {
   return (
     <>
       <Dialog className="filterTaskModalComponentWrapper" onClose={handleClose} open={open} fullWidth={true}>
+        <DialogTitle className="modalHeading">Category By</DialogTitle>
+        <List>
+          <ListItem button onClick={() => handleListItemClick()}>
+            <ListItemText className="filterName" primary="Personal" />
+            <Icon className="mIcon material-icons-round mCheckIcon">check</Icon>
+          </ListItem>
+          <ListItem button onClick={() => handleListItemClick()}>
+            <ListItemText className="filterName" primary="Home" />
+          </ListItem>
+          <ListItem button onClick={() => handleListItemClick()}>
+            <ListItemText className="filterName" primary="Office" />
+          </ListItem>
+        </List>
         <DialogTitle className="modalHeading">Filter By</DialogTitle>
         <List>
           <ListItem button onClick={() => handleListItemClick()}>
