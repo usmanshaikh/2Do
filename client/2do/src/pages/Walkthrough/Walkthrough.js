@@ -9,7 +9,7 @@ const Walkthrough = () => {
   const navigate = useNavigate();
 
   const onGoToLoginPageHandler = () => {
-    navigate(`/${Path.AUTH}/${Path.LOGIN}`);
+    navigate(`/${Path.LOGIN}`);
   };
 
   return (

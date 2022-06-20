@@ -33,7 +33,7 @@ const ResetPassword = () => {
   return (
     <div className="resetPageWrapper commonAuthWrapper">
       <div className="backBtnWrap">
-        <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
+        <Link to={`/${Path.LOGIN}`}>
           <Icon>keyboard_backspace</Icon>
         </Link>
       </div>
@@ -92,7 +92,7 @@ const ResetPassword = () => {
             <CustomButton name="Change Password" type="submit" />
           </div>
         </form>
-        <Link to={`/${Path.AUTH}/${Path.RESET_PASSWORD_SUCCESS}`}>Success</Link>
+        <Link to={`/${Path.RESET_PASSWORD_SUCCESS}`}>Success</Link>
       </div>
     </div>
   );

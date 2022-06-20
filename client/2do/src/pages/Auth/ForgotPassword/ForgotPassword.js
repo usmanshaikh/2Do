@@ -26,7 +26,7 @@ const ForgotPassword = () => {
   return (
     <div className="forgotPageWrapper commonAuthWrapper">
       <div className="backBtnWrap">
-        <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
+        <Link to={`/${Path.LOGIN}`}>
           <Icon>keyboard_backspace</Icon>
         </Link>
       </div>
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
           </div>
         </form>
       </div>
-      <Link to={`/${Path.AUTH}/${Path.RESET_PASSWORD}`}>Reset Password</Link>
+      <Link to={`/${Path.RESET_PASSWORD}`}>Reset Password</Link>
     </div>
   );
 };

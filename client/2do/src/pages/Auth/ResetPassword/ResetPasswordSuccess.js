@@ -9,7 +9,7 @@ const ResetPasswordSuccess = () => {
   const navigate = useNavigate();
 
   const onLoginHandler = () => {
-    navigate(`/${Path.AUTH}/${Path.LOGIN}`);
+    navigate(`/${Path.LOGIN}`);
   };
 
   return (

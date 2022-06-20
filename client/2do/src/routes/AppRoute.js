@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import * as Path from "../utils/constants/routePath.constants";
-import Auth from "../pages/Auth/Auth";
 import ForgotPassword from "../pages/Auth/ForgotPassword/ForgotPassword";
 import Login from "../pages/Auth/Login/Login";
 import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
@@ -22,14 +21,12 @@ const AppRoute = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate to={`/${Path.AUTH}`} replace />} />
-        <Route path={`/${Path.AUTH}`} element={<Auth />}>
-          <Route path={`${Path.LOGIN}`} element={<Login />} />
-          <Route path={`${Path.SIGNUP}`} element={<SignUp />} />
-          <Route path={`${Path.FORGOT_PASSWORD}`} element={<ForgotPassword />} />
-          <Route path={`${Path.RESET_PASSWORD}`} element={<ResetPassword />} />
-          <Route path={`${Path.RESET_PASSWORD_SUCCESS}`} element={<ResetPasswordSuccess />} />
-        </Route>
+        <Route path="/" element={<Navigate to={`/${Path.LOGIN}`} replace />} />
+        <Route path={`/${Path.LOGIN}`} element={<Login />} />
+        <Route path={`/${Path.SIGNUP}`} element={<SignUp />} />
+        <Route path={`/${Path.FORGOT_PASSWORD}`} element={<ForgotPassword />} />
+        <Route path={`/${Path.RESET_PASSWORD}`} element={<ResetPassword />} />
+        <Route path={`/${Path.RESET_PASSWORD_SUCCESS}`} element={<ResetPasswordSuccess />} />
         <Route path={`/${Path.WALKTHROUGH}`} element={<Walkthrough />} />
         <Route path={`/${Path.CATEGORY}`} element={<Category />} />
         <Route path={`/${Path.PROFILE}`} element={<Profile />} />

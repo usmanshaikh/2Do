@@ -38,7 +38,7 @@ const SignUp = () => {
   return (
     <div className="signUpPageWrapper commonAuthWrapper">
       <div className="backBtnWrap">
-        <Link to={`/${Path.AUTH}/${Path.LOGIN}`}>
+        <Link to={`/${Path.LOGIN}`}>
           <Icon>keyboard_backspace</Icon>
         </Link>
       </div>
@@ -115,7 +115,7 @@ const SignUp = () => {
         <span className="txt">
           Already have a account?
           <b>
-            <Link className="aLink" to={`/${Path.AUTH}/${Path.LOGIN}`}>
+            <Link className="aLink" to={`/${Path.LOGIN}`}>
               Login
             </Link>
           </b>

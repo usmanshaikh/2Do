@@ -68,7 +68,7 @@ const Login = () => {
             />
           </div>
           <div className="forgotLinkWrap">
-            <Link className="aLink" to={`/${Path.AUTH}/${Path.FORGOT_PASSWORD}`}>
+            <Link className="aLink" to={`/${Path.FORGOT_PASSWORD}`}>
               Forgot Password
             </Link>
           </div>
@@ -79,7 +79,7 @@ const Login = () => {
             <span className="txt">
               Don't have an account?
               <b>
-                <Link className="aLink" to={`/${Path.AUTH}/${Path.SIGNUP}`}>
+                <Link className="aLink" to={`/${Path.SIGNUP}`}>
                   Create
                 </Link>
               </b>
