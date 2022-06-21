@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { TextField, Checkbox, Icon, Button } from "@mui/material";
@@ -17,6 +17,11 @@ const validationSchema = yup.object({
 });
 
 const AddCheckList = () => {
+  const [cardColor, setCardColor] = useState();
+  const [alertTask, setAlertTask] = useState();
+  const [category, setCategory] = useState();
+  const [setDateTime, setSetDateTime] = useState();
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -24,6 +29,10 @@ const AddCheckList = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log({ values });
+      console.log({ cardColor });
+      console.log({ alertTask });
+      console.log({ category });
+      console.log({ setDateTime });
     },
   });
 
@@ -44,6 +53,7 @@ const AddCheckList = () => {
                 <TextField
                   fullWidth
                   multiline
+                  rows={4}
                   id="title"
                   name="title"
                   autoComplete="off"
@@ -98,10 +108,10 @@ const AddCheckList = () => {
                   </div>
                 </div>
               </div>
-              <ChooseCategory />
-              <SetDateTime />
-              <GetAlert />
-              <ChooseColor />
+              <ChooseCategory onChooseCategory={(data) => setCategory(data)} />
+              <SetDateTime onSetDateTime={(data) => setSetDateTime(data)} />
+              <GetAlert onAlertTask={(data) => setAlertTask(data)} />
+              <ChooseColor onChooseColor={(data) => setCardColor(data)} />
               <CustomButton name="Done" type="submit" onClick={onAddCheckListHandler} />
             </form>
           </div>

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Switch from "@mui/material/Switch";
 import "./GetAlert.scss";
 
-const GetAlert = () => {
+const GetAlert = (props) => {
+  const [checked, setChecked] = useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    props.onAlertTask(checked);
+  }, [checked]);
+
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
   return (
@@ -13,7 +23,7 @@ const GetAlert = () => {
             <span className="commonLabel">Get alert for this task</span>
           </div>
           <div>
-            <Switch {...label} defaultChecked />
+            <Switch {...label} checked={checked} onChange={handleChange} />
           </div>
         </div>
       </div>

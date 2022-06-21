@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import "./ChooseCategory.scss";
 
-const ChooseCategory = () => {
-  const category = [{ label: "Personal" }, { label: "Home" }, { label: "Office" }];
+const CATEGORY = [
+  { label: "Personal", id: 1 },
+  { label: "Home", id: 2 },
+  { label: "Office", id: 3 },
+];
+
+const ChooseCategory = (props) => {
+  const [category, setCategory] = useState(CATEGORY[0]);
+
+  const handleChange = (value) => {
+    setCategory(value);
+  };
+
+  useEffect(() => {
+    props.onChooseCategory(category);
+  }, [category]);
+
   return (
     <>
       <div className="chooseCategoryComponentWrapper">
@@ -11,8 +26,10 @@ const ChooseCategory = () => {
         <div className="autocompleteWrap">
           <Autocomplete
             disablePortal
-            options={category}
-            defaultValue={category[0]}
+            onChange={(event, value) => handleChange(value)}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            options={CATEGORY}
+            defaultValue={CATEGORY[0]}
             renderInput={(params) => <TextField {...params} />}
           />
         </div>
