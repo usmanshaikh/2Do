@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
@@ -8,13 +8,18 @@ import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import GetAlert from "../../../components/GetAlert/GetAlert";
 import * as Msg from "../../../utils/constants/message.constants";
-import "./AddTask.scss";
+import "./AddEditTask.scss";
 
 const validationSchema = yup.object({
   description: yup.string().required(Msg.DESCRIPTION_REQUIRED),
 });
 
-const AddTask = () => {
+const AddEditTask = () => {
+  const [cardColor, setCardColor] = useState();
+  const [alertTask, setAlertTask] = useState();
+  const [category, setCategory] = useState();
+  const [setDateTime, setSetDateTime] = useState();
+
   const formik = useFormik({
     initialValues: {
       description: "",
@@ -22,10 +27,18 @@ const AddTask = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log({ values });
+      console.log({ cardColor });
+      console.log({ alertTask });
+      console.log({ category });
+      console.log({ setDateTime });
     },
   });
 
   const onAddQuickNoteHandler = () => {};
+
+  const onRemoveItemHandler = () => {};
+
+  const onAddItemHandler = () => {};
 
   return (
     <>
@@ -49,10 +62,10 @@ const AddTask = () => {
                   helperText={formik.touched.description && formik.errors.description}
                 />
               </div>
-              <ChooseCategory />
-              <SetDateTime />
-              <GetAlert />
-              <ChooseColor />
+              <ChooseCategory onChooseCategory={(data) => setCategory(data)} />
+              <SetDateTime onSetDateTime={(data) => setSetDateTime(data)} />
+              <GetAlert onAlertTask={(data) => setAlertTask(data)} />
+              <ChooseColor onChooseColor={(data) => setCardColor(data)} />
               <CustomButton name="Done" type="submit" onClick={onAddQuickNoteHandler} />
             </form>
           </div>
@@ -62,4 +75,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default AddEditTask;

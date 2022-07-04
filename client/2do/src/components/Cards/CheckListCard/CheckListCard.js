@@ -11,7 +11,7 @@ const CheckListCard = () => {
   const location = useLocation();
 
   const onEditCheckListHandler = () => {
-    navigate(`${location.pathname}/${Path.EDIT_CHECK_LIST}`);
+    navigate(`${location.pathname}/${Path.ADD_EDIT_CHECK_LIST}`);
   };
 
   return (

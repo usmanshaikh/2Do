@@ -16,7 +16,7 @@ const TaskCard = () => {
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
 
   const onEditTaskHandler = (data) => {
-    navigate(`${location.pathname}/${Path.EDIT_TASK}`);
+    navigate(`${location.pathname}/${Path.ADD_EDIT_TASK}`);
   };
 
   const onDeleteHandler = (data) => {
