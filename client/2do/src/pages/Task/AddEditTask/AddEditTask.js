@@ -26,19 +26,22 @@ const AddEditTask = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
-      console.log({ cardColor });
-      console.log({ alertTask });
-      console.log({ category });
-      console.log({ setDateTime });
+      const payload = {
+        cardColor: {
+          ...cardColor,
+        },
+        category: {
+          ...category,
+        },
+        ...values,
+        alertTask,
+        taskDateTime: setDateTime,
+      };
+      console.log({ payload });
     },
   });
 
-  const onAddQuickNoteHandler = () => {};
-
-  const onRemoveItemHandler = () => {};
-
-  const onAddItemHandler = () => {};
+  const onAddTaskHandler = () => {};
 
   return (
     <>
@@ -66,7 +69,7 @@ const AddEditTask = () => {
               <SetDateTime onSetDateTime={(data) => setSetDateTime(data)} />
               <GetAlert onAlertTask={(data) => setAlertTask(data)} />
               <ChooseColor onChooseColor={(data) => setCardColor(data)} />
-              <CustomButton name="Done" type="submit" onClick={onAddQuickNoteHandler} />
+              <CustomButton name="Done" type="submit" onClick={onAddTaskHandler} />
             </form>
           </div>
         </div>

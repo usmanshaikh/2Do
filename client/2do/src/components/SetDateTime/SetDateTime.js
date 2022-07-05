@@ -9,11 +9,13 @@ import "./SetDateTime.scss";
 const SetDateTime = (props) => {
   const [dateTime, setDateTime] = useState(moment());
   const handleChange = (newValue) => {
-    setDateTime(newValue);
+    const dt = moment(newValue).toDate();
+    setDateTime(dt);
   };
 
   useEffect(() => {
-    props.onSetDateTime(dateTime);
+    const dt = moment(dateTime).toDate();
+    props.onSetDateTime(dt);
   }, [dateTime]);
 
   return (

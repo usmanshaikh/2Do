@@ -20,10 +20,6 @@ const TaskCard = () => {
   };
 
   const onDeleteHandler = (data) => {
-    openAddNewCategoryHandler();
-  };
-
-  const openAddNewCategoryHandler = () => {
     setOpenConfirmationModal(true);
   };
 

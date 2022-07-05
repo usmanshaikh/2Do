@@ -36,21 +36,17 @@ const AddEditCheckList = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const payload = {
-        ...values,
         cardColor: {
           ...cardColor,
         },
         category: {
           ...category,
         },
+        ...values,
         alertTask,
-        ...setDateTime,
+        taskDateTime: setDateTime,
       };
       console.log({ payload });
-      console.log({ cardColor });
-      console.log({ alertTask });
-      console.log({ category });
-      console.log({ setDateTime });
     },
   });
 
@@ -138,7 +134,7 @@ const AddEditCheckList = () => {
                                     <div className="flexItemThree">
                                       <Icon
                                         className="material-icons-round closeIcon"
-                                        onClick={() => arrayHelper.remove(index)}>
+                                        onClick={() => onRemoveItemHandler(arrayHelper, index)}>
                                         close
                                       </Icon>
                                     </div>
