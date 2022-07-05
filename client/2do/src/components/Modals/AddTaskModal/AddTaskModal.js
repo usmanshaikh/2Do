@@ -5,13 +5,8 @@ import * as Path from "../../../utils/constants/routePath.constants";
 import "./AddTaskModal.scss";
 
 const AddTaskModal = (props) => {
+  const { onClose, open } = props;
   const navigate = useNavigate();
-
-  const { onClose, selectedValue, open } = props;
-
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
 
   const handleListItemClick = (url) => {
     if (url === Path.ADD_EDIT_TASK) {
@@ -35,7 +30,7 @@ const AddTaskModal = (props) => {
 
   return (
     <>
-      <Dialog className="addTaskModalComponentWrapper" onClose={handleClose} open={open} fullWidth={true}>
+      <Dialog className="addTaskModalComponentWrapper" onClose={onClose} open={open} fullWidth={true}>
         <List>
           {LIST.map((item) => {
             return (

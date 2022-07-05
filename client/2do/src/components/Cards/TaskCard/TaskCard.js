@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardActionArea, Icon } from "@mui/material";
+import { useModal } from "mui-modal-provider";
 import { SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import ConfirmationModal from "../../Modals/ConfirmationModal/ConfirmationModal.js";
 import { truncateString } from "../../../utils/Helpers/Helpers.js";
@@ -13,18 +14,24 @@ import "./TaskCard.scss";
 const TaskCard = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
+  const { showModal } = useModal();
 
   const onEditTaskHandler = (data) => {
     navigate(`${location.pathname}/${Path.ADD_EDIT_TASK}`);
   };
 
   const onDeleteHandler = (data) => {
-    setOpenConfirmationModal(true);
+    const initialState = {
+      title: "Delete Task",
+      message: "Are you sure you want to Delete?",
+      onConfirm: () => confirmDeleteTaskHandler(),
+      type: "danger",
+    };
+    showModal(ConfirmationModal, initialState, { destroyOnClose: true });
   };
 
-  const closeConfirmationModalHandler = () => {
-    setOpenConfirmationModal(false);
+  const confirmDeleteTaskHandler = () => {
+    console.log("confirmDeleteTaskHandler");
   };
 
   const trailingActions = (data) => (
@@ -115,7 +122,6 @@ const TaskCard = () => {
           </Fragment>
         );
       })}
-      <ConfirmationModal open={openConfirmationModal} onClose={closeConfirmationModalHandler} />
     </>
   );
 };

@@ -8,7 +8,9 @@ import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import * as Msg from "../../../utils/constants/message.constants";
 import GetAlert from "../../../components/GetAlert/GetAlert";
+import { useModal } from "mui-modal-provider";
 import "./AddEditCheckList.scss";
+import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
 
@@ -21,6 +23,7 @@ const AddEditCheckList = () => {
   const [alertTask, setAlertTask] = useState();
   const [category, setCategory] = useState();
   const [setDateTime, setSetDateTime] = useState();
+  const { showModal } = useModal();
 
   const formik = useFormik({
     initialValues: {
@@ -34,21 +37,31 @@ const AddEditCheckList = () => {
       ],
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      const payload = {
-        cardColor: {
-          ...cardColor,
-        },
-        category: {
-          ...category,
-        },
-        ...values,
-        alertTask,
-        taskDateTime: setDateTime,
+    onSubmit: () => {
+      const initialState = {
+        title: "Create Check List",
+        message: "Create this check list?",
+        onConfirm: (data) => submitFormHandler(data),
       };
-      console.log({ payload });
+      showModal(ConfirmationModal, initialState, { destroyOnClose: true });
     },
   });
+
+  const submitFormHandler = (data) => {
+    console.log({ data });
+    const payload = {
+      cardColor: {
+        ...cardColor,
+      },
+      category: {
+        ...category,
+      },
+      ...formik.values,
+      alertTask,
+      taskDateTime: setDateTime,
+    };
+    console.log({ payload });
+  };
 
   const onAddCheckListHandler = () => {};
 

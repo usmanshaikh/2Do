@@ -2,10 +2,16 @@ import React from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import "./ConfirmationModal.scss";
 
+/**
+ *
+ * @param {{ title: string, message: string, onConfirm: (), type: string }} props
+ */
+
 const ConfirmationModal = (props) => {
-  const { onClose, open } = props;
+  const { onClose, open, title, message, onConfirm, type } = props;
 
   const onYesHandler = () => {
+    onConfirm("yes");
     onClose();
   };
 
@@ -16,15 +22,15 @@ const ConfirmationModal = (props) => {
   return (
     <>
       <Dialog className="confirmationModalComponentWrapper" onClose={onCancelHandler} open={open} fullWidth={true}>
-        <DialogTitle>Confirmaion Modal</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent dividers>
-          <h1>Confirmation </h1>
+          <h1>{message}</h1>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={onCancelHandler}>
             Cancel
           </Button>
-          <Button variant="contained" color="error" onClick={onYesHandler}>
+          <Button variant="contained" color={type === "danger" ? "error" : "success"} onClick={onYesHandler}>
             Yes
           </Button>
         </DialogActions>

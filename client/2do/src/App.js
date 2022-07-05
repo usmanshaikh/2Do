@@ -1,37 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
+import ModalProvider from "mui-modal-provider";
 import AppRoute from "./routes/AppRoute";
 import Menu from "./components/Menu/Menu";
 import Header from "./components/Header/Header";
-import AddTaskModal from "./components/Modals/AddTaskModal/AddTaskModal";
-import { AddTaskModalContext } from "./utils/contexts/AddTaskModalContext";
 import "./App.scss";
 
 function App() {
-  const [openAddTaskModal, setOpenAddTaskModal] = useState(false);
-
-  const openAddTaskModalHandler = () => {
-    setOpenAddTaskModal(true);
-  };
-
-  const closeAddTaskModalHandler = () => {
-    setOpenAddTaskModal(false);
-  };
-
   return (
     <>
-      <AddTaskModalContext.Provider
-        value={{
-          openAddTaskModal: openAddTaskModalHandler,
-        }}>
+      <ModalProvider>
         <div className="App">
           <Header />
           <main className="mainContentWrapper">
             <AppRoute />
-            <AddTaskModal open={openAddTaskModal} onClose={closeAddTaskModalHandler} />
           </main>
           <Menu />
         </div>
-      </AddTaskModalContext.Provider>
+      </ModalProvider>
     </>
   );
 }
