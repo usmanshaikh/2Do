@@ -4,11 +4,11 @@ import "./ConfirmationModal.scss";
 
 /**
  *
- * @param {{ title: string, message: string, onConfirm: (), type: string }} props
+ * @param {{ title: string, message: string, onConfirm: (), type: ('success'|'danger') }} props
  */
 
 const ConfirmationModal = (props) => {
-  const { onClose, open, title, message, onConfirm, type } = props;
+  const { onClose, open, title, message, onConfirm, type = "success" } = props;
 
   const onYesHandler = () => {
     onConfirm("yes");
