@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as yup from "yup";
+import { useModal } from "mui-modal-provider";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 import { TextField, Checkbox, Icon, Button } from "@mui/material";
 import ChooseColor from "../../../components/ChooseColor/ChooseColor";
@@ -8,9 +9,9 @@ import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import * as Msg from "../../../utils/constants/message.constants";
 import GetAlert from "../../../components/GetAlert/GetAlert";
-import { useModal } from "mui-modal-provider";
-import "./AddEditCheckList.scss";
 import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
+import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
+import "./AddEditCheckList.scss";
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
 
@@ -112,6 +113,8 @@ const AddEditCheckList = () => {
                   className="commonInputFormControl"
                   placeholder="Enter Title"
                   value={formik.values.title}
+                  onFocus={hideFooter}
+                  onBlur={showFooter}
                   onChange={formik.handleChange}
                   error={formik.touched.title && Boolean(formik.errors.title)}
                   helperText={formik.touched.title && formik.errors.title}
@@ -140,6 +143,8 @@ const AddEditCheckList = () => {
                                         multiline
                                         placeholder="Add Item"
                                         variant="standard"
+                                        onFocus={hideFooter}
+                                        onBlur={showFooter}
                                         onChange={formik.handleChange}
                                       />
                                     </div>

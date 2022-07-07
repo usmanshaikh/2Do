@@ -9,8 +9,9 @@ import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import GetAlert from "../../../components/GetAlert/GetAlert";
 import * as Msg from "../../../utils/constants/message.constants";
-import "./AddEditTask.scss";
 import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
+import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
+import "./AddEditTask.scss";
 
 const validationSchema = yup.object({
   description: yup.string().required(Msg.DESCRIPTION_REQUIRED),
@@ -72,6 +73,8 @@ const AddEditTask = () => {
                   placeholder="Enter Description"
                   value={formik.values.description}
                   onChange={formik.handleChange}
+                  onFocus={hideFooter}
+                  onBlur={showFooter}
                   error={formik.touched.description && Boolean(formik.errors.description)}
                   helperText={formik.touched.description && formik.errors.description}
                 />

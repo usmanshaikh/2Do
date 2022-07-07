@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
+import { hideFooter, showFooter } from "../../utils/Helpers/Helpers";
 import "./ChooseCategory.scss";
 
 const CATEGORY = [
@@ -30,6 +31,8 @@ const ChooseCategory = (props) => {
             isOptionEqualToValue={(option, value) => option.id === value.id}
             options={CATEGORY}
             defaultValue={CATEGORY[0]}
+            onFocus={hideFooter}
+            onBlur={showFooter}
             renderInput={(params) => <TextField {...params} />}
           />
         </div>

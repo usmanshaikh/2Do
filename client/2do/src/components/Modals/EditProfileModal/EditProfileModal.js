@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
+import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
 import "./EditProfileModal.scss";
 
 const validationSchema = yup.object({
@@ -66,6 +67,8 @@ const EditProfileModal = (props) => {
                   className="commonInputFormControl"
                   value={formik.values.name}
                   onChange={formik.handleChange}
+                  onFocus={hideFooter}
+                  onBlur={showFooter}
                   error={formik.touched.name && Boolean(formik.errors.name)}
                   helperText={formik.touched.name && formik.errors.name}
                 />
