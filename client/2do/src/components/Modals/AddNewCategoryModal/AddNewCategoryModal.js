@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Dialog, TextField } from "@mui/material";
@@ -13,6 +13,7 @@ const validationSchema = yup.object({
 
 const AddNewCategoryModal = (props) => {
   const { onClose, selectedValue, open } = props;
+  const [cardColor, setCardColor] = useState();
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -21,15 +22,22 @@ const AddNewCategoryModal = (props) => {
   const formik = useFormik({
     initialValues: {
       title: "",
-      password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log({ values });
+    onSubmit: () => {
+      onCreateCategoryHandler();
     },
   });
 
-  const onCreateCategoryHandler = () => {};
+  const onCreateCategoryHandler = () => {
+    const payload = {
+      ...formik.values,
+      cardColor: {
+        ...cardColor,
+      },
+    };
+    console.log({ payload });
+  };
 
   return (
     <>
@@ -49,10 +57,10 @@ const AddNewCategoryModal = (props) => {
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
             />
-            <ChooseColor />
+            <ChooseColor onChooseColor={(data) => setCardColor(data)} />
           </div>
           <div className="actionBtnWrap">
-            <CustomButton name="Create" type="submit" onClick={onCreateCategoryHandler} />
+            <CustomButton name="Create" type="submit" />
           </div>
         </form>
       </Dialog>
