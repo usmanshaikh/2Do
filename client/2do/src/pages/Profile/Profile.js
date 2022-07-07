@@ -3,6 +3,7 @@ import { Icon, Avatar, IconButton } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import Images from "../../assets/img/images.js";
 import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
+import CustomButton from "../../components/CustomButton/CustomButton.js";
 import "./Profile.scss";
 
 const Profile = () => {
@@ -18,6 +19,8 @@ const Profile = () => {
   const saveFormHandler = (data) => {
     console.log({ data });
   };
+
+  const onLogoutHandler = () => {};
 
   return (
     <>
@@ -76,6 +79,9 @@ const Profile = () => {
           <div className="chartBox">
             <span>Check List</span>
           </div>
+        </div>
+        <div className="logoutBtnWrap">
+          <CustomButton name="Logout" onClick={onLogoutHandler} />
         </div>
       </div>
     </>
