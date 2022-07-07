@@ -34,6 +34,7 @@ const EditProfileModal = (props) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log({ values });
+      onClose();
     },
   });
 
@@ -53,11 +54,11 @@ const EditProfileModal = (props) => {
     <>
       <Dialog
         className="editProfileModalComponentWrapper commonModalWrapper"
-        onClose={onCancelHandler}
+        onClose={onClose}
         open={open}
         fullWidth={true}>
+        <DialogTitle className="modalTitle">Edit Profile</DialogTitle>
         <form onSubmit={formik.handleSubmit}>
-          <DialogTitle className="modalTitle">Edit Profile</DialogTitle>
           <DialogContent className="divider modalContentWrap">
             <div className="formWrapper">
               <div className="commonInputWrap">

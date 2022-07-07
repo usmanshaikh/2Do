@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Dialog, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import CustomButton from "../../CustomButton/CustomButton";
 import ChooseColor from "../../ChooseColor/ChooseColor";
 import * as Msg from "../../../utils/constants/message.constants";
@@ -13,12 +13,8 @@ const validationSchema = yup.object({
 });
 
 const AddNewCategoryModal = (props) => {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, open } = props;
   const [cardColor, setCardColor] = useState();
-
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -38,33 +34,50 @@ const AddNewCategoryModal = (props) => {
       },
     };
     console.log({ payload });
+    onClose();
+  };
+
+  const onCancelHandler = () => {
+    onClose();
   };
 
   return (
     <>
-      <Dialog className="addNewCategoryComponentWrapper" onClose={handleClose} open={open} fullWidth={true}>
+      <Dialog
+        className="addNewCategoryComponentWrapper commonModalWrapper"
+        onClose={onClose}
+        open={open}
+        fullWidth={true}>
+        <DialogTitle className="modalTitle">Add Category</DialogTitle>
         <form onSubmit={formik.handleSubmit}>
-          <div className="commonInputWrap">
-            <span className="commonLabel">Title</span>
-            <TextField
-              fullWidth
-              variant="standard"
-              id="title"
-              name="title"
-              autoComplete="off"
-              className="commonInputFormControl"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              onFocus={hideFooter}
-              onBlur={showFooter}
-              error={formik.touched.title && Boolean(formik.errors.title)}
-              helperText={formik.touched.title && formik.errors.title}
-            />
-            <ChooseColor onChooseColor={(data) => setCardColor(data)} />
-          </div>
-          <div className="actionBtnWrap">
-            <CustomButton name="Create" type="submit" />
-          </div>
+          <DialogContent className="divider modalContentWrap">
+            <div className="commonInputWrap">
+              <span className="commonLabel">Title</span>
+              <TextField
+                fullWidth
+                variant="standard"
+                id="title"
+                name="title"
+                autoComplete="off"
+                className="commonInputFormControl"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                onFocus={hideFooter}
+                onBlur={showFooter}
+                error={formik.touched.title && Boolean(formik.errors.title)}
+                helperText={formik.touched.title && formik.errors.title}
+              />
+              <ChooseColor onChooseColor={(data) => setCardColor(data)} />
+            </div>
+          </DialogContent>
+          <DialogActions className="actionBtnFlexContainer">
+            <Button onClick={onCancelHandler} type="button" className="cancelBtn actionBtn">
+              Cancel
+            </Button>
+            <Button variant="contained" type="submit" className="saveBtn actionBtn successBtn">
+              Create
+            </Button>
+          </DialogActions>
         </form>
       </Dialog>
     </>
