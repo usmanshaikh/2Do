@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
+import { useModal } from "mui-modal-provider";
 import ChooseColor from "../../../components/ChooseColor/ChooseColor";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
@@ -9,6 +10,7 @@ import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import GetAlert from "../../../components/GetAlert/GetAlert";
 import * as Msg from "../../../utils/constants/message.constants";
 import "./AddEditTask.scss";
+import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
 
 const validationSchema = yup.object({
   description: yup.string().required(Msg.DESCRIPTION_REQUIRED),
@@ -19,6 +21,7 @@ const AddEditTask = () => {
   const [alertTask, setAlertTask] = useState();
   const [category, setCategory] = useState();
   const [setDateTime, setSetDateTime] = useState();
+  const { showModal } = useModal();
 
   const formik = useFormik({
     initialValues: {
@@ -26,20 +29,29 @@ const AddEditTask = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const payload = {
-        cardColor: {
-          ...cardColor,
-        },
-        category: {
-          ...category,
-        },
-        ...values,
-        alertTask,
-        taskDateTime: setDateTime,
+      const initialState = {
+        title: "Create Task",
+        message: "Create this Task?",
+        onConfirm: (data) => submitFormHandler(data),
       };
-      console.log({ payload });
+      showModal(ConfirmationModal, initialState, { destroyOnClose: true });
     },
   });
+
+  const submitFormHandler = (data) => {
+    const payload = {
+      cardColor: {
+        ...cardColor,
+      },
+      category: {
+        ...category,
+      },
+      ...formik.values,
+      alertTask,
+      taskDateTime: setDateTime,
+    };
+    console.log({ payload });
+  };
 
   const onAddTaskHandler = () => {};
 
