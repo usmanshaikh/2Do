@@ -3,6 +3,7 @@ import Icon from "@mui/material/Icon";
 import { Button } from "@mui/material";
 import CategoryCard from "../../components/Cards/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
+import { useModal } from "mui-modal-provider";
 import "./Category.scss";
 
 const CATEGORY_ITEM = [
@@ -27,14 +28,17 @@ const CATEGORY_ITEM = [
 ];
 
 const Category = () => {
-  const [openAddNewCategoryModal, setOpenAddNewCategoryModal] = useState(false);
+  const { showModal } = useModal();
 
   const openAddNewCategoryHandler = () => {
-    setOpenAddNewCategoryModal(true);
+    const initialState = {
+      onSubmitForm: (data) => saveFormHandler(data),
+    };
+    showModal(AddNewCategoryModal, initialState, { destroyOnClose: true });
   };
 
-  const closeAddNewCategoryModalHandler = () => {
-    setOpenAddNewCategoryModal(false);
+  const saveFormHandler = (data) => {
+    console.log({ data });
   };
 
   return (
@@ -52,7 +56,6 @@ const Category = () => {
             <Icon className="addIcon">add</Icon>
           </Button>
         </div>
-        <AddNewCategoryModal open={openAddNewCategoryModal} onClose={closeAddNewCategoryModalHandler} />
       </div>
     </>
   );

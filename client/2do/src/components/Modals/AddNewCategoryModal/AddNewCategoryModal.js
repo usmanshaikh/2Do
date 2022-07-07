@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import CustomButton from "../../CustomButton/CustomButton";
 import ChooseColor from "../../ChooseColor/ChooseColor";
 import * as Msg from "../../../utils/constants/message.constants";
 import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
@@ -12,8 +11,13 @@ const validationSchema = yup.object({
   title: yup.string().required(Msg.TITLE_REQUIRED),
 });
 
+/**
+ *
+ * @param {{ onSubmitForm: () }} props
+ */
+
 const AddNewCategoryModal = (props) => {
-  const { onClose, open } = props;
+  const { onClose, open, onSubmitForm } = props;
   const [cardColor, setCardColor] = useState();
 
   const formik = useFormik({
@@ -22,20 +26,16 @@ const AddNewCategoryModal = (props) => {
     },
     validationSchema: validationSchema,
     onSubmit: () => {
-      onCreateCategoryHandler();
+      const payload = {
+        ...formik.values,
+        cardColor: {
+          ...cardColor,
+        },
+      };
+      onSubmitForm(payload);
+      onClose();
     },
   });
-
-  const onCreateCategoryHandler = () => {
-    const payload = {
-      ...formik.values,
-      cardColor: {
-        ...cardColor,
-      },
-    };
-    console.log({ payload });
-    onClose();
-  };
 
   const onCancelHandler = () => {
     onClose();
