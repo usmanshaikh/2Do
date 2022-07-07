@@ -22,7 +22,6 @@ const TaskCard = () => {
 
   const onDeleteHandler = (data) => {
     const initialState = {
-      title: "Delete Task",
       message: "Are you sure you want to Delete?",
       onConfirm: () => confirmDeleteTaskHandler(),
       type: "danger",

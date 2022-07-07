@@ -30,7 +30,6 @@ const AddEditTask = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const initialState = {
-        title: "Create Task",
         message: "Create this Task?",
         onConfirm: (data) => submitFormHandler(data),
       };

@@ -39,7 +39,6 @@ const AddEditCheckList = () => {
     validationSchema: validationSchema,
     onSubmit: () => {
       const initialState = {
-        title: "Create Check List",
         message: "Create this check list?",
         onConfirm: (data) => submitFormHandler(data),
       };

@@ -1,14 +1,14 @@
 import React from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import "./ConfirmationModal.scss";
 
 /**
  *
- * @param {{ title: string, message: string, onConfirm: (), type: ('success'|'danger') }} props
+ * @param {{ message: string, onConfirm: (), type: ('success'|'danger') }} props
  */
 
 const ConfirmationModal = (props) => {
-  const { onClose, open, title, message, onConfirm, type = "success" } = props;
+  const { onClose, open, message, onConfirm, type = "success" } = props;
 
   const onYesHandler = () => {
     onConfirm("yes");
@@ -21,16 +21,22 @@ const ConfirmationModal = (props) => {
 
   return (
     <>
-      <Dialog className="confirmationModalComponentWrapper" onClose={onCancelHandler} open={open} fullWidth={true}>
-        <DialogTitle>{title}</DialogTitle>
-        <DialogContent dividers>
-          <h1>{message}</h1>
+      <Dialog
+        className="confirmationModalComponentWrapper commonModalWrapper"
+        onClose={onCancelHandler}
+        open={open}
+        fullWidth={true}>
+        <DialogContent className="modalContentWrap">
+          <p className="modalMsg">{message}</p>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={onCancelHandler}>
+        <DialogActions className="actionBtnFlexContainer">
+          <Button autoFocus onClick={onCancelHandler} className="cancelBtn actionBtn">
             Cancel
           </Button>
-          <Button variant="contained" color={type === "danger" ? "error" : "success"} onClick={onYesHandler}>
+          <Button
+            variant="contained"
+            onClick={onYesHandler}
+            className={`yesBtn actionBtn ${type === "danger" ? "dangerBtn " : "successBtn "}`}>
             Yes
           </Button>
         </DialogActions>
