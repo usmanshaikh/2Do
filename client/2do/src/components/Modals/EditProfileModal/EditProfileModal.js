@@ -23,9 +23,15 @@ const validationSchema = yup.object({
     .matches(/^[aA-zZ\s]+$/, Msg.NAME_ONLY_ALPHABETS),
 });
 
+/**
+ *
+ * @param {{ onSubmitForm: () }} props
+ */
+
 const EditProfileModal = (props) => {
-  const { onClose, open } = props;
-  const [file, setFile] = useState();
+  const { onClose, open, onSubmitForm } = props;
+  const [imgFile, setImgFile] = useState();
+  const [preview, setPreview] = useState();
 
   const formik = useFormik({
     initialValues: {
@@ -33,7 +39,11 @@ const EditProfileModal = (props) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
+      const payload = {
+        ...values,
+        imgFile,
+      };
+      onSubmitForm(payload);
       onClose();
     },
   });
@@ -43,11 +53,14 @@ const EditProfileModal = (props) => {
   };
 
   const handleChange = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
+    const fileData = e.target.files[0];
+    setPreview(URL.createObjectURL(fileData));
+    setImgFile(fileData);
   };
 
   const removePhotoHandler = () => {
-    setFile(null);
+    setPreview(null);
+    setImgFile(null);
   };
 
   return (
@@ -80,7 +93,7 @@ const EditProfileModal = (props) => {
               </div>
               <div>
                 <div className="previewImgWrap">
-                  {file && (
+                  {preview && (
                     <>
                       <IconButton
                         aria-label="remove"
@@ -89,7 +102,7 @@ const EditProfileModal = (props) => {
                         onClick={removePhotoHandler}>
                         <Icon className="closeIcon">close</Icon>
                       </IconButton>
-                      <img src={file} alt="portrait" className="previewImg fluidImg" />
+                      <img src={preview} alt="portrait" className="previewImg fluidImg" />
                     </>
                   )}
                   <div className="uploadFileWrap">

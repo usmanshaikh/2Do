@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Icon, Avatar, IconButton } from "@mui/material";
+import { useModal } from "mui-modal-provider";
 import Images from "../../assets/img/images.js";
 import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
 import "./Profile.scss";
 
 const Profile = () => {
-  const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
+  const { showModal } = useModal();
 
-  const openEditProfileHandler = () => {
-    setOpenEditProfileModal(true);
+  const openEditProfileModalHandler = () => {
+    const initialState = {
+      onSubmitForm: (data) => saveFormHandler(data),
+    };
+    showModal(EditProfileModal, initialState, { destroyOnClose: true });
   };
 
-  const closeEditProfileModalHandler = () => {
-    setOpenEditProfileModal(false);
+  const saveFormHandler = (data) => {
+    console.log({ data });
   };
 
   return (
@@ -27,7 +31,7 @@ const Profile = () => {
               <p className="name">Usman Shaikh</p>
               <p className="email">shaikhusman57@gmail.com</p>
               <div className="editProfileBtnWrap">
-                <IconButton aria-label="delete" className="iconBtn" size="small" onClick={openEditProfileHandler}>
+                <IconButton aria-label="delete" className="iconBtn" size="small" onClick={openEditProfileModalHandler}>
                   <Icon className="manageAccountsIcon">manage_accounts</Icon>
                 </IconButton>
               </div>
@@ -73,7 +77,6 @@ const Profile = () => {
             <span>Check List</span>
           </div>
         </div>
-        <EditProfileModal open={openEditProfileModal} onClose={closeEditProfileModalHandler} />
       </div>
     </>
   );
