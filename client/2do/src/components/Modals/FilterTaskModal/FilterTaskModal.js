@@ -48,6 +48,7 @@ const FilterTaskModal = (props) => {
       filterBy,
     };
     onFilter(payload);
+    onClose();
   };
 
   const onCancelHandler = () => {

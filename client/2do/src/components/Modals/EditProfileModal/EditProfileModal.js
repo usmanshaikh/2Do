@@ -1,17 +1,8 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Icon,
-  IconButton,
-  Input,
-  TextField,
-} from "@mui/material";
+// prettier-ignore
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Icon, IconButton, Input, TextField } from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
 import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
 import "./EditProfileModal.scss";

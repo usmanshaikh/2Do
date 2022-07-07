@@ -2,7 +2,8 @@ import React, { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardActionArea, Icon } from "@mui/material";
 import { useModal } from "mui-modal-provider";
-import { SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
+// prettier-ignore
+import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import ConfirmationModal from "../../Modals/ConfirmationModal/ConfirmationModal.js";
 import { truncateString } from "../../../utils/Helpers/Helpers.js";
 import * as Path from "../../../utils/constants/routePath.constants";
@@ -43,13 +44,22 @@ const TaskCard = () => {
     </TrailingActions>
   );
 
+  const leadingActions = () => (
+    <LeadingActions>
+      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => onEditTaskHandler()}>
+        <div className="actionBtn deleted">
+          <img src={Images.EditSVG} alt="delete" className="actionImg" />
+        </div>
+      </SwipeAction>
+    </LeadingActions>
+  );
   return (
     <>
       {Array.from(Array(3)).map((_, i) => {
         return (
           <Fragment key={i}>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
-              <SwipeableListItem trailingActions={trailingActions("usman")}>
+              <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
                 <Card onClick={onEditTaskHandler} className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
@@ -73,7 +83,7 @@ const TaskCard = () => {
               </SwipeableListItem>
             </SwipeableList>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
-              <SwipeableListItem trailingActions={trailingActions("usman")}>
+              <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
                 <Card onClick={onEditTaskHandler} className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
@@ -95,7 +105,7 @@ const TaskCard = () => {
               </SwipeableListItem>
             </SwipeableList>
             <SwipeableList className="swipeListTaskWrapper taskCompleted" type={ListType.IOS}>
-              <SwipeableListItem trailingActions={trailingActions("usman")}>
+              <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
                 <Card onClick={onEditTaskHandler} className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
