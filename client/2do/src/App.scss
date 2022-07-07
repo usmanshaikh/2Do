@@ -40,3 +40,42 @@ body {
   margin-bottom: 10px;
   text-transform: capitalize;
 }
+
+.commonModalWrapper {
+  .modalTitle {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .modalContentWrap {
+    padding: 15px;
+  }
+  .modalMsg {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+  .actionBtnFlexContainer {
+    padding: 0;
+    .actionBtn {
+      width: 50%;
+      padding: 12px;
+      font-weight: 600;
+      border-radius: 0;
+      margin: 0;
+      &.cancelBtn {
+        color: #505050;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+      }
+      &.successBtn {
+        background: #0693e3;
+        border-top: 1px solid #0693e3;
+      }
+      &.dangerBtn {
+        background: #f96060;
+        border-top: 1px solid #f96060;
+      }
+    }
+  }
+}

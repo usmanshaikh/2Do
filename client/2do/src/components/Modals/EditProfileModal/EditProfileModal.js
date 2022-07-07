@@ -51,10 +51,14 @@ const EditProfileModal = (props) => {
 
   return (
     <>
-      <Dialog className="editProfileModalComponentWrapper" onClose={onCancelHandler} open={open} fullWidth={true}>
+      <Dialog
+        className="editProfileModalComponentWrapper commonModalWrapper"
+        onClose={onCancelHandler}
+        open={open}
+        fullWidth={true}>
         <form onSubmit={formik.handleSubmit}>
-          <DialogTitle className="heading">Edit Profile</DialogTitle>
-          <DialogContent dividers className="modalContent">
+          <DialogTitle className="modalTitle">Edit Profile</DialogTitle>
+          <DialogContent className="divider modalContentWrap">
             <div className="formWrapper">
               <div className="commonInputWrap">
                 <TextField
@@ -105,11 +109,11 @@ const EditProfileModal = (props) => {
               </div>
             </div>
           </DialogContent>
-          <DialogActions>
-            <Button autoFocus onClick={onCancelHandler}>
+          <DialogActions className="actionBtnFlexContainer">
+            <Button onClick={onCancelHandler} className="cancelBtn actionBtn">
               Cancel
             </Button>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" className="saveBtn actionBtn successBtn">
               Save
             </Button>
           </DialogActions>

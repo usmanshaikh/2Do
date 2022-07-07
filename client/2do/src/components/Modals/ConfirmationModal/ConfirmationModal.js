@@ -30,7 +30,7 @@ const ConfirmationModal = (props) => {
           <p className="modalMsg">{message}</p>
         </DialogContent>
         <DialogActions className="actionBtnFlexContainer">
-          <Button autoFocus onClick={onCancelHandler} className="cancelBtn actionBtn">
+          <Button onClick={onCancelHandler} className="cancelBtn actionBtn">
             Cancel
           </Button>
           <Button

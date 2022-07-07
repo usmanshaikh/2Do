@@ -1,9 +1,8 @@
 @import "../../../assets/scss/mixin_variables.scss";
 
 .editProfileModalComponentWrapper {
-  .heading,
-  .modalContent {
-    padding: 15px;
+  .divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
   }
   .uploadFileInputWrap input {
     display: none;
