@@ -12,6 +12,7 @@
     padding: 10px 15px;
   }
   .taskCardWrap {
+    width: 100%;
     box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%) !important;
   }
   .taskItemWrapper {
@@ -55,10 +56,10 @@
     padding-bottom: 5px;
   }
   .taskChecked {
-    color: $red;
+    color: #58a973;
   }
   .taskUnchecked {
-    color: $blue;
+    color: rgb(137 137 137 / 50%);
   }
   .swipeListTaskActionBtnWrapper {
     .mIcon {
