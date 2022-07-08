@@ -4,6 +4,7 @@ import { useModal } from "mui-modal-provider";
 import Images from "../../assets/img/images.js";
 import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
+import StatisticChart from "../../components/StatisticChart/StatisticChart.js";
 import "./Profile.scss";
 
 const Profile = () => {
@@ -73,13 +74,24 @@ const Profile = () => {
               <span className="count">98</span>
             </div>
           </div>
-          <div className="chartBox">
-            <span>Task</span>
-          </div>
-          <div className="chartBox">
-            <span>Check List</span>
+          <div className="statisticChartWrap">
+            <div className="flexContainer">
+              <div className="flexItem">
+                <div className="chartBox">
+                  <StatisticChart />
+                </div>
+                <span className="label">Task</span>
+              </div>
+              <div className="flexItem">
+                <div className="chartBox">
+                  <StatisticChart />
+                </div>
+                <span className="label">Check List</span>
+              </div>
+            </div>
           </div>
         </div>
+
         <div className="logoutBtnWrap">
           <CustomButton name="Logout" onClick={onLogoutHandler} />
         </div>

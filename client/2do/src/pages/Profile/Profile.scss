@@ -89,6 +89,24 @@
       }
     }
   }
+  .statisticChartWrap {
+    .flexContainer {
+      @include flexbox($wrap: nowrap);
+      .flexItem {
+        width: 50%;
+        text-align: center;
+      }
+      .chartBox {
+        height: 150px;
+      }
+      .label {
+        display: block;
+        font-weight: 500;
+        font-size: 18px;
+        margin-top: 5px;
+      }
+    }
+  }
   .logoutBtnWrap {
     padding: 10px 0;
   }
