@@ -78,20 +78,21 @@ const Profile = () => {
             <div className="flexContainer">
               <div className="flexItem">
                 <div className="chartBox">
-                  <StatisticChart />
+                  <StatisticChart taskCompleted={350} taskPending={150} />
                 </div>
                 <span className="label">Task</span>
+                <span className="label mg-0">Completed</span>
               </div>
               <div className="flexItem">
                 <div className="chartBox">
-                  <StatisticChart />
+                  <StatisticChart taskCompleted={30} taskPending={80} />
                 </div>
                 <span className="label">Check List</span>
+                <span className="label mg-0">Completed</span>
               </div>
             </div>
           </div>
         </div>
-
         <div className="logoutBtnWrap">
           <CustomButton name="Logout" onClick={onLogoutHandler} />
         </div>
