@@ -11,6 +11,10 @@ export function truncateString(str, number = 90) {
   return modifiedStr;
 }
 
+export function addLeadingZero(n) {
+  return n < 10 && n >= 1 ? "0" + n : n;
+}
+
 export function hideFooter() {
   const isMobile = detectMobile();
   if (isMobile) document.getElementsByClassName("menuComponentWrapper")[0].style.display = "none";

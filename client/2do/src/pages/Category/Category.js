@@ -1,34 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import Icon from "@mui/material/Icon";
 import { Button } from "@mui/material";
+import { useModal } from "mui-modal-provider";
 import CategoryCard from "../../components/Cards/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
-import { useModal } from "mui-modal-provider";
+import * as Path from "../../utils/constants/routePath.constants";
 import "./Category.scss";
 
 const CATEGORY_ITEM = [
   {
     color: "#728cfb",
     title: "Personal",
-    count: 10,
+    taskCount: 10,
+    checkListCount: 20,
     id: 1,
   },
   {
     color: "#ed467e",
     title: "Home",
-    count: 7,
+    taskCount: 7,
+    checkListCount: 3,
     id: 2,
   },
   {
     color: "#ff6900",
     title: "Office",
-    count: 19,
+    taskCount: 19,
+    checkListCount: 8,
     id: 3,
   },
 ];
 
 const Category = () => {
   const { showModal } = useModal();
+  const navigate = useNavigate();
 
   const openAddNewCategoryHandler = () => {
     const initialState = {
@@ -41,13 +47,28 @@ const Category = () => {
     console.log({ data });
   };
 
+  const onMyTaskPageHandler = (category) => {
+    navigate({
+      pathname: `/${Path.TASK}`,
+      search: createSearchParams({
+        category: category.toLowerCase(),
+      }).toString(),
+    });
+  };
+
   return (
     <>
       <div className="categoryPageWrapper">
         <div className="flexContainer">
           {CATEGORY_ITEM.map((item) => (
             <div className="flexItem" key={item.id}>
-              <CategoryCard title={item.title} count={item.count} color={item.color} />
+              <CategoryCard
+                title={item.title}
+                taskCount={item.taskCount}
+                checkListCount={item.checkListCount}
+                color={item.color}
+                onCategory={(data) => onMyTaskPageHandler(data)}
+              />
             </div>
           ))}
         </div>

@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Tabs, Tab } from "@mui/material";
 import TaskCard from "../../components/Cards/TaskCard/TaskCard";
 import Calendar from "../../components/Calendar/Calendar";
+import { GlobalContext } from "../../utils/contexts/GlobalContext";
 import "./Task.scss";
 
 const Task = () => {
-  const [tabTitle, setTabTitle] = React.useState(0);
+  const [tabTitle, setTabTitle] = useState(0);
+  let [searchParams] = useSearchParams();
+
+  const { headerTitle, headerBtn } = useContext(GlobalContext);
+  const [, setStateHeaderTitle] = headerTitle;
+  // const [, setStateHeaderBtn] = headerBtn;
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    category && setStateHeaderTitle(category);
+  }, [searchParams]);
 
   const onChangeTabHandler = (event, newValue) => {
     setTabTitle(newValue);
@@ -21,6 +33,10 @@ const Task = () => {
   return (
     <>
       <div className="taskPageWrapper">
+        {/* Passing Click Event. Calling Header.js Function. */}
+        {/* <button onClick={setStateHeaderBtn} className="usman">
+          PASS CLICK EVENT FROM ANOTHER COMPONENT
+        </button> */}
         <div className="tabWrapper">
           <div className="tabHeaderbox">
             <Tabs value={tabTitle} variant="fullWidth" onChange={onChangeTabHandler}>

@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
+import { GlobalContext } from "../../utils/contexts/GlobalContext";
 import FilterTaskModal from "../Modals/FilterTaskModal/FilterTaskModal";
-import style from "./Header.module.scss";
 import Images from "../../assets/img/images.js";
+import style from "./Header.module.scss";
 
 const Header = () => {
   const { showModal } = useModal();
+  const { headerTitle } = useContext(GlobalContext);
+  const [title] = headerTitle;
+  // const [setHeaderBtn] = headerBtn;
 
   const openFiterModalHandler = () => {
     const initialState = {
@@ -19,13 +23,16 @@ const Header = () => {
     console.log({ data });
   };
 
+  // useEffect(() => {
+  //   console.log("CLICK EVENT FROM ANOTHER COMPONENT FROM GlobalContext - PASS");
+  // }, [setHeaderBtn]);
+
   return (
     <>
       <div className={style.headerComponentWrapper}>
-        {/* <img src={Images.Logo} alt="filter" className="filterImg" /> */}
         <div className={style.titleBox}>
           <div>
-            <span className={style.title}>Personal</span>
+            <span className={style.title}>{title}</span>
           </div>
           <div className={style.filterBtnBox}>
             <Button className={style.filterBtn} variant="outlined" onClick={openFiterModalHandler}>
