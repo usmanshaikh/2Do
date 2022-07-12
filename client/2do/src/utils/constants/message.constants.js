@@ -15,3 +15,9 @@ export const RESET_CODE = "Please enter the 6 digit code";
 
 export const TITLE_REQUIRED = "Title is required";
 export const DESCRIPTION_REQUIRED = "Description is required";
+
+export const CONFIRMATION_DELETE = "Are you sure you want to Delete?";
+
+export const CREATE_CHECK_LIST = "Create this check list?";
+
+export const CREATE_TASK = "Create this Task?";

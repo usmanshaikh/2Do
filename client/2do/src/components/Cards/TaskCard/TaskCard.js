@@ -7,6 +7,7 @@ import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, Trailing
 import ConfirmationModal from "../../Modals/ConfirmationModal/ConfirmationModal.js";
 import { truncateString } from "../../../utils/Helpers/Helpers.js";
 import * as Path from "../../../utils/constants/routePath.constants";
+import * as Msg from "../../../utils/constants/message.constants";
 import Images from "../../../assets/img/images.js";
 import DateTime from "../../DateTime/DateTime.js";
 import "react-swipeable-list/dist/styles.css";
@@ -23,7 +24,7 @@ const TaskCard = () => {
 
   const onDeleteHandler = (data) => {
     const initialState = {
-      message: "Are you sure you want to Delete?",
+      message: Msg.CONFIRMATION_DELETE,
       onConfirm: () => confirmDeleteTaskHandler(),
       type: "danger",
     };

@@ -40,7 +40,7 @@ const AddEditCheckList = () => {
     validationSchema: validationSchema,
     onSubmit: () => {
       const initialState = {
-        message: "Create this check list?",
+        message: Msg.CREATE_CHECK_LIST,
         onConfirm: (data) => submitFormHandler(data),
       };
       showModal(ConfirmationModal, initialState, { destroyOnClose: true });
@@ -64,6 +64,19 @@ const AddEditCheckList = () => {
   };
 
   const onAddCheckListHandler = () => {};
+
+  const onDeleteHandler = (data) => {
+    const initialState = {
+      message: Msg.CONFIRMATION_DELETE,
+      onConfirm: () => confirmDeleteTaskHandler(),
+      type: "danger",
+    };
+    showModal(ConfirmationModal, initialState, { destroyOnClose: true });
+  };
+
+  const confirmDeleteTaskHandler = () => {
+    console.log("confirmDeleteTaskHandler");
+  };
 
   const onRemoveItemHandler = (arrayHelper, index) => {
     arrayHelper.remove(index);
@@ -175,7 +188,8 @@ const AddEditCheckList = () => {
               <SetDateTime onSetDateTime={(data) => setSetDateTime(data)} />
               <GetAlert onAlertTask={(data) => setAlertTask(data)} />
               <ChooseColor onChooseColor={(data) => setCardColor(data)} />
-              <CustomButton name="Done" type="submit" onClick={onAddCheckListHandler} />
+              <CustomButton name="Delete" color="danger" onClick={onDeleteHandler} />
+              <CustomButton name="Done" color="blue" type="submit" onClick={onAddCheckListHandler} />
             </form>
           </div>
         </div>

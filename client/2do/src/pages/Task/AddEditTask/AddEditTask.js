@@ -31,7 +31,7 @@ const AddEditTask = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const initialState = {
-        message: "Create this Task?",
+        message: Msg.CREATE_TASK,
         onConfirm: (data) => submitFormHandler(data),
       };
       showModal(ConfirmationModal, initialState, { destroyOnClose: true });
@@ -54,6 +54,19 @@ const AddEditTask = () => {
   };
 
   const onAddTaskHandler = () => {};
+
+  const onDeleteHandler = (data) => {
+    const initialState = {
+      message: Msg.CONFIRMATION_DELETE,
+      onConfirm: () => confirmDeleteTaskHandler(),
+      type: "danger",
+    };
+    showModal(ConfirmationModal, initialState, { destroyOnClose: true });
+  };
+
+  const confirmDeleteTaskHandler = () => {
+    console.log("confirmDeleteTaskHandler");
+  };
 
   return (
     <>
@@ -83,7 +96,8 @@ const AddEditTask = () => {
               <SetDateTime onSetDateTime={(data) => setSetDateTime(data)} />
               <GetAlert onAlertTask={(data) => setAlertTask(data)} />
               <ChooseColor onChooseColor={(data) => setCardColor(data)} />
-              <CustomButton name="Done" type="submit" onClick={onAddTaskHandler} />
+              <CustomButton name="Delete" color="danger" onClick={onDeleteHandler} />
+              <CustomButton name="Done" color="blue" type="submit" onClick={onAddTaskHandler} />
             </form>
           </div>
         </div>
