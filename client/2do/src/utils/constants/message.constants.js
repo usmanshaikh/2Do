@@ -21,3 +21,9 @@ export const CONFIRMATION_DELETE = "Are you sure you want to Delete?";
 export const CREATE_CHECK_LIST = "Create this check list?";
 
 export const CREATE_TASK = "Create this Task?";
+
+export const DEFAULT_CATEGORY_BY = "personal";
+
+export const FITER_BY_ALL = "all tasks";
+export const FITER_BY_INCOMPLETE = "incomplete tasks";
+export const FITER_BY_COMPLETED = "completed tasks";

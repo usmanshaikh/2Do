@@ -1,16 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
-import { GlobalContext } from "../../utils/contexts/GlobalContext";
 import FilterTaskModal from "../Modals/FilterTaskModal/FilterTaskModal";
+import useGlobalContext from "../../utils/hooks/useGlobalContext";
 import Images from "../../assets/img/images.js";
 import "./Header.scss";
 
 const Header = () => {
   const { showModal } = useModal();
-  const { headerTitle } = useContext(GlobalContext);
-  const [title] = headerTitle;
-  // const [setHeaderBtn] = headerBtn;
+  const { headerTitle: title } = useGlobalContext();
 
   const openFiterModalHandler = () => {
     const initialState = {
@@ -22,10 +20,6 @@ const Header = () => {
   const filterHandler = (data) => {
     console.log({ data });
   };
-
-  // useEffect(() => {
-  //   console.log("CLICK EVENT FROM ANOTHER COMPONENT FROM GlobalContext - PASS");
-  // }, [setHeaderBtn]);
 
   return (
     <>

@@ -1,10 +1,11 @@
 import React from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import Icon from "@mui/material/Icon";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
+import Icon from "@mui/material/Icon";
 import CategoryCard from "../../components/Cards/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
+import useGlobalContext from "../../utils/hooks/useGlobalContext";
 import * as Path from "../../utils/constants/routePath.constants";
 import "./Category.scss";
 
@@ -35,6 +36,7 @@ const CATEGORY_ITEM = [
 const Category = () => {
   const { showModal } = useModal();
   const navigate = useNavigate();
+  const { CFBY_state } = useGlobalContext();
 
   const openAddNewCategoryHandler = () => {
     const initialState = {
@@ -52,7 +54,7 @@ const Category = () => {
       pathname: `/${Path.TASK}`,
       search: createSearchParams({
         categoryBy: category.toLowerCase(),
-        filterBy: "all tasks".toLowerCase(),
+        filterBy: CFBY_state.filterBy.toLowerCase(),
       }).toString(),
     });
   };

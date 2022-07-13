@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { Button, Dialog, DialogActions, DialogTitle, Icon, List, ListItem, ListItemText } from "@mui/material";
+import * as Msg from "../../../utils/constants/message.constants";
 import "./FilterTaskModal.scss";
 
 const CATEGORY_ITEM = [
@@ -20,15 +21,15 @@ const CATEGORY_ITEM = [
 
 const FILTER_ITEM = [
   {
-    label: "all tasks",
+    label: Msg.FITER_BY_ALL,
     id: 1,
   },
   {
-    label: "incomplete tasks",
+    label: Msg.FITER_BY_INCOMPLETE,
     id: 2,
   },
   {
-    label: "completed tasks",
+    label: Msg.FITER_BY_COMPLETED,
     id: 3,
   },
 ];
