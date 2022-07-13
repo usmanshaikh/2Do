@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 import { GlobalContext } from "../../utils/contexts/GlobalContext";
 import FilterTaskModal from "../Modals/FilterTaskModal/FilterTaskModal";
 import Images from "../../assets/img/images.js";
-import style from "./Header.module.scss";
+import "./Header.scss";
 
 const Header = () => {
   const { showModal } = useModal();
@@ -29,13 +29,13 @@ const Header = () => {
 
   return (
     <>
-      <div className={style.headerComponentWrapper}>
-        <div className={style.titleBox}>
+      <div className="headerComponentWrapper">
+        <div className="titleBox">
           <div>
-            <span className={style.title}>{title}</span>
+            <span className="title">{title}</span>
           </div>
-          <div className={style.filterBtnBox}>
-            <Button className={style.filterBtn} variant="outlined" onClick={openFiterModalHandler}>
+          <div className="filterBtnBox">
+            <Button className="filterBtn" variant="outlined" onClick={openFiterModalHandler}>
               <img src={Images.FilterSVG} alt="filter" className="filterImg" />
             </Button>
           </div>
