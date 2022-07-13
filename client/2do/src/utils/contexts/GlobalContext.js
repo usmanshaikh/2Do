@@ -16,6 +16,4 @@ const GlobalProvider = (props) => {
   );
 };
 
-console.log({ GlobalContext });
-console.log({ GlobalProvider });
 export { GlobalContext, GlobalProvider };

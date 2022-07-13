@@ -51,7 +51,8 @@ const Category = () => {
     navigate({
       pathname: `/${Path.TASK}`,
       search: createSearchParams({
-        category: category.toLowerCase(),
+        categoryBy: category.toLowerCase(),
+        filterBy: "all tasks".toLowerCase(),
       }).toString(),
     });
   };

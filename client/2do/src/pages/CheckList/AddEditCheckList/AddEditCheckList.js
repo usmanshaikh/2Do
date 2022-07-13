@@ -48,7 +48,6 @@ const AddEditCheckList = () => {
   });
 
   const submitFormHandler = (data) => {
-    console.log({ data });
     const payload = {
       cardColor: {
         ...cardColor,

@@ -15,8 +15,8 @@ const Task = () => {
   // const [, setStateHeaderBtn] = headerBtn;
 
   useEffect(() => {
-    const category = searchParams.get("category");
-    category && setStateHeaderTitle(category);
+    const categoryBy = searchParams.get("categoryBy");
+    categoryBy && setStateHeaderTitle(categoryBy);
   }, [searchParams]);
 
   const onChangeTabHandler = (event, newValue) => {
