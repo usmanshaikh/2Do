@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Button, Dialog, DialogActions, DialogTitle, Icon, List, ListItem, ListItemText } from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
+import useNavigateWithParams from "../../../utils/hooks/useNavigateWithParams";
 import "./FilterTaskModal.scss";
 
 const CATEGORY_ITEM = [
@@ -43,21 +44,15 @@ const FilterTaskModal = (props) => {
   const { onClose, open, onFilter } = props;
   const [categoryBy, setCategoryBy] = useState(CATEGORY_ITEM[0].label);
   const [filterBy, setFilterBy] = useState(FILTER_ITEM[0].label);
-  const navigate = useNavigate();
   const location = useLocation();
+  const { navigateWithParams } = useNavigateWithParams();
 
   const onFilterHandler = () => {
     const payload = {
       categoryBy,
       filterBy,
     };
-    navigate({
-      pathname: location.pathname,
-      search: createSearchParams({
-        categoryBy: categoryBy.toLowerCase(),
-        filterBy: filterBy.toLowerCase(),
-      }).toString(),
-    });
+    navigateWithParams(location.pathname, categoryBy, filterBy);
     onFilter(payload);
     onClose();
   };

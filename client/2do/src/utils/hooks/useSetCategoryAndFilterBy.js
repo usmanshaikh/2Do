@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { slugify } from "../Helpers/Helpers";
 import useGlobalContext from "./useGlobalContext";
 
 /**
@@ -10,8 +11,10 @@ const useSetCategoryAndFilterBy = () => {
   let [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const categoryBy = searchParams.get("categoryBy");
-    const filterBy = searchParams.get("filterBy");
+    let categoryBy = searchParams.get("categoryBy");
+    let filterBy = searchParams.get("filterBy");
+    categoryBy && (categoryBy = slugify(searchParams.get("categoryBy")));
+    filterBy && (filterBy = slugify(searchParams.get("filterBy")));
     if (categoryBy && filterBy) {
       const payload = {
         type: "setState",

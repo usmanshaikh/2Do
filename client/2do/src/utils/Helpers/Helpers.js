@@ -15,6 +15,10 @@ export function addLeadingZero(n) {
   return n < 10 && n >= 1 ? "0" + n : n;
 }
 
+export function slugify(str) {
+  return str.split(" ").join("-");
+}
+
 export function hideFooter() {
   const isMobile = detectMobile();
   if (isMobile) document.getElementsByClassName("menuComponentWrapper")[0].style.display = "none";

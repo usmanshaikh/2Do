@@ -1,11 +1,11 @@
 import React from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import Icon from "@mui/material/Icon";
 import CategoryCard from "../../components/Cards/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
 import useGlobalContext from "../../utils/hooks/useGlobalContext";
+import useNavigateWithParams from "../../utils/hooks/useNavigateWithParams";
 import * as Path from "../../utils/constants/routePath.constants";
 import "./Category.scss";
 
@@ -35,8 +35,8 @@ const CATEGORY_ITEM = [
 
 const Category = () => {
   const { showModal } = useModal();
-  const navigate = useNavigate();
   const { CFBY_state } = useGlobalContext();
+  const { navigateWithParams } = useNavigateWithParams();
 
   const openAddNewCategoryHandler = () => {
     const initialState = {
@@ -50,13 +50,7 @@ const Category = () => {
   };
 
   const onMyTaskPageHandler = (category) => {
-    navigate({
-      pathname: `/${Path.TASK}`,
-      search: createSearchParams({
-        categoryBy: category.toLowerCase(),
-        filterBy: CFBY_state.filterBy.toLowerCase(),
-      }).toString(),
-    });
+    navigateWithParams(`/${Path.TASK}`, category, CFBY_state.filterBy);
   };
 
   return (
