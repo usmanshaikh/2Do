@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { Button, Dialog, DialogActions, DialogTitle, Icon, List, ListItem, ListItemText } from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
 import useNavigateWithParams from "../../../utils/hooks/useNavigateWithParams";
+import useGlobalContext from "../../../utils/hooks/useGlobalContext";
+import { unslugify } from "../../../utils/Helpers/Helpers";
 import "./FilterTaskModal.scss";
 
 const CATEGORY_ITEM = [
@@ -42,8 +44,9 @@ const FILTER_ITEM = [
 
 const FilterTaskModal = (props) => {
   const { onClose, open, onFilter } = props;
-  const [categoryBy, setCategoryBy] = useState(CATEGORY_ITEM[0].label);
-  const [filterBy, setFilterBy] = useState(FILTER_ITEM[0].label);
+  const { CFBY_state } = useGlobalContext();
+  const [categoryBy, setCategoryBy] = useState(unslugify(CFBY_state.categoryBy));
+  const [filterBy, setFilterBy] = useState(unslugify(CFBY_state.filterBy));
   const location = useLocation();
   const { navigateWithParams } = useNavigateWithParams();
 

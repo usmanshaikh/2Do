@@ -9,8 +9,8 @@ import "./App.scss";
 function App() {
   return (
     <>
-      <ModalProvider>
-        <GlobalProvider>
+      <GlobalProvider>
+        <ModalProvider>
           <div className="App">
             <Header />
             <main className="mainContentWrapper">
@@ -18,8 +18,8 @@ function App() {
             </main>
             <Menu />
           </div>
-        </GlobalProvider>
-      </ModalProvider>
+        </ModalProvider>
+      </GlobalProvider>
     </>
   );
 }
