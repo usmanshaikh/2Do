@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon, Avatar, IconButton } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import Images from "../../assets/img/images.js";
 import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import StatisticChart from "../../components/StatisticChart/StatisticChart.js";
+import useGlobalContext from "../../utils/hooks/useGlobalContext.js";
 import "./Profile.scss";
 
 const Profile = () => {
   const { showModal } = useModal();
+  const { setHeaderTitleHandler } = useGlobalContext();
+
+  useEffect(() => {
+    setHeaderTitleHandler("Profile");
+  }, []);
 
   const openEditProfileModalHandler = () => {
     const initialState = {

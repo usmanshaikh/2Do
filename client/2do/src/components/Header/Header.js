@@ -21,6 +21,8 @@ const Header = () => {
     console.log({ data });
   };
 
+  const isShowFilterBtn = title !== "Category" && title !== "Profile";
+
   return (
     <>
       <div className="headerComponentWrapper">
@@ -28,11 +30,13 @@ const Header = () => {
           <div>
             <span className="title">{title}</span>
           </div>
-          <div className="filterBtnBox">
-            <Button className="filterBtn" variant="outlined" onClick={openFiterModalHandler}>
-              <img src={Images.FilterSVG} alt="filter" className="filterImg" />
-            </Button>
-          </div>
+          {isShowFilterBtn && (
+            <div className="filterBtnBox">
+              <Button className="filterBtn" variant="outlined" onClick={openFiterModalHandler}>
+                <img src={Images.FilterSVG} alt="filter" className="filterImg" />
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </>

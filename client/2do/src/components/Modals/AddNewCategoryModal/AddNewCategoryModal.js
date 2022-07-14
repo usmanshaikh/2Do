@@ -4,11 +4,12 @@ import { useFormik } from "formik";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import ChooseColor from "../../ChooseColor/ChooseColor";
 import * as Msg from "../../../utils/constants/message.constants";
+import * as Rgx from "../../../utils/constants/regex.constants";
 import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
 import "./AddNewCategoryModal.scss";
 
 const validationSchema = yup.object({
-  title: yup.string().required(Msg.TITLE_REQUIRED),
+  title: yup.string().matches(Rgx.ONLY_LETTERS, Msg.TITLE_ONLY_LETTERS).required(Msg.TITLE_REQUIRED),
 });
 
 /**

@@ -14,6 +14,7 @@ export const RESET_CODE_REQUIRED = "Reset code is required";
 export const RESET_CODE = "Please enter the 6 digit code";
 
 export const TITLE_REQUIRED = "Title is required";
+export const TITLE_ONLY_LETTERS = "Title can only contain letters";
 export const DESCRIPTION_REQUIRED = "Description is required";
 
 export const CONFIRMATION_DELETE = "Are you sure you want to Delete?";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import Icon from "@mui/material/Icon";
@@ -35,8 +35,12 @@ const CATEGORY_ITEM = [
 
 const Category = () => {
   const { showModal } = useModal();
-  const { CFBY_state } = useGlobalContext();
+  const { setHeaderTitleHandler, CFBY_state } = useGlobalContext();
   const { navigateWithParams } = useNavigateWithParams();
+
+  useEffect(() => {
+    setHeaderTitleHandler("Category");
+  }, []);
 
   const openAddNewCategoryHandler = () => {
     const initialState = {
