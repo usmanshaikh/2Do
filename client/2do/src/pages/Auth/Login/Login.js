@@ -28,6 +28,8 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log({ values });
+      localStorage.setItem("token", "123456");
+      navigate(`/${Path.TASK}`);
     },
   });
 
@@ -73,7 +75,7 @@ const Login = () => {
             </Link>
           </div>
           <div className="actionBtnWrap">
-            <CustomButton name="Login" type="submit" onClick={onLoginHandler} />
+            <CustomButton name="Login" type="submit" />
           </div>
           <div className="accountOrLoginOptWrap">
             <span className="txt">
