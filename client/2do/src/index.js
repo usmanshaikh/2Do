@@ -4,10 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import reportWebVitals from "./reportWebVitals";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import App from "./App";
 import theme from "./theme";
 import "./index.scss";
-import ScrollToTop from "./utils/ScrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
