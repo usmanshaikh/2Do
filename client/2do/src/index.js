@@ -3,8 +3,10 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import ModalProvider from "mui-modal-provider";
 import reportWebVitals from "./reportWebVitals";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import { GlobalProvider } from "./utils/contexts/GlobalContext";
 import App from "./App";
 import theme from "./theme";
 import "./index.scss";
@@ -12,11 +14,15 @@ import "./index.scss";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <ScrollToTop />
-      <App />
-    </ThemeProvider>
+    <GlobalProvider>
+      <ModalProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <ScrollToTop />
+          <App />
+        </ThemeProvider>
+      </ModalProvider>
+    </GlobalProvider>
   </BrowserRouter>
 );
 

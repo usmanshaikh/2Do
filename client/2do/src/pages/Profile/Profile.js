@@ -12,7 +12,7 @@ import "./Profile.scss";
 
 const Profile = () => {
   const { showModal } = useModal();
-  const { setHeaderTitleHandler } = useGlobalContext();
+  const { setHeaderTitleHandler, setAuthenticateHandler } = useGlobalContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +32,7 @@ const Profile = () => {
 
   const onLogoutHandler = () => {
     localStorage.clear();
+    setAuthenticateHandler(false);
     navigate(`/${Path.LOGIN}`);
   };
 

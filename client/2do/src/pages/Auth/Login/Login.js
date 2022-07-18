@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
+import useGlobalContext from "../../../utils/hooks/useGlobalContext";
 import "../Auth.scss";
 
 const validationSchema = yup.object({
@@ -15,10 +16,7 @@ const validationSchema = yup.object({
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const onLoginHandler = () => {
-    navigate(`/${Path.TASK}`);
-  };
+  const { setAuthenticateHandler } = useGlobalContext();
 
   const formik = useFormik({
     initialValues: {
@@ -29,6 +27,7 @@ const Login = () => {
     onSubmit: (values) => {
       console.log({ values });
       localStorage.setItem("token", "123456");
+      setAuthenticateHandler(true);
       navigate(`/${Path.TASK}`);
     },
   });

@@ -14,6 +14,7 @@ import Walkthrough from "../pages/Walkthrough/Walkthrough";
 import NotFound from "../components/NotFound/NotFound";
 import CheckList from "../pages/CheckList/CheckList";
 import AddEditCheckList from "../pages/CheckList/AddEditCheckList/AddEditCheckList";
+import RequireAuth from "../components/RequireAuth/RequireAuth";
 
 const AppRoute = () => {
   return (
@@ -26,12 +27,54 @@ const AppRoute = () => {
         <Route path={`/${Path.RESET_PASSWORD}`} element={<ResetPassword />} />
         <Route path={`/${Path.RESET_PASSWORD_SUCCESS}`} element={<ResetPasswordSuccess />} />
         <Route path={`/${Path.WALKTHROUGH}`} element={<Walkthrough />} />
-        <Route path={`/${Path.CATEGORY}`} element={<Category />} />
-        <Route path={`/${Path.PROFILE}`} element={<Profile />} />
-        <Route path={`/${Path.TASK}`} element={<Task />} />
-        <Route path={`/${Path.TASK}/${Path.ADD_EDIT_TASK}`} element={<AddEditTask />} />
-        <Route path={`/${Path.CHECK_LIST}`} element={<CheckList />} />
-        <Route path={`/${Path.CHECK_LIST}/${Path.ADD_EDIT_CHECK_LIST}`} element={<AddEditCheckList />} />
+        <Route
+          path={`/${Path.CATEGORY}`}
+          element={
+            <RequireAuth>
+              <Category />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.PROFILE}`}
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.TASK}`}
+          element={
+            <RequireAuth>
+              <Task />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.TASK}/${Path.ADD_EDIT_TASK}`}
+          element={
+            <RequireAuth>
+              <AddEditTask />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.CHECK_LIST}`}
+          element={
+            <RequireAuth>
+              <CheckList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.CHECK_LIST}/${Path.ADD_EDIT_CHECK_LIST}`}
+          element={
+            <RequireAuth>
+              <AddEditCheckList />
+            </RequireAuth>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
