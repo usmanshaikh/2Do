@@ -1,0 +1,13 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.calendarComponentWrapper {
+  margin: 15px;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: -2px 0px 20px 0px rgb(0 0 0 / 5%);
+  .datePickerInputControl {
+    .MuiInputBase-input::placeholder {
+      text-transform: uppercase;
+    }
+  }
+}
