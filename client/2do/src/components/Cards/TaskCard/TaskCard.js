@@ -61,7 +61,7 @@ const TaskCard = () => {
           <Fragment key={i}>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
               <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-                <Card onClick={onEditTaskHandler} className="taskCardWrap">
+                <Card className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
                       <span className="bgLine" style={{ backgroundColor: "#0693e3" }}></span>
@@ -85,7 +85,7 @@ const TaskCard = () => {
             </SwipeableList>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
               <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-                <Card onClick={onEditTaskHandler} className="taskCardWrap">
+                <Card className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
                       <span className="bgLine" style={{ backgroundColor: "#00d084" }}></span>
@@ -107,7 +107,7 @@ const TaskCard = () => {
             </SwipeableList>
             <SwipeableList className="swipeListTaskWrapper taskCompleted" type={ListType.IOS}>
               <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-                <Card onClick={onEditTaskHandler} className="taskCardWrap">
+                <Card className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
                       <span className="bgLine" style={{ backgroundColor: "#eb144c" }}></span>
