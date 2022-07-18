@@ -1,4 +1,5 @@
 import React from "react";
+import Calendar from "../../components/Calendar/Calendar";
 import CheckListCard from "../../components/Cards/CheckListCard/CheckListCard";
 import useSetCategoryAndFilterBy from "../../utils/hooks/useSetCategoryAndFilterBy";
 import "./CheckList.scss";
@@ -8,6 +9,7 @@ const CheckList = () => {
 
   return (
     <>
+      <Calendar />
       <div className="checkListPageWrapper">
         <CheckListCard />
       </div>

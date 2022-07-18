@@ -1,9 +1,13 @@
 @import "../../assets/scss/mixin_variables.scss";
 
 .calendarComponentWrapper {
-  margin-bottom: 30px;
-  box-shadow: 0 15px 15px -2px rgb(0 0 0 / 5%);
-  .css-18j49sp {
-    min-height: 210px;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: -2px 0px 20px 0px rgb(0 0 0 / 5%);
+  .datePickerInputControl {
+    .MuiInputBase-input::placeholder {
+      text-transform: uppercase;
+    }
   }
 }

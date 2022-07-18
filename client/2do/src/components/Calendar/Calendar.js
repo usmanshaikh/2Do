@@ -2,12 +2,12 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+import { DatePicker } from "@mui/x-date-pickers";
 import moment from "moment";
 import "./Calendar.scss";
 
 const Calendar = () => {
-  const [value, setValue] = React.useState(new Date());
+  const [value, setValue] = React.useState(null);
 
   const minY = moment().startOf("year").format("YYYY-MM-DD");
   const maxY = moment().endOf("year").format("YYYY-MM-DD");
@@ -18,9 +18,8 @@ const Calendar = () => {
     <>
       <div className="calendarComponentWrapper">
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          <StaticDatePicker
-            className="usman"
-            displayStaticWrapperAs="desktop"
+          <DatePicker
+            label="Select Date"
             openTo="day"
             value={value}
             onChange={(newValue) => {
@@ -29,7 +28,10 @@ const Calendar = () => {
             maxDate={calendarMaxDate}
             minDate={calendarMinDate}
             fullWidth
-            renderInput={(params) => <TextField {...params} />}
+            inputFormat="DD/MM/YYYY"
+            renderInput={(params) => (
+              <TextField className="datePickerInputControl" fullWidth placeholder="DD/MM/YYYY" {...params} />
+            )}
           />
         </LocalizationProvider>
       </div>
