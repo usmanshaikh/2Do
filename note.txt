@@ -1,0 +1,19 @@
+Create app cmd
+npx create-nodejs-express-app 2do
+
+Run Server
+yarn dev
+
+
+Passport.JS
+
+passport.use('jwt', jwtStrategy);
+This 'jwt' is used becoz if Multiple passport-jwt strategy in the same app then it will identify by name when u used it.
+
+Define:
+passport.use("strategyA", new JwtStrategy(jwtOptions, (payload, done) => {  ... });
+passport.use("strategyB", new JwtStrategy(jwtOptions, (payload, done) => {  ... });
+
+Use:
+passport.authenticate("strategyA", { session: false }))
+passport.authenticate("strategyB", { session: false }))

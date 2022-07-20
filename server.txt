@@ -1,5 +1,0 @@
-Create app cmd
-npx create-nodejs-express-app 2do
-
-Run Server
-yarn dev
