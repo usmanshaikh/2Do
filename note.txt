@@ -17,3 +17,11 @@ passport.use("strategyB", new JwtStrategy(jwtOptions, (payload, done) => {  ... 
 Use:
 passport.authenticate("strategyA", { session: false }))
 passport.authenticate("strategyB", { session: false }))
+
+
+Install MongoDB
+https://medium.com/@LondonAppBrewery/how-to-download-install-mongodb-on-windows-4ee4b3493514
+Download: On-premises -> MongoDB Community Server
+
+MongoDB Set Environment 
+https://sqlserverguides.com/mongodb-is-not-recognized-as-an-internal-or-external-command/
