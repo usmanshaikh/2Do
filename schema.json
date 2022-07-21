@@ -7,7 +7,7 @@
   "passowrd": {
     "type": "string",
     "minLength": 8,
-    "required": true,
-    "requirements": "At least one letter and one number"
+    "requirements": "At least one letter and one number",
+    "required": true
   }
 }

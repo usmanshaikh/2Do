@@ -32,6 +32,13 @@ if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
 
+// Set & Use Database as per Environment
+if (envVars.NODE_ENV === 'production') {
+  envVars.MONGODB_URL = envVars.MONGODB_URL.replace(/<DATABASE>/g, envVars.NODE_ENV);
+} else if (envVars.NODE_ENV === 'development') {
+  envVars.MONGODB_URL = envVars.MONGODB_URL.replace(/<DATABASE>/g, envVars.NODE_ENV);
+}
+
 module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,

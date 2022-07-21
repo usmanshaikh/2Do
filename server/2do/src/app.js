@@ -67,7 +67,7 @@ if (config.env === 'production') {
 app.use('/v1', routes);
 
 // // Example
-// app.get('/emailTemplate', (req, res) => {
+// app.get('/v1/emailTemplate', (req, res) => {
 //   res.render('emailTemplate');
 // });
 
