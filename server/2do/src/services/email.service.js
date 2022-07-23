@@ -1,9 +1,9 @@
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
 const logger = require('../config/logger');
-// const path = require('path');
-// const fs = require('fs');
-// const exphbs = require('express-handlebars');
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
+const fs = require('fs');
 
 const transport = nodemailer.createTransport(config.email.smtp);
 /* istanbul ignore next */
@@ -26,22 +26,34 @@ const sendEmail = async (to, subject, text) => {
   await transport.sendMail(msg);
 };
 
-// const sendEmail = async (to, subject, text) => {
-//   const filePath = path.join(__dirname, '../views/resetPasswordEmailTemplate.handlebars');
-//   console.log({ filePath });
-//   // const source = fs.readFileSync(filePath, 'utf-8').toString();
-//   const hbs = exphbs.create({
-//     defaultLayout: 'main',
-//   });
-//   const template = await hbs.getTemplate(filePath);
-//   console.log({ template });
-//   const replacements = {
-//     username: 'Umut YEREBAKMAZ',
-//   };
-//   const htmlToSend = template(replacements);
-//   const msg = { from: config.email.from, to, subject, text, html: htmlToSend };
-//   await transport.sendMail(msg);
-// };
+const sendEmail2 = async (to, subject, text) => {
+  const dir = path.join(__dirname, '..');
+
+  const templateStyleFileContent = fs.readFileSync(path.resolve(dir, './public/css/email-template.css'));
+  const templateStyle = templateStyleFileContent.toString();
+
+  const options = {
+    viewEngine: {
+      layoutsDir: path.join(dir, 'views', 'layouts'),
+      partialsDir: path.join(dir, 'views', 'partials'),
+      extname: '.handlebars',
+      defaultLayout: 'main',
+    },
+    extName: '.handlebars',
+    viewPath: path.join(dir, 'views'),
+  };
+
+  transport.use('compile', hbs(options));
+
+  const templateContent = {
+    templateStyle,
+    templateTitle: 'Reset Password',
+  };
+
+  const msg = { from: config.email.from, to, subject, template: 'resetPasswordEmailTemplate', context: templateContent };
+  await transport.sendMail(msg);
+};
+
 /**
  * Send reset password email
  * @param {string} to

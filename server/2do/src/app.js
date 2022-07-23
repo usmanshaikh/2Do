@@ -5,7 +5,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
-const exphbs = require('express-handlebars');
 const path = require('path');
 const httpStatus = require('http-status');
 const config = require('./config/config');
@@ -20,14 +19,6 @@ const app = express();
 
 // sending static files with Express
 app.use(express.static(path.join(__dirname, 'public')));
-
-// view engine setup
-const hbs = exphbs.create({
-  defaultLayout: 'main',
-});
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views'));
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
@@ -65,11 +56,6 @@ if (config.env === 'production') {
 
 // v1 api routes
 app.use('/v1', routes);
-
-// // Example
-// app.get('/v1/emailTemplate', (req, res) => {
-//   res.render('emailTemplate');
-// });
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
