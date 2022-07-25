@@ -12,6 +12,7 @@ const categorySchema = mongoose.Schema(
     cardColor: {
       type: mongoose.Schema.ObjectId,
       ref: CardColor,
+      required: true,
     },
   },
   {
@@ -24,7 +25,7 @@ categorySchema.plugin(toJSON);
 
 // populate cardColor
 categorySchema.pre(['find'], function (next) {
-  this.populate({ path: 'cardColor' });
+  this.populate(['cardColor']);
   next();
 });
 
