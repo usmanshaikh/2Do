@@ -23,6 +23,14 @@ const toJSON = (schema) => {
   schema.options.toJSON = Object.assign(schema.options.toJSON || {}, {
     transform(doc, ret, options) {
       Object.keys(schema.paths).forEach((path) => {
+        // For One Level Nested Array Of Object also modified _id
+        if (Array.isArray(ret[path])) {
+          ret[path].map((val) => {
+            val.id = val._id.toString();
+            delete val._id;
+            return val;
+          });
+        }
         if (schema.paths[path].options && schema.paths[path].options.private) {
           deleteAtPath(ret, path.split('.'), 0);
         }
