@@ -3,10 +3,7 @@ const { objectId } = require('./custom.validation');
 
 const category = {
   categoryName: Joi.string().required(),
-  cardColor: Joi.object().keys({
-    id: Joi.number().required(),
-    color: Joi.string().required(),
-  }),
+  cardColor: Joi.required().custom(objectId),
 };
 
 const createCategory = {

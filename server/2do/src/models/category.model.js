@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { toJSON } = require('./plugins');
-const { tokenTypes } = require('../config/tokens');
+const CardColor = require('./cardColor.model');
 
 const categorySchema = mongoose.Schema(
   {
@@ -10,14 +10,8 @@ const categorySchema = mongoose.Schema(
       trim: true,
     },
     cardColor: {
-      id: {
-        type: Number,
-        required: true,
-      },
-      color: {
-        type: String,
-        required: true,
-      },
+      type: mongoose.Schema.ObjectId,
+      ref: CardColor,
     },
   },
   {
