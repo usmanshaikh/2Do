@@ -21,7 +21,7 @@ const createCategory = async (categoryBody) => {
  * @returns {Promise<Category>}
  */
 const getAllCategory = async () => {
-  const category = await Category.find().populate('cardColor');
+  const category = await Category.find();
   return category;
 };
 
