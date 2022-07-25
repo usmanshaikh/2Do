@@ -4,6 +4,7 @@ const userRoute = require('./user.route');
 const categoryRoute = require('./category.route');
 const cardColorRoute = require('./cardColor.route');
 const taskRoute = require('./task.route');
+const checkListRoute = require('./checkList.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -27,7 +28,11 @@ const defaultRoutes = [
     route: taskRoute,
   },
   {
-    path: '/cardColor',
+    path: '/checkLists',
+    route: checkListRoute,
+  },
+  {
+    path: '/cardColors',
     route: cardColorRoute,
   },
 ];
