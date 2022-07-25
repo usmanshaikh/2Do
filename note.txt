@@ -28,3 +28,4 @@ Download: On-premises -> MongoDB Community Server
 
 MongoDB Set Environment 
 https://sqlserverguides.com/mongodb-is-not-recognized-as-an-internal-or-external-command/
+
