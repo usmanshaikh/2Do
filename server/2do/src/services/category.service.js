@@ -1,5 +1,4 @@
 const httpStatus = require('http-status');
-const cardColorService = require('./cardColor.service');
 const { Category } = require('../models');
 const ApiError = require('../utils/ApiError');
 
@@ -9,10 +8,6 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Category>}
  */
 const createCategory = async (categoryBody) => {
-  const cardColor = await cardColorService.getCardColorById(categoryBody.cardColor);
-  if (!cardColor) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'cardColor not found or Invalid cardColor id');
-  }
   return Category.create(categoryBody);
 };
 
@@ -71,6 +66,7 @@ const getCategoryById = async (id) => {
 module.exports = {
   createCategory,
   getAllCategory,
+  getCategoryById,
   updateCategoryById,
   deleteCategoryById,
 };

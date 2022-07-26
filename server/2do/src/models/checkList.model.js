@@ -43,6 +43,11 @@ const checkListSchema = mongoose.Schema(
       default: true,
       required: true,
     },
+    isCompleted: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,
