@@ -20,8 +20,12 @@ const createCategory = async (categoryBody) => {
  * Get all category
  * @returns {Promise<Category>}
  */
-const getAllCategory = async () => {
-  const category = await Category.find();
+const getAllCategory = async (query) => {
+  let removedField = [];
+  if (query.onlyCategories) {
+    removedField.push('-cardColor');
+  }
+  const category = await Category.find().select(removedField);
   return category;
 };
 

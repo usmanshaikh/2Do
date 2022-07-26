@@ -8,7 +8,7 @@ const createCategory = catchAsync(async (req, res) => {
 });
 
 const getAllCategory = catchAsync(async (req, res) => {
-  const category = await categoryService.getAllCategory();
+  const category = await categoryService.getAllCategory(req.query);
   res.send(category);
 });
 

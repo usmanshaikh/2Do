@@ -10,6 +10,12 @@ const createCategory = {
   body: Joi.object().keys(category),
 };
 
+const getCategory = {
+  query: Joi.object().keys({
+    onlyCategories: Joi.boolean(),
+  }),
+};
+
 const updateCategory = {
   params: Joi.object().keys({
     categoryId: Joi.required().custom(objectId),
@@ -25,6 +31,7 @@ const deleteCategory = {
 
 module.exports = {
   createCategory,
+  getCategory,
   updateCategory,
   deleteCategory,
 };
