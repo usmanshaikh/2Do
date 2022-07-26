@@ -11,6 +11,7 @@ const checkList = {
   cardColor: Joi.required().custom(objectId),
   setDateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
+  isCompleted: Joi.boolean().required(),
 };
 
 const createCheckList = {
