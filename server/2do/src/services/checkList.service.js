@@ -8,7 +8,9 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<CheckList>}
  */
 const createCheckList = async (checkListBody) => {
-  return CheckList.create(checkListBody);
+  let checkLists = await CheckList.create(checkListBody);
+  checkLists = await checkLists.populate(['category', 'cardColor']).execPopulate();
+  return checkLists;
 };
 
 /**
@@ -60,7 +62,7 @@ const deleteCheckListById = async (checkListId) => {
 };
 
 /**
- * Delete All checkList
+ * Delete all checkList
  * @returns {Promise<CheckList>}
  */
 const deleteAllCheckList = async () => {

@@ -8,7 +8,9 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Category>}
  */
 const createCategory = async (categoryBody) => {
-  return Category.create(categoryBody);
+  let category = await Category.create(categoryBody);
+  category = await category.populate(['cardColor']).execPopulate();
+  return category;
 };
 
 /**
@@ -64,7 +66,7 @@ const getCategoryById = async (id) => {
 };
 
 /**
- * Delete All category
+ * Delete all category
  * @returns {Promise<Category>}
  */
 const deleteAllCategory = async () => {

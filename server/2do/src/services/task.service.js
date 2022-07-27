@@ -8,7 +8,9 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Task>}
  */
 const createTask = async (taskBody) => {
-  return Task.create(taskBody);
+  let task = await Task.create(taskBody);
+  task = await task.populate(['category', 'cardColor']).execPopulate();
+  return task;
 };
 
 /**
@@ -60,7 +62,7 @@ const deleteTaskById = async (taskId) => {
 };
 
 /**
- * Delete All task
+ * Delete all task
  * @returns {Promise<Task>}
  */
 const deleteAllTask = async () => {
