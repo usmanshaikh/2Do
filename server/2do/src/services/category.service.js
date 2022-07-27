@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Category } = require('../models');
+const { Category, Task, CheckList } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -24,6 +24,21 @@ const getAllCategory = async (query) => {
   }
   const category = await Category.find().select(removedField);
   return category;
+};
+
+/**
+ * Get all category with task & checkList count
+ */
+const categoryWithTaskAndCheckListCount = async () => {
+  const taskCount = await Task.countDocuments({});
+  const checkListCount = await CheckList.countDocuments({});
+  const category = await Category.find().select(['-cardColor']);
+  const categoryWithCount = {
+    category,
+    taskCount,
+    checkListCount,
+  };
+  return categoryWithCount;
 };
 
 /**
@@ -81,4 +96,5 @@ module.exports = {
   updateCategoryById,
   deleteCategoryById,
   deleteAllCategory,
+  categoryWithTaskAndCheckListCount,
 };
