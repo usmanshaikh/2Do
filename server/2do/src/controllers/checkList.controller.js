@@ -31,10 +31,16 @@ const deleteCheckList = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const deleteAllCheckList = catchAsync(async (req, res) => {
+  await checkListService.deleteAllCheckList();
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createCheckList,
   getCheckLists,
   getCheckList,
   updateCheckList,
   deleteCheckList,
+  deleteAllCheckList,
 };

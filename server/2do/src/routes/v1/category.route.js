@@ -27,4 +27,7 @@ router
   )
   .delete(auth(), validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
 
+// Use this route only for while development purpose
+router.route('/').delete(auth(), categoryController.deleteAllCategory);
+
 module.exports = router;

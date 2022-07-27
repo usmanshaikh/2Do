@@ -22,9 +22,15 @@ const deleteCategory = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const deleteAllCategory = catchAsync(async (req, res) => {
+  await categoryService.deleteAllCategory();
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createCategory,
   getAllCategory,
   updateCategory,
   deleteCategory,
+  deleteAllCategory,
 };

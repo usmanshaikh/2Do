@@ -31,10 +31,16 @@ const deleteTask = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const deleteAllTask = catchAsync(async (req, res) => {
+  await taskService.deleteAllTask();
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createTask,
   getTasks,
   getTask,
   updateTask,
   deleteTask,
+  deleteAllTask,
 };

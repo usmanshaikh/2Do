@@ -59,10 +59,20 @@ const deleteTaskById = async (taskId) => {
   return task;
 };
 
+/**
+ * Delete All task
+ * @returns {Promise<Task>}
+ */
+const deleteAllTask = async () => {
+  const tasks = await Task.deleteMany({});
+  return tasks;
+};
+
 module.exports = {
   createTask,
   getAllTasks,
   getTaskById,
   updateTaskById,
   deleteTaskById,
+  deleteAllTask,
 };

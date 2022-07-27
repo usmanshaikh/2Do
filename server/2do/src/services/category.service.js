@@ -63,10 +63,20 @@ const getCategoryById = async (id) => {
   return Category.findById(id);
 };
 
+/**
+ * Delete All category
+ * @returns {Promise<Category>}
+ */
+const deleteAllCategory = async () => {
+  const category = await Category.deleteMany({});
+  return category;
+};
+
 module.exports = {
   createCategory,
   getAllCategory,
   getCategoryById,
   updateCategoryById,
   deleteCategoryById,
+  deleteAllCategory,
 };

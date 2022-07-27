@@ -28,4 +28,7 @@ router
   )
   .delete(auth(), validate(taskValidation.deleteTask), taskController.deleteTask);
 
+// Use this route only for while development purpose
+router.route('/').delete(auth(), taskController.deleteAllTask);
+
 module.exports = router;

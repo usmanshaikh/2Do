@@ -59,10 +59,20 @@ const deleteCheckListById = async (checkListId) => {
   return checkList;
 };
 
+/**
+ * Delete All checkList
+ * @returns {Promise<CheckList>}
+ */
+const deleteAllCheckList = async () => {
+  const checkList = await CheckList.deleteMany({});
+  return checkList;
+};
+
 module.exports = {
   createCheckList,
   getAllCheckLists,
   getCheckListById,
   updateCheckListById,
   deleteCheckListById,
+  deleteAllCheckList,
 };

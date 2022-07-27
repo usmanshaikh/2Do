@@ -28,4 +28,7 @@ router
   )
   .delete(auth(), validate(checkListValidation.deleteCheckList), checkListController.deleteCheckList);
 
+// Use this route only for while development purpose
+router.route('/').delete(auth(), checkListController.deleteAllCheckList);
+
 module.exports = router;
