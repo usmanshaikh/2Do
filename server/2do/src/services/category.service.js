@@ -30,15 +30,38 @@ const getAllCategory = async (query) => {
  * Get all category with task & checkList count
  */
 const categoryWithTaskAndCheckListCount = async () => {
-  const taskCount = await Task.countDocuments({});
-  const checkListCount = await CheckList.countDocuments({});
-  const category = await Category.find().select(['-cardColor']);
-  const categoryWithCount = {
-    category,
-    taskCount,
-    checkListCount,
-  };
-  return categoryWithCount;
+  let grpTask = await Task.aggregate([
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'category',
+        foreignField: '_id',
+        as: 'categoryVar',
+      },
+    },
+    {
+      $lookup: {
+        from: 'checklists',
+        localField: 'checkList',
+        foreignField: '_id',
+        as: 'checkListVar',
+      },
+    },
+    {
+      $addFields: {
+        categoryName: { $arrayElemAt: ['$categoryVar.categoryName', 0] },
+        categoryId: { $arrayElemAt: ['$categoryVar._id', 0] },
+      },
+    },
+    {
+      $group: {
+        _id: '$categoryId',
+        categoryName: { $first: '$categoryName' },
+        taskCount: { $sum: 1 },
+      },
+    },
+  ]);
+  return grpTask;
 };
 
 /**
