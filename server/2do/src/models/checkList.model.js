@@ -25,12 +25,12 @@ const checkListSchema = mongoose.Schema(
       },
     ],
     category: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: Category,
       required: true,
     },
     cardColor: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: CardColor,
       required: true,
     },

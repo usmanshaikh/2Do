@@ -10,7 +10,7 @@ const categorySchema = mongoose.Schema(
       trim: true,
     },
     cardColor: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: CardColor,
       required: true,
     },
