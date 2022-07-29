@@ -42,24 +42,39 @@ const categoryWithTaskAndCheckListCount = async () => {
     {
       $lookup: {
         from: 'checklists',
-        localField: 'checkList',
-        foreignField: '_id',
+        pipeline: [{ $match: { $expr: [{ category: { $toObjectId: { $arrayElemAt: ['$categoryVar._id', 0] } } }] } }],
         as: 'checkListVar',
+      },
+    },
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'checkListVar.category',
+        foreignField: '_id',
+        as: 'categoryVar2',
       },
     },
     {
       $addFields: {
         categoryName: { $arrayElemAt: ['$categoryVar.categoryName', 0] },
         categoryId: { $arrayElemAt: ['$categoryVar._id', 0] },
+        checkListId: { $arrayElemAt: ['$categoryVar2._id', 0] },
       },
     },
-    {
-      $group: {
-        _id: '$categoryId',
-        categoryName: { $first: '$categoryName' },
-        taskCount: { $sum: 1 },
-      },
-    },
+    // {
+    //   $group: {
+    //     _id: '$categoryId',
+    //     categoryName: { $first: '$categoryName' },
+    //     taskCount: { $sum: 1 },
+    //     checkListCount: { $sum: '$checkListId' },
+    //   },
+    // },
+    // {
+    //   $group: {
+    //     _id: { $arrayElemAt: ['$categoryVar2._id', 0] },
+    //     categoryName: { $first: '$checkListVar.category.categoryName' },
+    //   },
+    // },
   ]);
   return grpTask;
 };
