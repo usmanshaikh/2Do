@@ -27,57 +27,203 @@ const getAllCategory = async (query) => {
 };
 
 /**
- * Get all category with task & checkList count
+ * Get category with task & checkList counts
  */
 const categoryWithTaskAndCheckListCount = async () => {
-  let grpTask = await Task.aggregate([
+  let groupData = await Category.aggregate([
     {
       $lookup: {
-        from: 'categories',
-        localField: 'category',
-        foreignField: '_id',
-        as: 'categoryVar',
+        from: 'tasks',
+        localField: '_id',
+        foreignField: 'category',
+        as: 'taskData',
       },
     },
     {
       $lookup: {
         from: 'checklists',
-        pipeline: [{ $match: { $expr: [{ category: { $toObjectId: { $arrayElemAt: ['$categoryVar._id', 0] } } }] } }],
-        as: 'checkListVar',
+        localField: '_id',
+        foreignField: 'category',
+        as: 'checkListData',
       },
     },
     {
-      $lookup: {
-        from: 'categories',
-        localField: 'checkListVar.category',
-        foreignField: '_id',
-        as: 'categoryVar2',
+      $facet: {
+        checkList: [
+          { $unwind: '$checkListData' },
+          {
+            $lookup: {
+              from: 'categories',
+              localField: 'checkListData.category',
+              foreignField: '_id',
+              as: 'categoryData',
+            },
+          },
+          {
+            $group: {
+              _id: '$checkListData.category',
+              name: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
+              checkListCount: { $sum: 1 },
+            },
+          },
+        ],
+        task: [
+          { $unwind: '$taskData' },
+          {
+            $lookup: {
+              from: 'categories',
+              localField: 'taskData.category',
+              foreignField: '_id',
+              as: 'categoryData',
+            },
+          },
+          {
+            $group: {
+              _id: '$taskData.category',
+              name: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
+              taskCount: { $sum: 1 },
+            },
+          },
+        ],
       },
     },
     {
-      $addFields: {
-        categoryName: { $arrayElemAt: ['$categoryVar.categoryName', 0] },
-        categoryId: { $arrayElemAt: ['$categoryVar._id', 0] },
-        checkListId: { $arrayElemAt: ['$categoryVar2._id', 0] },
+      $project: {
+        combine: {
+          $concatArrays: ['$checkList', '$task'],
+        },
       },
     },
+    {
+      $unwind: '$combine',
+    },
+    {
+      $group: {
+        _id: '$combine._id',
+        categoryName: { $first: '$combine.name' },
+        checkListCount: {
+          $sum: '$combine.checkListCount',
+        },
+        taskCount: {
+          $sum: '$combine.taskCount',
+        },
+      },
+    },
+    // { $project: { activity: { $setUnion: ['$checkList', '$task'] } } },
+    // { $unwind: '$activity' },
+    // { $replaceRoot: { newRoot: '$activity' } },
     // {
-    //   $group: {
-    //     _id: '$categoryId',
-    //     categoryName: { $first: '$categoryName' },
-    //     taskCount: { $sum: 1 },
-    //     checkListCount: { $sum: '$checkListId' },
+    //   $addFields: {
+    //     N: {
+    //       $reduce: {
+    //         input: { $concatArrays: ['$avg_competences', '$avg_subcompetences'] },
+    //         initialValue: 0,
+    //         in: { $sum: ['$$value', '$$this.count'] },
+    //       },
+    //     },
+    //   },
+    // },
+
+    // { $unwind: { path: '$taskData', includeArrayIndex: 'index1' } },
+    // { $unwind: { path: '$checkListData', includeArrayIndex: 'index2' } },
+    // {
+    //   $project: {
+    //     taskData: 1,
+    //     categoryName: 1,
+    //     checkListData: 1,
+    //     compare: {
+    //       $cmp: ['$index1', '$index2'],
+    //     },
+    //   },
+    // },
+    // {
+    //   $match: {
+    //     compare: 0,
+    //   },
+    // },
+    // {
+    //   $project: {
+    //     _id: 1,
+    //     categoryName: 1,
+    //     taskData: 1,
+    //     checkListData: 1,
     //   },
     // },
     // {
     //   $group: {
-    //     _id: { $arrayElemAt: ['$categoryVar2._id', 0] },
-    //     categoryName: { $first: '$checkListVar.category.categoryName' },
+    //     _id: '$checkListData.category',
+    //     categoryName: { $first: '$categoryName' },
+    //     taskCount: {
+    //       $sum: {
+    //         $cond: ['$taskData.category', 1, 0],
+    //       },
+    //     },
+    //     checkListCount: {
+    //       $sum: {
+    //         $cond: ['$checkListData.category', 1, 0],
+    //       },
+    //     },
     //   },
     // },
   ]);
-  return grpTask;
+  return groupData;
 };
+// const categoryWithTaskAndCheckListCount = async () => {
+//   let grpTask = await Task.aggregate([
+//     {
+//       $lookup: {
+//         from: 'categories',
+//         localField: 'category',
+//         foreignField: '_id',
+//         as: 'categoryVar',
+//       },
+//     },
+//     {
+//       $lookup: {
+//         from: 'checklists',
+//         pipeline: [{ $match: { $expr: [{ category: { $toObjectId: { $arrayElemAt: ['$categoryVar._id', 0] } } }] } }],
+//         as: 'checkListVar',
+//       },
+//     },
+//     {
+//       $lookup: {
+//         from: 'categories',
+//         localField: 'checkListVar.category',
+//         foreignField: '_id',
+//         as: 'categoryVar2',
+//       },
+//     },
+//     { $unwind: '$categoryVar' },
+//     { $unwind: '$categoryVar2' },
+//     {
+//       $addFields: {
+//         // categoryName: { $arrayElemAt: ['$categoryVar.categoryName', 0] },
+//         // categoryId: { $arrayElemAt: ['$categoryVar._id', 0] },
+//         // checkListId: { $arrayElemAt: ['$categoryVar2._id', 0] },
+//       },
+//     },
+//     // {
+//     //   $group: {
+//     //     _id: '$_id',
+//     //     categoryName: { $first: '$categoryVar.categoryName' },
+//     //     taskCount: { $sum: 1 },
+//     //   },
+//     // },
+//     // {
+//     //   $group: {
+//     //     _id: '$categoryVar2._id',
+//     //     checkListCount: {
+//     //       $sum: {
+//     //         $cond: ['$categoryVar2._id', 1, 0],
+//     //       },
+//     //     },
+//     //     categoryName: { $first: '$categoryName' },
+//     //     taskCount: { $first: '$taskCount' },
+//     //   },
+//     // },
+//   ]);
+//   return grpTask;
+// };
 
 /**
  * Update category by id
