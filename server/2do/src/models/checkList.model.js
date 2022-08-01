@@ -48,6 +48,11 @@ const checkListSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    type: {
+      type: String,
+      required: true,
+      default: 'Check List',
+    },
   },
   {
     timestamps: true,
