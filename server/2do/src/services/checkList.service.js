@@ -40,7 +40,7 @@ const getCheckListById = async (id) => {
 const updateCheckListById = async (checkListId, updateBody) => {
   const checkList = await getCheckListById(checkListId);
   if (!checkList) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'CheckList not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Check List not found');
   }
   Object.assign(checkList, updateBody);
   await checkList.save();
@@ -55,7 +55,7 @@ const updateCheckListById = async (checkListId, updateBody) => {
 const deleteCheckListById = async (checkListId) => {
   const checkList = await getCheckListById(checkListId);
   if (!checkList) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'CheckList not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Check List not found');
   }
   await checkList.remove();
   return checkList;
@@ -70,6 +70,24 @@ const deleteAllCheckList = async () => {
   return checkList;
 };
 
+/**
+ * Change checkList Status by id
+ * @param {ObjectId} checkListId
+ * @param {Object} updateBody
+ * @returns {Promise<CheckList>}
+ */
+const changeCheckListStatus = async (checkListId, updateBody) => {
+  const checkList = await CheckList.findByIdAndUpdate(
+    checkListId,
+    { $set: updateBody },
+    { runValidators: true, new: true, useFindAndModify: false }
+  );
+  if (!checkList) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Check List not found');
+  }
+  return checkList;
+};
+
 module.exports = {
   createCheckList,
   getAllCheckLists,
@@ -77,4 +95,5 @@ module.exports = {
   updateCheckListById,
   deleteCheckListById,
   deleteAllCheckList,
+  changeCheckListStatus,
 };

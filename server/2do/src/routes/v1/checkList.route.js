@@ -8,6 +8,10 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 const router = express.Router();
 
 router
+  .route('/changeCheckListStatus/:checkListId')
+  .patch(auth(), validate(checkListValidation.changeCheckListStatus), checkListController.changeCheckListStatus);
+
+router
   .route('/')
   .post(
     auth(),

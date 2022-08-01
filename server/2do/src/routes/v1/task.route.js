@@ -8,6 +8,10 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 const router = express.Router();
 
 router
+  .route('/changeTaskStatus/:taskId')
+  .patch(auth(), validate(taskValidation.changeTaskStatus), taskController.changeTaskStatus);
+
+router
   .route('/')
   .post(
     auth(),

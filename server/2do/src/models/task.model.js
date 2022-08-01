@@ -49,7 +49,7 @@ const taskSchema = mongoose.Schema(
 taskSchema.plugin(toJSON);
 
 // populate cardColor
-taskSchema.pre(['find', 'findOne'], function (next) {
+taskSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
   this.populate(['category', 'cardColor']);
   next();
 });

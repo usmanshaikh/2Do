@@ -36,6 +36,11 @@ const deleteAllTask = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const changeTaskStatus = catchAsync(async (req, res) => {
+  const task = await taskService.changeTaskStatus(req.params.taskId, req.body);
+  res.send(task);
+});
+
 module.exports = {
   createTask,
   getTasks,
@@ -43,4 +48,5 @@ module.exports = {
   updateTask,
   deleteTask,
   deleteAllTask,
+  changeTaskStatus,
 };

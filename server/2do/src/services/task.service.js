@@ -70,6 +70,24 @@ const deleteAllTask = async () => {
   return tasks;
 };
 
+/**
+ * Change task Status by id
+ * @param {ObjectId} taskId
+ * @param {Object} updateBody
+ * @returns {Promise<Task>}
+ */
+const changeTaskStatus = async (taskId, updateBody) => {
+  const task = await Task.findByIdAndUpdate(
+    taskId,
+    { $set: updateBody },
+    { runValidators: true, new: true, useFindAndModify: false }
+  );
+  if (!task) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+  }
+  return task;
+};
+
 module.exports = {
   createTask,
   getAllTasks,
@@ -77,4 +95,5 @@ module.exports = {
   updateTaskById,
   deleteTaskById,
   deleteAllTask,
+  changeTaskStatus,
 };

@@ -37,9 +37,19 @@ const deleteCheckList = {
   }),
 };
 
+const changeCheckListStatus = {
+  params: Joi.object().keys({
+    checkListId: Joi.string().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    isCompleted: Joi.boolean().required(),
+  }),
+};
+
 module.exports = {
   createCheckList,
   getCheckList,
   updateCheckList,
   deleteCheckList,
+  changeCheckListStatus,
 };

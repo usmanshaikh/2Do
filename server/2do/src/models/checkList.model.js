@@ -63,7 +63,7 @@ const checkListSchema = mongoose.Schema(
 checkListSchema.plugin(toJSON);
 
 // populate cardColor
-checkListSchema.pre(['find', 'findOne'], function (next) {
+checkListSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
   this.populate(['category', 'cardColor']);
   next();
 });

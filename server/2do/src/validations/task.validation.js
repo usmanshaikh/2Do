@@ -33,9 +33,19 @@ const deleteTask = {
   }),
 };
 
+const changeTaskStatus = {
+  params: Joi.object().keys({
+    taskId: Joi.string().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    isCompleted: Joi.boolean().required(),
+  }),
+};
+
 module.exports = {
   createTask,
   getTask,
   updateTask,
   deleteTask,
+  changeTaskStatus,
 };
