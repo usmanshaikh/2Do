@@ -12,8 +12,8 @@ const getAllCategory = catchAsync(async (req, res) => {
   res.send(category);
 });
 
-const categoryWithTaskAndCheckListCount = catchAsync(async (req, res) => {
-  const category = await categoryService.categoryWithTaskAndCheckListCount();
+const categoryWithTaskAndChecklistCount = catchAsync(async (req, res) => {
+  const category = await categoryService.categoryWithTaskAndChecklistCount();
   res.send(category);
 });
 
@@ -38,5 +38,5 @@ module.exports = {
   updateCategory,
   deleteCategory,
   deleteAllCategory,
-  categoryWithTaskAndCheckListCount,
+  categoryWithTaskAndChecklistCount,
 };

@@ -18,7 +18,7 @@ router
   .get(auth(), validate(categoryValidation.getCategory), categoryController.getAllCategory);
 
 router
-  .route('/withTaskAndCheckListCount')
+  .route('/withTaskAndChecklistCount')
   .get(auth(), validate(categoryValidation.getCategory), categoryController.getAllCategory);
 
 router
@@ -31,7 +31,7 @@ router
   )
   .delete(auth(), validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
 
-router.route('/categoryWithTaskAndCheckListCount').get(auth(), categoryController.categoryWithTaskAndCheckListCount);
+router.route('/categoryWithTaskAndChecklistCount').get(auth(), categoryController.categoryWithTaskAndChecklistCount);
 
 // Use this route only for while development purpose
 router.route('/').delete(auth(), categoryController.deleteAllCategory);

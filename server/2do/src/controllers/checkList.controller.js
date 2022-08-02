@@ -1,52 +1,52 @@
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { checkListService } = require('../services');
+const { checklistService } = require('../services');
 
-const createCheckList = catchAsync(async (req, res) => {
-  const checkList = await checkListService.createCheckList(req.body);
-  res.status(httpStatus.CREATED).send(checkList);
+const createChecklist = catchAsync(async (req, res) => {
+  const checklist = await checklistService.createChecklist(req.body);
+  res.status(httpStatus.CREATED).send(checklist);
 });
 
-const getCheckLists = catchAsync(async (req, res) => {
-  const checkLists = await checkListService.getAllCheckLists();
-  res.send(checkLists);
+const getChecklists = catchAsync(async (req, res) => {
+  const checklists = await checklistService.getAllChecklists();
+  res.send(checklists);
 });
 
-const getCheckList = catchAsync(async (req, res) => {
-  const checkList = await checkListService.getCheckListById(req.params.checkListId);
-  if (!checkList) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'CheckList not found');
+const getChecklist = catchAsync(async (req, res) => {
+  const checklist = await checklistService.getChecklistById(req.params.checklistId);
+  if (!checklist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
-  res.send(checkList);
+  res.send(checklist);
 });
 
-const updateCheckList = catchAsync(async (req, res) => {
-  const checkList = await checkListService.updateCheckListById(req.params.checkListId, req.body);
-  res.send(checkList);
+const updateChecklist = catchAsync(async (req, res) => {
+  const checklist = await checklistService.updateChecklistById(req.params.checklistId, req.body);
+  res.send(checklist);
 });
 
-const deleteCheckList = catchAsync(async (req, res) => {
-  await checkListService.deleteCheckListById(req.params.checkListId);
+const deleteChecklist = catchAsync(async (req, res) => {
+  await checklistService.deleteChecklistById(req.params.checklistId);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-const deleteAllCheckList = catchAsync(async (req, res) => {
-  await checkListService.deleteAllCheckList();
+const deleteAllChecklist = catchAsync(async (req, res) => {
+  await checklistService.deleteAllChecklist();
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-const changeCheckListStatus = catchAsync(async (req, res) => {
-  const checkList = await checkListService.changeCheckListStatus(req.params.checkListId, req.body);
-  res.send(checkList);
+const changeChecklistStatus = catchAsync(async (req, res) => {
+  const checklist = await checklistService.changeChecklistStatus(req.params.checklistId, req.body);
+  res.send(checklist);
 });
 
 module.exports = {
-  createCheckList,
-  getCheckLists,
-  getCheckList,
-  updateCheckList,
-  deleteCheckList,
-  deleteAllCheckList,
-  changeCheckListStatus,
+  createChecklist,
+  getChecklists,
+  getChecklist,
+  updateChecklist,
+  deleteChecklist,
+  deleteAllChecklist,
+  changeChecklistStatus,
 };

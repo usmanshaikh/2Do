@@ -1,9 +1,9 @@
 const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
-const checkList = {
+const checklist = {
   title: Joi.string().required(),
-  checkListItems: Joi.array().items({
+  checklistItems: Joi.array().items({
     isChecked: Joi.boolean().required(),
     text: Joi.string().required(),
   }),
@@ -14,32 +14,32 @@ const checkList = {
   isCompleted: Joi.boolean().required(),
 };
 
-const createCheckList = {
-  body: Joi.object().keys(checkList),
+const createChecklist = {
+  body: Joi.object().keys(checklist),
 };
 
-const getCheckList = {
+const getChecklist = {
   params: Joi.object().keys({
-    checkListId: Joi.string().custom(objectId),
+    checklistId: Joi.string().custom(objectId),
   }),
 };
 
-const updateCheckList = {
+const updateChecklist = {
   params: Joi.object().keys({
-    checkListId: Joi.required().custom(objectId),
+    checklistId: Joi.required().custom(objectId),
   }),
-  body: Joi.object().keys(checkList),
+  body: Joi.object().keys(checklist),
 };
 
-const deleteCheckList = {
+const deleteChecklist = {
   params: Joi.object().keys({
-    checkListId: Joi.string().custom(objectId),
+    checklistId: Joi.string().custom(objectId),
   }),
 };
 
-const changeCheckListStatus = {
+const changeChecklistStatus = {
   params: Joi.object().keys({
-    checkListId: Joi.string().custom(objectId),
+    checklistId: Joi.required().custom(objectId),
   }),
   body: Joi.object().keys({
     isCompleted: Joi.boolean().required(),
@@ -47,9 +47,9 @@ const changeCheckListStatus = {
 };
 
 module.exports = {
-  createCheckList,
-  getCheckList,
-  updateCheckList,
-  deleteCheckList,
-  changeCheckListStatus,
+  createChecklist,
+  getChecklist,
+  updateChecklist,
+  deleteChecklist,
+  changeChecklistStatus,
 };

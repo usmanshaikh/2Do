@@ -1,99 +1,99 @@
 const httpStatus = require('http-status');
-const { CheckList } = require('../models');
+const { Checklist } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
- * Create a checkList
- * @param {Object} checkListBody
- * @returns {Promise<CheckList>}
+ * Create a checklist
+ * @param {Object} checklistBody
+ * @returns {Promise<Checklist>}
  */
-const createCheckList = async (checkListBody) => {
-  let checkLists = await CheckList.create(checkListBody);
-  checkLists = await checkLists.populate(['category', 'cardColor']).execPopulate();
-  return checkLists;
+const createChecklist = async (checklistBody) => {
+  let checklists = await Checklist.create(checklistBody);
+  checklists = await checklists.populate(['category', 'cardColor']).execPopulate();
+  return checklists;
 };
 
 /**
- * Get all checkList
- * @returns {Promise<CheckList>}
+ * Get all checklist
+ * @returns {Promise<Checklist>}
  */
-const getAllCheckLists = async () => {
-  const checkLists = await CheckList.find();
-  return checkLists;
+const getAllChecklists = async () => {
+  const checklists = await Checklist.find();
+  return checklists;
 };
 
 /**
- * Get checkList by id
+ * Get checklist by id
  * @param {ObjectId} id
- * @returns {Promise<CheckList>}
+ * @returns {Promise<Checklist>}
  */
-const getCheckListById = async (id) => {
-  return CheckList.findById(id);
+const getChecklistById = async (id) => {
+  return Checklist.findById(id);
 };
 
 /**
- * Update checkList by id
- * @param {ObjectId} checkListId
+ * Update checklist by id
+ * @param {ObjectId} checklistId
  * @param {Object} updateBody
- * @returns {Promise<CheckList>}
+ * @returns {Promise<Checklist>}
  */
-const updateCheckListById = async (checkListId, updateBody) => {
-  const checkList = await getCheckListById(checkListId);
-  if (!checkList) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Check List not found');
+const updateChecklistById = async (checklistId, updateBody) => {
+  const checklist = await getChecklistById(checklistId);
+  if (!checklist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
-  Object.assign(checkList, updateBody);
-  await checkList.save();
-  return checkList;
+  Object.assign(checklist, updateBody);
+  await checklist.save();
+  return checklist;
 };
 
 /**
- * Delete checkList by id
- * @param {ObjectId} checkListId
- * @returns {Promise<CheckList>}
+ * Delete checklist by id
+ * @param {ObjectId} checklistId
+ * @returns {Promise<Checklist>}
  */
-const deleteCheckListById = async (checkListId) => {
-  const checkList = await getCheckListById(checkListId);
-  if (!checkList) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Check List not found');
+const deleteChecklistById = async (checklistId) => {
+  const checklist = await getChecklistById(checklistId);
+  if (!checklist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
-  await checkList.remove();
-  return checkList;
+  await checklist.remove();
+  return checklist;
 };
 
 /**
- * Delete all checkList
- * @returns {Promise<CheckList>}
+ * Delete all checklist
+ * @returns {Promise<Checklist>}
  */
-const deleteAllCheckList = async () => {
-  const checkList = await CheckList.deleteMany({});
-  return checkList;
+const deleteAllChecklist = async () => {
+  const checklist = await Checklist.deleteMany({});
+  return checklist;
 };
 
 /**
- * Change checkList Status by id
- * @param {ObjectId} checkListId
+ * Change checklist Status by id
+ * @param {ObjectId} checklistId
  * @param {Object} updateBody
- * @returns {Promise<CheckList>}
+ * @returns {Promise<Checklist>}
  */
-const changeCheckListStatus = async (checkListId, updateBody) => {
-  const checkList = await CheckList.findByIdAndUpdate(
-    checkListId,
+const changeChecklistStatus = async (checklistId, updateBody) => {
+  const checklist = await Checklist.findByIdAndUpdate(
+    checklistId,
     { $set: updateBody },
     { runValidators: true, new: true, useFindAndModify: false }
   );
-  if (!checkList) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Check List not found');
+  if (!checklist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
-  return checkList;
+  return checklist;
 };
 
 module.exports = {
-  createCheckList,
-  getAllCheckLists,
-  getCheckListById,
-  updateCheckListById,
-  deleteCheckListById,
-  deleteAllCheckList,
-  changeCheckListStatus,
+  createChecklist,
+  getAllChecklists,
+  getChecklistById,
+  updateChecklistById,
+  deleteChecklistById,
+  deleteAllChecklist,
+  changeChecklistStatus,
 };

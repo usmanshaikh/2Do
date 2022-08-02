@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Category, Task, CheckList } = require('../models');
+const { Category, Task, Checklist } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -27,9 +27,9 @@ const getAllCategory = async (query) => {
 };
 
 /**
- * Get category with task & checkList counts
+ * Get category with task & checklist counts
  */
-const categoryWithTaskAndCheckListCount = async () => {
+const categoryWithTaskAndChecklistCount = async () => {
   let groupData = await Category.aggregate([
     {
       $lookup: {
@@ -44,26 +44,26 @@ const categoryWithTaskAndCheckListCount = async () => {
         from: 'checklists',
         localField: '_id',
         foreignField: 'category',
-        as: 'checkListData',
+        as: 'checklistData',
       },
     },
     {
       $facet: {
-        checkListArray: [
-          { $unwind: '$checkListData' },
+        checklistArray: [
+          { $unwind: '$checklistData' },
           {
             $lookup: {
               from: 'categories',
-              localField: 'checkListData.category',
+              localField: 'checklistData.category',
               foreignField: '_id',
               as: 'categoryData',
             },
           },
           {
             $group: {
-              _id: '$checkListData.category',
+              _id: '$checklistData.category',
               categoryName: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
-              checkListCount: { $sum: 1 },
+              checklistCount: { $sum: 1 },
             },
           },
         ],
@@ -90,7 +90,7 @@ const categoryWithTaskAndCheckListCount = async () => {
     {
       $project: {
         combine: {
-          $concatArrays: ['$checkListArray', '$taskArray'],
+          $concatArrays: ['$checklistArray', '$taskArray'],
         },
       },
     },
@@ -101,8 +101,8 @@ const categoryWithTaskAndCheckListCount = async () => {
       $group: {
         _id: '$combine._id',
         categoryName: { $first: '$combine.categoryName' },
-        checkListCount: {
-          $sum: '$combine.checkListCount',
+        checklistCount: {
+          $sum: '$combine.checklistCount',
         },
         taskCount: {
           $sum: '$combine.taskCount',
@@ -168,5 +168,5 @@ module.exports = {
   updateCategoryById,
   deleteCategoryById,
   deleteAllCategory,
-  categoryWithTaskAndCheckListCount,
+  categoryWithTaskAndChecklistCount,
 };

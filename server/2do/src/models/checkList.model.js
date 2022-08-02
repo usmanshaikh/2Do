@@ -3,14 +3,14 @@ const { toJSON } = require('./plugins');
 const CardColor = require('./cardColor.model');
 const Category = require('./category.model');
 
-const checkListSchema = mongoose.Schema(
+const checklistSchema = mongoose.Schema(
   {
     title: {
       type: String,
       trim: true,
       required: true,
     },
-    checkListItems: [
+    checklistItems: [
       {
         isChecked: {
           type: Boolean,
@@ -51,7 +51,7 @@ const checkListSchema = mongoose.Schema(
     type: {
       type: String,
       required: true,
-      default: 'Check List',
+      default: 'Checklist',
     },
   },
   {
@@ -60,17 +60,17 @@ const checkListSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-checkListSchema.plugin(toJSON);
+checklistSchema.plugin(toJSON);
 
 // populate cardColor
-checkListSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
+checklistSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
   this.populate(['category', 'cardColor']);
   next();
 });
 
 /**
- * @typedef CheckList
+ * @typedef Checklist
  */
-const CheckList = mongoose.model('CheckList', checkListSchema);
+const Checklist = mongoose.model('Checklist', checklistSchema);
 
-module.exports = CheckList;
+module.exports = Checklist;

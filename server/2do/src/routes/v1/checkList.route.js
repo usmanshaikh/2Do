@@ -1,38 +1,38 @@
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
-const checkListValidation = require('../../validations/checkList.validation');
-const checkListController = require('../../controllers/checkList.controller');
+const checklistValidation = require('../../validations/checklist.validation');
+const checklistController = require('../../controllers/checklist.controller');
 const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 
 const router = express.Router();
 
 router
-  .route('/changeCheckListStatus/:checkListId')
-  .patch(auth(), validate(checkListValidation.changeCheckListStatus), checkListController.changeCheckListStatus);
+  .route('/changeChecklistStatus/:checklistId')
+  .patch(auth(), validate(checklistValidation.changeChecklistStatus), checklistController.changeChecklistStatus);
 
 router
   .route('/')
   .post(
     auth(),
-    validate(checkListValidation.createCheckList),
+    validate(checklistValidation.createChecklist),
     isDocIdExits({ category: true, cardColor: true }),
-    checkListController.createCheckList
+    checklistController.createChecklist
   )
-  .get(auth(), checkListController.getCheckLists);
+  .get(auth(), checklistController.getChecklists);
 
 router
-  .route('/:checkListId')
-  .get(auth(), validate(checkListValidation.getCheckList), checkListController.getCheckList)
+  .route('/:checklistId')
+  .get(auth(), validate(checklistValidation.getChecklist), checklistController.getChecklist)
   .patch(
     auth(),
-    validate(checkListValidation.updateCheckList),
+    validate(checklistValidation.updateChecklist),
     isDocIdExits({ category: true, cardColor: true }),
-    checkListController.updateCheckList
+    checklistController.updateChecklist
   )
-  .delete(auth(), validate(checkListValidation.deleteCheckList), checkListController.deleteCheckList);
+  .delete(auth(), validate(checklistValidation.deleteChecklist), checklistController.deleteChecklist);
 
 // Use this route only for while development purpose
-router.route('/').delete(auth(), checkListController.deleteAllCheckList);
+router.route('/').delete(auth(), checklistController.deleteAllChecklist);
 
 module.exports = router;
