@@ -9,7 +9,7 @@ const createChecklist = catchAsync(async (req, res) => {
 });
 
 const getChecklists = catchAsync(async (req, res) => {
-  const checklists = await checklistService.getAllChecklists(req.query);
+  const checklists = await checklistService.getAllChecklists();
   res.send(checklists);
 });
 
@@ -41,6 +41,11 @@ const changeChecklistStatus = catchAsync(async (req, res) => {
   res.send(checklist);
 });
 
+const allChecklists = catchAsync(async (req, res) => {
+  const checklist = await checklistService.allChecklists(req.body);
+  res.send(checklist);
+});
+
 module.exports = {
   createChecklist,
   getChecklists,
@@ -49,4 +54,5 @@ module.exports = {
   deleteChecklist,
   deleteAllChecklist,
   changeChecklistStatus,
+  allChecklists,
 };

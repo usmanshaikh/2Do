@@ -9,7 +9,7 @@ const checklist = {
   }),
   category: Joi.required().custom(objectId),
   cardColor: Joi.required().custom(objectId),
-  setDateAndTime: Joi.date().required(),
+  dateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
   isCompleted: Joi.boolean().required(),
 };
@@ -18,9 +18,10 @@ const createChecklist = {
   body: Joi.object().keys(checklist),
 };
 
-const getChecklists = {
-  query: Joi.object().keys({
-    category: Joi.custom(objectId),
+const allChecklists = {
+  body: Joi.object().keys({
+    category: Joi.string().custom(objectId),
+    dateAndTime: Joi.date(),
     isCompleted: Joi.boolean(),
   }),
 };
@@ -55,7 +56,7 @@ const changeChecklistStatus = {
 
 module.exports = {
   createChecklist,
-  getChecklists,
+  allChecklists,
   getChecklist,
   updateChecklist,
   deleteChecklist,

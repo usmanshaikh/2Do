@@ -18,10 +18,7 @@ const createChecklist = async (checklistBody) => {
  * @returns {Promise<Checklist>}
  */
 const getAllChecklists = async (query) => {
-  const checklists = await Checklist.find(query);
-  if (!checklists || !checklists.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
-  }
+  const checklists = await Checklist.find();
   return checklists;
 };
 
@@ -91,6 +88,23 @@ const changeChecklistStatus = async (checklistId, updateBody) => {
   return checklist;
 };
 
+/**
+ * All checklist with filter query (category, isCompleted, dateAndTime)
+ * @param {Object} query
+ * @returns {Promise<Checklist>}
+ */
+const allChecklists = async (query) => {
+  if (query.dateAndTime) {
+    const date = query.dateAndTime;
+    query.dateAndTime = { $lt: new Date(date) };
+  }
+  const checklist = await Checklist.find(query);
+  if (!checklist || !checklist.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
+  }
+  return checklist;
+};
+
 module.exports = {
   createChecklist,
   getAllChecklists,
@@ -99,4 +113,5 @@ module.exports = {
   deleteChecklistById,
   deleteAllChecklist,
   changeChecklistStatus,
+  allChecklists,
 };

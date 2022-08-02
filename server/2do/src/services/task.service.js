@@ -18,10 +18,7 @@ const createTask = async (taskBody) => {
  * @returns {Promise<Task>}
  */
 const getAllTasks = async (query) => {
-  const tasks = await Task.find(query);
-  if (!tasks || !tasks.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
-  }
+  const tasks = await Task.find();
   return tasks;
 };
 
@@ -91,6 +88,23 @@ const changeTaskStatus = async (taskId, updateBody) => {
   return task;
 };
 
+/**
+ * All task with filter query (category, isCompleted, dateAndTime)
+ * @param {Object} query
+ * @returns {Promise<Task>}
+ */
+const allTasks = async (query) => {
+  if (query.dateAndTime) {
+    const date = query.dateAndTime;
+    query.dateAndTime = { $lt: new Date(date) };
+  }
+  const tasks = await Task.find(query);
+  if (!tasks || !tasks.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
+  }
+  return tasks;
+};
+
 module.exports = {
   createTask,
   getAllTasks,
@@ -99,4 +113,5 @@ module.exports = {
   deleteTaskById,
   deleteAllTask,
   changeTaskStatus,
+  allTasks,
 };

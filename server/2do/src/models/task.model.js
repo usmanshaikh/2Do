@@ -20,7 +20,7 @@ const taskSchema = mongoose.Schema(
       ref: CardColor,
       required: true,
     },
-    setDateAndTime: {
+    dateAndTime: {
       type: Date,
       required: true,
     },

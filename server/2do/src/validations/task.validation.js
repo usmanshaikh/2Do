@@ -5,7 +5,7 @@ const task = {
   description: Joi.string().required(),
   category: Joi.required().custom(objectId),
   cardColor: Joi.required().custom(objectId),
-  setDateAndTime: Joi.date().required(),
+  dateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
   isCompleted: Joi.boolean().required(),
 };
@@ -14,9 +14,10 @@ const createTask = {
   body: Joi.object().keys(task),
 };
 
-const getTasks = {
-  query: Joi.object().keys({
-    category: Joi.custom(objectId),
+const allTasks = {
+  body: Joi.object().keys({
+    category: Joi.string().custom(objectId),
+    dateAndTime: Joi.date(),
     isCompleted: Joi.boolean(),
   }),
 };
@@ -51,7 +52,7 @@ const changeTaskStatus = {
 
 module.exports = {
   createTask,
-  getTasks,
+  allTasks,
   getTask,
   updateTask,
   deleteTask,

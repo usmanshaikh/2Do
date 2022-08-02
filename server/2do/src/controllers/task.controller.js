@@ -9,7 +9,7 @@ const createTask = catchAsync(async (req, res) => {
 });
 
 const getTasks = catchAsync(async (req, res) => {
-  const tasks = await taskService.getAllTasks(req.query);
+  const tasks = await taskService.getAllTasks();
   res.send(tasks);
 });
 
@@ -41,6 +41,11 @@ const changeTaskStatus = catchAsync(async (req, res) => {
   res.send(task);
 });
 
+const allTasks = catchAsync(async (req, res) => {
+  const tasks = await taskService.allTasks(req.body);
+  res.send(tasks);
+});
+
 module.exports = {
   createTask,
   getTasks,
@@ -49,4 +54,5 @@ module.exports = {
   deleteTask,
   deleteAllTask,
   changeTaskStatus,
+  allTasks,
 };

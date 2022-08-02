@@ -11,6 +11,8 @@ router
   .route('/changeTaskStatus/:taskId')
   .patch(auth(), validate(taskValidation.changeTaskStatus), taskController.changeTaskStatus);
 
+router.route('/allTasks').post(auth(), validate(taskValidation.allTasks), taskController.allTasks);
+
 router
   .route('/')
   .post(
@@ -19,7 +21,7 @@ router
     isDocIdExits({ category: true, cardColor: true }),
     taskController.createTask
   )
-  .get(auth(), validate(taskValidation.getTasks), taskController.getTasks);
+  .get(auth(), taskController.getTasks);
 
 router
   .route('/:taskId')

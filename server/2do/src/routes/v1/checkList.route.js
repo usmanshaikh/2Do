@@ -11,6 +11,8 @@ router
   .route('/changeChecklistStatus/:checklistId')
   .patch(auth(), validate(checklistValidation.changeChecklistStatus), checklistController.changeChecklistStatus);
 
+router.route('/allChecklists').post(auth(), validate(checklistValidation.allChecklists), checklistController.allChecklists);
+
 router
   .route('/')
   .post(
@@ -19,7 +21,7 @@ router
     isDocIdExits({ category: true, cardColor: true }),
     checklistController.createChecklist
   )
-  .get(auth(), validate(checklistValidation.getChecklists), checklistController.getChecklists);
+  .get(auth(), checklistController.getChecklists);
 
 router
   .route('/:checklistId')
