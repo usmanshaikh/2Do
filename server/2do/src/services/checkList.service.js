@@ -17,8 +17,11 @@ const createChecklist = async (checklistBody) => {
  * Get all checklist
  * @returns {Promise<Checklist>}
  */
-const getAllChecklists = async () => {
-  const checklists = await Checklist.find();
+const getAllChecklists = async (query) => {
+  const checklists = await Checklist.find(query);
+  if (!checklists || !checklists.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
+  }
   return checklists;
 };
 

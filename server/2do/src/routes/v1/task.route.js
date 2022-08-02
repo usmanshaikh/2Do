@@ -19,7 +19,7 @@ router
     isDocIdExits({ category: true, cardColor: true }),
     taskController.createTask
   )
-  .get(auth(), taskController.getTasks);
+  .get(auth(), validate(taskValidation.getTasks), taskController.getTasks);
 
 router
   .route('/:taskId')

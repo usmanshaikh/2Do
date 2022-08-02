@@ -19,7 +19,7 @@ router
     isDocIdExits({ category: true, cardColor: true }),
     checklistController.createChecklist
   )
-  .get(auth(), checklistController.getChecklists);
+  .get(auth(), validate(checklistValidation.getChecklists), checklistController.getChecklists);
 
 router
   .route('/:checklistId')

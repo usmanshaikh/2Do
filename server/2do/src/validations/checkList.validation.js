@@ -18,6 +18,13 @@ const createChecklist = {
   body: Joi.object().keys(checklist),
 };
 
+const getChecklists = {
+  query: Joi.object().keys({
+    category: Joi.custom(objectId),
+    isCompleted: Joi.boolean(),
+  }),
+};
+
 const getChecklist = {
   params: Joi.object().keys({
     checklistId: Joi.string().custom(objectId),
@@ -48,6 +55,7 @@ const changeChecklistStatus = {
 
 module.exports = {
   createChecklist,
+  getChecklists,
   getChecklist,
   updateChecklist,
   deleteChecklist,

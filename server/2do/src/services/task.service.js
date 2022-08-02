@@ -17,8 +17,11 @@ const createTask = async (taskBody) => {
  * Get all task
  * @returns {Promise<Task>}
  */
-const getAllTasks = async () => {
-  const tasks = await Task.find();
+const getAllTasks = async (query) => {
+  const tasks = await Task.find(query);
+  if (!tasks || !tasks.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
+  }
   return tasks;
 };
 

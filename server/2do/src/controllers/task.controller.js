@@ -9,7 +9,7 @@ const createTask = catchAsync(async (req, res) => {
 });
 
 const getTasks = catchAsync(async (req, res) => {
-  const tasks = await taskService.getAllTasks();
+  const tasks = await taskService.getAllTasks(req.query);
   res.send(tasks);
 });
 

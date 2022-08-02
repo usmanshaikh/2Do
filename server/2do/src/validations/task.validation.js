@@ -14,6 +14,13 @@ const createTask = {
   body: Joi.object().keys(task),
 };
 
+const getTasks = {
+  query: Joi.object().keys({
+    category: Joi.custom(objectId),
+    isCompleted: Joi.boolean(),
+  }),
+};
+
 const getTask = {
   params: Joi.object().keys({
     taskId: Joi.string().custom(objectId),
@@ -44,6 +51,7 @@ const changeTaskStatus = {
 
 module.exports = {
   createTask,
+  getTasks,
   getTask,
   updateTask,
   deleteTask,

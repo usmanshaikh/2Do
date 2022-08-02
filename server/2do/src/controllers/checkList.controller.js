@@ -9,7 +9,7 @@ const createChecklist = catchAsync(async (req, res) => {
 });
 
 const getChecklists = catchAsync(async (req, res) => {
-  const checklists = await checklistService.getAllChecklists();
+  const checklists = await checklistService.getAllChecklists(req.query);
   res.send(checklists);
 });
 
