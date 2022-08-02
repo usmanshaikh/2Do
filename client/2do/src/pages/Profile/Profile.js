@@ -73,7 +73,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="taskInfo">
-            <span className="title">Check List</span>
+            <span className="title">Checklist</span>
             <div className="flexContainer">
               <span className="label">Create</span>
               <span className="count">106</span>
@@ -100,7 +100,7 @@ const Profile = () => {
                 <div className="chartBox">
                   <StatisticChart taskCompleted={30} taskPending={80} />
                 </div>
-                <span className="label">Check List</span>
+                <span className="label">Checklist</span>
                 <span className="label mg-0">Completed</span>
               </div>
             </div>

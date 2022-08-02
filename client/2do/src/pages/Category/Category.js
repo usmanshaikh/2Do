@@ -14,21 +14,21 @@ const CATEGORY_ITEM = [
     color: "#728cfb",
     title: "Personal",
     taskCount: 10,
-    checkListCount: 20,
+    checklistCount: 20,
     id: 1,
   },
   {
     color: "#ed467e",
     title: "Home",
     taskCount: 7,
-    checkListCount: 3,
+    checklistCount: 3,
     id: 2,
   },
   {
     color: "#ff6900",
     title: "Office",
     taskCount: 19,
-    checkListCount: 8,
+    checklistCount: 8,
     id: 3,
   },
 ];
@@ -66,7 +66,7 @@ const Category = () => {
               <CategoryCard
                 title={item.title}
                 taskCount={item.taskCount}
-                checkListCount={item.checkListCount}
+                checklistCount={item.checklistCount}
                 color={item.color}
                 onCategory={(data) => onMyTaskPageHandler(data)}
               />

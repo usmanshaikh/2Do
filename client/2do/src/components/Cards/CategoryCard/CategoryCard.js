@@ -5,14 +5,14 @@ import "./CategoryCard.scss";
 
 /**
  *
- * @param {{ color: string, title: string, taskCount: number, checkListCount: number, onCategory: () }} props
+ * @param {{ color: string, title: string, taskCount: number, checklistCount: number, onCategory: () }} props
  */
 
 const CategoryCard = (props) => {
-  let { color, title, taskCount, checkListCount, onCategory } = props;
+  let { color, title, taskCount, checklistCount, onCategory } = props;
 
   taskCount = addLeadingZero(taskCount);
-  checkListCount = addLeadingZero(checkListCount);
+  checklistCount = addLeadingZero(checklistCount);
 
   return (
     <>
@@ -25,7 +25,7 @@ const CategoryCard = (props) => {
               <span className="count">{taskCount}</span> Tasks
             </span>
             <span className="count-info">
-              <span className="count">{checkListCount}</span> Check List
+              <span className="count">{checklistCount}</span> Checklist
             </span>
           </div>
         </CardActionArea>

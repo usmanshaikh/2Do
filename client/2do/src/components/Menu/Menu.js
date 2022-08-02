@@ -12,8 +12,8 @@ const MENU_ITEM = [
   },
   {
     icon: "checklist",
-    name: "Check List",
-    url: Path.CHECK_LIST,
+    name: "Checklist",
+    url: Path.CHECKLIST,
     position: 2,
   },
   {

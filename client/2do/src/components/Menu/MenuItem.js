@@ -21,7 +21,7 @@ const MenuItem = (props) => {
   }, [location]);
 
   const onNavigateHandler = (url, name) => {
-    if (url === Path.TASK || url === Path.CHECK_LIST) {
+    if (url === Path.TASK || url === Path.CHECKLIST) {
       navigateWithParams(`/${url}`, CFBY_state.categoryBy, CFBY_state.filterBy);
     } else if (url) {
       navigate(`/${url}`);

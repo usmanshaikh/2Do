@@ -1,20 +1,20 @@
 import React from "react";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
-import CheckListCard from "../../components/Cards/CheckListCard/CheckListCard";
+import ChecklistCard from "../../components/Cards/ChecklistCard/ChecklistCard";
 import useSetCategoryAndFilterBy from "../../utils/hooks/useSetCategoryAndFilterBy";
-import "./CheckList.scss";
+import "./Checklist.scss";
 
-const CheckList = () => {
+const Checklist = () => {
   const setHeaderTitle = useSetCategoryAndFilterBy();
 
   return (
     <>
       <DatePickerControl />
-      <div className="checkListPageWrapper">
-        <CheckListCard />
+      <div className="checklistPageWrapper">
+        <ChecklistCard />
       </div>
     </>
   );
 };
 
-export default CheckList;
+export default Checklist;

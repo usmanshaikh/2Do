@@ -4,19 +4,19 @@ import { Icon, CardActionArea, Card } from "@mui/material";
 import { truncateString } from "../../../utils/Helpers/Helpers";
 import DateTime from "../../DateTime/DateTime";
 import * as Path from "../../../utils/constants/routePath.constants";
-import "./CheckListCard.scss";
+import "./ChecklistCard.scss";
 
-const CheckListCard = () => {
+const ChecklistCard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const onEditCheckListHandler = () => {
-    navigate(`${location.pathname}/${Path.ADD_EDIT_CHECK_LIST}`);
+  const onEditChecklistHandler = () => {
+    navigate(`${location.pathname}/${Path.ADD_EDIT_CHECKLIST}`);
   };
 
   return (
     <>
-      <Card className="checkListCardComponentWrapper" onClick={onEditCheckListHandler}>
+      <Card className="checklistCardComponentWrapper" onClick={onEditChecklistHandler}>
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#eb144c" }}></span>
@@ -55,7 +55,7 @@ const CheckListCard = () => {
           </div>
         </CardActionArea>
       </Card>
-      <Card className="checkListCardComponentWrapper" onClick={onEditCheckListHandler}>
+      <Card className="checklistCardComponentWrapper" onClick={onEditChecklistHandler}>
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#0693e3" }}></span>
@@ -81,7 +81,7 @@ const CheckListCard = () => {
           </div>
         </CardActionArea>
       </Card>
-      <Card className="checkListCardComponentWrapper" onClick={onEditCheckListHandler}>
+      <Card className="checklistCardComponentWrapper" onClick={onEditChecklistHandler}>
         <CardActionArea>
           <div className="cardWrap">
             <span className="bgLine" style={{ backgroundColor: "#00d084" }}></span>
@@ -124,4 +124,4 @@ const CheckListCard = () => {
   );
 };
 
-export default CheckListCard;
+export default ChecklistCard;

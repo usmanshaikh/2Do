@@ -11,8 +11,8 @@ const AddTaskModal = (props) => {
   const handleListItemClick = (url) => {
     if (url === Path.ADD_EDIT_TASK) {
       navigate(`/${Path.TASK}/${Path.ADD_EDIT_TASK}`);
-    } else if (url === Path.ADD_EDIT_CHECK_LIST) {
-      navigate(`/${Path.CHECK_LIST}/${Path.ADD_EDIT_CHECK_LIST}`);
+    } else if (url === Path.ADD_EDIT_CHECKLIST) {
+      navigate(`/${Path.CHECKLIST}/${Path.ADD_EDIT_CHECKLIST}`);
     }
     onClose();
   };
@@ -23,8 +23,8 @@ const AddTaskModal = (props) => {
       url: Path.ADD_EDIT_TASK,
     },
     {
-      title: "Add Check List",
-      url: Path.ADD_EDIT_CHECK_LIST,
+      title: "Add Checklist",
+      url: Path.ADD_EDIT_CHECKLIST,
     },
   ];
 

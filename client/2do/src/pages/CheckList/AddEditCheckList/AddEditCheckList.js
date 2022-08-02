@@ -11,7 +11,7 @@ import * as Msg from "../../../utils/constants/message.constants";
 import GetAlert from "../../../components/GetAlert/GetAlert";
 import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
 import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
-import "./AddEditCheckList.scss";
+import "./AddEditChecklist.scss";
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
 
@@ -19,7 +19,7 @@ const validationSchema = yup.object({
   title: yup.string().required(Msg.TITLE_REQUIRED),
 });
 
-const AddEditCheckList = () => {
+const AddEditChecklist = () => {
   const [cardColor, setCardColor] = useState();
   const [alertTask, setAlertTask] = useState();
   const [category, setCategory] = useState();
@@ -29,7 +29,7 @@ const AddEditCheckList = () => {
   const formik = useFormik({
     initialValues: {
       title: "",
-      checkListItems: [
+      checklistItems: [
         {
           checked: false,
           data: "",
@@ -40,7 +40,7 @@ const AddEditCheckList = () => {
     validationSchema: validationSchema,
     onSubmit: () => {
       const initialState = {
-        message: Msg.CREATE_CHECK_LIST,
+        message: Msg.CREATE_CHECKLIST,
         onConfirm: (data) => submitFormHandler(data),
       };
       showModal(ConfirmationModal, initialState, { destroyOnClose: true });
@@ -62,7 +62,7 @@ const AddEditCheckList = () => {
     console.log({ payload });
   };
 
-  const onAddCheckListHandler = () => {};
+  const onAddChecklistHandler = () => {};
 
   const onDeleteHandler = (data) => {
     const initialState = {
@@ -82,7 +82,7 @@ const AddEditCheckList = () => {
   };
 
   const onAddItemHandler = (arrayHelper) => {
-    const path = formik.values.checkListItems;
+    const path = formik.values.checklistItems;
     let currentIdx = 1;
     if (path.length) currentIdx = path[path.length - 1].id + 1;
     const newField = {
@@ -93,15 +93,15 @@ const AddEditCheckList = () => {
     arrayHelper.push(newField);
   };
 
-  const onCheckboxHandler = (checkListItem, index) => {
-    formik.values.checkListItems.map((item) => {
-      if (item.id === checkListItem.id) {
+  const onCheckboxHandler = (checklistItem, index) => {
+    formik.values.checklistItems.map((item) => {
+      if (item.id === checklistItem.id) {
         if (item.checked) {
           item.checked = false;
-          formik.setFieldValue(`checkListItems.${index}.checked`, false);
+          formik.setFieldValue(`checklistItems.${index}.checked`, false);
         } else {
           item.checked = true;
-          formik.setFieldValue(`checkListItems.${index}.checked`, true);
+          formik.setFieldValue(`checklistItems.${index}.checked`, true);
         }
       }
     });
@@ -109,7 +109,7 @@ const AddEditCheckList = () => {
 
   return (
     <>
-      <div className="addCheckListPageWrapper">
+      <div className="addChecklistPageWrapper">
         <div className="cardWrapper">
           <div className="formWrapper">
             <form onSubmit={formik.handleSubmit}>
@@ -134,23 +134,23 @@ const AddEditCheckList = () => {
                 <div className="checkboxListWrap">
                   <FormikProvider value={formik}>
                     <FieldArray
-                      name="checkListItems"
+                      name="checklistItems"
                       render={(arrayHelper) => (
                         <>
-                          {formik.values.checkListItems && formik.values.checkListItems.length > 0
-                            ? formik.values.checkListItems.map((checkListItem, index) => (
-                                <div className="listItemWrap" key={checkListItem.id}>
+                          {formik.values.checklistItems && formik.values.checklistItems.length > 0
+                            ? formik.values.checklistItems.map((checklistItem, index) => (
+                                <div className="listItemWrap" key={checklistItem.id}>
                                   <div className="flexContainer">
                                     <div className="flexItemOne">
                                       <Checkbox
-                                        checked={checkListItem.checked}
+                                        checked={checklistItem.checked}
                                         {...label}
-                                        onChange={() => onCheckboxHandler(checkListItem, index)}
+                                        onChange={() => onCheckboxHandler(checklistItem, index)}
                                       />
                                     </div>
                                     <div className="flexItemTwo">
                                       <TextField
-                                        name={`checkListItems.${index}.data`}
+                                        name={`checklistItems.${index}.data`}
                                         fullWidth
                                         multiline
                                         placeholder="Add Item"
@@ -188,7 +188,7 @@ const AddEditCheckList = () => {
               <GetAlert onAlertTask={(data) => setAlertTask(data)} />
               <ChooseColor onChooseColor={(data) => setCardColor(data)} />
               <CustomButton name="Delete" color="danger" onClick={onDeleteHandler} />
-              <CustomButton name="Done" color="blue" type="submit" onClick={onAddCheckListHandler} />
+              <CustomButton name="Done" color="blue" type="submit" onClick={onAddChecklistHandler} />
             </form>
           </div>
         </div>
@@ -197,4 +197,4 @@ const AddEditCheckList = () => {
   );
 };
 
-export default AddEditCheckList;
+export default AddEditChecklist;

@@ -12,8 +12,8 @@ import Category from "../pages/Category/Category";
 import Profile from "../pages/Profile/Profile";
 import Walkthrough from "../pages/Walkthrough/Walkthrough";
 import NotFound from "../components/NotFound/NotFound";
-import CheckList from "../pages/CheckList/CheckList";
-import AddEditCheckList from "../pages/CheckList/AddEditCheckList/AddEditCheckList";
+import Checklist from "../pages/Checklist/Checklist";
+import AddEditChecklist from "../pages/Checklist/AddEditChecklist/AddEditChecklist";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
 
 const AppRoute = () => {
@@ -60,18 +60,18 @@ const AppRoute = () => {
           }
         />
         <Route
-          path={`/${Path.CHECK_LIST}`}
+          path={`/${Path.CHECKLIST}`}
           element={
             <RequireAuth>
-              <CheckList />
+              <Checklist />
             </RequireAuth>
           }
         />
         <Route
-          path={`/${Path.CHECK_LIST}/${Path.ADD_EDIT_CHECK_LIST}`}
+          path={`/${Path.CHECKLIST}/${Path.ADD_EDIT_CHECKLIST}`}
           element={
             <RequireAuth>
-              <AddEditCheckList />
+              <AddEditChecklist />
             </RequireAuth>
           }
         />
