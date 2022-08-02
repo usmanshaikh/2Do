@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const moment = require('moment');
 const { Task } = require('../models');
 const ApiError = require('../utils/ApiError');
 
@@ -95,8 +96,13 @@ const changeTaskStatus = async (taskId, updateBody) => {
  */
 const allTasks = async (query) => {
   if (query.dateAndTime) {
-    const date = query.dateAndTime;
-    query.dateAndTime = { $lt: new Date(date) };
+    const dt = query.dateAndTime;
+    const startOfDay = moment(dt).startOf('day').format();
+    const endOfDay = moment(dt).endOf('day').format();
+    query.dateAndTime = {
+      $gte: startOfDay,
+      $lte: endOfDay,
+    };
   }
   const tasks = await Task.find(query);
   if (!tasks || !tasks.length) {
