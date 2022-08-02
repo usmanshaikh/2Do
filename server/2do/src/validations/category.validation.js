@@ -2,7 +2,12 @@ const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
 const category = {
-  categoryName: Joi.string().required(),
+  categoryName: Joi.string()
+    .regex(/^[a-zA-Z\s]*$/)
+    .required()
+    .messages({
+      'string.pattern.base': 'categoryName can only contain letters',
+    }),
   cardColor: Joi.required().custom(objectId),
 };
 
