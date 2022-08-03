@@ -25,7 +25,7 @@ const CategoryCard = (props) => {
               <span className="count">{taskCount}</span> Tasks
             </span>
             <span className="count-info">
-              <span className="count">{checklistCount}</span> Checklist
+              <span className="count">{checklistCount}</span> Checklists
             </span>
           </div>
         </CardActionArea>
