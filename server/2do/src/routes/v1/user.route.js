@@ -3,10 +3,13 @@ const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
 const userController = require('../../controllers/user.controller');
+const uploadImage = require('../../middlewares/uploadImage');
 
 const router = express.Router();
 
 router.route('/myProfile').get(auth(), userController.myProfile);
+
+router.route('/updateMyProfile').post(auth(), uploadImage.single('image'), userController.updateMyProfile);
 
 router
   .route('/')

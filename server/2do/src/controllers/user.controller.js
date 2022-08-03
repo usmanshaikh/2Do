@@ -42,6 +42,11 @@ const myProfile = catchAsync(async (req, res) => {
   res.send(user);
 });
 
+const updateMyProfile = catchAsync(async (req, res) => {
+  const user = await userService.updateMyProfile(req);
+  res.send(user);
+});
+
 module.exports = {
   createUser,
   getUsers,
@@ -49,4 +54,5 @@ module.exports = {
   updateUser,
   deleteUser,
   myProfile,
+  updateMyProfile,
 };

@@ -44,6 +44,7 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    image: { data: Buffer, contentType: String, name: String },
   },
   {
     timestamps: true,

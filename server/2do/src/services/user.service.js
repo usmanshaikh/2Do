@@ -79,6 +79,36 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+/**
+ * Update profile by id
+ */
+const updateMyProfile = async (req) => {
+  const updateBody = {
+    name: req.body.name,
+    image: {
+      contentType: req.file.mimetype,
+      name: req.file.originalname,
+      data: req.file.buffer,
+    },
+  };
+  const id = req.user._id;
+  const user = await User.findByIdAndUpdate(
+    id,
+    { $set: updateBody },
+    { runValidators: true, new: true, useFindAndModify: false }
+  );
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  return user;
+};
+
+// const myImageById = catchAsync(async (req, res) => {
+//   let myImage = await MyImage.findById(req.params.imageId);
+//   let dd = Buffer.from(myImage.image.data).toString('base64');
+//   res.send(dd);
+// });
+
 module.exports = {
   createUser,
   queryUsers,
@@ -86,4 +116,5 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
+  updateMyProfile,
 };
