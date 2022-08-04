@@ -45,10 +45,17 @@ const deleteUser = {
   }),
 };
 
+const updateMyProfile = {
+  body: Joi.object().keys({
+    name: Joi.string().required(),
+  }),
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  updateMyProfile,
 };
