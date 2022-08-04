@@ -4,82 +4,74 @@ const { Checklist } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
- * Create a checklist
- * @param {Object} checklistBody
- * @returns {Promise<Checklist>}
+ * Create a Checklist
  */
-const createChecklist = async (checklistBody) => {
+const createChecklist = async (req, checklistBody) => {
+  checklistBody.createdBy = req.user._id;
   let checklists = await Checklist.create(checklistBody);
   checklists = await checklists.populate(['category', 'cardColor']).execPopulate();
   return checklists;
 };
 
 /**
- * Get all checklist
- * @returns {Promise<Checklist>}
+ * Get Checklist by ID
  */
-const getAllChecklists = async (query) => {
-  const checklists = await Checklist.find();
+const getChecklistById = async (req) => {
+  const query = {
+    _id: req.params.checklistId,
+    createdBy: req.user._id,
+  };
+  const checklists = await Checklist.findOne(query);
+  if (!checklists || !checklists.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
+  }
   return checklists;
 };
 
 /**
- * Get checklist by id
- * @param {ObjectId} id
- * @returns {Promise<Checklist>}
+ * Update Checklist by ID
  */
-const getChecklistById = async (id) => {
-  return Checklist.findById(id);
-};
-
-/**
- * Update checklist by id
- * @param {ObjectId} checklistId
- * @param {Object} updateBody
- * @returns {Promise<Checklist>}
- */
-const updateChecklistById = async (checklistId, updateBody) => {
-  const checklist = await getChecklistById(checklistId);
-  if (!checklist) {
+const updateChecklistById = async (req, updateBody) => {
+  const query = {
+    _id: req.params.checklistId,
+    createdBy: req.user._id,
+  };
+  const checklists = await Checklist.findOneAndUpdate(
+    query,
+    { $set: updateBody },
+    { runValidators: true, new: true, useFindAndModify: false }
+  );
+  if (!checklists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
-  Object.assign(checklist, updateBody);
-  await checklist.save();
-  return checklist;
+  return checklists;
 };
 
 /**
- * Delete checklist by id
- * @param {ObjectId} checklistId
- * @returns {Promise<Checklist>}
+ * Delete Checklist by ID
  */
-const deleteChecklistById = async (checklistId) => {
-  const checklist = await getChecklistById(checklistId);
-  if (!checklist) {
+const deleteChecklistById = async (req) => {
+  const query = {
+    _id: req.params.checklistId,
+    createdBy: req.user._id,
+  };
+  const checklists = await Checklist.findOneAndDelete(query);
+  if (!checklists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
-  await checklist.remove();
-  return checklist;
+  return checklists;
 };
 
 /**
- * Delete all checklist
- * @returns {Promise<Checklist>}
+ * Change Checklist status by ID
  */
-const deleteAllChecklist = async () => {
-  const checklist = await Checklist.deleteMany({});
-  return checklist;
-};
-
-/**
- * Change checklist Status by id
- * @param {ObjectId} checklistId
- * @param {Object} updateBody
- * @returns {Promise<Checklist>}
- */
-const changeChecklistStatus = async (checklistId, updateBody) => {
-  const checklist = await Checklist.findByIdAndUpdate(
-    checklistId,
+const changeChecklistStatus = async (req, updateBody) => {
+  const query = {
+    _id: req.params.checklistId,
+    createdBy: req.user._id,
+  };
+  const checklist = await Checklist.findOneAndUpdate(
+    query,
     { $set: updateBody },
     { runValidators: true, new: true, useFindAndModify: false }
   );
@@ -91,10 +83,9 @@ const changeChecklistStatus = async (checklistId, updateBody) => {
 
 /**
  * All checklist with filter query (category, isCompleted, dateAndTime)
- * @param {Object} query
- * @returns {Promise<Checklist>}
  */
-const allChecklists = async (query) => {
+const allChecklists = async (req) => {
+  const query = req.body;
   if (query.dateAndTime) {
     const dt = query.dateAndTime;
     const startOfDay = moment(dt).startOf('day').format();
@@ -104,11 +95,30 @@ const allChecklists = async (query) => {
       $lte: endOfDay,
     };
   }
+  query.createdBy = req.user._id;
   const checklist = await Checklist.find(query);
   if (!checklist || !checklist.length) {
     throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
   }
   return checklist;
+};
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Delete all Checklist
+ */
+const deleteAllChecklist = async () => {
+  const checklist = await Checklist.deleteMany({});
+  return checklist;
+};
+
+/**
+ * Get all Checklist
+ */
+const getAllChecklists = async () => {
+  const checklists = await Checklist.find();
+  return checklists;
 };
 
 module.exports = {
