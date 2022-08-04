@@ -1,17 +1,14 @@
 const { CardColor } = require('../models');
 
 /**
- * Create a cardColor
- * @param {Object} cardColorBody
- * @returns {Promise<CardColor>}
+ * Create a CardColor
  */
 const createCardColor = async (cardColorBody) => {
   return CardColor.create(cardColorBody);
 };
 
 /**
- * Get all cardColor
- * @returns {Promise<CardColor>}
+ * Get all CardColor
  */
 const getAllCardColor = async () => {
   const cardColor = await CardColor.find();
@@ -19,9 +16,7 @@ const getAllCardColor = async () => {
 };
 
 /**
- * Get cardColor by id
- * @param {ObjectId} id
- * @returns {Promise<CardColor>}
+ * Get CardColor by ID
  */
 const getCardColorById = async (id) => {
   return CardColor.findById(id);
