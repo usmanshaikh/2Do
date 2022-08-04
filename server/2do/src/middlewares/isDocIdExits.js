@@ -4,14 +4,14 @@ const catchAsync = require('../utils/catchAsync');
 const { cardColorService, categoryService } = require('../services');
 
 /**
- * This Middleware use to check if category or cardColor ID is exits in the database or not.
+ * Use to check if category or cardColor ID is exits in the database.
  * @param {{ category: boolean, cardColor: boolean }} props
  */
 exports.isDocIdExits = (props) => {
   return catchAsync(async (req, res, next) => {
     const { category, cardColor } = props;
     if (category) {
-      const data = await categoryService.getCategoryById(req.body.category);
+      const data = await categoryService.isCategoryExits(req);
       if (!data) {
         throw new ApiError(httpStatus.NOT_FOUND, 'category not found or Invalid category id');
       }

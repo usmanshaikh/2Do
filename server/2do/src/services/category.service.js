@@ -1,36 +1,42 @@
 const httpStatus = require('http-status');
-const { Category, Task, Checklist } = require('../models');
+const { Category } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
- * Create a category
- * @param {Object} categoryBody
- * @returns {Promise<Category>}
+ * Create a Category
  */
-const createCategory = async (categoryBody) => {
+const createCategory = async (req, categoryBody) => {
+  categoryBody.createdBy = req.user._id;
   let category = await Category.create(categoryBody);
   category = await category.populate(['cardColor']).execPopulate();
   return category;
 };
 
 /**
- * Get all category
- * @returns {Promise<Category>}
+ * Get all Category
  */
-const getAllCategory = async (query) => {
+const getAllCategory = async (req) => {
+  const query = {
+    createdBy: req.user._id,
+  };
   let removedField = [];
-  if (query.onlyCategories) {
+  if (req.query.onlyCategories) {
     removedField.push('-cardColor');
   }
-  const category = await Category.find().select(removedField);
+  const category = await Category.find(query).select(removedField);
   return category;
 };
 
 /**
- * Get category with task & checklist counts
+ * Get Category with task & checklist counts
  */
-const categoryWithTaskAndChecklistCount = async () => {
+const categoryWithTaskAndChecklistCount = async (req) => {
   let groupData = await Category.aggregate([
+    {
+      $match: {
+        createdBy: req.user._id,
+      },
+    },
     {
       $lookup: {
         from: 'tasks',
@@ -114,47 +120,55 @@ const categoryWithTaskAndChecklistCount = async () => {
 };
 
 /**
- * Update category by id
- * @param {ObjectId} categoryId
- * @param {Object} updateBody
- * @returns {Promise<Category>}
+ * Update Category by ID
  */
-const updateCategoryById = async (categoryId, updateBody) => {
-  const category = await getCategoryById(categoryId);
+const updateCategoryById = async (req, updateBody) => {
+  const query = {
+    _id: req.params.categoryId,
+    createdBy: req.user._id,
+  };
+  const category = await Category.findOneAndUpdate(
+    query,
+    { $set: updateBody },
+    { runValidators: true, new: true, useFindAndModify: false }
+  );
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
   }
-  Object.assign(category, updateBody);
-  await category.save();
   return category;
 };
 
 /**
- * Delete category by id
- * @param {ObjectId} categoryId
- * @returns {Promise<Category>}
+ * Delete Category by ID
  */
-const deleteCategoryById = async (categoryId) => {
-  const category = await getCategoryById(categoryId);
+const deleteCategoryById = async (req) => {
+  const query = {
+    _id: req.params.categoryId,
+    createdBy: req.user._id,
+  };
+  const category = await Category.findOneAndDelete(query);
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
   }
-  await category.remove();
   return category;
 };
 
 /**
- * Get category by id
- * @param {ObjectId} id
- * @returns {Promise<Category>}
+ * To check if Category ID exits
  */
-const getCategoryById = async (id) => {
-  return Category.findById(id);
+const isCategoryExits = async (req) => {
+  const query = {
+    _id: req.body.category,
+    createdBy: req.user._id,
+  };
+  const category = await Category.findOne(query);
+  return category;
 };
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
- * Delete all category
- * @returns {Promise<Category>}
+ * Delete all Category
  */
 const deleteAllCategory = async () => {
   const category = await Category.deleteMany({});
@@ -164,7 +178,7 @@ const deleteAllCategory = async () => {
 module.exports = {
   createCategory,
   getAllCategory,
-  getCategoryById,
+  isCategoryExits,
   updateCategoryById,
   deleteCategoryById,
   deleteAllCategory,
