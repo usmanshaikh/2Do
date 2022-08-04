@@ -53,6 +53,9 @@ const checklistSchema = mongoose.Schema(
       required: true,
       default: 'Checklist',
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
   },
   {
     timestamps: true,

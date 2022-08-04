@@ -39,6 +39,9 @@ const taskSchema = mongoose.Schema(
       required: true,
       default: 'Task',
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
   },
   {
     timestamps: true,

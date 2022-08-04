@@ -14,6 +14,9 @@ const categorySchema = mongoose.Schema(
       ref: CardColor,
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
   },
   {
     timestamps: true,
