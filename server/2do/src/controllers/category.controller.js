@@ -2,6 +2,10 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { categoryService } = require('../services');
 
+const createDefaultCategoryAfterRegister = catchAsync(async (user) => {
+  await categoryService.createDefaultCategoryAfterRegister(user);
+});
+
 const createCategory = catchAsync(async (req, res) => {
   const category = await categoryService.createCategory(req, req.body);
   res.status(httpStatus.CREATED).send(category);
@@ -41,4 +45,5 @@ module.exports = {
   deleteCategory,
   deleteAllCategory,
   categoryWithTaskAndChecklistCount,
+  createDefaultCategoryAfterRegister,
 };

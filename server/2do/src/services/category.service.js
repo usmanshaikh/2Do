@@ -3,6 +3,18 @@ const { Category } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
+ * Create default Category after register
+ */
+const createDefaultCategoryAfterRegister = async (user) => {
+  const categoryBody = {
+    categoryName: 'Personal',
+    cardColor: '62de37803393341df05a2492',
+    createdBy: user._id,
+  };
+  await Category.create(categoryBody);
+};
+
+/**
  * Create a Category
  */
 const createCategory = async (req, categoryBody) => {
@@ -183,4 +195,5 @@ module.exports = {
   deleteCategoryById,
   deleteAllCategory,
   categoryWithTaskAndChecklistCount,
+  createDefaultCategoryAfterRegister,
 };
