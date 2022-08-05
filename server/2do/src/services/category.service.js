@@ -23,7 +23,7 @@ const getAllCategory = async (req) => {
   if (req.query.onlyCategories) {
     removedField.push('-cardColor');
   }
-  const category = await Category.find(query).select(removedField);
+  const category = await Category.find(query).populate(['cardColor']).select(removedField);
   return category;
 };
 

@@ -9,7 +9,8 @@ const ApiError = require('../utils/ApiError');
 const createChecklist = async (req, checklistBody) => {
   checklistBody.createdBy = req.user._id;
   let checklists = await Checklist.create(checklistBody);
-  checklists = await checklists.populate(['category', 'cardColor']).execPopulate();
+  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
+  checklists = await checklists.populate(populateQuery).execPopulate();
   return checklists;
 };
 
@@ -22,7 +23,7 @@ const getChecklistById = async (req) => {
     createdBy: req.user._id,
   };
   const checklists = await Checklist.findOne(query);
-  if (!checklists || !checklists.length) {
+  if (!checklists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
   }
   return checklists;

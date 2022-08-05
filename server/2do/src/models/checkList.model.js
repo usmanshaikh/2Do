@@ -67,7 +67,8 @@ checklistSchema.plugin(toJSON);
 
 // populate cardColor
 checklistSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
-  this.populate(['category', 'cardColor']);
+  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
+  this.populate(populateQuery);
   next();
 });
 

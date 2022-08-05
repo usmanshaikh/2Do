@@ -26,12 +26,6 @@ const categorySchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 categorySchema.plugin(toJSON);
 
-// populate cardColor
-categorySchema.pre(['find'], function (next) {
-  this.populate(['cardColor']);
-  next();
-});
-
 /**
  * @typedef Category
  */

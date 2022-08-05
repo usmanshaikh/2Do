@@ -9,7 +9,8 @@ const ApiError = require('../utils/ApiError');
 const createTask = async (req, taskBody) => {
   taskBody.createdBy = req.user._id;
   let task = await Task.create(taskBody);
-  task = await task.populate(['category', 'cardColor']).execPopulate();
+  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
+  task = await task.populate(populateQuery).execPopulate();
   return task;
 };
 
@@ -22,7 +23,7 @@ const getTaskById = async (req) => {
     createdBy: req.user._id,
   };
   const tasks = await Task.findOne(query);
-  if (!tasks || !tasks.length) {
+  if (!tasks) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
   }
   return tasks;
