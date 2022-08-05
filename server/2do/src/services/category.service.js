@@ -25,9 +25,9 @@ const createCategory = async (req, categoryBody) => {
 };
 
 /**
- * Get all Category
+ * Get all Categories
  */
-const getAllCategory = async (req) => {
+const allCategories = async (req) => {
   const query = {
     createdBy: req.user._id,
   };
@@ -35,8 +35,8 @@ const getAllCategory = async (req) => {
   if (req.query.onlyCategories) {
     removedField.push('-cardColor');
   }
-  const category = await Category.find(query).populate(['cardColor']).select(removedField);
-  return category;
+  const categories = await Category.find(query).populate(['cardColor']).select(removedField);
+  return categories;
 };
 
 /**
@@ -177,23 +177,32 @@ const isCategoryExits = async (req) => {
   return category;
 };
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
+// ------------- Admin -------------
 
 /**
- * Delete all Category
+ * Get all Categories
  */
-const deleteAllCategory = async () => {
-  const category = await Category.deleteMany({});
-  return category;
+const getAllCategories = async () => {
+  const categories = await Category.find();
+  return categories;
+};
+
+/**
+ * Delete all Categories
+ */
+const deleteAllCategories = async () => {
+  const categories = await Category.deleteMany({});
+  return categories;
 };
 
 module.exports = {
   createCategory,
-  getAllCategory,
+  allCategories,
   isCategoryExits,
   updateCategoryById,
   deleteCategoryById,
-  deleteAllCategory,
   categoryWithTaskAndChecklistCount,
   createDefaultCategoryAfterRegister,
+  getAllCategories,
+  deleteAllCategories,
 };

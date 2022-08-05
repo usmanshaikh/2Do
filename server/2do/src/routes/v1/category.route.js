@@ -7,20 +7,21 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 
 const router = express.Router();
 
+// Admin Route
+router.route('/deleteAllCategories').delete(auth('deleteAllCategories'), categoryController.deleteAllCategories);
+router.route('/getAllCategories').get(auth('getAllCategories'), categoryController.getAllCategories);
+
+router.route('/allCategories').get(auth(), validate(categoryValidation.allCategories), categoryController.allCategories);
+router.route('/categoryWithTaskAndChecklistCount').get(auth(), categoryController.categoryWithTaskAndChecklistCount);
 router
-  .route('/')
+  .route('/createCategory')
   .post(
     auth(),
     validate(categoryValidation.createCategory),
     isDocIdExits({ cardColor: true }),
     categoryController.createCategory
-  )
-  .get(auth(), validate(categoryValidation.getCategory), categoryController.getAllCategory);
-
-router
-  .route('/withTaskAndChecklistCount')
-  .get(auth(), validate(categoryValidation.getCategory), categoryController.getAllCategory);
-
+  );
+// Update, Delete By ID
 router
   .route('/:categoryId')
   .patch(
@@ -30,10 +31,5 @@ router
     categoryController.updateCategory
   )
   .delete(auth(), validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
-
-router.route('/categoryWithTaskAndChecklistCount').get(auth(), categoryController.categoryWithTaskAndChecklistCount);
-
-// Use this route only for while development purpose
-router.route('/').delete(auth(), categoryController.deleteAllCategory);
 
 module.exports = router;

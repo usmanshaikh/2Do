@@ -11,9 +11,9 @@ const createCategory = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(category);
 });
 
-const getAllCategory = catchAsync(async (req, res) => {
-  const category = await categoryService.getAllCategory(req);
-  res.send(category);
+const allCategories = catchAsync(async (req, res) => {
+  const categories = await categoryService.allCategories(req);
+  res.send(categories);
 });
 
 const categoryWithTaskAndChecklistCount = catchAsync(async (req, res) => {
@@ -31,19 +31,25 @@ const deleteCategory = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
+// ------------- Admin -------------
 
-const deleteAllCategory = catchAsync(async (req, res) => {
-  await categoryService.deleteAllCategory();
+const getAllCategories = catchAsync(async (req, res) => {
+  const categories = await categoryService.getAllCategories();
+  res.send(categories);
+});
+
+const deleteAllCategories = catchAsync(async (req, res) => {
+  await categoryService.deleteAllCategories();
   res.status(httpStatus.NO_CONTENT).send();
 });
 
 module.exports = {
   createCategory,
-  getAllCategory,
+  allCategories,
   updateCategory,
   deleteCategory,
-  deleteAllCategory,
   categoryWithTaskAndChecklistCount,
   createDefaultCategoryAfterRegister,
+  getAllCategories,
+  deleteAllCategories,
 };
