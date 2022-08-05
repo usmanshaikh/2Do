@@ -104,16 +104,7 @@ const allTasks = async (req) => {
   return tasks;
 };
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Delete all Task
- * @returns {Promise<Task>}
- */
-const deleteAllTask = async () => {
-  const tasks = await Task.deleteMany({});
-  return tasks;
-};
+// ------------- Admin -------------
 
 /**
  * Get all Task
@@ -124,13 +115,22 @@ const getAllTasks = async () => {
   return tasks;
 };
 
+/**
+ * Delete all Task
+ * @returns {Promise<Task>}
+ */
+const deleteAllTask = async () => {
+  const tasks = await Task.deleteMany({});
+  return tasks;
+};
+
 module.exports = {
   createTask,
-  getAllTasks,
   getTaskById,
   updateTaskById,
   deleteTaskById,
-  deleteAllTask,
   changeTaskStatus,
   allTasks,
+  deleteAllTask,
+  getAllTasks,
 };

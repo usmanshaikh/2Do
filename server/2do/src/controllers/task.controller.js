@@ -1,5 +1,4 @@
 const httpStatus = require('http-status');
-const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { taskService } = require('../services');
 
@@ -33,25 +32,24 @@ const allTasks = catchAsync(async (req, res) => {
   res.send(tasks);
 });
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
+// ------------- Admin -------------
+const getAllTasks = catchAsync(async (req, res) => {
+  const tasks = await taskService.getAllTasks();
+  res.send(tasks);
+});
 
 const deleteAllTask = catchAsync(async (req, res) => {
   await taskService.deleteAllTask();
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-const getTasks = catchAsync(async (req, res) => {
-  const tasks = await taskService.getAllTasks();
-  res.send(tasks);
-});
-
 module.exports = {
   createTask,
-  getTasks,
   getTask,
   updateTask,
   deleteTask,
-  deleteAllTask,
   changeTaskStatus,
   allTasks,
+  getAllTasks,
+  deleteAllTask,
 };

@@ -7,6 +7,10 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 
 const router = express.Router();
 
+// Admin Route
+router.route('/deleteAllTasks').delete(auth('deleteAllTasks'), taskController.deleteAllTask);
+router.route('/getAllTasks').get(auth('getAllTasks'), taskController.getAllTasks);
+
 router
   .route('/changeTaskStatus/:taskId')
   .patch(auth(), validate(taskValidation.changeTaskStatus), taskController.changeTaskStatus);
@@ -14,15 +18,15 @@ router
 router.route('/allTasks').post(auth(), validate(taskValidation.allTasks), taskController.allTasks);
 
 router
-  .route('/')
+  .route('/createTask')
   .post(
     auth(),
     validate(taskValidation.createTask),
     isDocIdExits({ category: true, cardColor: true }),
     taskController.createTask
-  )
-  .get(auth(), taskController.getTasks);
+  );
 
+// Get, Update, Delete By ID
 router
   .route('/:taskId')
   .get(auth(), validate(taskValidation.getTask), taskController.getTask)
@@ -33,8 +37,5 @@ router
     taskController.updateTask
   )
   .delete(auth(), validate(taskValidation.deleteTask), taskController.deleteTask);
-
-// Use this route only for while development purpose
-router.route('/').delete(auth(), taskController.deleteAllTask);
 
 module.exports = router;
