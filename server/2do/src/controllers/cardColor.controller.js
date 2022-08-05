@@ -7,12 +7,12 @@ const createCardColor = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(cardColor);
 });
 
-const getAllCardColor = catchAsync(async (req, res) => {
-  const cardColor = await cardColorService.getAllCardColor();
-  res.send(cardColor);
+const getAllCardColors = catchAsync(async (req, res) => {
+  const cardColors = await cardColorService.getAllCardColors();
+  res.send(cardColors);
 });
 
 module.exports = {
   createCardColor,
-  getAllCardColor,
+  getAllCardColors,
 };

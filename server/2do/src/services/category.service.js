@@ -166,7 +166,7 @@ const deleteCategoryById = async (req) => {
 };
 
 /**
- * To check if Category ID exits
+ * To check if Category ID exits. This function used in isDocIdExits Middlewares.
  */
 const isCategoryExits = async (req) => {
   const query = {

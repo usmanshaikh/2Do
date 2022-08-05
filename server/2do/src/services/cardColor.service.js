@@ -8,15 +8,15 @@ const createCardColor = async (cardColorBody) => {
 };
 
 /**
- * Get all CardColor
+ * Get all CardColors
  */
-const getAllCardColor = async () => {
-  const cardColor = await CardColor.find();
-  return cardColor;
+const getAllCardColors = async () => {
+  const cardColors = await CardColor.find();
+  return cardColors;
 };
 
 /**
- * Get CardColor by ID
+ * Get CardColor by ID. This function used in isDocIdExits Middlewares.
  */
 const getCardColorById = async (id) => {
   return CardColor.findById(id);
@@ -24,6 +24,6 @@ const getCardColorById = async (id) => {
 
 module.exports = {
   createCardColor,
-  getAllCardColor,
+  getAllCardColors,
   getCardColorById,
 };

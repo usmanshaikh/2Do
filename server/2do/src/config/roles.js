@@ -10,7 +10,7 @@ const allRoles = {
     'getAllCategories',
     'deleteAllCategories',
     'getAllCardColors',
-    'createCardColors',
+    'createCardColor',
   ],
 };
 
