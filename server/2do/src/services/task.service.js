@@ -119,7 +119,7 @@ const getAllTasks = async () => {
  * Delete all Task
  * @returns {Promise<Task>}
  */
-const deleteAllTask = async () => {
+const deleteAllTasks = async () => {
   const tasks = await Task.deleteMany({});
   return tasks;
 };
@@ -131,6 +131,6 @@ module.exports = {
   deleteTaskById,
   changeTaskStatus,
   allTasks,
-  deleteAllTask,
   getAllTasks,
+  deleteAllTasks,
 };

@@ -8,7 +8,7 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 const router = express.Router();
 
 // Admin Route
-router.route('/deleteAllTasks').delete(auth('deleteAllTasks'), taskController.deleteAllTask);
+router.route('/deleteAllTasks').delete(auth('deleteAllTasks'), taskController.deleteAllTasks);
 router.route('/getAllTasks').get(auth('getAllTasks'), taskController.getAllTasks);
 
 router
