@@ -33,25 +33,25 @@ const allChecklists = catchAsync(async (req, res) => {
   res.send(checklist);
 });
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
+// ------------- Admin -------------
 
-const deleteAllChecklist = catchAsync(async (req, res) => {
-  await checklistService.deleteAllChecklist();
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
-const getChecklists = catchAsync(async (req, res) => {
+const getAllChecklists = catchAsync(async (req, res) => {
   const checklists = await checklistService.getAllChecklists();
   res.send(checklists);
 });
 
+const deleteAllChecklists = catchAsync(async (req, res) => {
+  await checklistService.deleteAllChecklists();
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createChecklist,
-  getChecklists,
   getChecklist,
   updateChecklist,
   deleteChecklist,
-  deleteAllChecklist,
   changeChecklistStatus,
   allChecklists,
+  getAllChecklists,
+  deleteAllChecklists,
 };

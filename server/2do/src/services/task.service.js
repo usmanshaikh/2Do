@@ -108,7 +108,6 @@ const allTasks = async (req) => {
 
 /**
  * Get all Task
- * @returns {Promise<Task>}
  */
 const getAllTasks = async () => {
   const tasks = await Task.find();
@@ -117,7 +116,6 @@ const getAllTasks = async () => {
 
 /**
  * Delete all Task
- * @returns {Promise<Task>}
  */
 const deleteAllTasks = async () => {
   const tasks = await Task.deleteMany({});

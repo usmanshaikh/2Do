@@ -104,15 +104,7 @@ const allChecklists = async (req) => {
   return checklist;
 };
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Delete all Checklist
- */
-const deleteAllChecklist = async () => {
-  const checklist = await Checklist.deleteMany({});
-  return checklist;
-};
+// ------------- Admin -------------
 
 /**
  * Get all Checklist
@@ -122,13 +114,21 @@ const getAllChecklists = async () => {
   return checklists;
 };
 
+/**
+ * Delete all Checklist
+ */
+const deleteAllChecklists = async () => {
+  const checklists = await Checklist.deleteMany({});
+  return checklists;
+};
+
 module.exports = {
   createChecklist,
-  getAllChecklists,
   getChecklistById,
   updateChecklistById,
   deleteChecklistById,
-  deleteAllChecklist,
   changeChecklistStatus,
   allChecklists,
+  getAllChecklists,
+  deleteAllChecklists,
 };
