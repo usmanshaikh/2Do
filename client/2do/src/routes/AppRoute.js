@@ -21,12 +21,54 @@ const AppRoute = () => {
     <>
       <Routes>
         <Route path="/" element={<Navigate to={`/${Path.LOGIN}`} replace />} />
-        <Route path={`/${Path.LOGIN}`} element={<Login />} />
-        <Route path={`/${Path.SIGNUP}`} element={<SignUp />} />
-        <Route path={`/${Path.FORGOT_PASSWORD}`} element={<ForgotPassword />} />
-        <Route path={`/${Path.RESET_PASSWORD}`} element={<ResetPassword />} />
-        <Route path={`/${Path.RESET_PASSWORD_SUCCESS}`} element={<ResetPasswordSuccess />} />
-        <Route path={`/${Path.WALKTHROUGH}`} element={<Walkthrough />} />
+        <Route
+          path={`/${Path.LOGIN}`}
+          element={
+            <RequireAuth>
+              <Login moduleName={"auth"} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.SIGNUP}`}
+          element={
+            <RequireAuth>
+              <SignUp moduleName={"auth"} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.FORGOT_PASSWORD}`}
+          element={
+            <RequireAuth>
+              <ForgotPassword moduleName={"auth"} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.RESET_PASSWORD}`}
+          element={
+            <RequireAuth>
+              <ResetPassword moduleName={"auth"} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.RESET_PASSWORD_SUCCESS}`}
+          element={
+            <RequireAuth>
+              <ResetPasswordSuccess moduleName={"auth"} />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.WALKTHROUGH}`}
+          element={
+            <RequireAuth>
+              <Walkthrough moduleName={"auth"} />
+            </RequireAuth>
+          }
+        />
         <Route
           path={`/${Path.CATEGORY}`}
           element={
