@@ -62,7 +62,7 @@ const updateMyProfile = async (req) => {
  * Get all Users
  */
 const getAllUsers = async () => {
-  const users = await User.find();
+  const users = await User.find({ role: { $ne: 'admin' } });
   return users;
 };
 
