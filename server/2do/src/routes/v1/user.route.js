@@ -13,6 +13,7 @@ router.route('/deleteAllUsers').delete(auth('deleteAllUsers'), userController.de
 router.route('/getAllUsers').get(auth('getAllUsers'), userController.getAllUsers);
 
 router.route('/statisticReport').get(auth(), userController.statisticReport);
+router.route('/completedPercentage').get(auth(), userController.completedPercentage);
 router.route('/myProfile').get(auth(), userController.myProfile);
 router
   .route('/updateMyProfile')

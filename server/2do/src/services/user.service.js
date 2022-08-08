@@ -192,6 +192,180 @@ const statisticReport = async (req) => {
   return aggregateData;
 };
 
+/**
+ * Task & Checklist Completed Percentage
+ */
+const completedPercentage = async (req) => {
+  let aggregateData = await User.aggregate([
+    {
+      $match: {
+        _id: req.user._id,
+      },
+    },
+    {
+      $lookup: {
+        from: 'tasks',
+        localField: '_id',
+        foreignField: 'createdBy',
+        as: 'taskData',
+      },
+    },
+    {
+      $lookup: {
+        from: 'checklists',
+        localField: '_id',
+        foreignField: 'createdBy',
+        as: 'checklistData',
+      },
+    },
+    {
+      $facet: {
+        taskTotalCount: [
+          { $unwind: '$taskData' },
+          {
+            $addFields: {
+              'taskData.status': 'created',
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              label: { $first: '$taskData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: { _id: 0, label: 1, count: 1 },
+          },
+        ],
+        taskCompletedCount: [
+          { $unwind: '$taskData' },
+          {
+            $addFields: {
+              'taskData.status': {
+                $cond: {
+                  if: {
+                    $eq: ['$taskData.isCompleted', true],
+                  },
+                  then: 'completed',
+                  else: '',
+                },
+              },
+            },
+          },
+          {
+            $match: {
+              'taskData.status': 'completed',
+            },
+          },
+          {
+            $group: {
+              _id: '$taskData.status',
+              label: { $first: '$taskData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: { _id: 0, label: 1, count: 1 },
+          },
+        ],
+        checklistTotalCount: [
+          { $unwind: '$checklistData' },
+          {
+            $addFields: {
+              'checklistData.status': 'created',
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              label: { $first: '$checklistData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: { _id: 0, label: 1, count: 1 },
+          },
+        ],
+        checklistCompletedCount: [
+          { $unwind: '$checklistData' },
+          {
+            $addFields: {
+              'checklistData.status': {
+                $cond: {
+                  if: {
+                    $eq: ['$checklistData.isCompleted', true],
+                  },
+                  then: 'completed',
+                  else: '',
+                },
+              },
+            },
+          },
+          {
+            $match: {
+              'checklistData.status': 'completed',
+            },
+          },
+          {
+            $group: {
+              _id: '$checklistData.status',
+              label: { $first: '$checklistData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              label: 1,
+              count: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $addFields: {
+        taskTotal_Count: { $arrayElemAt: ['$taskTotalCount', 0] },
+        taskCompleted_Count: { $arrayElemAt: ['$taskCompletedCount', 0] },
+        checklistTotal_Count: { $arrayElemAt: ['$checklistTotalCount', 0] },
+        checklistCompleted_Count: { $arrayElemAt: ['$checklistCompletedCount', 0] },
+      },
+    },
+    {
+      $project: {
+        taskCompletedPercentage: {
+          $round: [
+            {
+              $multiply: [
+                100,
+                {
+                  $divide: ['$taskCompleted_Count.count', '$taskTotal_Count.count'],
+                },
+              ],
+            },
+            0,
+          ],
+        },
+        checklistCompletedPercentage: {
+          $round: [
+            {
+              $multiply: [
+                100,
+                {
+                  $divide: ['$checklistCompleted_Count.count', '$checklistTotal_Count.count'],
+                },
+              ],
+            },
+            0,
+          ],
+        },
+      },
+    },
+  ]);
+  return aggregateData;
+};
+
 // ------------- Admin -------------
 
 /**
@@ -216,6 +390,7 @@ module.exports = {
   getUserByEmail,
   updateMyProfile,
   statisticReport,
+  completedPercentage,
   getAllUsers,
   deleteAllUsers,
 };
