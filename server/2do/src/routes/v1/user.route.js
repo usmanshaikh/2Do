@@ -12,6 +12,7 @@ const router = express.Router();
 router.route('/deleteAllUsers').delete(auth('deleteAllUsers'), userController.deleteAllUsers);
 router.route('/getAllUsers').get(auth('getAllUsers'), userController.getAllUsers);
 
+router.route('/statisticReport').get(auth(), userController.statisticReport);
 router.route('/myProfile').get(auth(), userController.myProfile);
 router
   .route('/updateMyProfile')

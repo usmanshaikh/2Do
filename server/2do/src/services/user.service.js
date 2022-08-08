@@ -56,6 +56,142 @@ const updateMyProfile = async (req) => {
 //   res.send(dd);
 // });
 
+/**
+ * Statistic Report
+ */
+const statisticReport = async (req) => {
+  let aggregateData = await User.aggregate([
+    {
+      $match: {
+        _id: req.user._id,
+      },
+    },
+    {
+      $lookup: {
+        from: 'tasks',
+        localField: '_id',
+        foreignField: 'createdBy',
+        as: 'taskData',
+      },
+    },
+    {
+      $lookup: {
+        from: 'checklists',
+        localField: '_id',
+        foreignField: 'createdBy',
+        as: 'checklistData',
+      },
+    },
+    {
+      $facet: {
+        taskCreatedCount: [
+          { $unwind: '$taskData' },
+          {
+            $addFields: {
+              'taskData.status': 'created',
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              label: { $first: '$taskData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: { _id: 0, label: 1, count: 1 },
+          },
+        ],
+        taskCPCount: [
+          { $unwind: '$taskData' },
+          {
+            $addFields: {
+              'taskData.status': {
+                $cond: {
+                  if: {
+                    $eq: ['$taskData.isCompleted', true],
+                  },
+                  then: 'completed',
+                  else: 'pending',
+                },
+              },
+            },
+          },
+          {
+            $group: {
+              _id: '$taskData.status',
+              label: { $first: '$taskData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: { _id: 0, label: 1, count: 1 },
+          },
+        ],
+        checklistCreatedCount: [
+          { $unwind: '$checklistData' },
+          {
+            $addFields: {
+              'checklistData.status': 'created',
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              label: { $first: '$checklistData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: { _id: 0, label: 1, count: 1 },
+          },
+        ],
+        checklistCPCount: [
+          { $unwind: '$checklistData' },
+          {
+            $addFields: {
+              'checklistData.status': {
+                $cond: {
+                  if: {
+                    $eq: ['$checklistData.isCompleted', true],
+                  },
+                  then: 'completed',
+                  else: 'pending',
+                },
+              },
+            },
+          },
+          {
+            $group: {
+              _id: '$checklistData.status',
+              label: { $first: '$checklistData.status' },
+              count: { $sum: 1 },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              label: 1,
+              count: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        taskStatistic: {
+          $concatArrays: ['$taskCreatedCount', '$taskCPCount'],
+        },
+        checklistStatistic: {
+          $concatArrays: ['$checklistCreatedCount', '$checklistCPCount'],
+        },
+      },
+    },
+  ]);
+  return aggregateData;
+};
+
 // ------------- Admin -------------
 
 /**
@@ -79,6 +215,7 @@ module.exports = {
   getUserById,
   getUserByEmail,
   updateMyProfile,
+  statisticReport,
   getAllUsers,
   deleteAllUsers,
 };

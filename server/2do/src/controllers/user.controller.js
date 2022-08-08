@@ -21,6 +21,11 @@ const updateMyProfile = catchAsync(async (req, res) => {
   res.send(user);
 });
 
+const statisticReport = catchAsync(async (req, res) => {
+  const user = await userService.statisticReport(req);
+  res.send(user);
+});
+
 // ------------- Admin -------------
 
 const getAllUsers = catchAsync(async (req, res) => {
@@ -37,6 +42,7 @@ module.exports = {
   createUser,
   myProfile,
   updateMyProfile,
+  statisticReport,
   getAllUsers,
   deleteAllUsers,
 };
