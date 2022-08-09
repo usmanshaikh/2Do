@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const httpStatus = require('http-status');
 const config = require('../config/config');
+const catchAsync = require('../utils/catchAsync');
 const userService = require('./user.service');
 const { Token } = require('../models');
 const ApiError = require('../utils/ApiError');
@@ -113,6 +114,24 @@ const generateVerifyEmailToken = async (user) => {
   return verifyEmailToken;
 };
 
+/**
+ * Delete all expired token via node-cron scheduler
+ */
+const deleteExpiredTokens = catchAsync(async () => {
+  const tokens = await Token.find();
+  let expiredTokens = [];
+  if (tokens && tokens.length) {
+    tokens.map((token) => {
+      try {
+        jwt.verify(token.token, config.jwt.secret);
+      } catch (err) {
+        expiredTokens.push(token._id);
+      }
+    });
+  }
+  await Token.deleteMany({ _id: { $in: expiredTokens } });
+});
+
 module.exports = {
   generateToken,
   saveToken,
@@ -120,4 +139,5 @@ module.exports = {
   generateAuthTokens,
   generateResetPasswordToken,
   generateVerifyEmailToken,
+  deleteExpiredTokens,
 };
