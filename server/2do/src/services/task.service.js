@@ -12,7 +12,7 @@ const createTask = async (req, taskBody) => {
   let task = await Task.create(taskBody);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
   task = await task.populate(populateQuery).execPopulate();
-  runCronJobs(task);
+  // runCronJobs(task);
   return task;
 };
 
@@ -60,7 +60,7 @@ const updateTaskById = async (req, updateBody) => {
   if (!task) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
   }
-  runCronJobs(task, true);
+  // runCronJobs(task, true);
   return task;
 };
 

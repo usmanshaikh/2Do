@@ -1,9 +1,10 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { taskService } = require('../services');
+const { taskService, schedulerService } = require('../services');
 
 const createTask = catchAsync(async (req, res) => {
   const task = await taskService.createTask(req, req.body);
+  task.alert && (await schedulerService.createScheduler(task));
   res.status(httpStatus.CREATED).send(task);
 });
 
