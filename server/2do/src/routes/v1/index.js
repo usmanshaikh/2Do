@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const categoryRoute = require('./category.route');
 const cardColorRoute = require('./cardColor.route');
+const runCronRoute = require('./runCron.route');
 const taskRoute = require('./task.route');
 const checklistRoute = require('./checklist.route');
 
@@ -32,6 +33,10 @@ const defaultRoutes = [
   {
     path: '/cardColors',
     route: cardColorRoute,
+  },
+  {
+    path: '/runCron',
+    route: runCronRoute,
   },
 ];
 

@@ -1,10 +1,10 @@
-const CronJob = require('cron').CronJob;
+const schedule = require('node-schedule');
 const { tokenService } = require('../services');
 
 const EVERY_SECONDS = '* * * * * *';
 const EVERY_MIDNIGHT = '0 0 * * *';
 
-const deleteExpiredTokens_job = new CronJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
+const deleteExpiredTokens_job = schedule.scheduleJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
 
 /**
  * Once DB is connectd then this Fn will loop and start all the Cron Jobs.

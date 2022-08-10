@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const moment = require('moment');
 const { Task } = require('../models');
 const ApiError = require('../utils/ApiError');
+const schedule = require('node-schedule');
 
 /**
  * Create a Task
@@ -11,7 +12,21 @@ const createTask = async (req, taskBody) => {
   let task = await Task.create(taskBody);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
   task = await task.populate(populateQuery).execPopulate();
+  runCronJobs(task);
   return task;
+};
+
+const runCronJobs = async (task, isUpdate = false) => {
+  const dateTime = task.dateAndTime;
+  const uniqueId = task._id.toString();
+  if (isUpdate && uniqueId) {
+    schedule.scheduledJobs[uniqueId].reschedule(dateTime);
+  } else {
+    schedule.scheduleJob(uniqueId, dateTime, function () {
+      console.log('Notification Send');
+    });
+  }
+  console.log({ schedule });
 };
 
 /**
@@ -45,6 +60,7 @@ const updateTaskById = async (req, updateBody) => {
   if (!task) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
   }
+  runCronJobs(task, true);
   return task;
 };
 
