@@ -15,7 +15,17 @@ const password = (value, helpers) => {
   return value;
 };
 
+const isNotPastDateTime = (value, helpers) => {
+  const today = new Date();
+  const resDateTime = new Date(value);
+  if (resDateTime.getTime() < today.getTime()) {
+    return helpers.message('"{{#label}}" must not be in the past');
+  }
+  return value;
+};
+
 module.exports = {
   objectId,
   password,
+  isNotPastDateTime,
 };
