@@ -15,6 +15,10 @@ const schedulerSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
+    message: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

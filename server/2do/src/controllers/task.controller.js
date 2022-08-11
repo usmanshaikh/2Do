@@ -15,6 +15,7 @@ const getTask = catchAsync(async (req, res) => {
 
 const updateTask = catchAsync(async (req, res) => {
   const task = await taskService.updateTaskById(req, req.body);
+  task.alert && (await schedulerService.updateScheduler(task));
   res.send(task);
 });
 

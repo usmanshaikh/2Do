@@ -10,12 +10,53 @@ const EVERY_MIDNIGHT = '0 0 * * *';
  * Create a Scheduler
  */
 const createScheduler = async (body) => {
+  const { _id, dateAndTime } = body;
   const SchedulerObj = {
-    schedulerName: `scheduler_${body._id}`,
-    schedulerDateAndTime: body.dateAndTime,
-    parentRefId: body._id,
+    schedulerName: `scheduler_${_id}`,
+    schedulerDateAndTime: dateAndTime,
+    parentRefId: _id,
+    message: extractMsg(body),
   };
-  return Scheduler.create(SchedulerObj);
+  const scheduler = await Scheduler.create(SchedulerObj);
+  addNewSchedulerAndInitialize(scheduler);
+  return scheduler;
+};
+
+/**
+ * Update Scheduler By ID
+ */
+const updateScheduler = async (body) => {
+  const { _id, dateAndTime } = body;
+  const query = { parentRefId: _id };
+  const updateBody = {
+    schedulerDateAndTime: dateAndTime,
+    message: extractMsg(body),
+  };
+
+  const scheduler = await Scheduler.findOneAndUpdate(
+    query,
+    { $set: updateBody },
+    { runValidators: true, new: true, useFindAndModify: false }
+  );
+
+  if (!scheduler) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Scheduler not found');
+  }
+
+  // Cancel the old scheduledJobs and then Initialize new
+  const job = schedule.scheduledJobs[scheduler.schedulerName];
+  job && job.cancel();
+  addNewSchedulerAndInitialize(scheduler);
+};
+
+/**
+ *  Add new scheduler to scheduleJobs list and initialize
+ */
+const addNewSchedulerAndInitialize = async (body) => {
+  const { schedulerName, schedulerDateAndTime, message } = body;
+  schedule.scheduleJob(schedulerName, schedulerDateAndTime, function () {
+    sendNotification(message);
+  });
 };
 
 /**
@@ -23,13 +64,13 @@ const createScheduler = async (body) => {
  */
 const runSchedulers = async () => {
   const schedulers = await Scheduler.find();
-  schedulers.map((val) => {
-    const { schedulerName, schedulerDateAndTime } = val;
+  schedulers.map((doc) => {
+    const { schedulerName, schedulerDateAndTime, message } = doc;
     const today = new Date();
     const schedulerDT = new Date(schedulerDateAndTime);
     if (schedulerDT.getTime() > today.getTime()) {
       schedule.scheduleJob(schedulerName, schedulerDateAndTime, function () {
-        console.log('Notification Send');
+        sendNotification(message);
       });
     }
   });
@@ -55,6 +96,18 @@ const deleteExpiredTokensJob = () => {
   schedule.scheduleJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
 };
 
+const extractMsg = (body) => {
+  body = JSON.parse(JSON.stringify(body));
+  let message;
+  const isFromTask = body.hasOwnProperty('description');
+  isFromTask ? (message = body.description) : (message = body.title);
+  return message;
+};
+
+const sendNotification = (message) => {
+  console.log('Notification Send =>', message);
+};
+
 /**
  * Once DB is connectd then 'runSchedulers() & deleteExpiredTokensJob() gets initialize'.
  */
@@ -66,6 +119,7 @@ const initializeSchedulersJob = () => {
 
 module.exports = {
   createScheduler,
+  updateScheduler,
   runSchedulers,
   getAllSchedulers,
   deleteAllSchedulers,
