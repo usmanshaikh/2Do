@@ -1,5 +1,10 @@
-const { Scheduler } = require('../models');
 const schedule = require('node-schedule');
+const logger = require('../config/logger');
+const { Scheduler } = require('../models');
+const { tokenService } = require('../services');
+
+const EVERY_SECONDS = '* * * * * *';
+const EVERY_MIDNIGHT = '0 0 * * *';
 
 /**
  * Create a Scheduler
@@ -23,11 +28,9 @@ const runSchedulers = async () => {
     const today = new Date();
     const schedulerDT = new Date(schedulerDateAndTime);
     if (schedulerDT.getTime() > today.getTime()) {
-      console.log('Selected date => Future');
       schedule.scheduleJob(schedulerName, schedulerDateAndTime, function () {
         console.log('Notification Send');
       });
-      console.log({ schedule });
     }
   });
 };
@@ -40,9 +43,25 @@ const getAllSchedulers = async () => {
   return schedulers;
 };
 
+/**
+ * Delete all Schedulers
+ */
 const deleteAllSchedulers = async () => {
   const schedulers = await Scheduler.deleteMany({});
   return schedulers;
+};
+
+const deleteExpiredTokensJob = () => {
+  schedule.scheduleJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
+};
+
+/**
+ * Once DB is connectd then 'runSchedulers() & deleteExpiredTokensJob() gets initialize'.
+ */
+const initializeSchedulersJob = () => {
+  runSchedulers();
+  deleteExpiredTokensJob();
+  logger.info(`Initialized Schedulers Job`);
 };
 
 module.exports = {
@@ -50,4 +69,8 @@ module.exports = {
   runSchedulers,
   getAllSchedulers,
   deleteAllSchedulers,
+  initializeSchedulersJob,
 };
+
+// var isoDateString = new Date().toISOString();
+// console.log(isoDateString);
