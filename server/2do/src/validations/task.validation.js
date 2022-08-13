@@ -2,7 +2,7 @@ const Joi = require('joi');
 const { objectId, isNotPastDateTime } = require('./custom.validation');
 
 const task = {
-  description: Joi.string().required(),
+  title: Joi.string().required(),
   category: Joi.required().custom(objectId),
   cardColor: Joi.required().custom(objectId),
   dateAndTime: Joi.date().required().custom(isNotPastDateTime),

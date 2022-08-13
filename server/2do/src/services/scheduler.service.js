@@ -1,9 +1,10 @@
 const httpStatus = require('http-status');
 const schedule = require('node-schedule');
 const logger = require('../config/logger');
-const { Scheduler } = require('../models');
-const { tokenService } = require('../services');
 const ApiError = require('../utils/ApiError');
+const catchAsync = require('../utils/catchAsync');
+const { Scheduler } = require('../models');
+const { tokenService, taskService, userService, checklistService, emailService } = require('../services');
 
 const EVERY_SECONDS = '* * * * * *';
 const EVERY_MIDNIGHT = '0 0 * * *';
@@ -20,7 +21,6 @@ const createScheduler = async (body, schedulerType) => {
     schedulerDateAndTime: dateAndTime,
     schedulerType: schedulerType,
     parentRefId: _id,
-    message: extractMsg(body),
   };
   const scheduler = await Scheduler.create(SchedulerObj);
   addNewSchedulerAndInitialize(scheduler);
@@ -37,7 +37,6 @@ const updateScheduler = async (body, schedulerType) => {
   const query = { parentRefId: _id };
   const updateBody = {
     schedulerDateAndTime: dateAndTime,
-    message: extractMsg(body),
   };
 
   const scheduler = await Scheduler.findOneAndUpdate(
@@ -59,12 +58,20 @@ const updateScheduler = async (body, schedulerType) => {
 /**
  *  Add new scheduler to scheduleJobs list and initialize
  */
-const addNewSchedulerAndInitialize = async (body) => {
-  const { schedulerName, schedulerDateAndTime, schedulerType, message } = body;
-  schedule.scheduleJob(schedulerName, schedulerDateAndTime, function () {
-    sendNotification(schedulerType, message);
+const addNewSchedulerAndInitialize = catchAsync(async (body) => {
+  const { schedulerName, schedulerDateAndTime, schedulerType, parentRefId } = body;
+  schedule.scheduleJob(schedulerName, schedulerDateAndTime, async () => {
+    if (schedulerType === 'task') {
+      const task = await taskService.getTaskByIdOnly(parentRefId);
+      const user = await userService.getUserById(task.createdBy);
+      emailService.sendEventReminderEmail(task, user);
+    } else if (schedulerType === 'checklist') {
+      const checklist = await checklistService.getChecklistByIdOnly(parentRefId);
+      const user = await userService.getUserById(checklist.createdBy);
+      emailService.sendEventReminderEmail(checklist, user);
+    }
   });
-};
+});
 
 /**
  * If Server Stop/Restart then all old Schedulers that is initialize gets destroy. So once Server start then stop all the Schedulers and Initialize new Schedulers again.
@@ -118,19 +125,6 @@ const deleteAllSchedulers = async () => {
 
 const deleteExpiredTokensJob = () => {
   schedule.scheduleJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
-};
-
-const extractMsg = (body) => {
-  body = JSON.parse(JSON.stringify(body));
-  let message;
-  const isFromTask = body.hasOwnProperty('description');
-  isFromTask ? (message = body.description) : (message = body.title);
-  return message;
-};
-
-const sendNotification = (schedulerType, message) => {
-  const msg = `Notification Send type => ${schedulerType} & message => ${message}`;
-  console.log(msg);
 };
 
 /**

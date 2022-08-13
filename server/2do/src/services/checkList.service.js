@@ -104,6 +104,17 @@ const allChecklists = async (req) => {
   return checklist;
 };
 
+/**
+ * Get Checklist by ID only
+ */
+const getChecklistByIdOnly = async (checklistId) => {
+  const checklist = await Checklist.findById(checklistId);
+  if (!checklist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
+  }
+  return checklist;
+};
+
 // ------------- Admin -------------
 
 /**
@@ -129,6 +140,7 @@ module.exports = {
   deleteChecklistById,
   changeChecklistStatus,
   allChecklists,
+  getChecklistByIdOnly,
   getAllChecklists,
   deleteAllChecklists,
 };

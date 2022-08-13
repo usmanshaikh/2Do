@@ -92,9 +92,34 @@ const sendVerificationEmail = async (to, token) => {
   await sendEmail(to, subject, templateToUse, templateContent);
 };
 
+/**
+ * Send reminder email
+ * @param {object} eventInfo
+ * @param {object} user
+ * @returns {Promise}
+ */
+const sendEventReminderEmail = async (eventInfo, user) => {
+  const { title, dateAndTime } = eventInfo;
+  const to = user.email;
+  const subject = 'Event Reminder';
+  // replace this url with the link to the email verification page of your front-end app
+  const verificationEmailUrl = `http://link-to-app/verify-email?token=`;
+  const templateToUse = 'reminderEmailTemplate';
+  const templateStyle = await getEmailTemplateStyle();
+  const templateContent = {
+    templateStyle,
+    templateTitle: 'Event Reminder',
+    verificationEmailUrl,
+    eventMsg: title,
+    eventDateTime: dateAndTime,
+  };
+  await sendEmail(to, subject, templateToUse, templateContent);
+};
+
 module.exports = {
   transport,
   sendEmail,
   sendResetPasswordEmail,
   sendVerificationEmail,
+  sendEventReminderEmail,
 };

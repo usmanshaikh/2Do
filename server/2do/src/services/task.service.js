@@ -120,6 +120,17 @@ const allTasks = async (req) => {
   return tasks;
 };
 
+/**
+ * Get Task by ID only
+ */
+const getTaskByIdOnly = async (taskId) => {
+  const task = await Task.findById(taskId);
+  if (!task) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+  }
+  return task;
+};
+
 // ------------- Admin -------------
 
 /**
@@ -145,6 +156,7 @@ module.exports = {
   deleteTaskById,
   changeTaskStatus,
   allTasks,
+  getTaskByIdOnly,
   getAllTasks,
   deleteAllTasks,
 };

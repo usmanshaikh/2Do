@@ -5,7 +5,7 @@ const Category = require('./category.model');
 
 const taskSchema = mongoose.Schema(
   {
-    description: {
+    title: {
       type: String,
       required: true,
       trim: true,
