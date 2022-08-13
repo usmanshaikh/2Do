@@ -63,7 +63,7 @@ td {
   width: 100%;
   text-align: left;
   text-align: center;
-  padding: 30px 100px 50px 100px;
+  padding: 30px 50px 50px 50px;
 }
 @media only screen and (max-width: 767px) {
   .email-template-container .content-table-wrapper {
@@ -71,15 +71,24 @@ td {
   }
 }
 .email-template-container .logo-wrapper {
-  padding: 20px 0 40px 0;
+  width: 50%;
+  margin: 0 auto 30px auto;
+}
+.email-template-container .secondary-img-wrapper {
+  width: 30%;
+  margin: 0 auto;
+}
+.email-template-container .secondary-img-wrapper .secondary-img {
+  width: 100%;
+  height: 100%;
 }
 .email-template-container .main-heading {
   color: #313131;
+  margin: 30px 0;
   font-size: 30px;
   font-weight: 700;
   font-style: normal;
   text-align: center;
-  margin-bottom: 30px;
 }
 .email-template-container .info-text {
   color: #313131;
@@ -117,3 +126,24 @@ td {
   background-color: #ff9c9c;
   transition: background 0s;
 }
+.email-template-container .reminder-email-container .event-title {
+  margin: 0;
+  color: #00dcff;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 35px;
+}
+.email-template-container .reminder-email-container .event-time-txt {
+  font-size: 20px;
+  font-weight: 500;
+}
+.email-template-container .reminder-email-container .event-time {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 15px 0 20px 0;
+}
+.email-template-container .reminder-email-container .time {
+  color: #00dcff;
+}
+
+/*# sourceMappingURL=email.css.map */
