@@ -4,7 +4,7 @@ const { taskService, schedulerService } = require('../services');
 
 const createTask = catchAsync(async (req, res) => {
   const task = await taskService.createTask(req, req.body);
-  task.alert && (await schedulerService.createScheduler(task));
+  task.alert && (await schedulerService.createScheduler(task, 'task'));
   res.status(httpStatus.CREATED).send(task);
 });
 
@@ -15,12 +15,13 @@ const getTask = catchAsync(async (req, res) => {
 
 const updateTask = catchAsync(async (req, res) => {
   const task = await taskService.updateTaskById(req, req.body);
-  task.alert && (await schedulerService.updateScheduler(task));
+  await schedulerService.updateScheduler(task, 'task');
   res.send(task);
 });
 
 const deleteTask = catchAsync(async (req, res) => {
   await taskService.deleteTaskById(req);
+  await schedulerService.deleteSchedulerById(req.params.taskId);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

@@ -1,10 +1,10 @@
 const httpStatus = require('http-status');
-const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { checklistService } = require('../services');
+const { checklistService, schedulerService } = require('../services');
 
 const createChecklist = catchAsync(async (req, res) => {
   const checklist = await checklistService.createChecklist(req, req.body);
+  checklist.alert && (await schedulerService.createScheduler(checklist, 'checklist'));
   res.status(httpStatus.CREATED).send(checklist);
 });
 
@@ -15,11 +15,13 @@ const getChecklist = catchAsync(async (req, res) => {
 
 const updateChecklist = catchAsync(async (req, res) => {
   const checklist = await checklistService.updateChecklistById(req, req.body);
+  await schedulerService.updateScheduler(checklist, 'checklist');
   res.send(checklist);
 });
 
 const deleteChecklist = catchAsync(async (req, res) => {
   await checklistService.deleteChecklistById(req);
+  await schedulerService.deleteSchedulerById(req.params.checklistId);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

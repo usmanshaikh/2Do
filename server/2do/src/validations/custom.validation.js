@@ -16,9 +16,10 @@ const password = (value, helpers) => {
 };
 
 const isNotPastDateTime = (value, helpers) => {
-  const today = new Date();
-  const resDateTime = new Date(value);
-  if (resDateTime.getTime() < today.getTime()) {
+  const minutes = 2; // Add extra minutes
+  const today = new Date().getTime() + minutes * 60000;
+  const resDateTime = new Date(value).getTime();
+  if (resDateTime < today) {
     return helpers.message('"{{#label}}" must not be in the past');
   }
   return value;

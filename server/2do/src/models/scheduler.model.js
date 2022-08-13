@@ -11,6 +11,11 @@ const schedulerSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
+    schedulerType: {
+      type: String,
+      enum: ['task', 'checklist'],
+      required: true,
+    },
     parentRefId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
