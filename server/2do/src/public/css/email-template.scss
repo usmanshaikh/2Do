@@ -21,7 +21,8 @@ ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, t
     color: $black1;
     font-style: normal;
     font-weight: normal;
-    font-family: 'Poppins';
+    // prettier-ignore
+    font-family: "Poppins";
   }
   .main-table-wrapper {
     width: 100%;

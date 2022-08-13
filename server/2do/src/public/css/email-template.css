@@ -1,8 +1,34 @@
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ol,
-ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td {
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+ol,
+ul,
+li,
+button,
+fieldset,
+form,
+label,
+legend,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
   color: #313131;
   font-style: normal;
   font-weight: normal;
+  /* prettier-ignore */
   font-family: "Poppins";
 }
 
@@ -15,6 +41,7 @@ ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, t
   color: #313131;
   font-style: normal;
   font-weight: normal;
+  /* prettier-ignore */
   font-family: "Poppins";
 }
 .email-template-container .main-table-wrapper {
