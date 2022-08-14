@@ -1,9 +1,9 @@
+const moment = require('moment');
+const path = require('path');
+const hbs = require('nodemailer-express-handlebars');
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
 const logger = require('../config/logger');
-const hbs = require('nodemailer-express-handlebars');
-const path = require('path');
-const fs = require('fs');
 
 // Current Directory
 const dirPath = path.join(__dirname, '..');
@@ -40,6 +40,7 @@ transport.use('compile', hbs(hbsOptions));
 const sendEmail = async (to, subject, template, context) => {
   const msg = { from: config.email.from, to, subject, template, context };
   await transport.sendMail(msg);
+  logger.info(`${subject} => Email Send`);
 };
 
 /**
@@ -85,7 +86,8 @@ const sendVerificationEmail = async (to, token) => {
  * @returns {Promise}
  */
 const sendEventReminderEmail = async (eventInfo, user) => {
-  const { title, dateAndTime } = eventInfo;
+  let { title, dateAndTime } = eventInfo;
+  dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
   // replace this url with the link to the email verification page of your front-end app
