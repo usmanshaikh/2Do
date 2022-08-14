@@ -78,10 +78,6 @@ td {
   width: 30%;
   margin: 0 auto;
 }
-.email-template-container .secondary-img-wrapper .secondary-img {
-  width: 100%;
-  height: 100%;
-}
 .email-template-container .main-heading {
   color: #313131;
   margin: 30px 0;
@@ -138,12 +134,13 @@ td {
   font-weight: 500;
 }
 .email-template-container .reminder-email-container .event-time {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   margin: 15px 0 20px 0;
 }
 .email-template-container .reminder-email-container .time {
-  color: #00dcff;
+  color: #f96060;
+  font-weight: 600;
 }
 
 /*# sourceMappingURL=email.css.map */

@@ -89,10 +89,11 @@ ul, li, button, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, t
   font-size: 20px;
   font-weight: 500; }
 .email-template-container .reminder-email-container .event-time {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   margin: 15px 0 20px 0; }
 .email-template-container .reminder-email-container .time {
-  color: #00dcff; }
+  color: #f96060;
+  font-weight: 600; }
 
 /*# sourceMappingURL=email.css.map */
