@@ -31,16 +31,6 @@ const hbsOptions = {
 transport.use('compile', hbs(hbsOptions));
 
 /**
- * Get Email Template Style
- * @param {string} templateTitle
- * @returns {Promise}
- */
-const getEmailTemplateStyle = async () => {
-  let templateStyle = fs.readFileSync(path.resolve(dirPath, './public/css/email-template.css'));
-  return templateStyle.toString();
-};
-
-/**
  * Send an email
  * @param {string} to
  * @param {string} subject
@@ -63,9 +53,7 @@ const sendResetPasswordEmail = async (to, token) => {
   // replace this url with the link to the reset password page of your front-end app
   const resetPasswordUrl = `http://link-to-app/reset-password?token=${token}`;
   const templateToUse = 'resetPasswordTemplate';
-  const templateStyle = await getEmailTemplateStyle();
   const templateContent = {
-    templateStyle,
     templateTitle: 'Reset Password',
     resetPasswordUrl,
   };
@@ -83,9 +71,7 @@ const sendVerificationEmail = async (to, token) => {
   // replace this url with the link to the email verification page of your front-end app
   const verificationEmailUrl = `http://link-to-app/verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
-  const templateStyle = await getEmailTemplateStyle();
   const templateContent = {
-    templateStyle,
     templateTitle: 'Email Verification',
     verificationEmailUrl,
   };
@@ -105,9 +91,7 @@ const sendEventReminderEmail = async (eventInfo, user) => {
   // replace this url with the link to the email verification page of your front-end app
   const verificationEmailUrl = `http://link-to-app/verify-email?token=`;
   const templateToUse = 'reminderEmailTemplate';
-  const templateStyle = await getEmailTemplateStyle();
   const templateContent = {
-    templateStyle,
     templateTitle: 'Event Reminder',
     verificationEmailUrl,
     eventMsg: title,

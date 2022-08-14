@@ -29,3 +29,8 @@ Download: On-premises -> MongoDB Community Server
 MongoDB Set Environment 
 https://sqlserverguides.com/mongodb-is-not-recognized-as-an-internal-or-external-command/
 
+
+
+Free host image
+https://postimages.org/
+After upload use "Direct link"
