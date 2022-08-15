@@ -4,9 +4,17 @@ const logger = require('../config/logger');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { Scheduler } = require('../models');
-const { tokenService, taskService, userService, checklistService, emailService } = require('../services');
+const {
+  tokenService,
+  taskService,
+  userService,
+  checklistService,
+  emailService,
+  notificationService,
+} = require('../services');
 
 const EVERY_SECONDS = '* * * * * *';
+const EVERY_MINUTES = '* * * * *';
 const EVERY_MIDNIGHT = '0 0 * * *';
 
 /**
@@ -64,11 +72,11 @@ const addNewSchedulerAndInitialize = catchAsync(async (body) => {
     if (schedulerType === 'task') {
       const task = await taskService.getTaskByIdOnly(parentRefId);
       const user = await userService.getUserById(task.createdBy);
-      emailService.sendEventReminderEmail(task, user);
+      emailService.sendEventReminderEmail(task, schedulerType, user);
     } else if (schedulerType === 'checklist') {
       const checklist = await checklistService.getChecklistByIdOnly(parentRefId);
       const user = await userService.getUserById(checklist.createdBy);
-      emailService.sendEventReminderEmail(checklist, user);
+      emailService.sendEventReminderEmail(checklist, schedulerType, user);
     }
   });
 });
@@ -127,12 +135,17 @@ const deleteExpiredTokensJob = () => {
   schedule.scheduleJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
 };
 
+const deleteReadNotificationsJob = () => {
+  schedule.scheduleJob(EVERY_MIDNIGHT, notificationService.deleteReadNotifications);
+};
+
 /**
  * Once DB is connectd then 'runSchedulers() & deleteExpiredTokensJob() gets initialize'.
  */
 const initializeSchedulersJob = () => {
   runSchedulers();
   deleteExpiredTokensJob();
+  deleteReadNotificationsJob();
   logger.info(`Initialized Schedulers Job`);
 };
 

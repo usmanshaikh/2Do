@@ -4,3 +4,4 @@ module.exports.categoryValidation = require('./category.validation');
 module.exports.cardColorValidation = require('./cardColor.validation');
 module.exports.taskValidation = require('./task.validation');
 module.exports.checklistValidation = require('./checklist.validation');
+module.exports.notificationValidation = require('./notification.validation');

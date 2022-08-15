@@ -4,4 +4,5 @@ module.exports.categoryController = require('./category.controller');
 module.exports.cardColorController = require('./cardColor.controller');
 module.exports.taskController = require('./task.controller');
 module.exports.checklistController = require('./checklist.controller');
+module.exports.notificationController = require('./notification.controller');
 module.exports.schedulerController = require('./scheduler.controller');

@@ -3,9 +3,10 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const categoryRoute = require('./category.route');
 const cardColorRoute = require('./cardColor.route');
-const schedulerRoute = require('./scheduler.route');
+const notificationRoute = require('./notification.route');
 const taskRoute = require('./task.route');
 const checklistRoute = require('./checklist.route');
+const schedulerRoute = require('./scheduler.route');
 
 const router = express.Router();
 
@@ -33,6 +34,10 @@ const defaultRoutes = [
   {
     path: '/cardColors',
     route: cardColorRoute,
+  },
+  {
+    path: '/notifications',
+    route: notificationRoute,
   },
   {
     path: '/schedulers',

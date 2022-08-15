@@ -4,6 +4,7 @@ const hbs = require('nodemailer-express-handlebars');
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
 const logger = require('../config/logger');
+const notificationService = require('./notification.service');
 
 // Current Directory
 const dirPath = path.join(__dirname, '..');
@@ -85,21 +86,27 @@ const sendVerificationEmail = async (to, token) => {
  * @param {object} user
  * @returns {Promise}
  */
-const sendEventReminderEmail = async (eventInfo, user) => {
+const sendEventReminderEmail = async (eventInfo, eventType, user) => {
   let { title, dateAndTime } = eventInfo;
   dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
   // replace this url with the link to the email verification page of your front-end app
-  const verificationEmailUrl = `http://link-to-app/verify-email?token=`;
+  const eventLink = `http://link-to-app/verify-email?token=`;
   const templateToUse = 'reminderEmailTemplate';
   const templateContent = {
     templateTitle: 'Event Reminder',
-    verificationEmailUrl,
+    verificationEmailUrl: eventLink,
     eventMsg: title,
     eventDateTime: dateAndTime,
   };
   await sendEmail(to, subject, templateToUse, templateContent);
+  createNotificationAfterEmailSend(title, eventLink, eventType, false, user.id);
+};
+
+const createNotificationAfterEmailSend = async (message, link, type, isRead, userId) => {
+  const noficationBody = { message, link, type, isRead, userId };
+  notificationService.createNotification(noficationBody);
 };
 
 module.exports = {
