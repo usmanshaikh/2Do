@@ -4,7 +4,6 @@ const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
 const userController = require('../../controllers/user.controller');
 const uploadImage = require('../../middlewares/uploadImage');
-const fileRequired = require('../../middlewares/fileRequired');
 
 const router = express.Router();
 
@@ -17,12 +16,6 @@ router.route('/completedPercentage').get(auth(), userController.completedPercent
 router.route('/myProfile').get(auth(), userController.myProfile);
 router
   .route('/updateMyProfile')
-  .post(
-    auth(),
-    uploadImage.single('image'),
-    fileRequired,
-    validate(userValidation.updateMyProfile),
-    userController.updateMyProfile
-  );
+  .post(auth(), uploadImage.single('image'), validate(userValidation.updateMyProfile), userController.updateMyProfile);
 
 module.exports = router;
