@@ -10,6 +10,6 @@ const router = express.Router();
 router
   .route('/')
   .post(auth('createCardColor'), validate(cardColorValidation.createCardColor), cardColorController.createCardColor)
-  .get(auth('getAllCardColors'), cardColorController.getAllCardColors);
+  .get(auth(), cardColorController.getAllCardColors);
 
 module.exports = router;
