@@ -38,3 +38,19 @@ function detectMobile() {
     return navigator.userAgent.match(toMatchItem);
   });
 }
+
+export const getLocalAccessToken = () => {
+  return localStorage.getItem("accessToken");
+};
+
+export const getLocalRefreshToken = () => {
+  return localStorage.getItem("refreshToken");
+};
+
+export const setLocalAccessToken = (token) => {
+  return localStorage.setItem("accessToken", token);
+};
+
+export const setLocalRefreshToken = (token) => {
+  return localStorage.setItem("refreshToken", token);
+};

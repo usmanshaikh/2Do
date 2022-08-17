@@ -1,14 +1,9 @@
 import axios from "axios";
+import AuthAPI from "./AuthAPI";
+import * as Helpers from "../utils/Helpers/Helpers";
 
-function getLocalAccessToken() {
-  const accessToken = localStorage.getItem("accessToken");
-  return accessToken;
-}
-
-function getLocalRefreshToken() {
-  const refreshToken = localStorage.getItem("refreshToken");
-  return refreshToken;
-}
+let isRefreshing = false;
+let refreshSubscribers = [];
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/v1/",
@@ -19,9 +14,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getLocalAccessToken();
+    const token = Helpers.getLocalAccessToken();
     if (token) {
-      config.headers.common["Authorization"] = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
@@ -31,34 +26,48 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (res) => {
-    return res.data;
+  (response) => {
+    return response.data;
   },
-  async (err) => {
-    // const originalConfig = err.config;
-    // if (err.response) {
-    //   // Access Token was expired
-    //   if (err.response.status === 401 && !originalConfig._retry) {
-    //     originalConfig._retry = true;
-    //     try {
-    //       const rs = await refreshToken();
-    //       const { accessToken } = rs.data;
-    //       window.localStorage.setItem("accessToken", accessToken);
-    //       instance.defaults.headers.common["x-access-token"] = accessToken;
-    //       return instance(originalConfig);
-    //     } catch (_error) {
-    //       if (_error.response && _error.response.data) {
-    //         return Promise.reject(_error.response.data);
-    //       }
-    //       return Promise.reject(_error);
-    //     }
-    //   }
-    //   if (err.response.status === 403 && err.response.data) {
-    //     return Promise.reject(err.response.data);
-    //   }
-    // }
-    return Promise.reject(err);
+  (error) => {
+    // prettier-ignore
+    const { config, response: { status } } = error;
+    const originalRequest = config;
+
+    if (status === 401 || status === 498) {
+      if (!isRefreshing) {
+        isRefreshing = true;
+        const refreshToken = Helpers.getLocalRefreshToken();
+        AuthAPI.refreshTokens({ refreshToken }).then((tk) => {
+          isRefreshing = false;
+          const accessToken = tk.access.token;
+          const refreshToken = tk.refresh.token;
+          Helpers.setLocalAccessToken(accessToken);
+          Helpers.setLocalRefreshToken(refreshToken);
+          onRrefreshed(accessToken);
+        });
+      }
+
+      const retryOrigReq = new Promise((resolve, reject) => {
+        subscribeTokenRefresh((token) => {
+          // replace the expired token and retry
+          originalRequest.headers["Authorization"] = `Bearer ${token}`;
+          resolve(axios(originalRequest));
+        });
+      });
+      return retryOrigReq;
+    } else {
+      return Promise.reject(error);
+    }
   }
 );
+
+function subscribeTokenRefresh(cb) {
+  refreshSubscribers.push(cb);
+}
+
+function onRrefreshed(token) {
+  refreshSubscribers.map((cb) => cb(token));
+}
 
 export default axiosInstance;
