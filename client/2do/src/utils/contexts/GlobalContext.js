@@ -20,10 +20,10 @@ const CFBY_reducer = (state, action) => {
 };
 
 const GlobalProvider = (props) => {
-  const isToken = () => (localStorage.getItem("token") ? true : false);
+  const isAccessToken = () => (localStorage.getItem("accessToken") ? true : false);
   const [headerTitle, setHeaderTitle] = useState("personal");
   const [CFBY_state, CFBY_dispatch] = useReducer(CFBY_reducer, CFBY_initialState);
-  const [authenticate, setAuthenticate] = useState(isToken());
+  const [authenticate, setAuthenticate] = useState(isAccessToken());
 
   const obj = {
     headerTitle: [headerTitle, setHeaderTitle],

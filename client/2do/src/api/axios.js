@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
     const { config, response: { status } } = error;
     const originalRequest = config;
 
-    if (status === 401 || status === 498) {
+    if ((status === 401 || status === 498) && !config.url.includes("auth/")) {
       if (!isRefreshing) {
         isRefreshing = true;
         const refreshToken = Helpers.getLocalRefreshToken();
@@ -57,7 +57,7 @@ axiosInstance.interceptors.response.use(
       });
       return retryOrigReq;
     } else {
-      return Promise.reject(error);
+      return Promise.reject(error.response.data);
     }
   }
 );

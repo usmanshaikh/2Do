@@ -4,6 +4,7 @@ import AppRoute from "./routes/AppRoute";
 import Menu from "./components/Menu/Menu";
 import Header from "./components/Header/Header";
 import useGlobalContext from "./utils/hooks/useGlobalContext";
+import * as Helpers from "./utils/Helpers/Helpers";
 import "./App.scss";
 
 function App() {
@@ -12,8 +13,8 @@ function App() {
   const { setAuthenticateHandler } = useGlobalContext();
 
   useEffect(() => {
-    const isToken = localStorage.getItem("token");
-    if (isToken) {
+    const isAccessToken = Helpers.getLocalAccessToken();
+    if (isAccessToken) {
       setIsShowMenu(true);
       setAuthenticateHandler(true);
     } else {

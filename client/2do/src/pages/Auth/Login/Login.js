@@ -3,6 +3,8 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
+import { AuthAPI } from "../../../api";
+import * as Helpers from "../../../utils/Helpers/Helpers";
 import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
@@ -25,12 +27,24 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
-      localStorage.setItem("token", "123456");
-      setAuthenticateHandler(true);
-      navigate(`/${Path.TASK}`);
+      login(values);
     },
   });
+
+  const login = (payload) => {
+    AuthAPI.login(payload)
+      .then((res) => {
+        const accessToken = res.tokens.access.token;
+        const refreshToken = res.tokens.refresh.token;
+        Helpers.setLocalAccessToken(accessToken);
+        Helpers.setLocalRefreshToken(refreshToken);
+        setAuthenticateHandler(true);
+        navigate(`/${Path.TASK}`);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
+  };
 
   return (
     <div className="loginPageWrapper commonAuthWrapper">

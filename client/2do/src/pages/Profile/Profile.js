@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { Icon, Avatar, IconButton } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { useNavigate } from "react-router-dom";
+import { AuthAPI } from "../../api";
 import Images from "../../assets/img/images.js";
 import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import StatisticChart from "../../components/StatisticChart/StatisticChart.js";
 import useGlobalContext from "../../utils/hooks/useGlobalContext.js";
+import * as Helpers from "../../utils/Helpers/Helpers";
 import * as Path from "../../utils/constants/routePath.constants";
 import "./Profile.scss";
 
@@ -30,7 +32,9 @@ const Profile = () => {
     console.log({ data });
   };
 
-  const onLogoutHandler = () => {
+  const onLogoutHandler = async () => {
+    const refreshToken = Helpers.getLocalRefreshToken();
+    await AuthAPI.logout({ refreshToken });
     localStorage.clear();
     setAuthenticateHandler(false);
     navigate(`/${Path.LOGIN}`);
