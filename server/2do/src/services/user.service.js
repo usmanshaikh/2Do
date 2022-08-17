@@ -50,12 +50,6 @@ const updateMyProfile = async (req) => {
   return user;
 };
 
-// const myImageById = catchAsync(async (req, res) => {
-//   let myImage = await MyImage.findById(req.params.imageId);
-//   let dd = Buffer.from(myImage.image.data).toString('base64');
-//   res.send(dd);
-// });
-
 /**
  * Statistic Report
  */
