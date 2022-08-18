@@ -34,3 +34,8 @@ https://sqlserverguides.com/mongodb-is-not-recognized-as-an-internal-or-external
 Free host image
 https://postimages.org/
 After upload use "Direct link"
+
+git commit -m "UI - axios package added and axios interceptor method created"
+
+rafce
+nfn

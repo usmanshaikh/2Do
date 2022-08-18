@@ -7,6 +7,7 @@ import ModalProvider from "mui-modal-provider";
 import reportWebVitals from "./reportWebVitals";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { GlobalProvider } from "./utils/contexts/GlobalContext";
+import { GlobalSnackbarAlertProvider } from "./utils/contexts/GlobalSnackbarAlertContext";
 import App from "./App";
 import theme from "./theme";
 import "./index.scss";
@@ -15,13 +16,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <GlobalProvider>
-      <ModalProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <ScrollToTop />
-          <App />
-        </ThemeProvider>
-      </ModalProvider>
+      <GlobalSnackbarAlertProvider>
+        <ModalProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <ScrollToTop />
+            <App />
+          </ThemeProvider>
+        </ModalProvider>
+      </GlobalSnackbarAlertProvider>
     </GlobalProvider>
   </BrowserRouter>
 );

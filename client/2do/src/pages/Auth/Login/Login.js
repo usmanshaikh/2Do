@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import * as Msg from "../../../utils/constants/message.constants";
 import * as Path from "../../../utils/constants/routePath.constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import useGlobalContext from "../../../utils/hooks/useGlobalContext";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts/GlobalSnackbarAlertContext";
 import "../Auth.scss";
 
 const validationSchema = yup.object({
@@ -19,6 +20,7 @@ const validationSchema = yup.object({
 const Login = () => {
   const navigate = useNavigate();
   const { setAuthenticateHandler } = useGlobalContext();
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +44,7 @@ const Login = () => {
         navigate(`/${Path.TASK}`);
       })
       .catch((err) => {
-        console.log({ err });
+        snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
       });
   };
 
