@@ -8,7 +8,7 @@ const bufferToBase64 = (schema) => {
   }
   schema.options.toJSON = Object.assign(schema.options.toJSON || {}, {
     transform(doc, ret, options) {
-      ret.image.data = convertBufferToBase64(ret.image.data);
+      if (ret.image) ret.image.data = convertBufferToBase64(ret.image.data);
       if (transform) {
         return transform(doc, ret, options);
       }
