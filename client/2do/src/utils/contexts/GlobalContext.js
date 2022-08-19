@@ -1,11 +1,13 @@
 import React, { createContext, useReducer, useState } from "react";
-import * as Msg from "../../utils/constants/message.constants";
+import constants from "../../utils/constants";
+
+const MSG = constants.message;
 
 const GlobalContext = createContext();
 
 const CFBY_initialState = {
-  categoryBy: Msg.DEFAULT_CATEGORY_BY,
-  filterBy: Msg.FITER_BY_ALL,
+  categoryBy: MSG.DEFAULT_CATEGORY_BY,
+  filterBy: MSG.FITER_BY_ALL,
 };
 
 const CFBY_reducer = (state, action) => {

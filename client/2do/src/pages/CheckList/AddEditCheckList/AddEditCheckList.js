@@ -7,16 +7,18 @@ import ChooseColor from "../../../components/ChooseColor/ChooseColor";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
-import * as Msg from "../../../utils/constants/message.constants";
+import constants from "../../../utils/constants";
 import GetAlert from "../../../components/GetAlert/GetAlert";
 import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
-import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
+import { hideFooter, showFooter } from "../../../utils/Helpers";
 import "./AddEditChecklist.scss";
+
+const MSG = constants.message;
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
 
 const validationSchema = yup.object({
-  title: yup.string().required(Msg.TITLE_REQUIRED),
+  title: yup.string().required(MSG.TITLE_REQUIRED),
 });
 
 const AddEditChecklist = () => {
@@ -40,7 +42,7 @@ const AddEditChecklist = () => {
     validationSchema: validationSchema,
     onSubmit: () => {
       const initialState = {
-        message: Msg.CREATE_CHECKLIST,
+        message: MSG.CREATE_CHECKLIST,
         onConfirm: (data) => submitFormHandler(data),
       };
       showModal(ConfirmationModal, initialState, { destroyOnClose: true });
@@ -66,7 +68,7 @@ const AddEditChecklist = () => {
 
   const onDeleteHandler = (data) => {
     const initialState = {
-      message: Msg.CONFIRMATION_DELETE,
+      message: MSG.CONFIRMATION_DELETE,
       onConfirm: () => confirmDeleteTaskHandler(),
       type: "danger",
     };

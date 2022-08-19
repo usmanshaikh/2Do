@@ -1,6 +1,6 @@
 import axios from "axios";
 import AuthAPI from "./AuthAPI";
-import * as Helpers from "../utils/Helpers/Helpers";
+import * as Helpers from "../utils/Helpers";
 
 let isRefreshing = false;
 let refreshSubscribers = [];

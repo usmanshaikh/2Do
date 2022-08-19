@@ -4,12 +4,14 @@ import { Icon, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import * as Msg from "../../../utils/constants/message.constants";
-import * as Path from "../../../utils/constants/routePath.constants";
+import constants from "../../../utils/constants";
 import "../Auth.scss";
 
+const ROUTE = constants.routePath;
+const MSG = constants.message;
+
 const validationSchema = yup.object({
-  email: yup.string().email(Msg.EMAIL_INVALID).required(Msg.EMAIL_REQUIRED),
+  email: yup.string().email(MSG.EMAIL_INVALID).required(MSG.EMAIL_REQUIRED),
 });
 
 const ForgotPassword = () => {
@@ -26,7 +28,7 @@ const ForgotPassword = () => {
   return (
     <div className="forgotPageWrapper commonAuthWrapper">
       <div className="backBtnWrap">
-        <Link to={`/${Path.LOGIN}`}>
+        <Link to={`/${ROUTE.LOGIN}`}>
           <Icon>keyboard_backspace</Icon>
         </Link>
       </div>
@@ -54,7 +56,7 @@ const ForgotPassword = () => {
           </div>
         </form>
       </div>
-      <Link to={`/${Path.RESET_PASSWORD}`}>Reset Password</Link>
+      <Link to={`/${ROUTE.RESET_PASSWORD}`}>Reset Password</Link>
     </div>
   );
 };

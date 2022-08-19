@@ -1,7 +1,7 @@
 import React from "react";
 import TaskCard from "../../components/Cards/TaskCard/TaskCard";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
-import useSetCategoryAndFilterBy from "../../utils/hooks/useSetCategoryAndFilterBy";
+import { useSetCategoryAndFilterBy } from "../../utils/hooks";
 import "./Task.scss";
 
 const Task = () => {

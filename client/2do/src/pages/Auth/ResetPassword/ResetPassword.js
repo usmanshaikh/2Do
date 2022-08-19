@@ -4,16 +4,18 @@ import { useFormik } from "formik";
 import { Icon, TextField } from "@mui/material";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import * as Msg from "../../../utils/constants/message.constants";
-import * as Path from "../../../utils/constants/routePath.constants";
+import constants from "../../../utils/constants";
 import "../Auth.scss";
 
+const ROUTE = constants.routePath;
+const MSG = constants.message;
+
 const validationSchema = yup.object({
-  resetCode: yup.number().typeError(Msg.RESET_CODE).min(6, Msg.RESET_CODE).required(Msg.RESET_CODE_REQUIRED),
-  newPassword: yup.string().min(Msg.PASSWORD_LENGTH, Msg.PASSWORD_MIN).required(Msg.PASSWORD_REQUIRED),
+  resetCode: yup.number().typeError(MSG.RESET_CODE).min(6, MSG.RESET_CODE).required(MSG.RESET_CODE_REQUIRED),
+  newPassword: yup.string().min(MSG.PASSWORD_LENGTH, MSG.PASSWORD_MIN).required(MSG.PASSWORD_REQUIRED),
   confirmPassword: yup.string().when("newPassword", {
     is: (val) => (val && val.length > 0 ? true : false),
-    then: yup.string().oneOf([yup.ref("newPassword")], Msg.PASSWORD_NOT_MATCH),
+    then: yup.string().oneOf([yup.ref("newPassword")], MSG.PASSWORD_NOT_MATCH),
   }),
 });
 
@@ -33,7 +35,7 @@ const ResetPassword = () => {
   return (
     <div className="resetPageWrapper commonAuthWrapper">
       <div className="backBtnWrap">
-        <Link to={`/${Path.LOGIN}`}>
+        <Link to={`/${ROUTE.LOGIN}`}>
           <Icon>keyboard_backspace</Icon>
         </Link>
       </div>
@@ -92,7 +94,7 @@ const ResetPassword = () => {
             <CustomButton name="Change Password" type="submit" />
           </div>
         </form>
-        <Link to={`/${Path.RESET_PASSWORD_SUCCESS}`}>Success</Link>
+        <Link to={`/${ROUTE.RESET_PASSWORD_SUCCESS}`}>Success</Link>
       </div>
     </div>
   );

@@ -1,18 +1,20 @@
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, List, ListItem, ListItemText } from "@mui/material";
-import * as Path from "../../../utils/constants/routePath.constants";
+import constants from "../../../utils/constants";
 import "./AddTaskModal.scss";
+
+const ROUTE = constants.routePath;
 
 const AddTaskModal = (props) => {
   const { onClose, open } = props;
   const navigate = useNavigate();
 
   const handleListItemClick = (url) => {
-    if (url === Path.ADD_EDIT_TASK) {
-      navigate(`/${Path.TASK}/${Path.ADD_EDIT_TASK}`);
-    } else if (url === Path.ADD_EDIT_CHECKLIST) {
-      navigate(`/${Path.CHECKLIST}/${Path.ADD_EDIT_CHECKLIST}`);
+    if (url === ROUTE.ADD_EDIT_TASK) {
+      navigate(`/${ROUTE.TASK}/${ROUTE.ADD_EDIT_TASK}`);
+    } else if (url === ROUTE.ADD_EDIT_CHECKLIST) {
+      navigate(`/${ROUTE.CHECKLIST}/${ROUTE.ADD_EDIT_CHECKLIST}`);
     }
     onClose();
   };
@@ -20,11 +22,11 @@ const AddTaskModal = (props) => {
   const LIST = [
     {
       title: "Add Task",
-      url: Path.ADD_EDIT_TASK,
+      url: ROUTE.ADD_EDIT_TASK,
     },
     {
       title: "Add Checklist",
-      url: Path.ADD_EDIT_CHECKLIST,
+      url: ROUTE.ADD_EDIT_CHECKLIST,
     },
   ];
 

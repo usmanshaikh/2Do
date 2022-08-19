@@ -3,20 +3,21 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import ChooseColor from "../../ChooseColor/ChooseColor";
-import * as Msg from "../../../utils/constants/message.constants";
-import * as Rgx from "../../../utils/constants/regex.constants";
-import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
+import constants from "../../../utils/constants";
+import { hideFooter, showFooter } from "../../../utils/Helpers";
 import "./AddNewCategoryModal.scss";
 
+const MSG = constants.message;
+const RGX = constants.regex;
+
 const validationSchema = yup.object({
-  title: yup.string().matches(Rgx.ONLY_LETTERS, Msg.TITLE_ONLY_LETTERS).required(Msg.TITLE_REQUIRED),
+  title: yup.string().matches(RGX.ONLY_LETTERS, MSG.TITLE_ONLY_LETTERS).required(MSG.TITLE_REQUIRED),
 });
 
 /**
  *
  * @param {{ onSubmitForm: () }} props
  */
-
 const AddNewCategoryModal = (props) => {
   const { onClose, open, onSubmitForm } = props;
   const [cardColor, setCardColor] = useState();

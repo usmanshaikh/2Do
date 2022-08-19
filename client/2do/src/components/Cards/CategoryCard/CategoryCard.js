@@ -1,6 +1,6 @@
 import React from "react";
 import { CardActionArea, Card } from "@mui/material";
-import { addLeadingZero } from "../../../utils/Helpers/Helpers";
+import { addLeadingZero } from "../../../utils/Helpers";
 import "./CategoryCard.scss";
 
 /**

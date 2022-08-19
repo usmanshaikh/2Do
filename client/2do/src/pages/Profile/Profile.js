@@ -7,10 +7,12 @@ import Images from "../../assets/img/images.js";
 import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import StatisticChart from "../../components/StatisticChart/StatisticChart.js";
-import useGlobalContext from "../../utils/hooks/useGlobalContext.js";
-import * as Helpers from "../../utils/Helpers/Helpers";
-import * as Path from "../../utils/constants/routePath.constants";
+import { useGlobalContext } from "../../utils/hooks";
+import * as Helpers from "../../utils/Helpers";
+import constants from "../../utils/constants";
 import "./Profile.scss";
+
+const ROUTE = constants.routePath;
 
 const Profile = () => {
   const { showModal } = useModal();
@@ -37,7 +39,7 @@ const Profile = () => {
     await AuthAPI.logout({ refreshToken });
     localStorage.clear();
     setAuthenticateHandler(false);
-    navigate(`/${Path.LOGIN}`);
+    navigate(`/${ROUTE.LOGIN}`);
   };
 
   return (

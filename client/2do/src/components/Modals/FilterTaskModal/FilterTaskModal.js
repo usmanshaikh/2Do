@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Dialog, DialogActions, DialogTitle, Icon, List, ListItem, ListItemText } from "@mui/material";
-import * as Msg from "../../../utils/constants/message.constants";
-import useNavigateWithParams from "../../../utils/hooks/useNavigateWithParams";
-import useGlobalContext from "../../../utils/hooks/useGlobalContext";
-import { unslugify } from "../../../utils/Helpers/Helpers";
+import constants from "../../../utils/constants";
+import { useNavigateWithParams, useGlobalContext } from "../../../utils/hooks";
+import { unslugify } from "../../../utils/Helpers";
 import "./FilterTaskModal.scss";
+
+const MSG = constants.message;
 
 const CATEGORY_ITEM = [
   {
@@ -24,15 +25,15 @@ const CATEGORY_ITEM = [
 
 const FILTER_ITEM = [
   {
-    label: Msg.FITER_BY_ALL,
+    label: MSG.FITER_BY_ALL,
     id: 1,
   },
   {
-    label: Msg.FITER_BY_INCOMPLETE,
+    label: MSG.FITER_BY_INCOMPLETE,
     id: 2,
   },
   {
-    label: Msg.FITER_BY_COMPLETED,
+    label: MSG.FITER_BY_COMPLETED,
     id: 3,
   },
 ];

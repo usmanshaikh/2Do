@@ -1,7 +1,9 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import useGlobalContext from "../../utils/hooks/useGlobalContext";
-import * as Path from "../../utils/constants/routePath.constants";
+import { useGlobalContext } from "../../utils/hooks";
+import constants from "../../utils/constants";
+
+const ROUTE = constants.routePath;
 
 /**
  * If the User is logged in then it will be allowed to proceed otherwise redirected to the Login page.
@@ -14,7 +16,7 @@ const RequireAuth = (props) => {
 
   if (children.props.moduleName === "auth") {
     return authenticate === true ? (
-      <Navigate to={`/${Path.TASK}`} replace state={{ path: location.pathname }} />
+      <Navigate to={`/${ROUTE.TASK}`} replace state={{ path: location.pathname }} />
     ) : (
       children
     );
@@ -23,7 +25,7 @@ const RequireAuth = (props) => {
   return authenticate === true ? (
     children
   ) : (
-    <Navigate to={`/${Path.LOGIN}`} replace state={{ path: location.pathname }} />
+    <Navigate to={`/${ROUTE.LOGIN}`} replace state={{ path: location.pathname }} />
   );
 };
 

@@ -3,15 +3,17 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 // prettier-ignore
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Icon, IconButton, Input, TextField } from "@mui/material";
-import * as Msg from "../../../utils/constants/message.constants";
-import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
+import constants from "../../../utils/constants";
+import { hideFooter, showFooter } from "../../../utils/Helpers";
 import "./EditProfileModal.scss";
+
+const MSG = constants.message;
 
 const validationSchema = yup.object({
   name: yup
     .string()
-    .required(Msg.NAME_REQUIRED)
-    .matches(/^[aA-zZ\s]+$/, Msg.NAME_ONLY_ALPHABETS),
+    .required(MSG.NAME_REQUIRED)
+    .matches(/^[aA-zZ\s]+$/, MSG.NAME_ONLY_ALPHABETS),
 });
 
 /**

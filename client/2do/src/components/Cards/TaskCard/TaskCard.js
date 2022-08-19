@@ -5,13 +5,15 @@ import { useModal } from "mui-modal-provider";
 // prettier-ignore
 import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import ConfirmationModal from "../../Modals/ConfirmationModal/ConfirmationModal.js";
-import { truncateString } from "../../../utils/Helpers/Helpers.js";
-import * as Path from "../../../utils/constants/routePath.constants";
-import * as Msg from "../../../utils/constants/message.constants";
+import { truncateString } from "../../../utils/Helpers";
+import constants from "../../../utils/constants";
 import Images from "../../../assets/img/images.js";
 import DateTime from "../../DateTime/DateTime.js";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskCard.scss";
+
+const ROUTE = constants.routePath;
+const MSG = constants.message;
 
 const TaskCard = () => {
   const navigate = useNavigate();
@@ -19,12 +21,12 @@ const TaskCard = () => {
   const { showModal } = useModal();
 
   const onEditTaskHandler = (data) => {
-    navigate(`${location.pathname}/${Path.ADD_EDIT_TASK}`);
+    navigate(`${location.pathname}/${ROUTE.ADD_EDIT_TASK}`);
   };
 
   const onDeleteHandler = (data) => {
     const initialState = {
-      message: Msg.CONFIRMATION_DELETE,
+      message: MSG.CONFIRMATION_DELETE,
       onConfirm: () => confirmDeleteTaskHandler(),
       type: "danger",
     };

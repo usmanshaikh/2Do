@@ -1,38 +1,40 @@
 import axios from "./axios";
-import * as Auth from "../utils/constants/apiPath.constants";
+import constants from "../utils/constants";
+
+const API = constants.apiPath;
 
 const AuthAPI = {
   register(payload) {
-    return axios.post(Auth.REGISTER, payload);
+    return axios.post(API.REGISTER, payload);
   },
   login(payload) {
-    return axios.post(Auth.LOGIN, payload);
+    return axios.post(API.LOGIN, payload);
   },
   forgotPassword(payload) {
-    return axios.post(Auth.FORGOT_PASSWORD, payload);
+    return axios.post(API.FORGOT_PASSWORD, payload);
   },
   logout(payload) {
-    return axios.post(Auth.LOGOUT, payload);
+    return axios.post(API.LOGOUT, payload);
   },
   refreshTokens(payload) {
-    return axios.post(Auth.REFRESH_TOKENS, payload);
+    return axios.post(API.REFRESH_TOKENS, payload);
   },
   resetPassword(payload, token) {
-    return axios.post(Auth.RESET_PASSWORD, payload, {
+    return axios.post(API.RESET_PASSWORD, payload, {
       params: {
         token,
       },
     });
   },
   verifyEmail(token) {
-    return axios.post(Auth.VERIFY_EMAIL, null, {
+    return axios.post(API.VERIFY_EMAIL, null, {
       params: {
         token,
       },
     });
   },
   sendVerificationEmail() {
-    return axios.post(Auth.SEND_VERIFICATION_EMAIL);
+    return axios.post(API.SEND_VERIFICATION_EMAIL);
   },
 };
 

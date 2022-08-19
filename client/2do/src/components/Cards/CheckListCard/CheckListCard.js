@@ -1,17 +1,19 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Icon, CardActionArea, Card } from "@mui/material";
-import { truncateString } from "../../../utils/Helpers/Helpers";
+import { truncateString } from "../../../utils/Helpers";
 import DateTime from "../../DateTime/DateTime";
-import * as Path from "../../../utils/constants/routePath.constants";
+import constants from "../../../utils/constants";
 import "./ChecklistCard.scss";
+
+const ROUTE = constants.routePath;
 
 const ChecklistCard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const onEditChecklistHandler = () => {
-    navigate(`${location.pathname}/${Path.ADD_EDIT_CHECKLIST}`);
+    navigate(`${location.pathname}/${ROUTE.ADD_EDIT_CHECKLIST}`);
   };
 
   return (

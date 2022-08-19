@@ -8,13 +8,15 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import GetAlert from "../../../components/GetAlert/GetAlert";
-import * as Msg from "../../../utils/constants/message.constants";
+import constants from "../../../utils/constants";
 import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
-import { hideFooter, showFooter } from "../../../utils/Helpers/Helpers";
+import { hideFooter, showFooter } from "../../../utils/Helpers";
 import "./AddEditTask.scss";
 
+const MSG = constants.message;
+
 const validationSchema = yup.object({
-  description: yup.string().required(Msg.DESCRIPTION_REQUIRED),
+  description: yup.string().required(MSG.DESCRIPTION_REQUIRED),
 });
 
 const AddEditTask = () => {
@@ -31,7 +33,7 @@ const AddEditTask = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const initialState = {
-        message: Msg.CREATE_TASK,
+        message: MSG.CREATE_TASK,
         onConfirm: (data) => submitFormHandler(data),
       };
       showModal(ConfirmationModal, initialState, { destroyOnClose: true });
@@ -57,7 +59,7 @@ const AddEditTask = () => {
 
   const onDeleteHandler = (data) => {
     const initialState = {
-      message: Msg.CONFIRMATION_DELETE,
+      message: MSG.CONFIRMATION_DELETE,
       onConfirm: () => confirmDeleteTaskHandler(),
       type: "danger",
     };

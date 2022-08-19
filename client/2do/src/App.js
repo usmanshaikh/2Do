@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 import AppRoute from "./routes/AppRoute";
 import Menu from "./components/Menu/Menu";
 import Header from "./components/Header/Header";
-import useGlobalContext from "./utils/hooks/useGlobalContext";
-import * as Helpers from "./utils/Helpers/Helpers";
+import * as Helpers from "./utils/Helpers";
+import { useGlobalContext } from "./utils/hooks";
 import "./App.scss";
 
 function App() {

@@ -1,15 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../../components/CustomButton/CustomButton.js";
-import * as Path from "../../../utils/constants/routePath.constants";
+import constants from "../../../utils/constants";
 import Images from "../../../assets/img/images.js";
 import "./ResetPasswordSuccess.scss";
+
+const ROUTE = constants.routePath;
 
 const ResetPasswordSuccess = () => {
   const navigate = useNavigate();
 
   const onLoginHandler = () => {
-    navigate(`/${Path.LOGIN}`);
+    navigate(`/${ROUTE.LOGIN}`);
   };
 
   return (

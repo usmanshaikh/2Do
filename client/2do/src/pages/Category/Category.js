@@ -4,10 +4,11 @@ import { useModal } from "mui-modal-provider";
 import Icon from "@mui/material/Icon";
 import CategoryCard from "../../components/Cards/CategoryCard/CategoryCard";
 import AddNewCategoryModal from "../../components/Modals/AddNewCategoryModal/AddNewCategoryModal";
-import useGlobalContext from "../../utils/hooks/useGlobalContext";
-import useNavigateWithParams from "../../utils/hooks/useNavigateWithParams";
-import * as Path from "../../utils/constants/routePath.constants";
+import { useGlobalContext, useNavigateWithParams } from "../../utils/hooks";
+import constants from "../../utils/constants";
 import "./Category.scss";
+
+const ROUTE = constants.routePath;
 
 const CATEGORY_ITEM = [
   {
@@ -54,7 +55,7 @@ const Category = () => {
   };
 
   const onMyTaskPageHandler = (category) => {
-    navigateWithParams(`/${Path.TASK}`, category, CFBY_state.filterBy);
+    navigateWithParams(`/${ROUTE.TASK}`, category, CFBY_state.filterBy);
   };
 
   return (

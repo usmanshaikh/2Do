@@ -1,19 +1,21 @@
 import React from "react";
 import MenuItem from "./MenuItem";
-import * as Path from "../../utils/constants/routePath.constants";
+import constants from "../../utils/constants";
 import "./Menu.scss";
+
+const ROUTE = constants.routePath;
 
 const MENU_ITEM = [
   {
     icon: "check_circle",
     name: "My Task",
-    url: Path.TASK,
+    url: ROUTE.TASK,
     position: 1,
   },
   {
     icon: "checklist",
     name: "Checklist",
-    url: Path.CHECKLIST,
+    url: ROUTE.CHECKLIST,
     position: 2,
   },
   {
@@ -25,13 +27,13 @@ const MENU_ITEM = [
   {
     icon: "widgets",
     name: "Category",
-    url: Path.CATEGORY,
+    url: ROUTE.CATEGORY,
     position: 4,
   },
   {
     icon: "person",
     name: "Profile",
-    url: Path.PROFILE,
+    url: ROUTE.PROFILE,
     position: 5,
   },
   {

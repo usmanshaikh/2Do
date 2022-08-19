@@ -2,14 +2,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import Slider from "../../components/Slider/Slider";
-import * as Path from "../../utils/constants/routePath.constants";
+import constants from "../../utils/constants";
 import "./Walkthrough.scss";
+
+const ROUTE = constants.routePath;
 
 const Walkthrough = () => {
   const navigate = useNavigate();
 
   const onGoToLoginPageHandler = () => {
-    navigate(`/${Path.LOGIN}`);
+    navigate(`/${ROUTE.LOGIN}`);
   };
 
   return (

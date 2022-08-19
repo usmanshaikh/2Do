@@ -4,17 +4,19 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { AuthAPI } from "../../../api";
-import * as Helpers from "../../../utils/Helpers/Helpers";
-import * as Msg from "../../../utils/constants/message.constants";
-import * as Path from "../../../utils/constants/routePath.constants";
+import * as Helpers from "../../../utils/Helpers";
+import constants from "../../../utils/constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import useGlobalContext from "../../../utils/hooks/useGlobalContext";
-import { GlobalSnackbarAlertContext } from "../../../utils/contexts/GlobalSnackbarAlertContext";
+import { useGlobalContext } from "../../../utils/hooks";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import "../Auth.scss";
 
+const ROUTE = constants.routePath;
+const MSG = constants.message;
+
 const validationSchema = yup.object({
-  email: yup.string().email(Msg.EMAIL_INVALID).required(Msg.EMAIL_REQUIRED),
-  password: yup.string().min(Msg.PASSWORD_LENGTH, Msg.PASSWORD_MIN).required(Msg.PASSWORD_REQUIRED),
+  email: yup.string().email(MSG.EMAIL_INVALID).required(MSG.EMAIL_REQUIRED),
+  password: yup.string().min(MSG.PASSWORD_LENGTH, MSG.PASSWORD_MIN).required(MSG.PASSWORD_REQUIRED),
 });
 
 const Login = () => {
@@ -41,7 +43,7 @@ const Login = () => {
         Helpers.setLocalAccessToken(accessToken);
         Helpers.setLocalRefreshToken(refreshToken);
         setAuthenticateHandler(true);
-        navigate(`/${Path.TASK}`);
+        navigate(`/${ROUTE.TASK}`);
       })
       .catch((err) => {
         snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
@@ -85,7 +87,7 @@ const Login = () => {
             />
           </div>
           <div className="forgotLinkWrap">
-            <Link className="aLink" to={`/${Path.FORGOT_PASSWORD}`}>
+            <Link className="aLink" to={`/${ROUTE.FORGOT_PASSWORD}`}>
               Forgot Password
             </Link>
           </div>
@@ -96,7 +98,7 @@ const Login = () => {
             <span className="txt">
               Don't have an account?
               <b>
-                <Link className="aLink" to={`/${Path.SIGNUP}`}>
+                <Link className="aLink" to={`/${ROUTE.SIGNUP}`}>
                   Create
                 </Link>
               </b>

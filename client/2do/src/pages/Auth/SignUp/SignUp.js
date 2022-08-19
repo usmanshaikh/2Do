@@ -4,20 +4,22 @@ import { useFormik } from "formik";
 import { Icon, TextField } from "@mui/material";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import * as Msg from "../../../utils/constants/message.constants";
-import * as Path from "../../../utils/constants/routePath.constants";
+import constants from "../../../utils/constants";
 import "../Auth.scss";
+
+const ROUTE = constants.routePath;
+const MSG = constants.message;
 
 const validationSchema = yup.object({
   name: yup
     .string()
-    .required(Msg.NAME_REQUIRED)
-    .matches(/^[aA-zZ\s]+$/, Msg.NAME_ONLY_ALPHABETS),
-  email: yup.string().email(Msg.EMAIL_INVALID).required(Msg.EMAIL_REQUIRED),
-  password: yup.string().min(Msg.PASSWORD_LENGTH, Msg.PASSWORD_MIN).required(Msg.PASSWORD_REQUIRED),
+    .required(MSG.NAME_REQUIRED)
+    .matches(/^[aA-zZ\s]+$/, MSG.NAME_ONLY_ALPHABETS),
+  email: yup.string().email(MSG.EMAIL_INVALID).required(MSG.EMAIL_REQUIRED),
+  password: yup.string().min(MSG.PASSWORD_LENGTH, MSG.PASSWORD_MIN).required(MSG.PASSWORD_REQUIRED),
   confirmPassword: yup.string().when("password", {
     is: (val) => (val && val.length > 0 ? true : false),
-    then: yup.string().oneOf([yup.ref("password")], Msg.PASSWORD_NOT_MATCH),
+    then: yup.string().oneOf([yup.ref("password")], MSG.PASSWORD_NOT_MATCH),
   }),
 });
 
@@ -38,7 +40,7 @@ const SignUp = () => {
   return (
     <div className="signUpPageWrapper commonAuthWrapper">
       <div className="backBtnWrap">
-        <Link to={`/${Path.LOGIN}`}>
+        <Link to={`/${ROUTE.LOGIN}`}>
           <Icon>keyboard_backspace</Icon>
         </Link>
       </div>
@@ -115,7 +117,7 @@ const SignUp = () => {
         <span className="txt">
           Already have a account?
           <b>
-            <Link className="aLink" to={`/${Path.LOGIN}`}>
+            <Link className="aLink" to={`/${ROUTE.LOGIN}`}>
               Login
             </Link>
           </b>

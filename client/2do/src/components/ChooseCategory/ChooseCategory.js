@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import { hideFooter, showFooter } from "../../utils/Helpers/Helpers";
+import { hideFooter, showFooter } from "../../utils/Helpers";
 import "./ChooseCategory.scss";
 
 const CATEGORY = [

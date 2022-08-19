@@ -1,6 +1,5 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import * as Path from "../utils/constants/routePath.constants";
 import ForgotPassword from "../pages/Auth/ForgotPassword/ForgotPassword";
 import Login from "../pages/Auth/Login/Login";
 import ResetPassword from "../pages/Auth/ResetPassword/ResetPassword";
@@ -15,6 +14,9 @@ import NotFound from "../components/NotFound/NotFound";
 import Checklist from "../pages/Checklist/Checklist";
 import AddEditChecklist from "../pages/Checklist/AddEditChecklist/AddEditChecklist";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
+import constants from "../utils/constants";
+
+const Path = constants.routePath;
 
 const AppRoute = () => {
   return (
