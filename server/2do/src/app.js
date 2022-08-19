@@ -49,6 +49,11 @@ app.options('*', cors());
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
+// Internally deplay All API to show Loader on UI
+app.use((req, res, next) => {
+  setTimeout(next, 500);
+});
+
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
