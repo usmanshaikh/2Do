@@ -9,7 +9,7 @@ import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import GetAlert from "../../../components/GetAlert/GetAlert";
 import constants from "../../../utils/constants";
-import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
+import { ConfirmationModal } from "../../../components/Modals";
 import { hideFooter, showFooter } from "../../../utils/Helpers";
 import "./AddEditTask.scss";
 

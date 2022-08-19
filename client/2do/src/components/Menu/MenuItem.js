@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Icon } from "@mui/material";
 import { useModal } from "mui-modal-provider";
-import AddTaskModal from "../Modals/AddTaskModal/AddTaskModal";
+import { AddTaskModal } from "../Modals";
 import constants from "../../utils/constants";
 import { useGlobalContext, useNavigateWithParams } from "../../utils/hooks";
 

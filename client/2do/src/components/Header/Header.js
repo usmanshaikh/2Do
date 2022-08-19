@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
-import FilterTaskModal from "../Modals/FilterTaskModal/FilterTaskModal";
+import { FilterTaskModal } from "../Modals";
 import { useGlobalContext } from "../../utils/hooks";
 import Images from "../../assets/img/images.js";
 import "./Header.scss";

@@ -1,5 +1,5 @@
 import React from "react";
-import TaskCard from "../../components/Cards/TaskCard/TaskCard";
+import { TaskCard } from "../../components/Cards";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import { useSetCategoryAndFilterBy } from "../../utils/hooks";
 import "./Task.scss";

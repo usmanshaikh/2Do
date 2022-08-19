@@ -1,6 +1,6 @@
 import React from "react";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
-import ChecklistCard from "../../components/Cards/ChecklistCard/ChecklistCard";
+import { ChecklistCard } from "../../components/Cards";
 import { useSetCategoryAndFilterBy } from "../../utils/hooks";
 import "./Checklist.scss";
 

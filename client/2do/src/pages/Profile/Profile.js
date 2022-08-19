@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 import { useNavigate } from "react-router-dom";
 import { AuthAPI } from "../../api";
 import Images from "../../assets/img/images.js";
-import EditProfileModal from "../../components/Modals/EditProfileModal/EditProfileModal.js";
+import { EditProfileModal } from "../../components/Modals";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import StatisticChart from "../../components/StatisticChart/StatisticChart.js";
 import { useGlobalContext } from "../../utils/hooks";

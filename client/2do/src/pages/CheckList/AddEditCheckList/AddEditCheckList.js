@@ -9,7 +9,7 @@ import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import constants from "../../../utils/constants";
 import GetAlert from "../../../components/GetAlert/GetAlert";
-import ConfirmationModal from "../../../components/Modals/ConfirmationModal/ConfirmationModal";
+import { ConfirmationModal } from "../../../components/Modals";
 import { hideFooter, showFooter } from "../../../utils/Helpers";
 import "./AddEditChecklist.scss";
 
