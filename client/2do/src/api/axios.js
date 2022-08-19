@@ -21,6 +21,7 @@ const addRequest = (config) => {
 };
 
 const axiosInstance = axios.create({
+  // baseURL: `http://${process.env.REACT_APP_IP}:3000/v1/`,
   baseURL: "http://localhost:3000/v1/",
   headers: {
     "Content-Type": "application/json",
