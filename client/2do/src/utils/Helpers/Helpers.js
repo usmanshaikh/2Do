@@ -54,3 +54,13 @@ export const setLocalAccessToken = (token) => {
 export const setLocalRefreshToken = (token) => {
   return localStorage.setItem("refreshToken", token);
 };
+
+export const showLoader = () => {
+  let element = document.getElementById("LOADER_COMPONENT");
+  element.classList.add("show");
+};
+
+export const hideLoader = () => {
+  let element = document.getElementById("LOADER_COMPONENT");
+  element.classList.remove("show");
+};

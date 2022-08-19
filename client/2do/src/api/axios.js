@@ -4,6 +4,21 @@ import * as Helpers from "../utils/Helpers";
 
 let isRefreshing = false;
 let refreshSubscribers = [];
+let requestsCount = [];
+let requestsIndex = 0;
+
+const removeRequest = (req) => {
+  setTimeout(() => {
+    requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
+    if (!requestsCount.length) Helpers.hideLoader();
+  }, 200);
+};
+
+const addRequest = (config) => {
+  requestsIndex = requestsIndex + 1;
+  config["reqIdx"] = requestsIndex;
+  requestsCount.push(config);
+};
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/v1/",
@@ -14,6 +29,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    Helpers.showLoader();
+    addRequest(config);
     const token = Helpers.getLocalAccessToken();
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -21,15 +38,18 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    removeRequest(error.config);
+    return Promise.reject(error.config);
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    removeRequest(response.config);
     return response.data;
   },
   (error) => {
+    removeRequest(error.config);
     // prettier-ignore
     const { config, response: { status } } = error;
     const originalRequest = config;

@@ -7,6 +7,7 @@ import ModalProvider from "mui-modal-provider";
 import reportWebVitals from "./reportWebVitals";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { GlobalProvider, GlobalSnackbarAlertProvider } from "./utils/contexts";
+import Loader from "./components/Loader/Loader";
 import App from "./App";
 import theme from "./theme";
 import "./index.scss";
@@ -20,6 +21,7 @@ root.render(
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <ScrollToTop />
+            <Loader />
             <App />
           </ThemeProvider>
         </ModalProvider>

@@ -14,6 +14,7 @@
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
     "formik": "^2.2.9",
+    "lottie-web": "^5.9.6",
     "moment": "^2.29.4",
     "mui-modal-provider": "^2.1.0",
     "react": "^18.1.0",
