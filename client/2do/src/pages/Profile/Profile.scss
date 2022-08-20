@@ -42,6 +42,24 @@
       }
     }
   }
+  .emailVerifyCardWrap {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%);
+    .infoTxt {
+      font-size: 14px;
+      line-height: 20px;
+      display: block;
+    }
+    .bold {
+      font-weight: 600;
+      color: #ff3e3e;
+    }
+    .center {
+      text-align: center;
+    }
+  }
   .statisticCardWrap {
     padding: 15px;
     border-radius: 4px;

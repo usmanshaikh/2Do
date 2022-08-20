@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Icon, Avatar, IconButton } from "@mui/material";
+import React, { useContext, useEffect } from "react";
+import { Icon, Avatar, IconButton, Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { useNavigate } from "react-router-dom";
 import { AuthAPI } from "../../api";
@@ -11,6 +11,7 @@ import { useGlobalContext } from "../../utils/hooks";
 import * as Helpers from "../../utils/Helpers";
 import constants from "../../utils/constants";
 import "./Profile.scss";
+import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 
 const ROUTE = constants.routePath;
 
@@ -18,6 +19,7 @@ const Profile = () => {
   const { showModal } = useModal();
   const { setHeaderTitleHandler, setAuthenticateHandler } = useGlobalContext();
   const navigate = useNavigate();
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   useEffect(() => {
     setHeaderTitleHandler("Profile");
@@ -32,6 +34,17 @@ const Profile = () => {
 
   const saveFormHandler = (data) => {
     console.log({ data });
+  };
+
+  const sendVerifyEmailLinkHander = () => {
+    AuthAPI.sendVerificationEmail()
+      .then((res) => {
+        const msg = "A verification link has been sent to your email account.";
+        snackbarAlert.showSnackbarAlert({ msg });
+      })
+      .catch((err) => {
+        snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
+      });
   };
 
   const onLogoutHandler = async () => {
@@ -59,6 +72,17 @@ const Profile = () => {
                 </IconButton>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="emailVerifyCardWrap">
+          <p className="infoTxt">
+            <span className="bold">Your email is not verify yet.</span> Please verify your email to receive
+            notifications releated to Task/Checklist reminder.
+          </p>
+          <div className="center">
+            <Button variant="outlined" onClick={sendVerifyEmailLinkHander}>
+              Verify Email Address
+            </Button>
           </div>
         </div>
         <div className="statisticCardWrap">

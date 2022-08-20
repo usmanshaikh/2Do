@@ -27,7 +27,7 @@ const AuthAPI = {
     });
   },
   verifyEmail(token) {
-    return axios.post(API.VERIFY_EMAIL, null, {
+    return axios.post(API.VERIFY_EMAIL, undefined, {
       params: {
         token,
       },

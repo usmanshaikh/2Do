@@ -15,6 +15,7 @@ import Checklist from "../pages/Checklist/Checklist";
 import AddEditChecklist from "../pages/Checklist/AddEditChecklist/AddEditChecklist";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
 import constants from "../utils/constants";
+import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
 
 const Path = constants.routePath;
 
@@ -84,6 +85,14 @@ const AppRoute = () => {
           element={
             <RequireAuth>
               <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={`/${Path.VERIFY_EMAIL}`}
+          element={
+            <RequireAuth>
+              <VerifyEmail />
             </RequireAuth>
           }
         />

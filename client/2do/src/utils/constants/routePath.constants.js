@@ -8,5 +8,6 @@ export const TASK = "task";
 export const CATEGORY = "category";
 export const CHECKLIST = "checklist";
 export const PROFILE = "profile";
+export const VERIFY_EMAIL = "verify-email";
 export const ADD_EDIT_TASK = "add-edit-task";
 export const ADD_EDIT_CHECKLIST = "add-edit-checklist";
