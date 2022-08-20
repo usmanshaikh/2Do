@@ -1,17 +1,27 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { AuthAPI } from "../../../api";
+import CustomButton from "../../../components/CustomButton/CustomButton";
+import constants from "../../../utils/constants";
 import images from "../../../assets/img/images";
+import * as Helpers from "../../../utils/Helpers";
 import "./VerifyEmail.scss";
+
+const ROUTE = constants.routePath;
 
 const VerifyEmail = () => {
   const [isVerifyEmailSuccess, setIsVerifyEmailSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const tokenRef = useRef();
   let [searchParams, setSearchParams] = useSearchParams();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
-  const tokenRef = useRef();
 
   useEffect(() => {
+    const isAccessToken = Helpers.getLocalAccessToken();
+    if (isAccessToken) setIsLoggedIn(true);
+
     removeTokenFromURL();
     verifyEmail();
   }, []);
@@ -35,6 +45,10 @@ const VerifyEmail = () => {
       });
   };
 
+  const onLoginHandler = () => {
+    navigate(`/${ROUTE.LOGIN}`);
+  };
+
   return (
     <>
       {isVerifyEmailSuccess && (
@@ -43,6 +57,7 @@ const VerifyEmail = () => {
             <img src={images.ResetPasswordSuccess} alt="delete" className="fluidImg successImg" />
             <h1 className="heading">Congratulations!</h1>
             <span className="info">Your account has been verified.</span>
+            {!isLoggedIn && <CustomButton name="Login" onClick={onLoginHandler} />}
           </div>
         </div>
       )}

@@ -88,14 +88,7 @@ const AppRoute = () => {
             </RequireAuth>
           }
         />
-        <Route
-          path={`/${Path.VERIFY_EMAIL}`}
-          element={
-            <RequireAuth>
-              <VerifyEmail />
-            </RequireAuth>
-          }
-        />
+        <Route path={`/${Path.VERIFY_EMAIL}`} element={<VerifyEmail />} />
         <Route
           path={`/${Path.TASK}`}
           element={
