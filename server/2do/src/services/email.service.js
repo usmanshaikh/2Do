@@ -73,7 +73,7 @@ const sendVerificationEmail = async (to, token, req) => {
   const origin = getOriginURL(req);
   const subject = 'Email Verification';
   // replace this url with the link to the email verification page of your front-end app
-  const verificationEmailUrl = `${origin}//verify-email?token=${token}`;
+  const verificationEmailUrl = `${origin}/verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
   const templateContent = {
     templateTitle: 'Email Verification',
