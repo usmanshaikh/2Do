@@ -50,10 +50,11 @@ const sendEmail = async (to, subject, template, context) => {
  * @param {string} token
  * @returns {Promise}
  */
-const sendResetPasswordEmail = async (to, token) => {
+const sendResetPasswordEmail = async (to, token, req) => {
+  const origin = getOriginURL(req);
   const subject = 'Reset password';
   // replace this url with the link to the reset password page of your front-end app
-  const resetPasswordUrl = `http://link-to-app/reset-password?token=${token}`;
+  const resetPasswordUrl = `${origin}/reset-password?token=${token}`;
   const templateToUse = 'resetPasswordTemplate';
   const templateContent = {
     templateTitle: 'Reset Password',
@@ -68,10 +69,11 @@ const sendResetPasswordEmail = async (to, token) => {
  * @param {string} token
  * @returns {Promise}
  */
-const sendVerificationEmail = async (to, token) => {
+const sendVerificationEmail = async (to, token, req) => {
+  const origin = getOriginURL(req);
   const subject = 'Email Verification';
   // replace this url with the link to the email verification page of your front-end app
-  const verificationEmailUrl = `http://link-to-app/verify-email?token=${token}`;
+  const verificationEmailUrl = `${origin}//verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
   const templateContent = {
     templateTitle: 'Email Verification',
@@ -86,13 +88,14 @@ const sendVerificationEmail = async (to, token) => {
  * @param {object} user
  * @returns {Promise}
  */
-const sendEventReminderEmail = async (eventInfo, eventType, user) => {
+const sendEventReminderEmail = async (eventInfo, eventType, user, req) => {
+  var origin = getOriginURL(req); // This is need to fix it is static
   let { title, dateAndTime } = eventInfo;
   dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
   // replace this url with the link to the email verification page of your front-end app
-  const eventLink = `http://link-to-app/verify-email?token=`;
+  const eventLink = `http://localhost:3000/verify-email?token=`;
   const templateToUse = 'reminderEmailTemplate';
   const templateContent = {
     templateTitle: 'Event Reminder',
@@ -107,6 +110,10 @@ const sendEventReminderEmail = async (eventInfo, eventType, user) => {
 const createNotificationAfterEmailSend = async (message, link, type, isRead, userId) => {
   const noficationBody = { message, link, type, isRead, userId };
   notificationService.createNotification(noficationBody);
+};
+
+const getOriginURL = (req) => {
+  return req.get('origin');
 };
 
 module.exports = {
