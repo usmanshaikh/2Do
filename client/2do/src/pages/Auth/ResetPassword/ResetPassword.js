@@ -1,17 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useRef } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { Icon, TextField } from "@mui/material";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import constants from "../../../utils/constants";
+import { AuthAPI } from "../../../api";
 import "../Auth.scss";
 
 const ROUTE = constants.routePath;
 const MSG = constants.message;
 
 const validationSchema = yup.object({
-  resetCode: yup.number().typeError(MSG.RESET_CODE).min(6, MSG.RESET_CODE).required(MSG.RESET_CODE_REQUIRED),
   newPassword: yup.string().min(MSG.PASSWORD_LENGTH, MSG.PASSWORD_MIN).required(MSG.PASSWORD_REQUIRED),
   confirmPassword: yup.string().when("newPassword", {
     is: (val) => (val && val.length > 0 ? true : false),
@@ -20,17 +21,41 @@ const validationSchema = yup.object({
 });
 
 const ResetPassword = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+  const tokenRef = useRef();
+
   const formik = useFormik({
     initialValues: {
-      resetCode: "",
       newPassword: "",
       confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
+      const token = tokenRef.current;
+      const payload = { password: values.newPassword };
+      AuthAPI.resetPassword(payload, token)
+        .then(() => {
+          navigate(`/${ROUTE.RESET_PASSWORD_SUCCESS}`);
+        })
+        .catch((err) => {
+          snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
+        });
     },
   });
+
+  const removeTokenFromURL = () => {
+    tokenRef.current = searchParams.get("token");
+    if (tokenRef.current) {
+      searchParams.delete("token");
+      setSearchParams(searchParams);
+    }
+  };
+
+  useEffect(() => {
+    removeTokenFromURL();
+  }, []);
 
   return (
     <div className="resetPageWrapper commonAuthWrapper">
@@ -45,21 +70,6 @@ const ResetPassword = () => {
       </span>
       <div className="formWrapper">
         <form onSubmit={formik.handleSubmit}>
-          <div className="commonInputWrap">
-            <TextField
-              fullWidth
-              variant="standard"
-              id="resetCode"
-              name="resetCode"
-              label="Reset Code"
-              autoComplete="off"
-              className="commonInputFormControl"
-              value={formik.values.resetCode}
-              onChange={formik.handleChange}
-              error={formik.touched.resetCode && Boolean(formik.errors.resetCode)}
-              helperText={formik.touched.resetCode && formik.errors.resetCode}
-            />
-          </div>
           <div className="commonInputWrap">
             <TextField
               fullWidth
@@ -94,7 +104,6 @@ const ResetPassword = () => {
             <CustomButton name="Change Password" type="submit" />
           </div>
         </form>
-        <Link to={`/${ROUTE.RESET_PASSWORD_SUCCESS}`}>Success</Link>
       </div>
     </div>
   );

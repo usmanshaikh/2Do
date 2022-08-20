@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { Icon, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import constants from "../../../utils/constants";
+import { AuthAPI } from "../../../api";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import "../Auth.scss";
 
 const ROUTE = constants.routePath;
@@ -15,13 +17,27 @@ const validationSchema = yup.object({
 });
 
 const ForgotPassword = () => {
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
+      AuthAPI.forgotPassword(values)
+        .then(() => {
+          snackbarAlert.showSnackbarAlert({
+            msg: "Please check your email and click on the provided link to reset your password.",
+          });
+          setTimeout(() => {
+            navigate(`/${ROUTE.LOGIN}`);
+          }, 4000);
+        })
+        .catch((err) => {
+          snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
+        });
     },
   });
 
@@ -56,7 +72,6 @@ const ForgotPassword = () => {
           </div>
         </form>
       </div>
-      <Link to={`/${ROUTE.RESET_PASSWORD}`}>Reset Password</Link>
     </div>
   );
 };
