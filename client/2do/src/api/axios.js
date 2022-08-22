@@ -8,10 +8,8 @@ let requestsCount = [];
 let requestsIndex = 0;
 
 const removeRequest = (req) => {
-  setTimeout(() => {
-    requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
-    if (!requestsCount.length) Helpers.hideLoader();
-  }, 200);
+  requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
+  if (!requestsCount.length) Helpers.hideLoader();
 };
 
 const addRequest = (config) => {
