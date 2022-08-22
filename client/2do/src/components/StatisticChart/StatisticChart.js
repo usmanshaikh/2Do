@@ -6,22 +6,27 @@ ChartJS.register(ArcElement);
 
 /**
  *
- * @param {{ taskPending: number, taskCompleted: number }} props
+ * @param report
  */
 
-const StatisticChart = (props) => {
-  const { taskCompleted, taskPending } = props;
+const StatisticChart = ({ report }) => {
+  const createdIdx = report.findIndex((object) => object.label === "created");
+  const completedIdx = report.findIndex((object) => object.label === "completed");
+  const pendingIdx = report.findIndex((object) => object.label === "pending");
+
+  const created = report[createdIdx].count;
+  const completed = report[completedIdx].count;
+  const pending = report[pendingIdx].count;
 
   const chartColorFill = "#ed467e";
   const chartColorUnfilled = "#cccccc";
-  const totalTask = taskCompleted + taskPending;
-  const progressPercentage = Math.round((taskCompleted / totalTask) * 100);
+  const progressPercentage = Math.round((completed / created) * 100);
 
   let data = {
     labels: ["Completed", "Pending"],
     datasets: [
       {
-        data: [taskCompleted, taskPending],
+        data: [completed, pending],
         backgroundColor: [chartColorFill, chartColorUnfilled],
         hoverBackgroundColor: [chartColorFill, chartColorUnfilled],
       },

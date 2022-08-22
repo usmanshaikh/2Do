@@ -11,3 +11,4 @@ export const SEND_VERIFICATION_EMAIL = "auth/send-verification-email";
 // User
 export const MY_PROFILE = "users/myProfile";
 export const UPDATE_MY_PROFILE = "users/updateMyProfile";
+export const STATISTIC_REPORT = "users/statisticReport";

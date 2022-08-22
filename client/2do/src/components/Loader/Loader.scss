@@ -13,7 +13,7 @@
     z-index: $zIdxLoader;
     justify-content: center;
     @include maxFixedWidth();
-    background-color: rgb(255 255 255 / 90%);
+    background-color: rgb(255 255 255 / 100%);
   }
   &.show {
     display: block;

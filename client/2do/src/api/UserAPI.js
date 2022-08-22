@@ -10,6 +10,9 @@ const UserAPI = {
   updateMyProfile(payload) {
     return axios.post(API.UPDATE_MY_PROFILE, payload);
   },
+  statisticReport() {
+    return axios.get(API.STATISTIC_REPORT);
+  },
 };
 
 export default UserAPI;
