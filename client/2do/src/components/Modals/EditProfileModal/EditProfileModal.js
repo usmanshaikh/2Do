@@ -22,21 +22,20 @@ const validationSchema = yup.object({
  */
 
 const EditProfileModal = (props) => {
-  const { onClose, open, onSubmitForm } = props;
+  const { onClose, open, name, onSubmitForm } = props;
   const [imgFile, setImgFile] = useState();
   const [preview, setPreview] = useState();
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: name ? name : "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const payload = {
-        ...values,
-        imgFile,
-      };
-      onSubmitForm(payload);
+      const formData = new FormData();
+      formData.append("image", imgFile);
+      formData.append("name", values.name);
+      onSubmitForm(formData);
       onClose();
     },
   });
@@ -73,7 +72,7 @@ const EditProfileModal = (props) => {
                   variant="standard"
                   id="name"
                   name="name"
-                  label="Name"
+                  label="Name*"
                   autoComplete="off"
                   className="commonInputFormControl"
                   value={formik.values.name}

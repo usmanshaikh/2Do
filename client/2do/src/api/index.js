@@ -1,4 +1,5 @@
 import AuthAPI from "./AuthAPI";
 import TaskAPI from "./TaskAPI";
+import UserAPI from "./UserAPI";
 
-export { AuthAPI, TaskAPI };
+export { AuthAPI, TaskAPI, UserAPI };
