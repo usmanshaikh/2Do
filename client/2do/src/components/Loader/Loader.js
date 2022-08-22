@@ -10,30 +10,31 @@ const Loader = () => {
     animateRef.current = lottie.loadAnimation({
       container: document.querySelector("#lottieAnimation"),
       animationData: loader,
+      loop: true,
       autoplay: false,
     });
     animateRef.current.setSpeed(3);
-  }, []);
-
-  (function exists() {
-    const ID = document.getElementById("LOADER_COMPONENT");
-    if (!ID) {
-      return setTimeout(exists);
-    }
-    const options = { attributes: true };
-    function callback(mutationList, observer) {
-      startAnimation();
-      if (mutationList.length === 1) {
-        mutationList.forEach(function (mutation) {
+    (function exists() {
+      const ID = document.getElementById("LOADER_COMPONENT");
+      if (!ID) {
+        return setTimeout(exists);
+      }
+      const options = { attributes: true, target: true };
+      function callback(mutationList, observer) {
+        mutationList.forEach(function (mutation, idx) {
           if (mutation.type === "attributes" && mutation.attributeName === "class") {
-            stopAnimation();
+            const cls = mutation.target.className.split(" ")[1];
+            if (idx === 0) {
+              if (cls === "show") startAnimation();
+            }
+            if (cls === "hide") stopAnimation();
           }
         });
       }
-    }
-    const observer = new MutationObserver(callback);
-    observer.observe(ID, options);
-  })();
+      const observer = new MutationObserver(callback);
+      observer.observe(ID, options);
+    })();
+  }, []);
 
   const startAnimation = () => animateRef.current.play();
 
