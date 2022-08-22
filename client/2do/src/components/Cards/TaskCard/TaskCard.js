@@ -15,7 +15,7 @@ import "./TaskCard.scss";
 const ROUTE = constants.routePath;
 const MSG = constants.message;
 
-const TaskCard = () => {
+const TaskCard = ({ tasks }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { showModal } = useModal();
@@ -58,72 +58,22 @@ const TaskCard = () => {
   );
   return (
     <>
-      {Array.from(Array(3)).map((_, i) => {
+      {tasks.map((item) => {
         return (
-          <Fragment key={i}>
+          <Fragment key={item?.id}>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
               <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
                 <Card className="taskCardWrap">
                   <CardActionArea>
                     <div className="taskItemWrapper">
-                      <span className="bgLine" style={{ backgroundColor: "#0693e3" }}></span>
+                      <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
                       <div className="flexContainer">
                         <div className="flexItemOne">
                           <Icon className="taskUnchecked">radio_button_unchecked</Icon>
                         </div>
                         <div className="flexItemTwo">
-                          <span className="title">
-                            {truncateString(
-                              "Add NPM package for React DOM and DateTimePicker.Add NPM package for React DOM and DateTimePicker.Add NPM package for React DOM and DateTimePicker."
-                            )}
-                          </span>
-                          <DateTime />
-                        </div>
-                      </div>
-                    </div>
-                  </CardActionArea>
-                </Card>
-              </SwipeableListItem>
-            </SwipeableList>
-            <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
-              <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-                <Card className="taskCardWrap">
-                  <CardActionArea>
-                    <div className="taskItemWrapper">
-                      <span className="bgLine" style={{ backgroundColor: "#00d084" }}></span>
-                      <div className="flexContainer">
-                        <div className="flexItemOne">
-                          <Icon className="taskUnchecked">radio_button_unchecked</Icon>
-                        </div>
-                        <div className="flexItemTwo">
-                          <span className="title">
-                            {truncateString("Create 2Do App by using ReactJS, NodeJs and Mongodb.")}
-                          </span>
-                          <DateTime />
-                        </div>
-                      </div>
-                    </div>
-                  </CardActionArea>
-                </Card>
-              </SwipeableListItem>
-            </SwipeableList>
-            <SwipeableList className="swipeListTaskWrapper taskCompleted" type={ListType.IOS}>
-              <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-                <Card className="taskCardWrap">
-                  <CardActionArea>
-                    <div className="taskItemWrapper">
-                      <span className="bgLine" style={{ backgroundColor: "#eb144c" }}></span>
-                      <div className="flexContainer">
-                        <div className="flexItemOne">
-                          <Icon className="taskChecked">check_circle</Icon>
-                        </div>
-                        <div className="flexItemTwo">
-                          <span className="title">
-                            {truncateString(
-                              "Create component and HTML structure. Create 2Do App by using ReactJS, NodeJs and Mongodb."
-                            )}
-                          </span>
-                          <DateTime />
+                          <span className="title">{truncateString(item?.title)}</span>
+                          <DateTime dateAndTime={item?.dateAndTime} alert={item?.alert} />
                         </div>
                       </div>
                     </div>

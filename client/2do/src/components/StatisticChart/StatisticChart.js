@@ -4,11 +4,6 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement);
 
-/**
- *
- * @param report
- */
-
 const StatisticChart = ({ report }) => {
   const createdIdx = report.findIndex((object) => object.label === "created");
   const completedIdx = report.findIndex((object) => object.label === "completed");
