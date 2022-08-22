@@ -223,7 +223,20 @@ const statisticReport = async (req) => {
       },
     },
   ]);
-  return aggregateData;
+  const allLabels = ['created', 'completed', 'pending'];
+  const taskLabels = [];
+  const checklistLabels = [];
+
+  aggregateData[0].taskStatistic.map((item) => taskLabels.push(item.label));
+  aggregateData[0].checklistStatistic.map((item) => checklistLabels.push(item.label));
+
+  let tl = allLabels.filter((obj) => taskLabels.indexOf(obj) == -1);
+  let cl = allLabels.filter((obj) => checklistLabels.indexOf(obj) == -1);
+
+  tl.map((label) => aggregateData[0].taskStatistic.push({ label, count: 0 }));
+  cl.map((label) => aggregateData[0].checklistStatistic.push({ label, count: 0 }));
+
+  return aggregateData[0];
 };
 
 /**

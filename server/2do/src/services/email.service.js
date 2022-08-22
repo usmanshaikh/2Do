@@ -89,7 +89,7 @@ const sendVerificationEmail = async (to, token, req) => {
  * @returns {Promise}
  */
 const sendEventReminderEmail = async (eventInfo, eventType, user, req) => {
-  var origin = getOriginURL(req); // This is need to fix it is static
+  // var origin = getOriginURL(req); // This is need to fix it is static
   let { title, dateAndTime } = eventInfo;
   dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
