@@ -65,14 +65,19 @@ const verifyUserEmail = async (userId, updateBody) => {
  * Update User by ID
  */
 const updateMyProfile = async (req) => {
-  const updateBody = {
-    name: req.body.name,
-    image: {
-      contentType: req.file.mimetype,
-      name: req.file.originalname,
-      data: req.file.buffer,
-    },
-  };
+  let updateBody;
+  if (req.file) {
+    updateBody = {
+      name: req.body.name,
+      image: {
+        contentType: req.file.mimetype,
+        name: req.file.originalname,
+        data: req.file.buffer,
+      },
+    };
+  } else {
+    updateBody = { name: req.body.name };
+  }
   const id = req.user._id;
   const user = await User.findByIdAndUpdate(
     id,

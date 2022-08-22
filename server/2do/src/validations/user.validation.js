@@ -50,7 +50,8 @@ const updateMyProfile = {
     name: Joi.string().required(),
     image: Joi.any(),
   }),
-  file: Joi.any().required(),
+  file: Joi.any(), // Optional
+  // file: Joi.any().required(),
 };
 
 module.exports = {
