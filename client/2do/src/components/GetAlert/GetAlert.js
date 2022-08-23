@@ -4,13 +4,23 @@ import "./GetAlert.scss";
 
 const GetAlert = (props) => {
   const { isEdit, alert, onAlertTask } = props;
-  const [checked, setChecked] = useState(alert);
+  const [checked, setChecked] = useState(true);
+
+  useEffect(() => {
+    if (isEdit) setChecked(alert);
+    else defaultCompValueIfNotEdit();
+  }, [alert]);
 
   const handleChange = (event) => {
     const check = event.target.checked;
     const obj = { alert: check };
     onAlertTask(obj);
     setChecked(check);
+  };
+
+  const defaultCompValueIfNotEdit = () => {
+    const obj = { alert: checked };
+    onAlertTask(obj);
   };
 
   const label = { inputProps: { "aria-label": "Switch demo" } };

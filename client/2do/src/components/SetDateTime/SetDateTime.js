@@ -10,6 +10,11 @@ const SetDateTime = (props) => {
   const { isEdit, dateAndTime, onSetDateTime } = props;
   const [dateTime, setDateTime] = useState(moment().toDate());
 
+  useEffect(() => {
+    if (isEdit) setDateTime(dateAndTime);
+    else defaultCompValueIfNotEdit();
+  }, [dateAndTime]);
+
   const handleChange = (newValue) => {
     const dt = moment(newValue).toDate();
     const obj = { dateAndTime: dt };
@@ -17,11 +22,10 @@ const SetDateTime = (props) => {
     setDateTime(dt);
   };
 
-  useEffect(() => {
-    if (isEdit) {
-      setDateTime(dateAndTime);
-    }
-  }, [dateAndTime]);
+  const defaultCompValueIfNotEdit = () => {
+    const obj = { dateAndTime: dateTime };
+    onSetDateTime(obj);
+  };
 
   return (
     <>

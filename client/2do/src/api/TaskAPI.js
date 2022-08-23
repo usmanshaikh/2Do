@@ -13,6 +13,9 @@ const TaskAPI = {
   getTask(taskId) {
     return axios.get(`${API.TASK}/${taskId}`);
   },
+  createTask(payload) {
+    return axios.post(`${API.CREATE}`, payload);
+  },
   deleteTask(taskId) {
     return axios.delete(`${API.TASK}/${taskId}`);
   },

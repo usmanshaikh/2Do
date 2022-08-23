@@ -8,18 +8,24 @@ const ChooseColor = (props) => {
   const { cardColor, isEdit, onChooseColor } = props;
   const [allColors, setAllColors] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
-  const [color, setColor] = useState(cardColor); // this obj will save in backend. So save whole obj
+  const [color, setColor] = useState(); // this obj will save in backend. So save whole obj
 
   useEffect(() => {
     getAllCardColors();
   }, []);
 
+  useEffect(() => {
+    if (isEdit) setColor(cardColor);
+  }, [cardColor]);
+
   const getAllCardColors = () => {
     CardColorAPI.cardColors()
       .then((res) => {
-        console.log({ res });
         setAllColors(res);
-        // setCurrentActiveColorId(res[0].id);
+        if (!isEdit) {
+          setColor(res[0]);
+          defaultCompValueIfNotEdit(res[0]);
+        }
       })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
@@ -28,6 +34,11 @@ const ChooseColor = (props) => {
     const obj = { cardColor: item.id };
     onChooseColor(obj);
     setColor(item);
+  };
+
+  const defaultCompValueIfNotEdit = (data) => {
+    const obj = { cardColor: data.id };
+    onChooseColor(obj);
   };
 
   return (

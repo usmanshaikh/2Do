@@ -7,9 +7,13 @@ import "./ChooseCategory.scss";
 
 const ChooseCategory = (props) => {
   const { isEdit, category, onChooseCategory } = props;
-  const [selectedCategory, setSelectedCategory] = useState(category);
+  const [selectedCategory, setSelectedCategory] = useState();
   const [allCategories, setAllCategories] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+
+  useEffect(() => {
+    if (isEdit) setSelectedCategory(category);
+  }, [category]);
 
   useEffect(() => {
     getAllCategories();
@@ -19,6 +23,10 @@ const ChooseCategory = (props) => {
     CategoryAPI.allCategories()
       .then((res) => {
         setAllCategories(res);
+        if (!isEdit) {
+          setSelectedCategory(res[0]);
+          defaultCompValueIfNotEdit(res[0]);
+        }
       })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
@@ -27,6 +35,11 @@ const ChooseCategory = (props) => {
     const obj = { category: item.id };
     onChooseCategory(obj);
     setSelectedCategory(item);
+  };
+
+  const defaultCompValueIfNotEdit = (data) => {
+    const obj = { category: data.id };
+    onChooseCategory(obj);
   };
 
   return (
@@ -39,7 +52,8 @@ const ChooseCategory = (props) => {
               disablePortal
               onChange={(event, value) => handleChange(value)}
               options={allCategories}
-              defaultValue={category}
+              value={selectedCategory ? selectedCategory : " "}
+              defaultValue={selectedCategory}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               getOptionLabel={(option) => (option.categoryName ? option.categoryName : "")}
               onFocus={hideFooter}

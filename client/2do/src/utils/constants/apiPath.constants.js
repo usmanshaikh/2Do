@@ -11,6 +11,7 @@ export const SEND_VERIFICATION_EMAIL = "auth/send-verification-email";
 // Task
 export const ALL_TASKS = "tasks/all";
 export const CHANGE_STATUS = "tasks/change-status";
+export const CREATE = "tasks/create";
 export const TASK = "tasks";
 
 // User

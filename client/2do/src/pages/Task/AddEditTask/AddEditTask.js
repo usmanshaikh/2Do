@@ -33,9 +33,7 @@ const AddEditTask = () => {
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   const formik = useFormik({
-    initialValues: {
-      description: "",
-    },
+    initialValues: { description: "" },
     validationSchema: validationSchema,
     onSubmit: () => {
       const initialState = {
@@ -87,13 +85,30 @@ const AddEditTask = () => {
 
   const submitFormHandler = () => {
     const taskId = searchParams.get("taskId");
+    const isEdit = searchParams.get("edit");
     compState.title = formik.values.description;
-    TaskAPI.updateTask(compState, taskId)
-      .then((res) => {
-        const msg = "Your changes have been saved";
-        snackbarAlert.showSnackbarAlert({ msg });
-      })
-      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+    if (isEdit) {
+      TaskAPI.updateTask(compState, taskId)
+        .then((res) => {
+          const msg = "Your changes have been saved";
+          snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
+          setTimeout(() => {
+            navigate(`/${ROUTE.TASK}`);
+          }, 2000);
+        })
+        .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+    } else {
+      compState.isCompleted = false;
+      TaskAPI.createTask(compState)
+        .then((res) => {
+          const msg = "Task has been created";
+          snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
+          setTimeout(() => {
+            navigate(`/${ROUTE.TASK}`);
+          }, 2000);
+        })
+        .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+    }
   };
 
   const onDeleteHandler = () => {
@@ -120,7 +135,7 @@ const AddEditTask = () => {
 
   return (
     <>
-      {task && (
+      {(task || !isEdit) && (
         <div className="addTaskPageWrapper">
           <div className="cardWrapper">
             <div className="formWrapper">
