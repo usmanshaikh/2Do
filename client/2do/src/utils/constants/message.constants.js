@@ -13,6 +13,9 @@ export const PASSWORD_NOT_MATCH = "Password and Confirm Password does not match"
 export const RESET_CODE_REQUIRED = "Reset code is required";
 export const RESET_CODE = "Please enter the 6 digit code";
 
+export const RESET_LINK_SEND = "Please check your email and click on the provided link to reset your password.";
+export const ACCOUNT_CREATED = "Your account has been created successfully.";
+
 export const TITLE_REQUIRED = "Title is required";
 export const TITLE_ONLY_LETTERS = "Title can only contain letters";
 export const DESCRIPTION_REQUIRED = "Description is required";
@@ -22,6 +25,9 @@ export const CONFIRMATION_DELETE = "Are you sure you want to Delete?";
 export const CREATE_CHECKLIST = "Create this checklist?";
 
 export const CREATE_TASK = "Create this Task?";
+export const CHANGES_SAVED = "Your changes have been saved.";
+export const TASK_CREATED = "Task has been created.";
+export const TASK_DELETED = "Task deleted successfully.";
 
 export const DEFAULT_CATEGORY_BY = "personal";
 

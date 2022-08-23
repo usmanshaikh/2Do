@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { TextField } from "@mui/material";
 import { useModal } from "mui-modal-provider";
-import { ConfirmationModal } from "../../../components/Modals";
+import { ConfirmationModal, SuccessModal } from "../../../components/Modals";
 import { hideFooter, showFooter } from "../../../utils/Helpers";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { TaskAPI } from "../../../api";
@@ -90,25 +90,29 @@ const AddEditTask = () => {
     if (isEdit) {
       TaskAPI.updateTask(compState, taskId)
         .then((res) => {
-          const msg = "Your changes have been saved";
-          snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
-          setTimeout(() => {
-            navigate(`/${ROUTE.TASK}`);
-          }, 2000);
+          const initialState = {
+            message: MSG.CHANGES_SAVED,
+            onClose: () => navigateTo(),
+          };
+          showModal(SuccessModal, initialState, { destroyOnClose: true });
         })
         .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
     } else {
       compState.isCompleted = false;
       TaskAPI.createTask(compState)
         .then((res) => {
-          const msg = "Task has been created";
-          snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
-          setTimeout(() => {
-            navigate(`/${ROUTE.TASK}`);
-          }, 2000);
+          const initialState = {
+            message: MSG.TASK_CREATED,
+            onClose: () => navigateTo(),
+          };
+          showModal(SuccessModal, initialState, { destroyOnClose: true });
         })
         .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
     }
+  };
+
+  const navigateTo = () => {
+    navigate(`/${ROUTE.TASK}`);
   };
 
   const onDeleteHandler = () => {
@@ -124,11 +128,11 @@ const AddEditTask = () => {
     const taskId = searchParams.get("taskId");
     TaskAPI.deleteTask(taskId)
       .then((res) => {
-        const msg = "Task deleted successfully";
-        snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
-        setTimeout(() => {
-          navigate(`/${ROUTE.TASK}`);
-        }, 2000);
+        const initialState = {
+          message: MSG.TASK_DELETED,
+          onClose: () => navigateTo(),
+        };
+        showModal(SuccessModal, initialState, { destroyOnClose: true });
       })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };

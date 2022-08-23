@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
+import * as yup from "yup";
 import { useFormik } from "formik";
+import { useModal } from "mui-modal-provider";
 import { Icon, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import CustomButton from "../../../components/CustomButton/CustomButton";
-import constants from "../../../utils/constants";
 import { AuthAPI } from "../../../api";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
+import { SuccessModal } from "../../../components/Modals";
+import CustomButton from "../../../components/CustomButton/CustomButton";
+import constants from "../../../utils/constants";
 import "../Auth.scss";
 
 const ROUTE = constants.routePath;
@@ -17,6 +19,7 @@ const validationSchema = yup.object({
 });
 
 const ForgotPassword = () => {
+  const { showModal } = useModal();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
   const navigate = useNavigate();
 
@@ -28,18 +31,21 @@ const ForgotPassword = () => {
     onSubmit: (values) => {
       AuthAPI.forgotPassword(values)
         .then(() => {
-          snackbarAlert.showSnackbarAlert({
-            msg: "Please check your email and click on the provided link to reset your password.",
-          });
-          setTimeout(() => {
-            navigate(`/${ROUTE.LOGIN}`);
-          }, 4000);
+          const initialState = {
+            message: MSG.RESET_LINK_SEND,
+            onClose: () => navigateTo(),
+          };
+          showModal(SuccessModal, initialState, { destroyOnClose: true });
         })
         .catch((err) => {
           snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
         });
     },
   });
+
+  const navigateTo = () => {
+    navigate(`/${ROUTE.LOGIN}`);
+  };
 
   return (
     <div className="forgotPageWrapper commonAuthWrapper">

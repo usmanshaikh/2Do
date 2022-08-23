@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { useModal } from "mui-modal-provider";
 import { Icon, TextField } from "@mui/material";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { AuthAPI } from "../../../api";
+import { SuccessModal } from "../../../components/Modals";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import constants from "../../../utils/constants";
 import "../Auth.scss";
@@ -26,6 +28,7 @@ const validationSchema = yup.object({
 });
 
 const SignUp = () => {
+  const { showModal } = useModal();
   const navigate = useNavigate();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
@@ -47,15 +50,19 @@ const SignUp = () => {
     console.log({ payload });
     AuthAPI.register(payload)
       .then((res) => {
-        const msg = "Your account has been created successfully";
-        snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
-        setTimeout(() => {
-          navigate(`/${ROUTE.LOGIN}`);
-        }, 2000);
+        const initialState = {
+          message: MSG.ACCOUNT_CREATED,
+          onClose: () => navigateTo(),
+        };
+        showModal(SuccessModal, initialState, { destroyOnClose: true });
       })
       .catch((err) => {
         snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
       });
+  };
+
+  const navigateTo = () => {
+    navigate(`/${ROUTE.LOGIN}`);
   };
 
   return (

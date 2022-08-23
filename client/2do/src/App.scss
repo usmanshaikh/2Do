@@ -70,8 +70,9 @@ body {
 .commonModalWrapper {
   .modalTitle {
     padding: 15px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
+    margin-bottom: 15px;
   }
   .modalContentWrap {
     padding: 15px;
@@ -105,6 +106,27 @@ body {
         background: #e20505;
         border-top: 1px solid #e20505;
       }
+    }
+  }
+}
+
+.successModalComponentWrapper,
+.errorModalComponentWrapper {
+  .modalTitle {
+    color: $white;
+    &.success {
+      background: #1e9d62;
+    }
+    &.error {
+      background-color: #d32f2f;
+    }
+  }
+  .modalMsg {
+    font-size: 16px;
+  }
+  .actionBtnFlexContainer {
+    .actionBtn {
+      width: 100%;
     }
   }
 }
