@@ -62,6 +62,7 @@ const TaskCard = (props) => {
                       <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
                       <div className="flexContainer">
                         <div className="flexItemOne">
+                          {/* <img src={Images.Loading} alt="loading" className="loadingImg" /> */}
                           {item?.isCompleted ? (
                             <Icon className="taskChecked">check_circle</Icon>
                           ) : (

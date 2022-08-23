@@ -7,6 +7,7 @@ import SliderThree from "./slider-three.png";
 import ResetPasswordSuccess from "./reset-password-success.png";
 import Portrait from "./portrait.jpg";
 import Logo from "./logo.png";
+import Loading from "./loading.gif";
 import EditSVG from "./edit.svg";
 import DeleteSVG from "./delete.svg";
 import FilterSVG from "./filter.svg";
@@ -21,6 +22,7 @@ const images = {
   ResetPasswordSuccess,
   Portrait,
   Logo,
+  Loading,
   EditSVG,
   DeleteSVG,
   FilterSVG,
