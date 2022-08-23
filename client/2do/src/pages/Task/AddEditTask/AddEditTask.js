@@ -45,8 +45,16 @@ const AddEditTask = () => {
   });
 
   useEffect(() => {
+    resetAllData();
     checkIfEdit();
-  }, []);
+  }, [searchParams.get("edit")]);
+
+  const resetAllData = () => {
+    // Because we are using same component so manually resetting the component
+    setTask(null);
+    setCompState(null);
+    formik.setFieldValue("description", "");
+  };
 
   const checkIfEdit = () => {
     const taskId = searchParams.get("taskId");
@@ -85,7 +93,6 @@ const AddEditTask = () => {
 
   const submitFormHandler = () => {
     const taskId = searchParams.get("taskId");
-    const isEdit = searchParams.get("edit");
     compState.title = formik.values.description;
     if (isEdit) {
       TaskAPI.updateTask(compState, taskId)

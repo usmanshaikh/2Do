@@ -15,7 +15,8 @@ const ChooseColor = (props) => {
   }, []);
 
   useEffect(() => {
-    if (isEdit) setColor(cardColor);
+    if (isEdit && cardColor) setColor(cardColor);
+    else getAllCardColors();
   }, [cardColor]);
 
   const getAllCardColors = () => {

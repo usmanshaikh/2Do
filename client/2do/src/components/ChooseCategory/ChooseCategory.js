@@ -12,7 +12,8 @@ const ChooseCategory = (props) => {
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   useEffect(() => {
-    if (isEdit) setSelectedCategory(category);
+    if (isEdit && category) setSelectedCategory(category);
+    else getAllCategories();
   }, [category]);
 
   useEffect(() => {

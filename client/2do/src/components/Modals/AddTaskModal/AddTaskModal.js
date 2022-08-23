@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { Dialog, List, ListItem, ListItemText } from "@mui/material";
 import constants from "../../../utils/constants";
 import "./AddTaskModal.scss";
@@ -12,9 +12,19 @@ const AddTaskModal = (props) => {
 
   const handleListItemClick = (url) => {
     if (url === ROUTE.ADD_EDIT_TASK) {
-      navigate(`/${ROUTE.TASK}/${ROUTE.ADD_EDIT_TASK}`);
+      navigate({
+        pathname: `/${ROUTE.TASK}/${ROUTE.ADD_EDIT_TASK}`,
+        search: createSearchParams({
+          edit: false,
+        }).toString(),
+      });
     } else if (url === ROUTE.ADD_EDIT_CHECKLIST) {
-      navigate(`/${ROUTE.CHECKLIST}/${ROUTE.ADD_EDIT_CHECKLIST}`);
+      navigate({
+        pathname: `/${ROUTE.CHECKLIST}/${ROUTE.ADD_EDIT_CHECKLIST}`,
+        search: createSearchParams({
+          edit: false,
+        }).toString(),
+      });
     }
     onClose();
   };
