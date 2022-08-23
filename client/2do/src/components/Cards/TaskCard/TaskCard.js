@@ -6,27 +6,19 @@ import { useModal } from "mui-modal-provider";
 import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import { ConfirmationModal } from "../../Modals";
 import { truncateString } from "../../../utils/Helpers";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import constants from "../../../utils/constants";
 import Images from "../../../assets/img/images.js";
 import DateTime from "../../DateTime/DateTime.js";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskCard.scss";
-import { TaskAPI } from "../../../api";
-import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 
-const ROUTE = constants.routePath;
 const MSG = constants.message;
 
 const TaskCard = (props) => {
-  const { tasks, changeStatus, deleteTask } = props;
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { tasks, changeStatus, deleteTask, editTask } = props;
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
   const { showModal } = useModal();
-
-  const onEditTaskHandler = (data) => {
-    navigate(`${location.pathname}/${ROUTE.ADD_EDIT_TASK}`);
-  };
 
   const onDeleteHandler = (data) => {
     const initialState = {
@@ -49,7 +41,7 @@ const TaskCard = (props) => {
 
   const leadingActions = (data) => (
     <LeadingActions>
-      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => onEditTaskHandler(data)}>
+      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => editTask(data)}>
         <div className="actionBtn deleted">
           <img src={Images.EditSVG} alt="delete" className="actionImg" />
         </div>

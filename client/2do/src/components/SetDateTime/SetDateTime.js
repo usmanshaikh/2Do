@@ -7,16 +7,21 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import "./SetDateTime.scss";
 
 const SetDateTime = (props) => {
-  const [dateTime, setDateTime] = useState(moment());
+  const { isEdit, dateAndTime, onSetDateTime } = props;
+  const [dateTime, setDateTime] = useState(moment().toDate());
+
   const handleChange = (newValue) => {
     const dt = moment(newValue).toDate();
+    const obj = { dateAndTime: dt };
+    onSetDateTime(obj);
     setDateTime(dt);
   };
 
   useEffect(() => {
-    const dt = moment(dateTime).toDate();
-    props.onSetDateTime(dt);
-  }, [dateTime]);
+    if (isEdit) {
+      setDateTime(dateAndTime);
+    }
+  }, [dateAndTime]);
 
   return (
     <>
@@ -24,7 +29,7 @@ const SetDateTime = (props) => {
         <span className="commonLabel">Set Date &#38; time</span>
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <DateTimePicker
-            inputFormat="DD/MMM/YYYY HH:mm A"
+            inputFormat="DD/MMM/YYYY hh:mm A"
             value={dateTime}
             onChange={handleChange}
             renderInput={(params) => <TextField fullWidth {...params} />}
@@ -36,3 +41,42 @@ const SetDateTime = (props) => {
 };
 
 export default SetDateTime;
+
+// import React, { useEffect, useState } from "react";
+// import moment from "moment";
+// import { TextField } from "@mui/material";
+// import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+// import "./SetDateTime.scss";
+
+// const SetDateTime = (props) => {
+//   const [dateTime, setDateTime] = useState(moment());
+//   const handleChange = (newValue) => {
+//     const dt = moment(newValue).toDate();
+//     setDateTime(dt);
+//   };
+
+//   useEffect(() => {
+//     const dt = moment(dateTime).toDate();
+//     props.onSetDateTime(dt);
+//   }, [dateTime]);
+
+//   return (
+//     <>
+//       <div className="setDateTimeComponentWrapper">
+//         <span className="commonLabel">Set Date &#38; time</span>
+//         <LocalizationProvider dateAdapter={AdapterMoment}>
+//           <DateTimePicker
+//             inputFormat="DD/MMM/YYYY HH:mm A"
+//             value={dateTime}
+//             onChange={handleChange}
+//             renderInput={(params) => <TextField fullWidth {...params} />}
+//           />
+//         </LocalizationProvider>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default SetDateTime;

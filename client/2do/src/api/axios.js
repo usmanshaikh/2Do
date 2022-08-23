@@ -28,7 +28,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log({ config });
     if (config.headers.noLoader) {
     } else {
       Helpers.showLoader();

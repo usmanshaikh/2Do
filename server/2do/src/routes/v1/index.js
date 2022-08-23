@@ -32,7 +32,7 @@ const defaultRoutes = [
     route: checklistRoute,
   },
   {
-    path: '/cardColors',
+    path: '/card-colors',
     route: cardColorRoute,
   },
   {

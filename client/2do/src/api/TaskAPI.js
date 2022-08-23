@@ -10,8 +10,14 @@ const TaskAPI = {
   changeTaskStatus(payload, taskId) {
     return axios.patch(`${API.CHANGE_STATUS}/${taskId}`, payload, NO_LOADER);
   },
+  getTask(taskId) {
+    return axios.get(`${API.TASK}/${taskId}`);
+  },
   deleteTask(taskId) {
-    return axios.delete(`${API.DELETE_TASK}/${taskId}`);
+    return axios.delete(`${API.TASK}/${taskId}`);
+  },
+  updateTask(payload, taskId) {
+    return axios.patch(`${API.TASK}/${taskId}`, payload);
   },
 };
 

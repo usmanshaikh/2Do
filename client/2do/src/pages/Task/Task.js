@@ -1,12 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { TaskAPI } from "../../api";
 import { TaskCard } from "../../components/Cards";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { useSetCategoryAndFilterBy } from "../../utils/hooks";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
+import constants from "../../utils/constants";
 import "./Task.scss";
 
+const ROUTE = constants.routePath;
+
 const Task = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const setHeaderTitle = useSetCategoryAndFilterBy();
   const [tasks, setTasks] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
@@ -45,11 +51,29 @@ const Task = () => {
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
 
+  const onEditTaskHandler = (data) => {
+    const taskId = data.id;
+    navigate({
+      pathname: `${location.pathname}/${ROUTE.ADD_EDIT_TASK}`,
+      search: createSearchParams({
+        taskId,
+        edit: true,
+      }).toString(),
+    });
+  };
+
   return (
     <>
       <DatePickerControl />
       <div className="taskPageWrapper">
-        {tasks && <TaskCard tasks={tasks} changeStatus={onChangeStatusHandler} deleteTask={onDeleteTaskHandler} />}
+        {tasks && (
+          <TaskCard
+            tasks={tasks}
+            changeStatus={onChangeStatusHandler}
+            deleteTask={onDeleteTaskHandler}
+            editTask={onEditTaskHandler}
+          />
+        )}
       </div>
     </>
   );
