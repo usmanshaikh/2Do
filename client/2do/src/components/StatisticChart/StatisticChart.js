@@ -15,7 +15,8 @@ const StatisticChart = ({ report }) => {
 
   const chartColorFill = "#ed467e";
   const chartColorUnfilled = "#cccccc";
-  const progressPercentage = Math.round((completed / created) * 100);
+  let progressPercentage = Math.round((completed / created) * 100);
+  if (isNaN(progressPercentage)) progressPercentage = 0;
 
   let data = {
     labels: ["Completed", "Pending"],

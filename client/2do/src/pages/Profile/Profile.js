@@ -113,54 +113,63 @@ const Profile = () => {
             </div>
           </div>
         )}
-        {report && (
+        {report && (report.taskStatistic[0].count || report.checklistStatistic[0].count) ? (
           <div className="statisticCardWrap">
             <h1 className="heading">Statistic</h1>
-            <div className="taskInfo">
-              {report?.taskStatistic?.map((data) => {
-                return (
-                  <Fragment key={data?.label}>
-                    <div className="flexContainer">
-                      <span className="label">{data?.label}</span>
-                      <span className="count">{data?.count}</span>
-                    </div>
-                  </Fragment>
-                );
-              })}
-            </div>
-            <div className="taskInfo">
-              <span className="title">Checklist</span>
-              {report?.checklistStatistic?.map((data) => {
-                return (
-                  <Fragment key={data?.label}>
-                    <div className="flexContainer">
-                      <span className="label">{data?.label}</span>
-                      <span className="count">{data?.count}</span>
-                    </div>
-                  </Fragment>
-                );
-              })}
-            </div>
+            {report.taskStatistic[0].count !== 0 && (
+              <div className="taskInfo">
+                <span className="title">Task</span>
+                {report?.taskStatistic?.map((data) => {
+                  return (
+                    <Fragment key={data?.label}>
+                      <div className="flexContainer">
+                        <span className="label">{data?.label}</span>
+                        <span className="count">{data?.count}</span>
+                      </div>
+                    </Fragment>
+                  );
+                })}
+              </div>
+            )}
+            {report.checklistStatistic[0].count !== 0 && (
+              <div className="taskInfo">
+                <span className="title">Checklist</span>
+                {report?.checklistStatistic?.map((data) => {
+                  return (
+                    <Fragment key={data?.label}>
+                      <div className="flexContainer">
+                        <span className="label">{data?.label}</span>
+                        <span className="count">{data?.count}</span>
+                      </div>
+                    </Fragment>
+                  );
+                })}
+              </div>
+            )}
             <div className="statisticChartWrap">
               <div className="flexContainer">
-                <div className="flexItem">
-                  <div className="chartBox">
-                    <StatisticChart report={report?.taskStatistic} />
+                {report.taskStatistic[0].count !== 0 && (
+                  <div className="flexItem">
+                    <div className="chartBox">
+                      <StatisticChart report={report?.taskStatistic} />
+                    </div>
+                    <span className="label">Task</span>
+                    <span className="label mg-0">Completed</span>
                   </div>
-                  <span className="label">Task</span>
-                  <span className="label mg-0">Completed</span>
-                </div>
-                <div className="flexItem">
-                  <div className="chartBox">
-                    <StatisticChart report={report?.checklistStatistic} />
+                )}
+                {report.checklistStatistic[0].count !== 0 && (
+                  <div className="flexItem">
+                    <div className="chartBox">
+                      <StatisticChart report={report?.checklistStatistic} />
+                    </div>
+                    <span className="label">Checklist</span>
+                    <span className="label mg-0">Completed</span>
                   </div>
-                  <span className="label">Checklist</span>
-                  <span className="label mg-0">Completed</span>
-                </div>
+                )}
               </div>
             </div>
           </div>
-        )}
+        ) : null}
         <div className="logoutBtnWrap">
           <CustomButton name="Logout" onClick={onLogoutHandler} />
         </div>
