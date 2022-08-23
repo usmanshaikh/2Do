@@ -8,14 +8,14 @@ const uploadImage = require('../../middlewares/uploadImage');
 const router = express.Router();
 
 // Admin Route
-router.route('/deleteAllUsers').delete(auth('deleteAllUsers'), userController.deleteAllUsers);
-router.route('/getAllUsers').get(auth('getAllUsers'), userController.getAllUsers);
+router.route('/delete-all').delete(auth('deleteAllUsers'), userController.deleteAllUsers);
+router.route('/get-all').get(auth('getAllUsers'), userController.getAllUsers);
 
-router.route('/statisticReport').get(auth(), userController.statisticReport);
-router.route('/completedPercentage').get(auth(), userController.completedPercentage);
-router.route('/myProfile').get(auth(), userController.myProfile);
+router.route('/statistic-report').get(auth(), userController.statisticReport);
+router.route('/completed-percentage').get(auth(), userController.completedPercentage);
+router.route('/my-profile').get(auth(), userController.myProfile);
 router
-  .route('/updateMyProfile')
+  .route('/update-my-profile')
   .post(auth(), uploadImage.single('image'), validate(userValidation.updateMyProfile), userController.updateMyProfile);
 
 module.exports = router;

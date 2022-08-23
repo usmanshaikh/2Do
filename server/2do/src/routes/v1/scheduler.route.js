@@ -3,7 +3,7 @@ const { schedulerController } = require('../../controllers');
 
 const router = express.Router();
 
-router.route('/getAllSchedulers').get(schedulerController.getAllSchedulers);
-router.route('/deleteAllSchedulers').delete(schedulerController.deleteAllSchedulers);
+router.route('/get-all').get(schedulerController.getAllSchedulers);
+router.route('/delete-all').delete(schedulerController.deleteAllSchedulers);
 
 module.exports = router;

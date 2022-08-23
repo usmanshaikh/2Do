@@ -8,17 +8,17 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 const router = express.Router();
 
 // Admin Route
-router.route('/deleteAllTasks').delete(auth('deleteAllTasks'), taskController.deleteAllTasks);
-router.route('/getAllTasks').get(auth('getAllTasks'), taskController.getAllTasks);
+router.route('/delete-all').delete(auth('deleteAllTasks'), taskController.deleteAllTasks);
+router.route('/get-all').get(auth('getAllTasks'), taskController.getAllTasks);
 
 router
-  .route('/changeTaskStatus/:taskId')
+  .route('/change-status/:taskId')
   .patch(auth(), validate(taskValidation.changeTaskStatus), taskController.changeTaskStatus);
 
-router.route('/allTasks').post(auth(), validate(taskValidation.allTasks), taskController.allTasks);
+router.route('/all').post(auth(), validate(taskValidation.allTasks), taskController.allTasks);
 
 router
-  .route('/createTask')
+  .route('/create')
   .post(
     auth(),
     validate(taskValidation.createTask),

@@ -8,17 +8,17 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 const router = express.Router();
 
 // Admin Route
-router.route('/deleteAllChecklists').delete(auth('deleteAllChecklists'), checklistController.deleteAllChecklists);
-router.route('/getAllChecklists').get(auth('getAllChecklists'), checklistController.getAllChecklists);
+router.route('/delete-all').delete(auth('deleteAllChecklists'), checklistController.deleteAllChecklists);
+router.route('/get-all').get(auth('getAllChecklists'), checklistController.getAllChecklists);
 
 router
-  .route('/changeChecklistStatus/:checklistId')
+  .route('/change-status/:checklistId')
   .patch(auth(), validate(checklistValidation.changeChecklistStatus), checklistController.changeChecklistStatus);
 
-router.route('/allChecklists').post(auth(), validate(checklistValidation.allChecklists), checklistController.allChecklists);
+router.route('/all').post(auth(), validate(checklistValidation.allChecklists), checklistController.allChecklists);
 
 router
-  .route('/createChecklist')
+  .route('/create')
   .post(
     auth(),
     validate(checklistValidation.createChecklist),

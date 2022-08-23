@@ -6,12 +6,13 @@ const { notificationController } = require('../../controllers');
 
 const router = express.Router();
 
-router.route('/getAllNotifications').get(auth(), notificationController.getAllNotifications);
+// Admin Route - delete this
+router.route('/get-all').get(auth(), notificationController.getAllNotifications);
 
 router
-  .route('/updateNotification/:notificationId')
+  .route('/update/:notificationId')
   .get(auth(), validate(notificationValidation.updateNotification), notificationController.updateNotification);
 
-router.route('/deleteAllNotifications').delete(auth(), notificationController.deleteAllNotifications);
+router.route('/delete-all').delete(auth(), notificationController.deleteAllNotifications);
 
 module.exports = router;
