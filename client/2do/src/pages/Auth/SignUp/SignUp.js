@@ -1,8 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import * as yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { Icon, TextField } from "@mui/material";
-import * as yup from "yup";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
+import { AuthAPI } from "../../../api";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import constants from "../../../utils/constants";
 import "../Auth.scss";
@@ -24,6 +26,9 @@ const validationSchema = yup.object({
 });
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -33,9 +38,25 @@ const SignUp = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
+      delete values.confirmPassword;
+      register(values);
     },
   });
+
+  const register = (payload) => {
+    console.log({ payload });
+    AuthAPI.register(payload)
+      .then((res) => {
+        const msg = "Your account has been created successfully";
+        snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
+        setTimeout(() => {
+          navigate(`/${ROUTE.LOGIN}`);
+        }, 2000);
+      })
+      .catch((err) => {
+        snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
+      });
+  };
 
   return (
     <div className="signUpPageWrapper commonAuthWrapper">
