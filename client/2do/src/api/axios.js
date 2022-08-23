@@ -28,8 +28,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    Helpers.showLoader();
-    addRequest(config);
+    console.log({ config });
+    if (config.headers.noLoader) {
+    } else {
+      Helpers.showLoader();
+      addRequest(config);
+    }
     const token = Helpers.getLocalAccessToken();
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -88,5 +92,11 @@ function subscribeTokenRefresh(cb) {
 function onRrefreshed(token) {
   refreshSubscribers.map((cb) => cb(token));
 }
+
+export const NO_LOADER = {
+  headers: {
+    noLoader: true,
+  },
+};
 
 export default axiosInstance;
