@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardActionArea, Icon } from "@mui/material";
 import { useModal } from "mui-modal-provider";
@@ -11,13 +11,17 @@ import Images from "../../../assets/img/images.js";
 import DateTime from "../../DateTime/DateTime.js";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskCard.scss";
+import { TaskAPI } from "../../../api";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 
 const ROUTE = constants.routePath;
 const MSG = constants.message;
 
-const TaskCard = ({ tasks }) => {
+const TaskCard = (props) => {
+  const { tasks, changeStatus, deleteTask } = props;
   const navigate = useNavigate();
   const location = useLocation();
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
   const { showModal } = useModal();
 
   const onEditTaskHandler = (data) => {
@@ -27,19 +31,15 @@ const TaskCard = ({ tasks }) => {
   const onDeleteHandler = (data) => {
     const initialState = {
       message: MSG.CONFIRMATION_DELETE,
-      onConfirm: () => confirmDeleteTaskHandler(),
+      onConfirm: () => deleteTask(data),
       type: "danger",
     };
     showModal(ConfirmationModal, initialState, { destroyOnClose: true });
   };
 
-  const confirmDeleteTaskHandler = () => {
-    console.log("confirmDeleteTaskHandler");
-  };
-
   const trailingActions = (data) => (
     <TrailingActions>
-      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => onDeleteHandler("DATA")}>
+      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => onDeleteHandler(data)}>
         <div className="actionBtn deleted">
           <img src={Images.DeleteSVG} alt="delete" className="actionImg" />
         </div>
@@ -47,29 +47,34 @@ const TaskCard = ({ tasks }) => {
     </TrailingActions>
   );
 
-  const leadingActions = () => (
+  const leadingActions = (data) => (
     <LeadingActions>
-      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => onEditTaskHandler()}>
+      <SwipeAction className="swipeListTaskActionBtnWrapper" onClick={() => onEditTaskHandler(data)}>
         <div className="actionBtn deleted">
           <img src={Images.EditSVG} alt="delete" className="actionImg" />
         </div>
       </SwipeAction>
     </LeadingActions>
   );
+
   return (
     <>
       {tasks.map((item) => {
         return (
           <Fragment key={item?.id}>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
-              <SwipeableListItem leadingActions={leadingActions()} trailingActions={trailingActions()}>
-                <Card className="taskCardWrap">
+              <SwipeableListItem leadingActions={leadingActions(item)} trailingActions={trailingActions(item)}>
+                <Card className="taskCardWrap" onClick={() => changeStatus(item)}>
                   <CardActionArea>
                     <div className="taskItemWrapper">
                       <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
                       <div className="flexContainer">
                         <div className="flexItemOne">
-                          <Icon className="taskUnchecked">radio_button_unchecked</Icon>
+                          {item?.isCompleted ? (
+                            <Icon className="taskChecked">check_circle</Icon>
+                          ) : (
+                            <Icon className="taskUnchecked">radio_button_unchecked</Icon>
+                          )}
                         </div>
                         <div className="flexItemTwo">
                           <span className="title">{truncateString(item?.title)}</span>

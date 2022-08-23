@@ -8,7 +8,12 @@ export const RESET_PASSWORD = "auth/reset-password";
 export const VERIFY_EMAIL = "auth/verify-email";
 export const SEND_VERIFICATION_EMAIL = "auth/send-verification-email";
 
+// Task
+export const ALL_TASKS = "tasks/all";
+export const CHANGE_STATUS = "tasks/change-status";
+export const DELETE_TASK = "tasks";
+
 // User
-export const MY_PROFILE = "users/myProfile";
-export const UPDATE_MY_PROFILE = "users/updateMyProfile";
-export const STATISTIC_REPORT = "users/statisticReport";
+export const MY_PROFILE = "users/my-profile";
+export const UPDATE_MY_PROFILE = "users/update-my-profile";
+export const STATISTIC_REPORT = "users/statistic-report";

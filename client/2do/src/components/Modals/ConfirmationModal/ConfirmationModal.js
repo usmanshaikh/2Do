@@ -11,7 +11,7 @@ const ConfirmationModal = (props) => {
   const { onClose, open, message, onConfirm, type = "success" } = props;
 
   const onYesHandler = () => {
-    onConfirm("yes");
+    onConfirm();
     onClose();
   };
 
