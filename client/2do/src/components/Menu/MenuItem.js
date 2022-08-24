@@ -16,9 +16,10 @@ const MenuItem = (props) => {
   }, [location]);
 
   const onNavigateHandler = (url, name) => {
-    navigate(`/${url}`);
     if (name === "Add") {
       showModal(AddTaskModal, undefined, { destroyOnClose: true });
+    } else {
+      navigate(`/${url}`);
     }
   };
 

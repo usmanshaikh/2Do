@@ -8,7 +8,7 @@ import "./DateTime.scss";
  */
 const DateTime = (props) => {
   const { dateAndTime, alert } = props;
-  const time = moment(dateAndTime).format("hh.mm a");
+  const time = moment(dateAndTime).format("hh:mm a");
   const date = moment(dateAndTime).format("DD MMM YYYY");
 
   return (
