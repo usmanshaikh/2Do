@@ -69,7 +69,6 @@ axiosInstance.interceptors.response.use(
           onRrefreshed(accessToken);
         });
       }
-
       const retryOrigReq = new Promise((resolve, reject) => {
         subscribeTokenRefresh((token) => {
           // replace the expired token and retry
@@ -77,7 +76,8 @@ axiosInstance.interceptors.response.use(
           resolve(axios(originalRequest));
         });
       });
-      return retryOrigReq;
+      console.clear();
+      return retryOrigReq.then((response) => response.data);
     } else {
       return Promise.reject(error.response.data);
     }
