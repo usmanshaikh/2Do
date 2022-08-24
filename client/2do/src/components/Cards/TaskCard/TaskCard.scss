@@ -17,7 +17,6 @@
   }
   .taskItemWrapper {
     width: 100%;
-    padding: 10px;
     min-height: 65px;
     position: relative;
     border-radius: 4px;
@@ -34,18 +33,23 @@
   }
   .flexContainer {
     width: 100%;
-    @include flexbox($wrap: nowrap);
+    @include flexbox($wrap: nowrap, $align: normal);
     .flexItemOne {
-      width: 30px;
+      width: 45px;
       display: flex;
-      align-items: center;
       justify-content: center;
     }
     .flexItemTwo {
       flex: auto;
       overflow: hidden;
-      padding-left: 10px;
     }
+  }
+  .checkCircleWrap,
+  .infoWrap {
+    padding: 10px;
+  }
+  .infoWrap {
+    cursor: grab;
   }
   .title {
     display: block;
@@ -70,8 +74,9 @@
       color: $red;
     }
     .actionBtn {
-      padding: 10px 25px;
       display: flex;
+      cursor: pointer;
+      padding: 10px 25px;
       align-items: center;
       justify-content: center;
       &:first-child {

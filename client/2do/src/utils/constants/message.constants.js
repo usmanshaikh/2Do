@@ -32,5 +32,5 @@ export const TASK_DELETED = "Task deleted successfully.";
 export const DEFAULT_CATEGORY_BY = "personal";
 
 export const FITER_BY_ALL = "all tasks";
-export const FITER_BY_INCOMPLETE = "incomplete tasks";
+export const FITER_BY_PENDING = "pending tasks";
 export const FITER_BY_COMPLETED = "completed tasks";

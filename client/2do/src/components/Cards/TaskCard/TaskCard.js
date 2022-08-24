@@ -56,26 +56,28 @@ const TaskCard = (props) => {
           <Fragment key={item?.id}>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
               <SwipeableListItem leadingActions={leadingActions(item)} trailingActions={trailingActions(item)}>
-                <Card className="taskCardWrap" onClick={() => changeStatus(item)}>
-                  <CardActionArea>
-                    <div className="taskItemWrapper">
-                      <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
-                      <div className="flexContainer">
-                        <div className="flexItemOne">
+                <Card className="taskCardWrap">
+                  <div className="taskItemWrapper">
+                    <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
+                    <div className="flexContainer">
+                      <div className="flexItemOne" onClick={() => changeStatus(item)}>
+                        <CardActionArea className="checkCircleWrap">
                           {/* <img src={Images.Loading} alt="loading" className="loadingImg" /> */}
                           {item?.isCompleted ? (
                             <Icon className="taskChecked">check_circle</Icon>
                           ) : (
                             <Icon className="taskUnchecked">radio_button_unchecked</Icon>
                           )}
-                        </div>
-                        <div className="flexItemTwo">
+                        </CardActionArea>
+                      </div>
+                      <div className="flexItemTwo">
+                        <CardActionArea className="infoWrap">
                           <span className="title">{truncateString(item?.title)}</span>
                           <DateTime dateAndTime={item?.dateAndTime} alert={item?.alert} />
-                        </div>
+                        </CardActionArea>
                       </div>
                     </div>
-                  </CardActionArea>
+                  </div>
                 </Card>
               </SwipeableListItem>
             </SwipeableList>

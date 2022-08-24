@@ -29,7 +29,7 @@ const FILTER_ITEM = [
     id: 1,
   },
   {
-    label: MSG.FITER_BY_INCOMPLETE,
+    label: MSG.FITER_BY_PENDING,
     id: 2,
   },
   {

@@ -9,6 +9,7 @@ import constants from "../../utils/constants";
 import "./Task.scss";
 
 const ROUTE = constants.routePath;
+const MSG = constants.message;
 
 const Task = () => {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ const Task = () => {
     TaskAPI.deleteTask(taskId)
       .then((res) => {
         setTasks(tasks.filter((item) => item.id !== data.id));
+        snackbarAlert.showSnackbarAlert({ msg: MSG.TASK_DELETED });
       })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
