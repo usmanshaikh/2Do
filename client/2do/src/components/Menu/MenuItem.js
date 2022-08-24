@@ -3,18 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Icon } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { AddTaskModal } from "../Modals";
-import constants from "../../utils/constants";
-import { useGlobalContext, useNavigateWithParams } from "../../utils/hooks";
-
-const ROUTE = constants.routePath;
 
 const MenuItem = (props) => {
   const [currentActiveLink, setCurrentActiveLink] = useState();
   const location = useLocation();
   const navigate = useNavigate();
   const { showModal } = useModal();
-  const { CFBY_state } = useGlobalContext();
-  const { navigateWithParams } = useNavigateWithParams();
 
   useEffect(() => {
     const menuClass = `menuItem ${props.name.toLowerCase()} ${location.pathname.includes(props.url) ? "active" : ""}`;
@@ -22,11 +16,7 @@ const MenuItem = (props) => {
   }, [location]);
 
   const onNavigateHandler = (url, name) => {
-    if (url === ROUTE.TASK || url === ROUTE.CHECKLIST) {
-      navigateWithParams(`/${url}`, CFBY_state.categoryBy, CFBY_state.filterBy);
-    } else if (url) {
-      navigate(`/${url}`);
-    }
+    navigate(`/${url}`);
     if (name === "Add") {
       showModal(AddTaskModal, undefined, { destroyOnClose: true });
     }

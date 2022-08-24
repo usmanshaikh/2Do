@@ -3,8 +3,25 @@
 .calendarComponentWrapper {
   margin: 15px;
   padding: 15px;
+  position: relative;
   border-radius: 4px;
   box-shadow: -2px 0px 20px 0px rgb(0 0 0 / 5%);
+  .clearBtnWrap {
+    top: 30px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    display: flex;
+    position: absolute;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: #e1e1e1;
+    .clearIcon {
+      font-size: 20px;
+    }
+  }
   .datePickerInputControl {
     .MuiInputBase-input::placeholder {
       text-transform: uppercase;

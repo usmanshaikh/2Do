@@ -1,30 +1,22 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { slugify } from "../Helpers/Helpers";
 import useGlobalContext from "./useGlobalContext";
 
 /**
- * Created this Hook to set (Header Title, categoryBy and filterBy) automatically. It will not return any value.
+ * Created this Hook to set (category and isCompleted) automatically. It will not return any value.
  */
 const useSetCategoryAndFilterBy = () => {
-  const { setHeaderTitleHandler, CFBY_dispatchHandler } = useGlobalContext();
+  const { filterOptionsDispatch } = useGlobalContext();
   let [searchParams] = useSearchParams();
 
   useEffect(() => {
-    let categoryBy = searchParams.get("categoryBy");
-    let filterBy = searchParams.get("filterBy");
-    categoryBy && (categoryBy = slugify(searchParams.get("categoryBy")));
-    filterBy && (filterBy = slugify(searchParams.get("filterBy")));
-    if (categoryBy && filterBy) {
-      const payload = {
-        type: "setState",
-        categoryBy,
-        filterBy,
-      };
-      CFBY_dispatchHandler(payload);
-    }
-    if (categoryBy) {
-      setHeaderTitleHandler(categoryBy);
+    let category = searchParams.get("category");
+    let isCompleted = searchParams.get("isCompleted");
+    category && (category = searchParams.get("category"));
+    isCompleted && (isCompleted = searchParams.get("isCompleted"));
+    if (category && isCompleted) {
+      const payload = { type: "setState", category, isCompleted };
+      filterOptionsDispatch(payload);
     }
   }, [searchParams]);
 };

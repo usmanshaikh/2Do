@@ -1,12 +1,9 @@
 import React from "react";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import { ChecklistCard } from "../../components/Cards";
-import { useSetCategoryAndFilterBy } from "../../utils/hooks";
 import "./Checklist.scss";
 
 const Checklist = () => {
-  const setHeaderTitle = useSetCategoryAndFilterBy();
-
   return (
     <>
       <DatePickerControl />

@@ -8,7 +8,7 @@ import "./ChooseCategory.scss";
 const ChooseCategory = (props) => {
   const { isEdit, category, onChooseCategory } = props;
   const [selectedCategory, setSelectedCategory] = useState();
-  const [allCategories, setAllCategories] = useState();
+  const [categories, setCategories] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const ChooseCategory = (props) => {
   const getAllCategories = () => {
     CategoryAPI.allCategories()
       .then((res) => {
-        setAllCategories(res);
+        setCategories(res);
         if (!isEdit) {
           setSelectedCategory(res[0]);
           defaultCompValueIfNotEdit(res[0]);
@@ -45,14 +45,14 @@ const ChooseCategory = (props) => {
 
   return (
     <>
-      {allCategories && (
+      {categories && (
         <div className="chooseCategoryComponentWrapper">
           <span className="commonLabel">Choose Category</span>
           <div className="autocompleteWrap">
             <Autocomplete
               disablePortal
               onChange={(event, value) => handleChange(value)}
-              options={allCategories}
+              options={categories}
               value={selectedCategory ? selectedCategory : " "}
               defaultValue={selectedCategory}
               isOptionEqualToValue={(option, value) => option.id === value.id}

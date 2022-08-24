@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
+import Icon from "@mui/material/Icon";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
-import Icon from "@mui/material/Icon";
 import { CategoryCard } from "../../components/Cards";
 import { AddNewCategoryModal } from "../../components/Modals";
 import { useGlobalContext, useNavigateWithParams } from "../../utils/hooks";
@@ -36,7 +36,7 @@ const CATEGORY_ITEM = [
 
 const Category = () => {
   const { showModal } = useModal();
-  const { setHeaderTitleHandler, CFBY_state } = useGlobalContext();
+  const { setHeaderTitleHandler, filterOptions } = useGlobalContext();
   const { navigateWithParams } = useNavigateWithParams();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Category = () => {
   };
 
   const onMyTaskPageHandler = (category) => {
-    navigateWithParams(`/${ROUTE.TASK}`, category, CFBY_state.filterBy);
+    navigateWithParams(`/${ROUTE.TASK}`, category, filterOptions.filterBy);
   };
 
   return (

@@ -5,17 +5,17 @@ const MSG = constants.message;
 
 const GlobalContext = createContext();
 
-const CFBY_initialState = {
-  categoryBy: MSG.DEFAULT_CATEGORY_BY,
-  filterBy: MSG.FITER_BY_ALL,
+const filterOptionsInitialState = {
+  category: undefined,
+  isCompleted: MSG.FITER_BY_ALL,
 };
 
-const CFBY_reducer = (state, action) => {
+const filterOptionsReducer = (state, action) => {
   switch (action.type) {
     case "setState":
-      return { ...state, categoryBy: action.categoryBy, filterBy: action.filterBy };
+      return { ...state, category: action.category, isCompleted: action.isCompleted };
     case "resetState":
-      return CFBY_initialState;
+      return filterOptionsInitialState;
     default:
       return state;
   }
@@ -24,12 +24,14 @@ const CFBY_reducer = (state, action) => {
 const GlobalProvider = (props) => {
   const isAccessToken = () => (localStorage.getItem("accessToken") ? true : false);
   const [headerTitle, setHeaderTitle] = useState("personal");
-  const [CFBY_state, CFBY_dispatch] = useReducer(CFBY_reducer, CFBY_initialState);
+  const [filterOptions, filterOptionsDispatch] = useReducer(filterOptionsReducer, filterOptionsInitialState);
+  const [filterOptionsModalOpen, setFilterOptionsModalOpen] = useState(false);
   const [authenticate, setAuthenticate] = useState(isAccessToken());
 
   const obj = {
     headerTitle: [headerTitle, setHeaderTitle],
-    CFBY_state: [CFBY_state, CFBY_dispatch],
+    filterOptions: [filterOptions, filterOptionsDispatch],
+    filterOptionsModalOpen: [filterOptionsModalOpen, setFilterOptionsModalOpen],
     authenticate: [authenticate, setAuthenticate],
   };
 
@@ -39,5 +41,6 @@ const GlobalProvider = (props) => {
     </>
   );
 };
+// *************** THIS IS PART ONE => THE FIRST STEP ***************
 
 export { GlobalContext, GlobalProvider };

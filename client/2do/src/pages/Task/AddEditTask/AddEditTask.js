@@ -47,7 +47,7 @@ const AddEditTask = () => {
   useEffect(() => {
     resetAllData();
     checkIfEdit();
-  }, [searchParams.get("edit")]);
+  }, [searchParams]);
 
   const resetAllData = () => {
     // Because we are using same component so manually resetting the component

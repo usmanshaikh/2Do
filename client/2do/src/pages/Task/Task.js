@@ -3,10 +3,12 @@ import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { TaskAPI } from "../../api";
 import { TaskCard } from "../../components/Cards";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
-import { useSetCategoryAndFilterBy } from "../../utils/hooks";
+import { useDidMountEffect, useGlobalContext } from "../../utils/hooks";
+import { filterByToBoolean } from "../../utils/Helpers";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import constants from "../../utils/constants";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
+import CategoryAPI from "../../api/CategoryAPI";
 import "./Task.scss";
 
 const ROUTE = constants.routePath;
@@ -15,16 +17,45 @@ const MSG = constants.message;
 const Task = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const setHeaderTitle = useSetCategoryAndFilterBy();
   const [tasks, setTasks] = useState();
+  const [selectedDate, setSelectedDate] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+  const { filterOptions, filterOptionsDispatchHandler, filterOptionsModalOpen } = useGlobalContext();
 
   useEffect(() => {
-    allTasks();
+    getAllCategories();
   }, []);
 
-  const allTasks = (data) => {
-    TaskAPI.allTasks(data)
+  const getAllCategories = () => {
+    CategoryAPI.allCategories()
+      .then((res) => {
+        if (!filterOptions.category || !filterOptions.isCompleted) {
+          let category = res[0].id;
+          let isCompleted = MSG.FITER_BY_ALL;
+          const dispatchPayload = { type: "setState", category, isCompleted };
+          filterOptionsDispatchHandler(dispatchPayload);
+        }
+      })
+      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+  };
+
+  useEffect(() => {
+    if (!filterOptionsModalOpen && (filterOptions.category || filterOptions.isCompleted)) {
+      allTasks();
+    }
+  }, [filterOptionsModalOpen, filterOptions]);
+
+  useDidMountEffect(() => {
+    allTasks();
+  }, [selectedDate]);
+
+  const allTasks = () => {
+    let payload = {};
+    payload.category = filterOptions.category;
+    payload.isCompleted = filterByToBoolean(filterOptions.isCompleted);
+    payload.dateAndTime = selectedDate;
+    if (!payload.category && !payload.isCompleted && !payload.selectedDate) return;
+    TaskAPI.allTasks(payload)
       .then((res) => setTasks(res))
       .catch((err) => {
         setTasks();
@@ -74,7 +105,7 @@ const Task = () => {
 
   return (
     <>
-      <DatePickerControl selectedDate={allTasks} />
+      <DatePickerControl onSelectDate={(data) => setSelectedDate(data)} />
       <div className="taskPageWrapper">
         {tasks && tasks.length ? (
           <TaskCard

@@ -1,3 +1,7 @@
+import constants from "../constants";
+
+const MSG = constants.message;
+
 export function truncateString(str, number = 90) {
   let modifiedStr = str;
   if (str.length > number) {
@@ -67,4 +71,20 @@ export const hideLoader = () => {
   let element = document.getElementById("LOADER_COMPONENT");
   element.classList.remove("show");
   element.classList.add("hide");
+};
+
+export const filterByToBoolean = (str) => {
+  let status;
+  switch (str) {
+    case MSG.FITER_BY_ALL:
+      status = undefined;
+      break;
+    case MSG.FITER_BY_PENDING:
+      status = false;
+      break;
+    case MSG.FITER_BY_COMPLETED:
+      status = true;
+      break;
+  }
+  return status;
 };

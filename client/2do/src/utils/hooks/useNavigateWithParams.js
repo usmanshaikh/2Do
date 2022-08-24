@@ -1,19 +1,15 @@
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { slugify } from "../Helpers/Helpers";
 
 /**
- * Created this Hook to Navigate With Query Params (categoryBy, filterBy).
+ * Created this Hook to Navigate With Query Params (categoryId, filterBy).
  */
 const useNavigateWithParams = () => {
   const navigate = useNavigate();
 
-  const navigateWithParams = (url, categoryBy, filterBy) => {
+  const navigateWithParams = (url, categoryId, filterBy) => {
     navigate({
       pathname: url,
-      search: createSearchParams({
-        categoryBy: slugify(categoryBy.toLowerCase()),
-        filterBy: slugify(filterBy.toLowerCase()),
-      }).toString(),
+      search: createSearchParams({ categoryId, filterBy }).toString(),
     });
   };
 
