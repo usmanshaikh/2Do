@@ -16,7 +16,7 @@ const createTask = {
 
 const allTasks = {
   body: Joi.object().keys({
-    category: Joi.string().custom(objectId),
+    category: Joi.string().required().custom(objectId),
     dateAndTime: Joi.date(),
     isCompleted: Joi.boolean(),
   }),
