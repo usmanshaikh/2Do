@@ -52,7 +52,7 @@ const Task = () => {
     TaskAPI.deleteTask(taskId)
       .then((res) => {
         setTasks(tasks.filter((item) => item.id !== data.id));
-        snackbarAlert.showSnackbarAlert({ msg: MSG.TASK_DELETED });
+        snackbarAlert.showSnackbarAlert({ msg: MSG.TASK_DELETED, duration: 2000 });
       })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };

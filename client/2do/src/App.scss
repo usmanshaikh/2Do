@@ -114,6 +114,7 @@ body {
 .errorModalComponentWrapper {
   .modalTitle {
     color: $white;
+    padding: 10px 15px;
     &.success {
       background: #1e9d62;
     }
