@@ -98,8 +98,8 @@ const allTasks = async (req) => {
   }
   query.createdBy = req.user._id;
   const tasks = await Task.find(query);
-  if (!tasks || !tasks.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
+  if (!tasks) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Sorry, something went wrong. Please try again.');
   }
   return tasks;
 };

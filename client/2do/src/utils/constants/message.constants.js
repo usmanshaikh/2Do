@@ -35,3 +35,5 @@ export const DEFAULT_CATEGORY_BY = "personal";
 export const FITER_BY_ALL = "all tasks";
 export const FITER_BY_PENDING = "pending tasks";
 export const FITER_BY_COMPLETED = "completed tasks";
+
+export const API_FAIL = "Sorry, something went wrong. Please try again.";

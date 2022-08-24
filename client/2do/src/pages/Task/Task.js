@@ -6,6 +6,7 @@ import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { useSetCategoryAndFilterBy } from "../../utils/hooks";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import constants from "../../utils/constants";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 import "./Task.scss";
 
 const ROUTE = constants.routePath;
@@ -22,10 +23,13 @@ const Task = () => {
     allTasks();
   }, []);
 
-  const allTasks = () => {
-    TaskAPI.allTasks()
+  const allTasks = (data) => {
+    TaskAPI.allTasks(data)
       .then((res) => setTasks(res))
-      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+      .catch((err) => {
+        setTasks();
+        snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
+      });
   };
 
   const onChangeStatusHandler = (data) => {
@@ -70,15 +74,17 @@ const Task = () => {
 
   return (
     <>
-      <DatePickerControl />
+      <DatePickerControl selectedDate={allTasks} />
       <div className="taskPageWrapper">
-        {tasks && (
+        {tasks && tasks.length ? (
           <TaskCard
             tasks={tasks}
             changeStatus={onChangeStatusHandler}
             deleteTask={onDeleteTaskHandler}
             editTask={onEditTaskHandler}
           />
+        ) : (
+          <NoDataFound />
         )}
       </div>
     </>
