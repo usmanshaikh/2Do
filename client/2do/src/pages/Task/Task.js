@@ -39,6 +39,10 @@ const Task = () => {
           tasks[idx] = data;
           setTasks([...tasks]);
         }
+        let status;
+        res.isCompleted ? (status = "completed") : (status = "pending");
+        const msg = `${MSG.TASK_STATUS_CHANGED_TO} ${status}.`;
+        snackbarAlert.showSnackbarAlert({ msg, duration: 2000 });
       })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };

@@ -28,6 +28,7 @@ export const CREATE_TASK = "Create this Task?";
 export const CHANGES_SAVED = "Your changes have been saved.";
 export const TASK_CREATED = "Task has been created.";
 export const TASK_DELETED = "Task deleted successfully.";
+export const TASK_STATUS_CHANGED_TO = "Task status changed to";
 
 export const DEFAULT_CATEGORY_BY = "personal";
 
