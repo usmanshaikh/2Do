@@ -28,7 +28,13 @@ const Category = () => {
 
   const categoryWithCount = () => {
     CategoryAPI.categoryWithCount()
-      .then((res) => setCategories(res))
+      .then((res) => {
+        const first = "personal";
+        const data = res.sort((x, y) =>
+          x.categoryName.toLowerCase() == first ? -1 : y.categoryName.toLowerCase() == first ? 1 : 0
+        );
+        setCategories(data);
+      })
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
 
