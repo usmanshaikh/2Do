@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios, { NO_LOADER } from "./axios";
 import constants from "../utils/constants";
 
 const API = constants.apiPath;
@@ -17,7 +17,7 @@ const AuthAPI = {
     return axios.post(API.LOGOUT, payload);
   },
   refreshTokens(payload) {
-    return axios.post(API.REFRESH_TOKENS, payload);
+    return axios.post(API.REFRESH_TOKENS, payload, NO_LOADER);
   },
   resetPassword(payload, token) {
     return axios.post(API.RESET_PASSWORD, payload, {

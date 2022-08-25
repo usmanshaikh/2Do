@@ -46,7 +46,10 @@ const FilterTaskModal = (props) => {
         setCategories(res);
         setLoading(false);
       })
-      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+      .catch((err) => {
+        handleClose();
+        snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
+      });
   };
 
   const onFilterHandler = () => {

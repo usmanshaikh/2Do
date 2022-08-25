@@ -1,4 +1,19 @@
 @import "../../../assets/scss/mixin_variables.scss";
 
 .addNewCategoryComponentWrapper {
+  .MuiDialog-container > .MuiPaper-root {
+    min-height: 360px;
+  }
+  .loadingWrap {
+    left: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    .loadingImg {
+      width: 50px;
+    }
+  }
 }

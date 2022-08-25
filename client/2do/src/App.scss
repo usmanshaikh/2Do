@@ -69,10 +69,9 @@ body {
 
 .commonModalWrapper {
   .modalTitle {
-    padding: 15px;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 15px;
+    padding: 10px 15px;
   }
   .modalContentWrap {
     padding: 15px;
@@ -114,7 +113,7 @@ body {
 .errorModalComponentWrapper {
   .modalTitle {
     color: $white;
-    padding: 10px 15px;
+    margin-bottom: 15px;
     &.success {
       background: #1e9d62;
     }

@@ -34,13 +34,15 @@ const Category = () => {
 
   const openAddNewCategoryHandler = () => {
     const initialState = {
-      onSubmitForm: (data) => saveFormHandler(data),
+      onSubmitForm: (data) => createCategory(data),
     };
     showModal(AddNewCategoryModal, initialState, { destroyOnClose: true });
   };
 
-  const saveFormHandler = (data) => {
-    console.log({ data });
+  const createCategory = (data) => {
+    CategoryAPI.createCategory(data)
+      .then((res) => categoryWithCount())
+      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
 
   const onNavigateToParticularTaskHandler = (data) => {
