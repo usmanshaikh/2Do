@@ -30,6 +30,8 @@ export const TASK_CREATED = "Task has been created.";
 export const TASK_DELETED = "Task deleted successfully.";
 export const TASK_STATUS_CHANGED_TO = "Task status changed to";
 
+export const CATEGORY_DELETED = "Category deleted successfully.";
+
 export const DEFAULT_CATEGORY_BY = "personal";
 
 export const FITER_BY_ALL = "all-tasks";

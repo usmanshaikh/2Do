@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { CategoryCard } from "../../components/Cards";
-import { AddNewCategoryModal } from "../../components/Modals";
+import { AddNewCategoryModal, ConfirmationModal } from "../../components/Modals";
 import { useGlobalContext } from "../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import constants from "../../utils/constants";
@@ -54,6 +54,24 @@ const Category = () => {
     navigate(`/${ROUTE.TASK}`);
   };
 
+  const onDeleteHandler = (data) => {
+    const initialState = {
+      message: MSG.CONFIRMATION_DELETE,
+      onConfirm: () => deleteCategory(data),
+      type: "danger",
+    };
+    showModal(ConfirmationModal, initialState, { destroyOnClose: true });
+  };
+
+  const deleteCategory = (data) => {
+    const categoryId = data.id;
+    CategoryAPI.deleteCategory(categoryId)
+      .then((res) => {
+        setCategories(categories.filter((item) => item.id !== data.id));
+        snackbarAlert.showSnackbarAlert({ msg: MSG.CATEGORY_DELETED, duration: 2000 });
+      })
+      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+  };
   return (
     <>
       <div className="categoryPageWrapper">
@@ -66,7 +84,8 @@ const Category = () => {
                   taskCount={item.taskCount}
                   checklistCount={item.checklistCount}
                   color={item.cardColor}
-                  onCategory={() => onNavigateToParticularTaskHandler(item)}
+                  onNavigate={() => onNavigateToParticularTaskHandler(item)}
+                  onDelete={() => onDeleteHandler(item)}
                 />
               </div>
             ))}
