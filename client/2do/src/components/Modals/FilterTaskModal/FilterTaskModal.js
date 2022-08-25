@@ -76,6 +76,7 @@ const FilterTaskModal = (props) => {
 
   const handleClose = (event, reason) => {
     if (reason && reason === "backdropClick") return;
+    setFilterOptionsModalOpenHandler(false);
     onClose();
   };
 
@@ -107,7 +108,7 @@ const FilterTaskModal = (props) => {
         ))}
       </List>
       <DialogActions className="actionBtnFlexContainer">
-        <Button onClick={onClose} className="cancelBtn actionBtn">
+        <Button onClick={handleClose} className="cancelBtn actionBtn">
           Cancel
         </Button>
         <Button variant="contained" onClick={onFilterHandler} className="filterBtn actionBtn successBtn">
