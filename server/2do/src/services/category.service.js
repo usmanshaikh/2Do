@@ -231,6 +231,19 @@ const isCategoryExits = async (req) => {
   return category;
 };
 
+/**
+ * To check if Category name already exits or not. This function used in isDocIdExits Middlewares.
+ */
+const isCategoryNameAlreadyExits = async (req) => {
+  const categoryName = req.body.categoryName;
+  const query = {
+    categoryName: { $regex: new RegExp(categoryName, 'i') },
+    createdBy: req.user._id,
+  };
+  const category = await Category.findOne(query);
+  return category;
+};
+
 // ------------- Admin -------------
 
 /**
@@ -253,6 +266,7 @@ module.exports = {
   createCategory,
   allCategories,
   isCategoryExits,
+  isCategoryNameAlreadyExits,
   updateCategoryById,
   deleteCategoryById,
   categoryWithTaskAndChecklistCount,

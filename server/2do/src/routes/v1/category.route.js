@@ -18,7 +18,7 @@ router
   .post(
     auth(),
     validate(categoryValidation.createCategory),
-    isDocIdExits({ cardColor: true }),
+    isDocIdExits({ categoryName: true, cardColor: true }),
     categoryController.createCategory
   );
 // Update, Delete By ID
