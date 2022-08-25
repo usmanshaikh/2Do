@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Dialog, DialogActions, DialogTitle, Icon, List, ListItem, ListItemText } from "@mui/material";
 import { useGlobalContext } from "../../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
+import { unslugify } from "../../../utils/Helpers";
 import constants from "../../../utils/constants";
 import CategoryAPI from "../../../api/CategoryAPI";
 import Images from "../../../assets/img/images";
@@ -35,9 +36,11 @@ const FilterTaskModal = (props) => {
     CategoryAPI.allCategoriesForModal()
       .then((res) => {
         if (!filterOptions.category || !filterOptions.isCompleted) {
-          let category = res[0].id;
-          let isCompleted = MSG.FITER_BY_ALL;
-          const dispatchPayload = { type: "setState", category, isCompleted };
+          const path = res[0];
+          const categoryName = path.categoryName;
+          const category = path.id;
+          const isCompleted = MSG.FITER_BY_ALL;
+          const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
           filterOptionsDispatchHandler(dispatchPayload);
         }
         setCategories(res);
@@ -53,11 +56,13 @@ const FilterTaskModal = (props) => {
   };
 
   const onUpdateFilterOptions = (data, type) => {
+    let categoryName = filterOptions.categoryName;
     let category = filterOptions.category;
     let isCompleted = filterOptions.isCompleted;
     switch (type) {
       case "category":
-        category = data;
+        category = data.id;
+        categoryName = data.categoryName;
         setCategoryId(data);
         break;
       case "filter":
@@ -65,12 +70,12 @@ const FilterTaskModal = (props) => {
         setFilterBy(data);
         break;
     }
-    const dispatchPayload = { type: "setState", category, isCompleted };
+    const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
     filterOptionsDispatchHandler(dispatchPayload);
   };
 
   const handleClose = (event, reason) => {
-    if (reason && reason == "backdropClick") return;
+    if (reason && reason === "backdropClick") return;
     onClose();
   };
 
@@ -86,7 +91,7 @@ const FilterTaskModal = (props) => {
       <List>
         {categories &&
           categories.map((item) => (
-            <ListItem key={item.id} button onClick={() => onUpdateFilterOptions(item.id, "category")}>
+            <ListItem key={item.id} button onClick={() => onUpdateFilterOptions(item, "category")}>
               <ListItemText className="filterName" primary={item.categoryName} />
               {categoryId === item.id && <Icon className="mIcon material-icons-round mCheckIcon">check</Icon>}
             </ListItem>
@@ -96,7 +101,7 @@ const FilterTaskModal = (props) => {
       <List>
         {FILTER_ITEM.map((item) => (
           <ListItem key={item.label} button onClick={() => onUpdateFilterOptions(item.label, "filter")}>
-            <ListItemText className="filterName" primary={item.label} />
+            <ListItemText className="filterName" primary={unslugify(item.label)} />
             {filterBy === item.label && <Icon className="mIcon material-icons-round mCheckIcon">check</Icon>}
           </ListItem>
         ))}

@@ -20,9 +20,12 @@ const Task = () => {
   const [tasks, setTasks] = useState();
   const [selectedDate, setSelectedDate] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
-  const { filterOptions, filterOptionsDispatchHandler, filterOptionsModalOpen } = useGlobalContext();
+  const { filterOptions, filterOptionsDispatchHandler, filterOptionsModalOpen, setHeaderTitleHandler } =
+    useGlobalContext();
 
   useEffect(() => {
+    const headerTitle = filterOptions.categoryName;
+    if (headerTitle) setHeaderTitleHandler(headerTitle);
     getAllCategories();
   }, []);
 
@@ -30,9 +33,11 @@ const Task = () => {
     CategoryAPI.allCategories()
       .then((res) => {
         if (!filterOptions.category || !filterOptions.isCompleted) {
-          let category = res[0].id;
-          let isCompleted = MSG.FITER_BY_ALL;
-          const dispatchPayload = { type: "setState", category, isCompleted };
+          const path = res[0];
+          const categoryName = path.categoryName;
+          const category = path.id;
+          const isCompleted = MSG.FITER_BY_ALL;
+          const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
           filterOptionsDispatchHandler(dispatchPayload);
         }
       })

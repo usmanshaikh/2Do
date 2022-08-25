@@ -6,6 +6,7 @@ const MSG = constants.message;
 const GlobalContext = createContext();
 
 const filterOptionsInitialState = {
+  categoryName: undefined,
   category: undefined,
   isCompleted: MSG.FITER_BY_ALL,
 };
@@ -13,7 +14,12 @@ const filterOptionsInitialState = {
 const filterOptionsReducer = (state, action) => {
   switch (action.type) {
     case "setState":
-      return { ...state, category: action.category, isCompleted: action.isCompleted };
+      return {
+        ...state,
+        categoryName: action.categoryName,
+        category: action.category,
+        isCompleted: action.isCompleted,
+      };
     case "resetState":
       return filterOptionsInitialState;
     default:
