@@ -20,7 +20,7 @@ const ChecklistCard = (props) => {
                   <ul className="listItemWrap">
                     {item?.checklistItems.slice(0, 3).map((listItem) => {
                       return (
-                        <li className={`item searchDiv ${listItem?.isChecked ? "complete" : null}`}>
+                        <li key={listItem?.id} className={`item searchDiv ${listItem?.isChecked ? "complete" : null}`}>
                           {listItem?.isChecked ? (
                             <Icon className="checkboxIcon checked">check_box</Icon>
                           ) : (

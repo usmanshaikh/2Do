@@ -23,6 +23,7 @@ export const DESCRIPTION_REQUIRED = "Description is required";
 export const CONFIRMATION_DELETE = "Are you sure you want to Delete?";
 
 export const CREATE_CHECKLIST = "Create this checklist?";
+export const CHECKLIST_DELETED = "Checklist deleted successfully.";
 
 export const CREATE_TASK = "Create this Task?";
 export const CHANGES_SAVED = "Your changes have been saved.";

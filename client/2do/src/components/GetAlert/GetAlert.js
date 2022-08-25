@@ -3,7 +3,7 @@ import Switch from "@mui/material/Switch";
 import "./GetAlert.scss";
 
 const GetAlert = (props) => {
-  const { isEdit, alert, onAlertTask } = props;
+  const { isEdit, alert, onAlert } = props;
   const [checked, setChecked] = useState(true);
 
   useEffect(() => {
@@ -14,13 +14,13 @@ const GetAlert = (props) => {
   const handleChange = (event) => {
     const check = event.target.checked;
     const obj = { alert: check };
-    onAlertTask(obj);
+    onAlert(obj);
     setChecked(check);
   };
 
   const defaultCompValueIfNotEdit = () => {
     const obj = { alert: checked };
-    onAlertTask(obj);
+    onAlert(obj);
   };
 
   const label = { inputProps: { "aria-label": "Switch demo" } };
@@ -55,7 +55,7 @@ export default GetAlert;
 //   };
 
 //   useEffect(() => {
-//     props.onAlertTask(checked);
+//     props.onAlert(checked);
 //   }, [checked]);
 
 //   const label = { inputProps: { "aria-label": "Switch demo" } };

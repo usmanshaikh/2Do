@@ -179,7 +179,7 @@ const AddEditTask = () => {
                   dateAndTime={task?.dateAndTime}
                   onSetDateTime={(data) => updateCompState(data)}
                 />
-                <GetAlert isEdit={isEdit} alert={task?.alert} onAlertTask={(data) => updateCompState(data)} />
+                <GetAlert isEdit={isEdit} alert={task?.alert} onAlert={(data) => updateCompState(data)} />
                 <ChooseColor
                   isEdit={isEdit}
                   cardColor={task?.cardColor}

@@ -7,20 +7,20 @@ const ChecklistAPI = {
   allChecklists(payload) {
     return axios.post(API.CHECKLIST.ALL, payload);
   },
-  changeTaskStatus(payload, checklistsId) {
-    return axios.patch(`${API.CHECKLIST.CHANGE_STATUS}/${checklistsId}`, payload, NO_LOADER);
+  changeChecklistStatus(payload, checklistId) {
+    return axios.patch(`${API.CHECKLIST.CHANGE_STATUS}/${checklistId}`, payload, NO_LOADER);
   },
-  getTask(checklistsId) {
-    return axios.get(`${API.CHECKLIST.CHECKLIST}/${checklistsId}`);
+  getChecklist(checklistId) {
+    return axios.get(`${API.CHECKLIST.CHECKLIST}/${checklistId}`);
   },
-  createTask(payload) {
+  createChecklist(payload) {
     return axios.post(`${API.CHECKLIST.CREATE}`, payload);
   },
-  deleteTask(checklistsId) {
-    return axios.delete(`${API.CHECKLIST.CHECKLIST}/${checklistsId}`);
+  deleteChecklist(checklistId) {
+    return axios.delete(`${API.CHECKLIST.CHECKLIST}/${checklistId}`);
   },
-  updateTask(payload, checklistsId) {
-    return axios.patch(`${API.CHECKLIST.CHECKLIST}/${checklistsId}`, payload);
+  updateChecklist(payload, checklistId) {
+    return axios.patch(`${API.CHECKLIST.CHECKLIST}/${checklistId}`, payload);
   },
 };
 
