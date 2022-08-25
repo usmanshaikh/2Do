@@ -80,10 +80,7 @@ const Category = () => {
             categories.map((item) => (
               <div className="flexItem" key={item.id}>
                 <CategoryCard
-                  title={item.categoryName}
-                  taskCount={item.taskCount}
-                  checklistCount={item.checklistCount}
-                  color={item.cardColor}
+                  cardData={item}
                   onNavigate={() => onNavigateToParticularTaskHandler(item)}
                   onDelete={() => onDeleteHandler(item)}
                 />

@@ -67,7 +67,12 @@ const Profile = () => {
 
   const onLogoutHandler = async () => {
     const refreshToken = Helpers.getLocalRefreshToken();
-    await AuthAPI.logout({ refreshToken });
+    AuthAPI.logout({ refreshToken })
+      .then(() => logout())
+      .catch(() => logout());
+  };
+
+  const logout = () => {
     localStorage.clear();
     setAuthenticateHandler(false);
     navigate(`/${ROUTE.LOGIN}`);

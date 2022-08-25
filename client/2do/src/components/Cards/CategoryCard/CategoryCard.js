@@ -4,13 +4,12 @@ import { addLeadingZero } from "../../../utils/Helpers";
 import "./CategoryCard.scss";
 
 /**
- * @param {{ color: string, title: string, taskCount: number, checklistCount: number, onNavigate: (), onDelete: () }} props
+ * @param {{ cardData: object, onNavigate: (), onDelete: () }} props
  */
 const CategoryCard = (props) => {
-  let { color, title, taskCount, checklistCount, onNavigate, onDelete } = props;
-
-  taskCount = addLeadingZero(taskCount);
-  checklistCount = addLeadingZero(checklistCount);
+  let { cardData, onNavigate, onDelete } = props;
+  let taskCount = addLeadingZero(cardData.taskCount);
+  let checklistCount = addLeadingZero(cardData.checklistCount);
 
   const onNavigateHandler = (e) => {
     e.stopPropagation();
@@ -20,13 +19,15 @@ const CategoryCard = (props) => {
   return (
     <>
       <Card className="categoryCardComponentWrapper">
-        <IconButton className="deleteBtn" onClick={() => onDelete()}>
-          <Icon className="deleteIcon">delete</Icon>
-        </IconButton>
+        {cardData.deletable && (
+          <IconButton className="deleteBtn" onClick={() => onDelete()}>
+            <Icon className="deleteIcon">delete</Icon>
+          </IconButton>
+        )}
         <CardActionArea>
           <div className="cardWrap" onClick={(e) => onNavigateHandler(e)}>
-            <span className="circle" style={{ backgroundColor: `${color}` }}></span>
-            <span className="title">{title}</span>
+            <span className="circle" style={{ backgroundColor: `${cardData.cardColor}` }}></span>
+            <span className="title">{cardData.categoryName}</span>
             <span className="count-info">
               <span className="count">{taskCount}</span> Tasks
             </span>
