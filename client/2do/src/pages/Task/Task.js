@@ -18,6 +18,7 @@ const Task = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [tasks, setTasks] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
   const { filterOptions, filterOptionsDispatchHandler, filterOptionsModalOpen, setHeaderTitleHandler } =
@@ -61,9 +62,14 @@ const Task = () => {
     payload.dateAndTime = selectedDate;
     if (!payload.category && !payload.isCompleted && !payload.selectedDate) return;
     TaskAPI.allTasks(payload)
-      .then((res) => setTasks(res))
+      .then((res) => {
+        setTasks(res);
+        if (!res.length) setIsLoading(true);
+        else setIsLoading(false);
+      })
       .catch((err) => {
         setTasks();
+        setIsLoading(true);
         snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
       });
   };
@@ -119,9 +125,8 @@ const Task = () => {
             deleteTask={onDeleteTaskHandler}
             editTask={onEditTaskHandler}
           />
-        ) : (
-          <NoDataFound />
-        )}
+        ) : null}
+        {isLoading && <NoDataFound />}
       </div>
     </>
   );
