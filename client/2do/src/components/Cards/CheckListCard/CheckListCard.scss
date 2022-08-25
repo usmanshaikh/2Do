@@ -47,23 +47,11 @@
       .checked {
         color: #9e9e9e;
       }
-      .unChecked {
-        display: block;
-      }
-      .checked {
-        display: none;
-      }
       &.complete {
         .time,
         .description {
           color: #9e9e9e;
           text-decoration: line-through;
-        }
-        .unChecked {
-          display: none;
-        }
-        .checked {
-          display: block;
         }
       }
     }

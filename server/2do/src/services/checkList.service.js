@@ -98,8 +98,8 @@ const allChecklists = async (req) => {
   }
   query.createdBy = req.user._id;
   const checklist = await Checklist.find(query);
-  if (!checklist || !checklist.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'No data found');
+  if (!checklist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Sorry, something went wrong. Please try again.');
   }
   return checklist;
 };

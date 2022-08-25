@@ -14,6 +14,14 @@ export const CHANGE_STATUS = "tasks/change-status";
 export const CREATE = "tasks/create";
 export const TASK = "tasks";
 
+// Checklist
+export const CHECKLIST = {
+  CHECKLIST: "checklists",
+  ALL: "checklists/all",
+  CREATE: "checklists/create",
+  CHANGE_STATUS: "checkLists/change-status",
+};
+
 // User
 export const MY_PROFILE = "users/my-profile";
 export const UPDATE_MY_PROFILE = "users/update-my-profile";
