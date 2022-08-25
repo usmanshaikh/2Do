@@ -17,6 +17,11 @@ const categorySchema = mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
     },
+    deletable: {
+      type: Boolean,
+      default: true,
+      required: true,
+    },
   },
   {
     timestamps: true,

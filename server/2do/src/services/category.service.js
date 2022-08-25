@@ -10,6 +10,7 @@ const createDefaultCategoryAfterRegister = async (user) => {
     categoryName: 'Personal',
     cardColor: '62de37803393341df05a2492',
     createdBy: user._id,
+    deletable: false,
   };
   await Category.create(categoryBody);
 };
@@ -78,6 +79,7 @@ const categoryWithTaskAndChecklistCount = async (req) => {
         _id: '$_id',
         categoryName: { $first: '$categoryName' },
         cardColor: { $first: { $arrayElemAt: ['$cardcolorData.color', 0] } },
+        deletable: { $first: { $ifNull: ['$deletable', false] } },
         taskData: { $first: '$taskData' },
         checklistData: { $first: '$checklistData' },
       },
@@ -88,6 +90,7 @@ const categoryWithTaskAndChecklistCount = async (req) => {
         id: '$_id',
         categoryName: 1,
         cardColor: 1,
+        deletable: 1,
         taskCount: { $cond: { if: { $isArray: '$taskData' }, then: { $size: '$taskData' }, else: 'NA' } },
         checklistCount: { $cond: { if: { $isArray: '$checklistData' }, then: { $size: '$checklistData' }, else: 'NA' } },
       },
