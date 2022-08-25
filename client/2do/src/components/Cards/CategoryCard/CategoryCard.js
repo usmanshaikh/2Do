@@ -18,7 +18,7 @@ const CategoryCard = (props) => {
     <>
       <Card className="categoryCardComponentWrapper">
         <CardActionArea>
-          <div className="cardWrap" onClick={() => onCategory(title)}>
+          <div className="cardWrap" onClick={() => onCategory()}>
             <span className="circle" style={{ backgroundColor: `${color}` }}></span>
             <span className="title">{title}</span>
             <span className="count-info">

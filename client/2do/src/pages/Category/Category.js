@@ -1,47 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Icon from "@mui/material/Icon";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { CategoryCard } from "../../components/Cards";
 import { AddNewCategoryModal } from "../../components/Modals";
-import { useGlobalContext, useNavigateWithParams } from "../../utils/hooks";
+import { useGlobalContext } from "../../utils/hooks";
+import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import constants from "../../utils/constants";
+import CategoryAPI from "../../api/CategoryAPI";
 import "./Category.scss";
 
 const ROUTE = constants.routePath;
-
-const CATEGORY_ITEM = [
-  {
-    color: "#728cfb",
-    title: "Personal",
-    taskCount: 10,
-    checklistCount: 20,
-    id: 1,
-  },
-  {
-    color: "#ed467e",
-    title: "Home",
-    taskCount: 7,
-    checklistCount: 3,
-    id: 2,
-  },
-  {
-    color: "#ff6900",
-    title: "Office",
-    taskCount: 19,
-    checklistCount: 8,
-    id: 3,
-  },
-];
+const MSG = constants.message;
 
 const Category = () => {
+  const navigate = useNavigate();
   const { showModal } = useModal();
-  const { setHeaderTitleHandler, filterOptions } = useGlobalContext();
-  const { navigateWithParams } = useNavigateWithParams();
+  const { setHeaderTitleHandler, filterOptions, filterOptionsDispatchHandler } = useGlobalContext();
+  const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+  const [categories, setCategories] = useState();
 
   useEffect(() => {
     setHeaderTitleHandler("Category");
+    categoryWithCount();
   }, []);
+
+  const categoryWithCount = () => {
+    CategoryAPI.categoryWithCount()
+      .then((res) => setCategories(res))
+      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+  };
 
   const openAddNewCategoryHandler = () => {
     const initialState = {
@@ -54,25 +43,31 @@ const Category = () => {
     console.log({ data });
   };
 
-  const onMyTaskPageHandler = (category) => {
-    navigateWithParams(`/${ROUTE.TASK}`, category, filterOptions.filterBy);
+  const onNavigateToParticularTaskHandler = (data) => {
+    const categoryName = data.categoryName;
+    const category = data._id;
+    const isCompleted = MSG.FITER_BY_ALL;
+    const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
+    filterOptionsDispatchHandler(dispatchPayload);
+    navigate(`/${ROUTE.TASK}`);
   };
 
   return (
     <>
       <div className="categoryPageWrapper">
         <div className="flexContainer">
-          {CATEGORY_ITEM.map((item) => (
-            <div className="flexItem" key={item.id}>
-              <CategoryCard
-                title={item.title}
-                taskCount={item.taskCount}
-                checklistCount={item.checklistCount}
-                color={item.color}
-                onCategory={(data) => onMyTaskPageHandler(data)}
-              />
-            </div>
-          ))}
+          {categories &&
+            categories.map((item) => (
+              <div className="flexItem" key={item._id}>
+                <CategoryCard
+                  title={item.categoryName}
+                  taskCount={item.taskCount}
+                  checklistCount={item.checklistCount}
+                  color={item.cardColor}
+                  onCategory={() => onNavigateToParticularTaskHandler(item)}
+                />
+              </div>
+            ))}
         </div>
         <div className="addCardWrapper">
           <Button variant="contained" className="cardAction" onClick={openAddNewCategoryHandler}>

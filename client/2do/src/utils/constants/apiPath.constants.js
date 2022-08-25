@@ -23,4 +23,9 @@ export const STATISTIC_REPORT = "users/statistic-report";
 export const CARD_COLORS = "card-colors";
 
 // Category
-export const ALL_CATEGORIES = "categories/all";
+export const CATEGORIES = {
+  ALL: "categories/all",
+  CREATE: "categories/create",
+  UPDATE_OR_DELETE: "categories",
+  WITH_TASK_AND_CHECKLIST_COUNT: "categories/with-task-and-checklist-count",
+};
