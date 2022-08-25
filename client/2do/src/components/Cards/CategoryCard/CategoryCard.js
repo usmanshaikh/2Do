@@ -4,10 +4,8 @@ import { addLeadingZero } from "../../../utils/Helpers";
 import "./CategoryCard.scss";
 
 /**
- *
  * @param {{ color: string, title: string, taskCount: number, checklistCount: number, onCategory: () }} props
  */
-
 const CategoryCard = (props) => {
   let { color, title, taskCount, checklistCount, onCategory } = props;
 

@@ -47,7 +47,7 @@ const Category = () => {
 
   const onNavigateToParticularTaskHandler = (data) => {
     const categoryName = data.categoryName;
-    const category = data._id;
+    const category = data.id;
     const isCompleted = MSG.FITER_BY_ALL;
     const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
     filterOptionsDispatchHandler(dispatchPayload);
@@ -60,7 +60,7 @@ const Category = () => {
         <div className="flexContainer">
           {categories &&
             categories.map((item) => (
-              <div className="flexItem" key={item._id}>
+              <div className="flexItem" key={item.id}>
                 <CategoryCard
                   title={item.categoryName}
                   taskCount={item.taskCount}

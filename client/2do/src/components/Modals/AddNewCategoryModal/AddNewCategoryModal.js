@@ -18,7 +18,6 @@ const validationSchema = yup.object({
 });
 
 /**
- *
  * @param {{ onSubmitForm: () }} props
  */
 const AddNewCategoryModal = (props) => {
