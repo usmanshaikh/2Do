@@ -4,6 +4,10 @@
   .MuiDialog-container > .MuiPaper-root {
     min-height: 420px;
   }
+  .listWrap {
+    max-height: 160px;
+    overflow: auto;
+  }
   .loadingWrap {
     height: 100%;
     display: flex;

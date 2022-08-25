@@ -92,7 +92,7 @@ const FilterTaskModal = (props) => {
   const modalContent = (
     <>
       <DialogTitle className="modalHeading">Category By</DialogTitle>
-      <List>
+      <List className="listWrap">
         {categories &&
           categories.map((item) => (
             <ListItem key={item.id} button onClick={() => onUpdateFilterOptions(item, "category")}>
