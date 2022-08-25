@@ -15,16 +15,17 @@
     font-size: 30px;
   }
   .flexContainer {
-    margin: 15px 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
+    overflow: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
     .flexItem {
-      height: 50px;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
+      overflow: hidden;
       border-radius: 6px;
+      margin-right: 20px;
+      display: inline-block;
     }
   }
 }
