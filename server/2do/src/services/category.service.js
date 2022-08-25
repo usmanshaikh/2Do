@@ -78,9 +78,18 @@ const categoryWithTaskAndChecklistCount = async (req) => {
             },
           },
           {
+            $lookup: {
+              from: 'cardcolors',
+              localField: 'categoryData.cardColor',
+              foreignField: '_id',
+              as: 'cardcolorData',
+            },
+          },
+          {
             $group: {
               _id: '$checklistData.category',
               categoryName: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
+              cardColor: { $first: { $arrayElemAt: ['$cardcolorData.color', 0] } },
               checklistCount: { $sum: 1 },
             },
           },
@@ -96,9 +105,18 @@ const categoryWithTaskAndChecklistCount = async (req) => {
             },
           },
           {
+            $lookup: {
+              from: 'cardcolors',
+              localField: 'categoryData.cardColor',
+              foreignField: '_id',
+              as: 'cardcolorData',
+            },
+          },
+          {
             $group: {
               _id: '$taskData.category',
               categoryName: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
+              cardColor: { $first: { $arrayElemAt: ['$cardcolorData.color', 0] } },
               taskCount: { $sum: 1 },
             },
           },
@@ -119,6 +137,7 @@ const categoryWithTaskAndChecklistCount = async (req) => {
       $group: {
         _id: '$combine._id',
         categoryName: { $first: '$combine.categoryName' },
+        cardColor: { $first: '$combine.cardColor' },
         checklistCount: {
           $sum: '$combine.checklistCount',
         },
