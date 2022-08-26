@@ -4,18 +4,18 @@ import constants from "../utils/constants";
 const API = constants.apiPath;
 
 const CategoryAPI = {
-  allCategoriesForModal() {
+  allCategoriesForModal(onlyCategories = false) {
     return axios.get(API.CATEGORIES.ALL, {
       params: {
-        onlyCategories: true,
+        onlyCategories: onlyCategories,
       },
       ...NO_LOADER,
     });
   },
-  allCategories() {
+  allCategories(onlyCategories = false) {
     return axios.get(API.CATEGORIES.ALL, {
       params: {
-        onlyCategories: true,
+        onlyCategories: onlyCategories,
       },
     });
   },

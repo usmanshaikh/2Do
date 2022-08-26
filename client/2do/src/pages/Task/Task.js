@@ -35,10 +35,11 @@ const Task = () => {
       .then((res) => {
         if (!filterOptions.category || !filterOptions.isCompleted) {
           const path = res[0];
+          const categoryColor = path.cardColor.color;
           const categoryName = path.categoryName;
           const category = path.id;
           const isCompleted = MSG.FITER_BY_ALL;
-          const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
+          const dispatchPayload = { type: "setState", categoryColor, categoryName, category, isCompleted };
           filterOptionsDispatchHandler(dispatchPayload);
         }
       })

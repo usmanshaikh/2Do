@@ -13,7 +13,7 @@ const ROUTE = constants.routePath;
 const Header = () => {
   const location = useLocation();
   const { showModal } = useModal();
-  const { headerTitle: title } = useGlobalContext();
+  const { headerTitle: title, filterOptions } = useGlobalContext();
   let isShowFilterBtn = false;
 
   const openFiterModalHandler = () => {
@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="headerComponentWrapper">
+      <div className="headerComponentWrapper" style={{ backgroundColor: filterOptions.categoryColor }}>
         <div className="titleBox">
           <div>
             <span className="title">{title}</span>

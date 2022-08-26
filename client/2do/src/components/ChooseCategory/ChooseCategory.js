@@ -21,7 +21,7 @@ const ChooseCategory = (props) => {
   }, []);
 
   const getAllCategories = () => {
-    CategoryAPI.allCategories()
+    CategoryAPI.allCategories(true)
       .then((res) => {
         setCategories(res);
         if (!isEdit) {

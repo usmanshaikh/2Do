@@ -8,6 +8,7 @@ const GlobalContext = createContext();
 const filterOptionsInitialState = {
   categoryName: undefined,
   category: undefined,
+  categoryColor: "#f96060",
   isCompleted: MSG.FITER_BY_ALL,
 };
 
@@ -18,6 +19,7 @@ const filterOptionsReducer = (state, action) => {
         ...state,
         categoryName: action.categoryName,
         category: action.category,
+        categoryColor: action.categoryColor,
         isCompleted: action.isCompleted,
       };
     case "resetState":

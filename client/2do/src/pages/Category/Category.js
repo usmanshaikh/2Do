@@ -52,10 +52,11 @@ const Category = () => {
   };
 
   const onNavigateToParticularTaskHandler = (data) => {
+    const categoryColor = data.cardColor;
     const categoryName = data.categoryName;
     const category = data.id;
     const isCompleted = MSG.FITER_BY_ALL;
-    const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
+    const dispatchPayload = { type: "setState", categoryColor, categoryName, category, isCompleted };
     filterOptionsDispatchHandler(dispatchPayload);
     navigate(`/${ROUTE.TASK}`);
   };

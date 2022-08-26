@@ -21,6 +21,7 @@ const FilterTaskModal = (props) => {
   const { setHeaderTitleHandler, filterOptions, filterOptionsDispatchHandler, setFilterOptionsModalOpenHandler } =
     useGlobalContext();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
+  const [selectedFilter, setSelectedFilter] = useState(filterOptions);
 
   useEffect(() => {
     setFilterOptionsModalOpenHandler(true);
@@ -37,10 +38,11 @@ const FilterTaskModal = (props) => {
       .then((res) => {
         if (!filterOptions.category || !filterOptions.isCompleted) {
           const path = res[0];
+          const categoryColor = path.cardColor.color;
           const categoryName = path.categoryName;
           const category = path.id;
           const isCompleted = MSG.FITER_BY_ALL;
-          const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
+          const dispatchPayload = { type: "setState", categoryColor, categoryName, category, isCompleted };
           filterOptionsDispatchHandler(dispatchPayload);
         }
         setCategories(res);
@@ -53,28 +55,31 @@ const FilterTaskModal = (props) => {
   };
 
   const onFilterHandler = () => {
-    categories.map((val) => (val.id === categoryId ? setHeaderTitleHandler(val.categoryName) : null));
+    setHeaderTitleHandler(selectedFilter.categoryName);
+    filterOptionsDispatchHandler(selectedFilter);
     setFilterOptionsModalOpenHandler(false);
     onClose();
   };
 
   const onUpdateFilterOptions = (data, type) => {
-    let categoryName = filterOptions.categoryName;
-    let category = filterOptions.category;
-    let isCompleted = filterOptions.isCompleted;
+    let categoryColor = selectedFilter.categoryColor;
+    let categoryName = selectedFilter.categoryName;
+    let category = selectedFilter.category;
+    let isCompleted = selectedFilter.isCompleted;
     switch (type) {
       case "category":
         category = data.id;
         categoryName = data.categoryName;
-        setCategoryId(data);
+        categoryColor = data.cardColor.color;
+        setCategoryId(data.id);
         break;
       case "filter":
         isCompleted = data;
         setFilterBy(data);
         break;
     }
-    const dispatchPayload = { type: "setState", categoryName, category, isCompleted };
-    filterOptionsDispatchHandler(dispatchPayload);
+    const config = { type: "setState", categoryColor, categoryName, category, isCompleted };
+    setSelectedFilter(config);
   };
 
   const handleClose = (event, reason) => {
