@@ -34,7 +34,7 @@ const allCategories = async (req) => {
   };
   let removedField = [];
   if (req.query.onlyCategories) {
-    removedField.push('-cardColor');
+    removedField.push('-cardColor', '-deletable', '-createdBy');
   }
   const categories = await Category.find(query).populate(['cardColor']).select(removedField);
   return categories;
