@@ -1,6 +1,10 @@
 import React from "react";
+import { Button } from "@mui/material";
+import { useModal } from "mui-modal-provider";
+import { AddTaskModal } from "../Modals";
 import MenuItem from "./MenuItem";
 import constants from "../../utils/constants";
+import Images from "../../assets/img/images";
 import "./Menu.scss";
 
 const ROUTE = constants.routePath;
@@ -36,14 +40,14 @@ const MENU_ITEM = [
     url: ROUTE.PROFILE,
     position: 5,
   },
-  {
-    icon: "add",
-    name: "Add",
-    url: "",
-    position: 6,
-  },
 ];
 const Menu = () => {
+  const { showModal } = useModal();
+
+  const openAddTaskModalHandler = () => {
+    showModal(AddTaskModal, undefined, { destroyOnClose: true });
+  };
+
   return (
     <>
       <div className="menuComponentWrapper">
@@ -51,6 +55,9 @@ const Menu = () => {
           {MENU_ITEM.map((item) => (
             <MenuItem key={item.position} icon={item.icon} name={item.name} url={item.url} />
           ))}
+          <Button className="addTaskButtonWrap" onClick={openAddTaskModalHandler}>
+            <img src={Images.LogoNameSVG} alt="2Do" className="logo" />
+          </Button>
         </div>
       </div>
     </>

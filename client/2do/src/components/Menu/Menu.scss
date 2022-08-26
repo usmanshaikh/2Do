@@ -9,6 +9,27 @@
     position: relative;
     display: flex;
   }
+  .addTaskButtonWrap {
+    position: absolute;
+    @include translateCenter();
+    top: 0%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    min-width: 55px;
+    background: $red;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background: $red;
+    }
+    .logo {
+      -webkit-transform: translate(13px, 2px) scale(1.8);
+      -ms-transform: translate(13px, 2px) scale(1.8);
+      transform: translate(13px, 2px) scale(1.8);
+    }
+  }
   .menuItem {
     width: 20%;
     display: block;
@@ -35,25 +56,6 @@
       color: rgb(226, 223, 223, 70%);
     }
     &.blank {
-      .menuName {
-        display: none;
-      }
-    }
-    &.add {
-      position: absolute;
-      @include translateCenter();
-      top: 0%;
-      width: 45px;
-      height: 45px;
-      display: flex;
-      min-width: 45px;
-      background: $red;
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      .menuIcon {
-        color: $white;
-      }
       .menuName {
         display: none;
       }

@@ -11,6 +11,7 @@ import Loading from "./loading.svg";
 import EditSVG from "./edit.svg";
 import DeleteSVG from "./delete.svg";
 import FilterSVG from "./filter.svg";
+import LogoNameSVG from "./2Do.svg";
 
 const images = {
   SliderBgRed,
@@ -26,6 +27,7 @@ const images = {
   EditSVG,
   DeleteSVG,
   FilterSVG,
+  LogoNameSVG,
 };
 
 export default images;
