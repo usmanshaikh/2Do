@@ -14,6 +14,7 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import ChooseCategory from "../../../components/ChooseCategory/ChooseCategory";
 import SetDateTime from "../../../components/SetDateTime/SetDateTime";
 import GetAlert from "../../../components/GetAlert/GetAlert";
+import MarkAsComplete from "../../../components/MarkAsComplete/MarkAsComplete";
 import "./AddEditTask.scss";
 
 const ROUTE = constants.routePath;
@@ -185,6 +186,13 @@ const AddEditTask = () => {
                   cardColor={task?.cardColor}
                   onChooseColor={(data) => updateCompState(data)}
                 />
+                {isEdit && (
+                  <MarkAsComplete
+                    isEdit={isEdit}
+                    isCompleted={task?.isCompleted}
+                    onChangeStatus={(data) => updateCompState(data)}
+                  />
+                )}
                 {isEdit && <CustomButton name="Delete" color="danger" onClick={onDeleteHandler} />}
                 <CustomButton name="Done" color="blue" type="submit" />
               </form>
