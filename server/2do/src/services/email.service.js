@@ -53,7 +53,6 @@ const sendEmail = async (to, subject, template, context) => {
 const sendResetPasswordEmail = async (to, token, req) => {
   const origin = getOriginURL(req);
   const subject = 'Reset password';
-  // replace this url with the link to the reset password page of your front-end app
   const resetPasswordUrl = `${origin}/reset-password?token=${token}`;
   const templateToUse = 'resetPasswordTemplate';
   const templateContent = {
@@ -72,7 +71,6 @@ const sendResetPasswordEmail = async (to, token, req) => {
 const sendVerificationEmail = async (to, token, req) => {
   const origin = getOriginURL(req);
   const subject = 'Email Verification';
-  // replace this url with the link to the email verification page of your front-end app
   const verificationEmailUrl = `${origin}/verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
   const templateContent = {
@@ -89,17 +87,15 @@ const sendVerificationEmail = async (to, token, req) => {
  * @returns {Promise}
  */
 const sendEventReminderEmail = async (eventInfo, eventType, user, req) => {
-  // var origin = getOriginURL(req); // This is need to fix it is static
   let { title, dateAndTime } = eventInfo;
   dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
-  // replace this url with the link to the email verification page of your front-end app
-  const eventLink = `http://localhost:3000/verify-email?token=`;
+  const eventLink = `http://localhost:3001/${eventType}/add-edit-${eventType}?${eventType}Id=${eventInfo._id}&edit=true`;
   const templateToUse = 'reminderEmailTemplate';
   const templateContent = {
     templateTitle: 'Event Reminder',
-    verificationEmailUrl: eventLink,
+    eventLink,
     eventMsg: title,
     eventDateTime: dateAndTime,
   };
