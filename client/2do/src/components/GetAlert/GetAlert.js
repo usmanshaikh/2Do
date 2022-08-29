@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Switch from "@mui/material/Switch";
 import "./GetAlert.scss";
+import { Icon, Popover } from "@mui/material";
+import constants from "../../utils/constants";
+
+const MSG = constants.message;
 
 const GetAlert = (props) => {
   const { isEdit, alert, onAlert } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
   const [checked, setChecked] = useState(true);
 
   useEffect(() => {
@@ -23,14 +28,47 @@ const GetAlert = (props) => {
     onAlert(obj);
   };
 
+  const infoPopoverOpenHandler = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const infoPopoverCloseHandler = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
   return (
     <>
       <div className="getAlertComponentWrapper">
         <div className="flexContainer">
-          <div>
-            <span className="commonLabel">Get alert for this task</span>
+          <div className="labelInfoWrap">
+            <div>
+              <span className="commonLabel">Get alert for this task</span>
+            </div>
+            <div>
+              <Icon
+                className="infoIcon"
+                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-haspopup="true"
+                onMouseEnter={infoPopoverOpenHandler}
+                onMouseLeave={infoPopoverCloseHandler}>
+                info
+              </Icon>
+              <Popover
+                className="infoPopoverWrapper"
+                id="mouse-over-popover"
+                sx={{ pointerEvents: "none" }}
+                open={open}
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}
+                onClose={infoPopoverCloseHandler}
+                disableRestoreFocus>
+                <span>{MSG.INFO_ALERT}</span>
+              </Popover>
+            </div>
           </div>
           <div>
             <Switch {...label} checked={checked} onChange={handleChange} />

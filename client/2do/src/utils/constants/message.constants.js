@@ -40,3 +40,5 @@ export const FITER_BY_PENDING = "pending-tasks";
 export const FITER_BY_COMPLETED = "completed-tasks";
 
 export const API_FAIL = "Sorry, something went wrong. Please try again.";
+
+export const INFO_ALERT = "You will receive notifications on the above selected Date & Time.";
