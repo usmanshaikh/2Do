@@ -185,7 +185,7 @@ const AddEditTask = () => {
                   cardColor={task?.cardColor}
                   onChooseColor={(data) => updateCompState(data)}
                 />
-                <CustomButton name="Delete" color="danger" onClick={onDeleteHandler} />
+                {isEdit && <CustomButton name="Delete" color="danger" onClick={onDeleteHandler} />}
                 <CustomButton name="Done" color="blue" type="submit" />
               </form>
             </div>
