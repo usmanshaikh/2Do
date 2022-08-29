@@ -3,8 +3,8 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 // prettier-ignore
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Icon, IconButton, Input, TextField } from "@mui/material";
-import constants from "../../../utils/constants";
 import { hideFooter, showFooter } from "../../../utils/Helpers";
+import constants from "../../../utils/constants";
 import "./EditProfileModal.scss";
 
 const MSG = constants.message;
@@ -17,10 +17,8 @@ const validationSchema = yup.object({
 });
 
 /**
- *
  * @param {{ onSubmitForm: () }} props
  */
-
 const EditProfileModal = (props) => {
   const { onClose, open, name, onSubmitForm } = props;
   const [imgFile, setImgFile] = useState();

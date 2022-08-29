@@ -5,36 +5,36 @@ const API = constants.apiPath;
 
 const AuthAPI = {
   register(payload) {
-    return axios.post(API.REGISTER, payload);
+    return axios.post(API.AUTH.REGISTER, payload);
   },
   login(payload) {
-    return axios.post(API.LOGIN, payload);
+    return axios.post(API.AUTH.LOGIN, payload);
   },
   forgotPassword(payload) {
-    return axios.post(API.FORGOT_PASSWORD, payload);
+    return axios.post(API.AUTH.FORGOT_PASSWORD, payload);
   },
   logout(payload) {
-    return axios.post(API.LOGOUT, payload);
+    return axios.post(API.AUTH.LOGOUT, payload);
   },
   refreshTokens(payload) {
-    return axios.post(API.REFRESH_TOKENS, payload, NO_LOADER);
+    return axios.post(API.AUTH.REFRESH_TOKENS, payload, NO_LOADER);
   },
   resetPassword(payload, token) {
-    return axios.post(API.RESET_PASSWORD, payload, {
+    return axios.post(API.AUTH.RESET_PASSWORD, payload, {
       params: {
         token,
       },
     });
   },
   verifyEmail(token) {
-    return axios.post(API.VERIFY_EMAIL, undefined, {
+    return axios.post(API.AUTH.VERIFY_EMAIL, undefined, {
       params: {
         token,
       },
     });
   },
   sendVerificationEmail() {
-    return axios.post(API.SEND_VERIFICATION_EMAIL);
+    return axios.post(API.AUTH.SEND_VERIFICATION_EMAIL);
   },
 };
 

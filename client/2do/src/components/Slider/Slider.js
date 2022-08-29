@@ -1,7 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Pagination } from "swiper";
-import Images from "../../assets/img/images.js";
+import Images from "../../assets/img/Images";
 import SliderContent from "./SliderContent.js";
 import "swiper/css";
 import "swiper/css/effect-fade";

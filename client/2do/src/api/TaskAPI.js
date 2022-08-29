@@ -5,22 +5,22 @@ const API = constants.apiPath;
 
 const TaskAPI = {
   allTasks(payload) {
-    return axios.post(API.ALL_TASKS, payload);
+    return axios.post(API.TASK.ALL, payload);
   },
   changeTaskStatus(payload, taskId) {
-    return axios.patch(`${API.CHANGE_STATUS}/${taskId}`, payload, NO_LOADER);
+    return axios.patch(`${API.TASK.CHANGE_STATUS}/${taskId}`, payload, NO_LOADER);
   },
   getTask(taskId) {
-    return axios.get(`${API.TASK}/${taskId}`);
+    return axios.get(`${API.TASK.TASK}/${taskId}`);
   },
   createTask(payload) {
-    return axios.post(`${API.CREATE}`, payload);
+    return axios.post(`${API.TASK.CREATE}`, payload);
   },
   deleteTask(taskId) {
-    return axios.delete(`${API.TASK}/${taskId}`);
+    return axios.delete(`${API.TASK.TASK}/${taskId}`);
   },
   updateTask(payload, taskId) {
-    return axios.patch(`${API.TASK}/${taskId}`, payload);
+    return axios.patch(`${API.TASK.TASK}/${taskId}`, payload);
   },
 };
 

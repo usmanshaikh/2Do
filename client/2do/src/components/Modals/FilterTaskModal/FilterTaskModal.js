@@ -5,7 +5,7 @@ import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { unslugify } from "../../../utils/Helpers";
 import constants from "../../../utils/constants";
 import CategoryAPI from "../../../api/CategoryAPI";
-import Images from "../../../assets/img/images";
+import Images from "../../../assets/img/Images";
 import "./FilterTaskModal.scss";
 
 const MSG = constants.message;

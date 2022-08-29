@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
+import * as yup from "yup";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { Icon, TextField } from "@mui/material";
-import * as yup from "yup";
-import CustomButton from "../../../components/CustomButton/CustomButton";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
-import constants from "../../../utils/constants";
 import { AuthAPI } from "../../../api";
+import constants from "../../../utils/constants";
+import CustomButton from "../../../components/CustomButton/CustomButton";
 import "../Auth.scss";
 
 const ROUTE = constants.routePath;

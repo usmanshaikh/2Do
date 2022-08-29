@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 import { AddTaskModal } from "../Modals";
 import MenuItem from "./MenuItem";
 import constants from "../../utils/constants";
-import Images from "../../assets/img/images";
+import Images from "../../assets/img/Images";
 import "./Menu.scss";
 
 const ROUTE = constants.routePath;

@@ -6,7 +6,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { hideFooter, showFooter } from "../../../utils/Helpers";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import constants from "../../../utils/constants";
-import Images from "../../../assets/img/images";
+import Images from "../../../assets/img/Images";
 import CardColorAPI from "../../../api/CardColorAPI";
 import "./AddNewCategoryModal.scss";
 

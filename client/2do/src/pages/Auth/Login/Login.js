@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { AuthAPI } from "../../../api";
+import { useGlobalContext } from "../../../utils/hooks";
+import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import * as Helpers from "../../../utils/Helpers";
 import constants from "../../../utils/constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-import { useGlobalContext } from "../../../utils/hooks";
-import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import "../Auth.scss";
 
 const ROUTE = constants.routePath;

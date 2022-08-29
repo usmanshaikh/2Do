@@ -3,10 +3,8 @@ import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import "./ConfirmationModal.scss";
 
 /**
- *
  * @param {{ message: string, onConfirm: (), type: ('success'|'danger') }} props
  */
-
 const ConfirmationModal = (props) => {
   const { onClose, open, message, onConfirm, type = "success" } = props;
 

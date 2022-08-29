@@ -4,7 +4,7 @@ import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { AuthAPI } from "../../../api";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import constants from "../../../utils/constants";
-import images from "../../../assets/img/images";
+import Images from "../../../assets/img/Images";
 import * as Helpers from "../../../utils/Helpers";
 import "./VerifyEmail.scss";
 
@@ -54,7 +54,7 @@ const VerifyEmail = () => {
       {isVerifyEmailSuccess && (
         <div className="verifyEmailPageWrapper">
           <div>
-            <img src={images.ResetPasswordSuccess} alt="delete" className="fluidImg successImg" />
+            <img src={Images.ResetPasswordSuccess} alt="delete" className="fluidImg successImg" />
             <h1 className="heading">Congratulations!</h1>
             <span className="info">Your account has been verified.</span>
             {!isLoggedIn && <CustomButton name="Login" onClick={onLoginHandler} />}

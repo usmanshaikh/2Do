@@ -5,13 +5,13 @@ const API = constants.apiPath;
 
 const UserAPI = {
   myProfile() {
-    return axios.get(API.MY_PROFILE);
+    return axios.get(API.USER.MY_PROFILE);
   },
   updateMyProfile(payload) {
-    return axios.post(API.UPDATE_MY_PROFILE, payload);
+    return axios.post(API.USER.UPDATE_MY_PROFILE, payload);
   },
   statisticReport() {
-    return axios.get(API.STATISTIC_REPORT);
+    return axios.get(API.USER.STATISTIC_REPORT);
   },
 };
 

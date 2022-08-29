@@ -3,10 +3,8 @@ import { Button } from "@mui/material";
 import "./CustomButton.scss";
 
 /**
- *
  * @param {{ color: ('white'|'red'|'blue'|'danger'|'transparent'), size: ('small'|'large'), disabled: boolean, type: string, isPadding: boolean, name: string, onClick: () }} props
  */
-
 const CustomButton = (props) => {
   const {
     color = "red",
@@ -19,10 +17,7 @@ const CustomButton = (props) => {
   } = props;
 
   const onButtonClick = () => {
-    if (onClick) {
-      // Pass any parameter
-      onClick(name);
-    }
+    if (onClick) onClick();
   };
 
   return (

@@ -26,10 +26,10 @@ const CategoryAPI = {
     return axios.post(API.CATEGORIES.CREATE, payload);
   },
   deleteCategory(checklistId) {
-    return axios.delete(`${API.CATEGORIES.UPDATE_OR_DELETE}/${checklistId}`);
+    return axios.delete(`${API.CATEGORIES.CATEGORIES}/${checklistId}`);
   },
   updateCategory(payload, checklistId) {
-    return axios.patch(`${API.CATEGORIES.UPDATE_OR_DELETE}/${checklistId}`, payload);
+    return axios.patch(`${API.CATEGORIES.CATEGORIES}/${checklistId}`, payload);
   },
 };
 
