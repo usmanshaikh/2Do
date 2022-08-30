@@ -48,7 +48,6 @@ const taskSchema = mongoose.Schema(
   }
 );
 
-// add plugin that converts mongoose to json
 taskSchema.plugin(toJSON);
 
 // populate cardColor
@@ -58,9 +57,6 @@ taskSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
   next();
 });
 
-/**
- * @typedef Task
- */
 const Task = mongoose.model('Task', taskSchema);
 
 module.exports = Task;

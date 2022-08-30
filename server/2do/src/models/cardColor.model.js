@@ -13,12 +13,8 @@ const cardColorSchema = mongoose.Schema(
   }
 );
 
-// add plugin that converts mongoose to json
 cardColorSchema.plugin(toJSON);
 
-/**
- * @typedef CardColor
- */
 const CardColor = mongoose.model('CardColor', cardColorSchema);
 
 module.exports = CardColor;

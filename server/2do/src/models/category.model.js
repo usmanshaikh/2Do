@@ -28,12 +28,8 @@ const categorySchema = mongoose.Schema(
   }
 );
 
-// add plugin that converts mongoose to json
 categorySchema.plugin(toJSON);
 
-/**
- * @typedef Category
- */
 const Category = mongoose.model('Category', categorySchema);
 
 module.exports = Category;

@@ -26,7 +26,6 @@ const schedulerSchema = mongoose.Schema(
   }
 );
 
-// add plugin that converts mongoose to json
 schedulerSchema.plugin(toJSON);
 
 const Scheduler = mongoose.model('Scheduler', schedulerSchema);

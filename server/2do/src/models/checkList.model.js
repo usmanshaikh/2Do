@@ -62,7 +62,6 @@ const checklistSchema = mongoose.Schema(
   }
 );
 
-// add plugin that converts mongoose to json
 checklistSchema.plugin(toJSON);
 
 // populate cardColor
@@ -72,9 +71,6 @@ checklistSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
   next();
 });
 
-/**
- * @typedef Checklist
- */
 const Checklist = mongoose.model('Checklist', checklistSchema);
 
 module.exports = Checklist;
