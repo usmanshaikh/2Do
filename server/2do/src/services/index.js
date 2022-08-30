@@ -6,5 +6,4 @@ module.exports.categoryService = require('./category.service');
 module.exports.cardColorService = require('./cardColor.service');
 module.exports.taskService = require('./task.service');
 module.exports.checklistService = require('./checklist.service');
-module.exports.notificationService = require('./notification.service');
 module.exports.schedulerService = require('./scheduler.service');

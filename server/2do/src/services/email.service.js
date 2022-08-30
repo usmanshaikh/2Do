@@ -4,7 +4,6 @@ const hbs = require('nodemailer-express-handlebars');
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
 const logger = require('../config/logger');
-const notificationService = require('./notification.service');
 
 // Current Directory
 const dirPath = path.join(__dirname, '..');
@@ -100,12 +99,6 @@ const sendEventReminderEmail = async (eventInfo, eventType, user, req) => {
     eventDateTime: dateAndTime,
   };
   await sendEmail(to, subject, templateToUse, templateContent);
-  createNotificationAfterEmailSend(title, eventLink, eventType, false, user.id);
-};
-
-const createNotificationAfterEmailSend = async (message, link, type, isRead, userId) => {
-  const noficationBody = { message, link, type, isRead, userId };
-  notificationService.createNotification(noficationBody);
 };
 
 const getOriginURL = (req) => {
