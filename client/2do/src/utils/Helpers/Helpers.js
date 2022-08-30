@@ -59,20 +59,6 @@ export const setLocalRefreshToken = (token) => {
   return localStorage.setItem("refreshToken", token);
 };
 
-export const showLoader = () => {
-  document.body.classList.add("scrollHide");
-  let element = document.getElementById("LOADER_COMPONENT");
-  element.classList.add("show");
-  element.classList.remove("hide");
-};
-
-export const hideLoader = () => {
-  document.body.classList.remove("scrollHide");
-  let element = document.getElementById("LOADER_COMPONENT");
-  element.classList.remove("show");
-  element.classList.add("hide");
-};
-
 export const filterByToBoolean = (str) => {
   let status;
   switch (str) {

@@ -11,6 +11,7 @@ import Loader from "./components/Loader/Loader";
 import App from "./App";
 import theme from "./theme";
 import "./index.scss";
+import { AxiosInterceptor } from "./api/axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,12 +19,14 @@ root.render(
     <GlobalProvider>
       <GlobalSnackbarAlertProvider>
         <ModalProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <ScrollToTop />
-            <Loader />
-            <App />
-          </ThemeProvider>
+          <AxiosInterceptor>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <ScrollToTop />
+              <Loader />
+              <App />
+            </ThemeProvider>
+          </AxiosInterceptor>
         </ModalProvider>
       </GlobalSnackbarAlertProvider>
     </GlobalProvider>

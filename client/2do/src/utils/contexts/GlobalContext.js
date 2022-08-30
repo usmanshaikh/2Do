@@ -32,12 +32,14 @@ const filterOptionsReducer = (state, action) => {
 const GlobalProvider = (props) => {
   const isAccessToken = () => (localStorage.getItem("accessToken") ? true : false);
   const [headerTitle, setHeaderTitle] = useState("personal");
+  const [showLoader, setShowLoader] = useState(false);
   const [filterOptions, filterOptionsDispatch] = useReducer(filterOptionsReducer, filterOptionsInitialState);
   const [filterOptionsModalOpen, setFilterOptionsModalOpen] = useState(false);
   const [authenticate, setAuthenticate] = useState(isAccessToken());
 
   const obj = {
     headerTitle: [headerTitle, setHeaderTitle],
+    showLoader: [showLoader, setShowLoader],
     filterOptions: [filterOptions, filterOptionsDispatch],
     filterOptionsModalOpen: [filterOptionsModalOpen, setFilterOptionsModalOpen],
     authenticate: [authenticate, setAuthenticate],

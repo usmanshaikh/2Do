@@ -1,38 +1,42 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import AuthAPI from "./AuthAPI";
 import * as Helpers from "../utils/Helpers";
+import { useGlobalContext } from "../utils/hooks";
 
 let isRefreshing = false;
 let refreshSubscribers = [];
 let requestsCount = [];
 let requestsIndex = 0;
 
-const removeRequest = (req) => {
-  setTimeout(() => {
-    requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
-    if (!requestsCount.length) Helpers.hideLoader();
-  }, 500);
-};
-
-const addRequest = (config) => {
-  requestsIndex = requestsIndex + 1;
-  config["reqIdx"] = requestsIndex;
-  requestsCount.push(config);
-};
-
 const axiosInstance = axios.create({
-  // baseURL: `http://${process.env.REACT_APP_IP}:3000/v1/`,
   baseURL: "http://localhost:3000/v1/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
+const AxiosInterceptor = ({ children }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { setShowLoaderHandler } = useGlobalContext();
+
+  const removeRequest = (req) => {
+    setTimeout(() => {
+      requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
+      if (!requestsCount.length) setShowLoaderHandler(false);
+    }, 500);
+  };
+
+  const addRequest = (config) => {
+    requestsIndex = requestsIndex + 1;
+    config["reqIdx"] = requestsIndex;
+    requestsCount.push(config);
+  };
+
+  const reqInterceptor = (config) => {
     if (config.headers.noLoader) {
     } else {
-      Helpers.showLoader();
+      setShowLoaderHandler(true);
       addRequest(config);
     }
     const token = Helpers.getLocalAccessToken();
@@ -40,19 +44,19 @@ axiosInstance.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
-  },
-  (error) => {
+  };
+
+  const reqErrInterceptor = (error) => {
     removeRequest(error.config);
     return Promise.reject(error.config);
-  }
-);
+  };
 
-axiosInstance.interceptors.response.use(
-  (response) => {
+  const resInterceptor = (response) => {
     removeRequest(response.config);
     return response.data;
-  },
-  (error) => {
+  };
+
+  const resErrInterceptor = (error) => {
     removeRequest(error.config);
     // prettier-ignore
     const { config, response: { status } } = error;
@@ -83,8 +87,21 @@ axiosInstance.interceptors.response.use(
     } else {
       return Promise.reject(error.response.data);
     }
-  }
-);
+  };
+
+  useEffect(() => {
+    console.log("useEffect1");
+    const reqInterceptorEject = axiosInstance.interceptors.request.use(reqInterceptor, reqErrInterceptor);
+    const resInterceptorEject = axiosInstance.interceptors.response.use(resInterceptor, resErrInterceptor);
+    setIsLoaded(true);
+    return () => {
+      axiosInstance.interceptors.request.eject(reqInterceptorEject);
+      axiosInstance.interceptors.response.eject(resInterceptorEject);
+    };
+  }, []);
+
+  return isLoaded ? children : null;
+};
 
 function subscribeTokenRefresh(cb) {
   refreshSubscribers.push(cb);
@@ -101,3 +118,4 @@ export const NO_LOADER = {
 };
 
 export default axiosInstance;
+export { AxiosInterceptor };

@@ -29,7 +29,7 @@ export const USER = {
   STATISTIC_REPORT: "users/statistic-report",
 };
 
-export const CATEGORIES = {
+export const CATEGORY = {
   CATEGORIES: "categories",
   ALL: "categories/all",
   CREATE: "categories/create",
