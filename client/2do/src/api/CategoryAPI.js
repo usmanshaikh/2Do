@@ -5,7 +5,7 @@ const API = constants.apiPath;
 
 const CategoryAPI = {
   allCategoriesForModal(onlyCategories = false) {
-    return axios.get(API.CATEGORIES.ALL, {
+    return axios.get(API.CATEGORY.ALL, {
       params: {
         onlyCategories: onlyCategories,
       },
@@ -13,23 +13,23 @@ const CategoryAPI = {
     });
   },
   allCategories(onlyCategories = false) {
-    return axios.get(API.CATEGORIES.ALL, {
+    return axios.get(API.CATEGORY.ALL, {
       params: {
         onlyCategories: onlyCategories,
       },
     });
   },
   categoryWithCount() {
-    return axios.get(API.CATEGORIES.WITH_TASK_AND_CHECKLIST_COUNT);
+    return axios.get(API.CATEGORY.WITH_TASK_AND_CHECKLIST_COUNT);
   },
   createCategory(payload) {
-    return axios.post(API.CATEGORIES.CREATE, payload);
+    return axios.post(API.CATEGORY.CREATE, payload);
   },
   deleteCategory(checklistId) {
-    return axios.delete(`${API.CATEGORIES.CATEGORIES}/${checklistId}`);
+    return axios.delete(`${API.CATEGORY.CATEGORIES}/${checklistId}`);
   },
   updateCategory(payload, checklistId) {
-    return axios.patch(`${API.CATEGORIES.CATEGORIES}/${checklistId}`, payload);
+    return axios.patch(`${API.CATEGORY.CATEGORIES}/${checklistId}`, payload);
   },
 };
 
