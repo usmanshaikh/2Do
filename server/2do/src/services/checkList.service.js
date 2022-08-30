@@ -115,24 +115,6 @@ const getChecklistByIdOnly = async (checklistId) => {
   return checklist;
 };
 
-// ------------- Admin -------------
-
-/**
- * Get all Checklist
- */
-const getAllChecklists = async () => {
-  const checklists = await Checklist.find();
-  return checklists;
-};
-
-/**
- * Delete all Checklist
- */
-const deleteAllChecklists = async () => {
-  const checklists = await Checklist.deleteMany({});
-  return checklists;
-};
-
 module.exports = {
   createChecklist,
   getChecklistById,
@@ -141,6 +123,4 @@ module.exports = {
   changeChecklistStatus,
   allChecklists,
   getChecklistByIdOnly,
-  getAllChecklists,
-  deleteAllChecklists,
 };

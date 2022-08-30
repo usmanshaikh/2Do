@@ -115,24 +115,6 @@ const getTaskByIdOnly = async (taskId) => {
   return task;
 };
 
-// ------------- Admin -------------
-
-/**
- * Get all Task
- */
-const getAllTasks = async () => {
-  const tasks = await Task.find();
-  return tasks;
-};
-
-/**
- * Delete all Task
- */
-const deleteAllTasks = async () => {
-  const tasks = await Task.deleteMany({});
-  return tasks;
-};
-
 module.exports = {
   createTask,
   getTaskById,
@@ -141,6 +123,4 @@ module.exports = {
   changeTaskStatus,
   allTasks,
   getTaskByIdOnly,
-  getAllTasks,
-  deleteAllTasks,
 };

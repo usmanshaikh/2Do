@@ -7,10 +7,6 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 
 const router = express.Router();
 
-// Admin Route
-router.route('/delete-all').delete(auth('deleteAllCategories'), categoryController.deleteAllCategories);
-router.route('/get-all').get(auth('getAllCategories'), categoryController.getAllCategories);
-
 router.route('/all').get(auth(), validate(categoryValidation.allCategories), categoryController.allCategories);
 router.route('/with-task-and-checklist-count').get(auth(), categoryController.categoryWithTaskAndChecklistCount);
 router

@@ -247,24 +247,6 @@ const isCategoryNameAlreadyExits = async (req) => {
   return category;
 };
 
-// ------------- Admin -------------
-
-/**
- * Get all Categories
- */
-const getAllCategories = async () => {
-  const categories = await Category.find();
-  return categories;
-};
-
-/**
- * Delete all Categories
- */
-const deleteAllCategories = async () => {
-  const categories = await Category.deleteMany({});
-  return categories;
-};
-
 module.exports = {
   createCategory,
   allCategories,
@@ -274,6 +256,4 @@ module.exports = {
   deleteCategoryById,
   categoryWithTaskAndChecklistCount,
   createDefaultCategoryAfterRegister,
-  getAllCategories,
-  deleteAllCategories,
 };

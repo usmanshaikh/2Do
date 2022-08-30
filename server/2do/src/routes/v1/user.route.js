@@ -7,10 +7,6 @@ const uploadImage = require('../../middlewares/uploadImage');
 
 const router = express.Router();
 
-// Admin Route
-router.route('/delete-all').delete(auth('deleteAllUsers'), userController.deleteAllUsers);
-router.route('/get-all').get(auth('getAllUsers'), userController.getAllUsers);
-
 router.route('/statistic-report').get(auth(), userController.statisticReport);
 router.route('/completed-percentage').get(auth(), userController.completedPercentage);
 router.route('/my-profile').get(auth(), userController.myProfile);

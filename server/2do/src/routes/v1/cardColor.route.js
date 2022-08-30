@@ -9,7 +9,8 @@ const router = express.Router();
 // Admin Route
 router
   .route('/')
-  .post(auth('createCardColor'), validate(cardColorValidation.createCardColor), cardColorController.createCardColor)
-  .get(auth(), cardColorController.getAllCardColors);
+  .post(auth('createCardColor'), validate(cardColorValidation.createCardColor), cardColorController.createCardColor);
+
+router.route('/').get(auth(), cardColorController.getAllCardColors);
 
 module.exports = router;

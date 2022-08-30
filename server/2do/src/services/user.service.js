@@ -413,24 +413,6 @@ const completedPercentage = async (req) => {
   return aggregateData;
 };
 
-// ------------- Admin -------------
-
-/**
- * Get all Users
- */
-const getAllUsers = async () => {
-  const users = await User.find({ role: { $ne: 'admin' } });
-  return users;
-};
-
-/**
- * Delete all Users
- */
-const deleteAllUsers = async () => {
-  const users = await User.deleteMany({ role: { $ne: 'admin' } });
-  return users;
-};
-
 module.exports = {
   createUser,
   getUserById,
@@ -440,6 +422,4 @@ module.exports = {
   updateMyProfile,
   statisticReport,
   completedPercentage,
-  getAllUsers,
-  deleteAllUsers,
 };

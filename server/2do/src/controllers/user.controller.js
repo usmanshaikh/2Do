@@ -31,24 +31,10 @@ const completedPercentage = catchAsync(async (req, res) => {
   res.send(user);
 });
 
-// ------------- Admin -------------
-
-const getAllUsers = catchAsync(async (req, res) => {
-  const users = await userService.getAllUsers();
-  res.send(users);
-});
-
-const deleteAllUsers = catchAsync(async (req, res) => {
-  await userService.deleteAllUsers();
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 module.exports = {
   createUser,
   myProfile,
   updateMyProfile,
   statisticReport,
   completedPercentage,
-  getAllUsers,
-  deleteAllUsers,
 };

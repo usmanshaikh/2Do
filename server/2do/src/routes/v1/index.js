@@ -5,7 +5,6 @@ const categoryRoute = require('./category.route');
 const cardColorRoute = require('./cardColor.route');
 const taskRoute = require('./task.route');
 const checklistRoute = require('./checklist.route');
-const schedulerRoute = require('./scheduler.route');
 
 const router = express.Router();
 
@@ -33,10 +32,6 @@ const defaultRoutes = [
   {
     path: '/card-colors',
     route: cardColorRoute,
-  },
-  {
-    path: '/schedulers',
-    route: schedulerRoute,
   },
 ];
 

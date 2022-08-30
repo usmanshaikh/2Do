@@ -7,10 +7,6 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 
 const router = express.Router();
 
-// Admin Route
-router.route('/delete-all').delete(auth('deleteAllChecklists'), checklistController.deleteAllChecklists);
-router.route('/get-all').get(auth('getAllChecklists'), checklistController.getAllChecklists);
-
 router
   .route('/change-status/:checklistId')
   .patch(auth(), validate(checklistValidation.changeChecklistStatus), checklistController.changeChecklistStatus);

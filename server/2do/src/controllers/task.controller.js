@@ -35,17 +35,6 @@ const allTasks = catchAsync(async (req, res) => {
   res.send(tasks);
 });
 
-// ------------- Admin -------------
-const getAllTasks = catchAsync(async (req, res) => {
-  const tasks = await taskService.getAllTasks();
-  res.send(tasks);
-});
-
-const deleteAllTasks = catchAsync(async (req, res) => {
-  await taskService.deleteAllTasks();
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 module.exports = {
   createTask,
   getTask,
@@ -53,6 +42,4 @@ module.exports = {
   deleteTask,
   changeTaskStatus,
   allTasks,
-  getAllTasks,
-  deleteAllTasks,
 };

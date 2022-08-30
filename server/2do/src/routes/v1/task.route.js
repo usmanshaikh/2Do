@@ -7,10 +7,6 @@ const { isDocIdExits } = require('../../middlewares/isDocIdExits');
 
 const router = express.Router();
 
-// Admin Route
-router.route('/delete-all').delete(auth('deleteAllTasks'), taskController.deleteAllTasks);
-router.route('/get-all').get(auth('getAllTasks'), taskController.getAllTasks);
-
 router
   .route('/change-status/:taskId')
   .patch(auth(), validate(taskValidation.changeTaskStatus), taskController.changeTaskStatus);

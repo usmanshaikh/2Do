@@ -31,18 +31,6 @@ const deleteCategory = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-// ------------- Admin -------------
-
-const getAllCategories = catchAsync(async (req, res) => {
-  const categories = await categoryService.getAllCategories();
-  res.send(categories);
-});
-
-const deleteAllCategories = catchAsync(async (req, res) => {
-  await categoryService.deleteAllCategories();
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 module.exports = {
   createCategory,
   allCategories,
@@ -50,6 +38,4 @@ module.exports = {
   deleteCategory,
   categoryWithTaskAndChecklistCount,
   createDefaultCategoryAfterRegister,
-  getAllCategories,
-  deleteAllCategories,
 };

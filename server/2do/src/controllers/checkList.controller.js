@@ -35,18 +35,6 @@ const allChecklists = catchAsync(async (req, res) => {
   res.send(checklist);
 });
 
-// ------------- Admin -------------
-
-const getAllChecklists = catchAsync(async (req, res) => {
-  const checklists = await checklistService.getAllChecklists();
-  res.send(checklists);
-});
-
-const deleteAllChecklists = catchAsync(async (req, res) => {
-  await checklistService.deleteAllChecklists();
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 module.exports = {
   createChecklist,
   getChecklist,
@@ -54,6 +42,4 @@ module.exports = {
   deleteChecklist,
   changeChecklistStatus,
   allChecklists,
-  getAllChecklists,
-  deleteAllChecklists,
 };
