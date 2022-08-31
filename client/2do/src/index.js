@@ -2,16 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
+import { GlobalProvider, GlobalSnackbarAlertProvider } from "./utils/contexts";
+import { AxiosInterceptor } from "./api/Axios";
 import CssBaseline from "@mui/material/CssBaseline";
 import ModalProvider from "mui-modal-provider";
 import reportWebVitals from "./reportWebVitals";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
-import { GlobalProvider, GlobalSnackbarAlertProvider } from "./utils/contexts";
 import Loader from "./components/Loader/Loader";
 import App from "./App";
 import theme from "./theme";
 import "./index.scss";
-import { AxiosInterceptor } from "./api/axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

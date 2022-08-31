@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { TaskAPI } from "../../api";
+import { CategoryAPI, TaskAPI } from "../../api";
 import { TaskCard } from "../../components/Cards";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { useDidMountEffect, useGlobalContext } from "../../utils/hooks";
@@ -8,7 +8,6 @@ import { filterByToBoolean } from "../../utils/Helpers";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import constants from "../../utils/constants";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
-import CategoryAPI from "../../api/CategoryAPI";
 import "./Task.scss";
 
 const ROUTE = constants.routePath;

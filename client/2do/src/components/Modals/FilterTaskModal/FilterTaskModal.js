@@ -3,8 +3,8 @@ import { Button, Dialog, DialogActions, DialogTitle, Icon, List, ListItem, ListI
 import { useGlobalContext } from "../../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { unslugify } from "../../../utils/Helpers";
+import { CategoryAPI } from "../../../api";
 import constants from "../../../utils/constants";
-import CategoryAPI from "../../../api/CategoryAPI";
 import Images from "../../../assets/img/Images";
 import "./FilterTaskModal.scss";
 

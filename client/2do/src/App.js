@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useGlobalContext } from "./utils/hooks";
 import AppRoute from "./routes/AppRoute";
 import Menu from "./components/Menu/Menu";
 import Header from "./components/Header/Header";
 import * as Helpers from "./utils/Helpers";
-import { useGlobalContext } from "./utils/hooks";
 import "./App.scss";
 
 function App() {

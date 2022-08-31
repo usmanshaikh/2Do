@@ -1,24 +1,43 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import AuthAPI from "./AuthAPI";
-import * as Helpers from "../utils/Helpers";
 import { useGlobalContext } from "../utils/hooks";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import * as Helpers from "../utils/Helpers";
+import constants from "../utils/constants";
+import AuthAPI from "./AuthAPI";
 
-let isRefreshing = false;
-let refreshSubscribers = [];
-let requestsCount = [];
-let requestsIndex = 0;
+const NO_LOADER = { headers: { noLoader: true } };
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/v1/",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
+
+const ROUTE = constants.routePath;
 
 const AxiosInterceptor = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { setShowLoaderHandler } = useGlobalContext();
+  const navigate = useNavigate();
+  const { setShowLoaderHandler, setAuthenticateHandler } = useGlobalContext();
+
+  let isRefreshing = false;
+  let refreshSubscribers = [];
+  let requestsCount = [];
+  let requestsIndex = 0;
+
+  const subscribeTokenRefresh = (cb) => {
+    refreshSubscribers.push(cb);
+  };
+
+  const onRrefreshed = (token) => {
+    refreshSubscribers.map((cb) => cb(token));
+  };
+
+  const logout = () => {
+    localStorage.clear();
+    setAuthenticateHandler(false);
+    navigate(`/${ROUTE.LOGIN}`);
+  };
 
   const removeRequest = (req) => {
     setTimeout(() => {
@@ -66,14 +85,19 @@ const AxiosInterceptor = ({ children }) => {
       if (!isRefreshing) {
         isRefreshing = true;
         const refreshToken = Helpers.getLocalRefreshToken();
-        AuthAPI.refreshTokens({ refreshToken }).then((tk) => {
-          isRefreshing = false;
-          const accessToken = tk.access.token;
-          const refreshToken = tk.refresh.token;
-          Helpers.setLocalAccessToken(accessToken);
-          Helpers.setLocalRefreshToken(refreshToken);
-          onRrefreshed(accessToken);
-        });
+        AuthAPI.refreshTokens({ refreshToken })
+          .then((tk) => {
+            isRefreshing = false;
+            const accessToken = tk.access.token;
+            const refreshToken = tk.refresh.token;
+            Helpers.setLocalAccessToken(accessToken);
+            Helpers.setLocalRefreshToken(refreshToken);
+            onRrefreshed(accessToken);
+          })
+          .catch(() => {
+            isRefreshing = false;
+            logout();
+          });
       }
       const retryOrigReq = new Promise((resolve, reject) => {
         subscribeTokenRefresh((token) => {
@@ -90,7 +114,6 @@ const AxiosInterceptor = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("useEffect1");
     const reqInterceptorEject = axiosInstance.interceptors.request.use(reqInterceptor, reqErrInterceptor);
     const resInterceptorEject = axiosInstance.interceptors.response.use(resInterceptor, resErrInterceptor);
     setIsLoaded(true);
@@ -103,19 +126,4 @@ const AxiosInterceptor = ({ children }) => {
   return isLoaded ? children : null;
 };
 
-function subscribeTokenRefresh(cb) {
-  refreshSubscribers.push(cb);
-}
-
-function onRrefreshed(token) {
-  refreshSubscribers.map((cb) => cb(token));
-}
-
-export const NO_LOADER = {
-  headers: {
-    noLoader: true,
-  },
-};
-
-export default axiosInstance;
-export { AxiosInterceptor };
+export { AxiosInterceptor, axiosInstance, NO_LOADER };

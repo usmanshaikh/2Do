@@ -2,7 +2,7 @@ import constants from "../constants";
 
 const MSG = constants.message;
 
-export function truncateString(str, number = 90) {
+export const truncateString = (str, number = 90) => {
   let modifiedStr = str;
   if (str.length > number) {
     str = str.slice(0, number).trim();
@@ -13,35 +13,35 @@ export function truncateString(str, number = 90) {
     modifiedStr = `${str}...`;
   }
   return modifiedStr;
-}
+};
 
-export function addLeadingZero(n) {
+export const addLeadingZero = (n) => {
   return n < 10 && n >= 1 ? "0" + n : n;
-}
+};
 
-export function slugify(str) {
+export const slugify = (str) => {
   return str.split(" ").join("-");
-}
+};
 
-export function unslugify(str) {
+export const unslugify = (str) => {
   return str.split("-").join(" ");
-}
+};
 
-export function hideFooter() {
+export const hideFooter = () => {
   const isMobile = detectMobile();
   if (isMobile) document.getElementsByClassName("menuComponentWrapper")[0].style.display = "none";
-}
+};
 
-export function showFooter() {
+export const showFooter = () => {
   document.getElementsByClassName("menuComponentWrapper")[0].style.display = "block";
-}
+};
 
-function detectMobile() {
+export const detectMobile = () => {
   const toMatch = [/Android/i, /webOS/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i];
   return toMatch.some((toMatchItem) => {
     return navigator.userAgent.match(toMatchItem);
   });
-}
+};
 
 export const getLocalAccessToken = () => {
   return localStorage.getItem("accessToken");

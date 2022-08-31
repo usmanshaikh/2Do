@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Icon } from "@mui/material";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
-import CardColorAPI from "../../api/CardColorAPI";
+import { CardColorAPI } from "../../api";
 import "./ChooseColor.scss";
 
 const ChooseColor = (props) => {

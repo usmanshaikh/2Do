@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { hideFooter, showFooter } from "../../utils/Helpers";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
-import CategoryAPI from "../../api/CategoryAPI";
+import { CategoryAPI } from "../../api";
 import "./ChooseCategory.scss";
 
 const ChooseCategory = (props) => {

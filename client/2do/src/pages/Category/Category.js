@@ -7,8 +7,8 @@ import { CategoryCard } from "../../components/Cards";
 import { AddNewCategoryModal, ConfirmationModal } from "../../components/Modals";
 import { useGlobalContext } from "../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
+import { CategoryAPI } from "../../api";
 import constants from "../../utils/constants";
-import CategoryAPI from "../../api/CategoryAPI";
 import "./Category.scss";
 
 const ROUTE = constants.routePath;

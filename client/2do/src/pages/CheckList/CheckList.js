@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { ChecklistAPI } from "../../api";
+import { CategoryAPI, ChecklistAPI } from "../../api";
 import { ChecklistCard } from "../../components/Cards";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { useDidMountEffect, useGlobalContext } from "../../utils/hooks";
@@ -8,7 +8,6 @@ import { filterByToBoolean } from "../../utils/Helpers";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import constants from "../../utils/constants";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
-import CategoryAPI from "../../api/CategoryAPI";
 import "./Checklist.scss";
 
 const ROUTE = constants.routePath;
@@ -76,7 +75,6 @@ const Checklist = () => {
   };
 
   const onEditChecklistHandler = (data) => {
-    console.log({ data });
     const checklistId = data.id;
     navigate({
       pathname: `${location.pathname}/${ROUTE.ADD_EDIT_CHECKLIST}`,

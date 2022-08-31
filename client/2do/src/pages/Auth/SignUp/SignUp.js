@@ -47,7 +47,6 @@ const SignUp = () => {
   });
 
   const register = (payload) => {
-    console.log({ payload });
     AuthAPI.register(payload)
       .then((res) => {
         const initialState = {
