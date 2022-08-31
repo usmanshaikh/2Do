@@ -1,4 +1,4 @@
-import { axiosInstance as axios } from "./AxiosInterceptor";
+import { axiosInstance as axios } from "./Axios";
 import constants from "../utils/constants";
 
 const API = constants.apiPath;

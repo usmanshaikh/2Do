@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { GlobalProvider, GlobalSnackbarAlertProvider } from "./utils/contexts";
-import { AxiosInterceptor } from "./api/AxiosInterceptor";
+import { AxiosInterceptor } from "./api/Axios";
 import CssBaseline from "@mui/material/CssBaseline";
 import ModalProvider from "mui-modal-provider";
 import reportWebVitals from "./reportWebVitals";
