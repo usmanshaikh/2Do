@@ -60,6 +60,11 @@ if (config.env === 'production') {
 }
 
 // v1 api routes
+app.get('/', (request, response, next) => {
+  response.json({ message: 'Hey! This is your server response!' });
+  next();
+});
+
 app.use('/v1', routes);
 
 // send back a 404 error for any unknown api request
