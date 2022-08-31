@@ -9,7 +9,6 @@ import Task from "../pages/Task/Task";
 import AddEditTask from "../pages/Task/AddEditTask/AddEditTask";
 import Category from "../pages/Category/Category";
 import Profile from "../pages/Profile/Profile";
-import Walkthrough from "../pages/Walkthrough/Walkthrough";
 import NotFound from "../components/NotFound/NotFound";
 import Checklist from "../pages/Checklist/Checklist";
 import AddEditChecklist from "../pages/Checklist/AddEditChecklist/AddEditChecklist";
@@ -61,14 +60,6 @@ const AppRoute = () => {
           element={
             <RequireAuth>
               <ResetPasswordSuccess moduleName={"auth"} />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={`/${Path.WALKTHROUGH}`}
-          element={
-            <RequireAuth>
-              <Walkthrough moduleName={"auth"} />
             </RequireAuth>
           }
         />

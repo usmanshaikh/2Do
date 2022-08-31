@@ -3,7 +3,6 @@ export const SIGNUP = "signup";
 export const FORGOT_PASSWORD = "forgot-password";
 export const RESET_PASSWORD = "reset-password";
 export const RESET_PASSWORD_SUCCESS = "reset-password-success";
-export const WALKTHROUGH = "walkthrough";
 export const TASK = "task";
 export const CATEGORY = "category";
 export const CHECKLIST = "checklist";
