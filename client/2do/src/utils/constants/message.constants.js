@@ -40,4 +40,5 @@ export const FITER_BY_COMPLETED = "completed-tasks";
 
 export const API_FAIL = "Sorry, something went wrong. Please try again.";
 
-export const INFO_ALERT = "You will receive notifications on the above selected Date & Time.";
+export const INFO_ALERT =
+  "If your email is verified then you will receive email notifications reminder on the above selected Date & Time.";
