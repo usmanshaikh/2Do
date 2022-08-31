@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 import { useLocation } from "react-router-dom";
 import { FilterTaskModal } from "../Modals";
 import { useGlobalContext } from "../../utils/hooks";
-import Images from "../../assets/img/Images";
+import Images from "../../assets/img";
 import constants from "../../utils/constants";
 import "./Header.scss";
 

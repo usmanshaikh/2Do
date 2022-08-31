@@ -6,7 +6,7 @@ import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, Trailing
 import { ConfirmationModal } from "../../Modals";
 import { truncateString } from "../../../utils/Helpers";
 import constants from "../../../utils/constants";
-import Images from "../../../assets/img/Images";
+import Images from "../../../assets/img";
 import DateTime from "../../DateTime/DateTime.js";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskCard.scss";

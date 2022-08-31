@@ -4,7 +4,7 @@ import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { AuthAPI } from "../../../api";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import constants from "../../../utils/constants";
-import Images from "../../../assets/img/Images";
+import Images from "../../../assets/img";
 import * as Helpers from "../../../utils/Helpers";
 import "./VerifyEmail.scss";
 

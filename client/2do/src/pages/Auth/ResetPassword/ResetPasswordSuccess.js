@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../../components/CustomButton/CustomButton.js";
 import constants from "../../../utils/constants";
-import Images from "../../../assets/img/Images";
+import Images from "../../../assets/img";
 import "./ResetPasswordSuccess.scss";
 
 const ROUTE = constants.routePath;

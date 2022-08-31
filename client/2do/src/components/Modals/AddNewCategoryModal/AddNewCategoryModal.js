@@ -7,7 +7,7 @@ import { hideFooter, showFooter } from "../../../utils/Helpers";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { CardColorAPI } from "../../../api";
 import constants from "../../../utils/constants";
-import Images from "../../../assets/img/Images";
+import Images from "../../../assets/img";
 import "./AddNewCategoryModal.scss";
 
 const MSG = constants.message;

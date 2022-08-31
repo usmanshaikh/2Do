@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 import { AddTaskModal } from "../Modals";
 import MenuItem from "./MenuItem";
 import constants from "../../utils/constants";
-import Images from "../../assets/img/Images";
+import Images from "../../assets/img";
 import "./Menu.scss";
 
 const ROUTE = constants.routePath;
@@ -56,7 +56,7 @@ const Menu = () => {
             <MenuItem key={item.position} icon={item.icon} name={item.name} url={item.url} />
           ))}
           <Button className="addTaskButtonWrap" onClick={openAddTaskModalHandler}>
-            {/* <img src={Images.LogoNameSVG} alt="2Do" className="logo" /> */}
+            <img src={Images.LogoNameSVG} alt="2Do" className="logo" />
           </Button>
         </div>
       </div>
