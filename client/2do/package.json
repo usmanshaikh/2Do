@@ -2,6 +2,7 @@
   "name": "2do",
   "version": "0.1.0",
   "private": true,
+  "stack": "heroku-20",
   "dependencies": {
     "@date-io/moment": "^2.14.0",
     "@emotion/react": "^11.9.0",
