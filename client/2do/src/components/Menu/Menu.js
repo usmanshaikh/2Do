@@ -56,7 +56,7 @@ const Menu = () => {
             <MenuItem key={item.position} icon={item.icon} name={item.name} url={item.url} />
           ))}
           <Button className="addTaskButtonWrap" onClick={openAddTaskModalHandler}>
-            <img src={Images.LogoNameSVG} alt="2Do" className="logo" />
+            {/* <img src={Images.LogoNameSVG} alt="2Do" className="logo" /> */}
           </Button>
         </div>
       </div>
