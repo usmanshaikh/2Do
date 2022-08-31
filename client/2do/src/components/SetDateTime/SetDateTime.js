@@ -8,7 +8,7 @@ import "./SetDateTime.scss";
 
 const SetDateTime = (props) => {
   const { isEdit, dateAndTime, onSetDateTime } = props;
-  const [dateTime, setDateTime] = useState(moment().add(2, "minutes").toDate());
+  const [dateTime, setDateTime] = useState(moment().toDate());
 
   useEffect(() => {
     if (isEdit) setDateTime(dateAndTime);
@@ -33,7 +33,6 @@ const SetDateTime = (props) => {
         <span className="commonLabel">Set Date &#38; time</span>
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <DateTimePicker
-            disablePast
             inputFormat="DD/MMM/YYYY hh:mm A"
             value={dateTime}
             onChange={handleChange}

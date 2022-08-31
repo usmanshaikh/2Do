@@ -4,7 +4,10 @@ const { checklistService, schedulerService } = require('../services');
 
 const createChecklist = catchAsync(async (req, res) => {
   const checklist = await checklistService.createChecklist(req, req.body);
-  checklist.alert && (await schedulerService.createScheduler(checklist, 'checklist'));
+  const today = new Date();
+  if (checklist.alert && checklist.dateAndTime.getTime() > today.getTime()) {
+    await schedulerService.createScheduler(checklist, 'checklist');
+  }
   res.status(httpStatus.CREATED).send(checklist);
 });
 

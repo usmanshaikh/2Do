@@ -4,7 +4,10 @@ const { taskService, schedulerService } = require('../services');
 
 const createTask = catchAsync(async (req, res) => {
   const task = await taskService.createTask(req, req.body);
-  task.alert && (await schedulerService.createScheduler(task, 'task'));
+  const today = new Date();
+  if (task.alert && task.dateAndTime.getTime() > today.getTime()) {
+    await schedulerService.createScheduler(task, 'task');
+  }
   res.status(httpStatus.CREATED).send(task);
 });
 

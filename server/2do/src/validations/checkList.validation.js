@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { objectId, isNotPastDateTime } = require('./custom.validation');
+const { objectId } = require('./custom.validation');
 
 const checklist = {
   title: Joi.string().required(),
@@ -9,7 +9,7 @@ const checklist = {
   }),
   category: Joi.required().custom(objectId),
   cardColor: Joi.required().custom(objectId),
-  dateAndTime: Joi.date().required().custom(isNotPastDateTime),
+  dateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
   isCompleted: Joi.boolean().required(),
 };

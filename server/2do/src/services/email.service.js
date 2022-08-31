@@ -85,7 +85,7 @@ const sendVerificationEmail = async (to, token, req) => {
  * @param {object} user
  * @returns {Promise}
  */
-const sendEventReminderEmail = async (eventInfo, eventType, user, req) => {
+const sendEventReminderEmail = async (eventInfo, eventType, user) => {
   let { title, dateAndTime } = eventInfo;
   dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;

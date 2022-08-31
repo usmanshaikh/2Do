@@ -46,7 +46,8 @@ const updateScheduler = async (body, schedulerType) => {
     { runValidators: true, new: true, useFindAndModify: false }
   );
 
-  if (!scheduler && body.alert) {
+  const today = new Date();
+  if (!scheduler && body.alert && body.dateAndTime.getTime() > today.getTime()) {
     createScheduler(body, schedulerType);
     return;
   }

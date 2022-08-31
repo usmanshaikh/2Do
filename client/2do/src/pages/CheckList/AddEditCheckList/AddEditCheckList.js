@@ -126,7 +126,7 @@ const AddEditChecklist = () => {
       ChecklistAPI.createChecklist(compState)
         .then((res) => {
           const initialState = {
-            message: MSG.TASK_CREATED,
+            message: MSG.CHECKLIST_CREATED,
             onClose: () => navigateTo(),
           };
           showModal(SuccessModal, initialState, { destroyOnClose: true });

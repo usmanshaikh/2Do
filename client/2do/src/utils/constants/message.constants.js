@@ -24,6 +24,7 @@ export const CONFIRMATION_DELETE = "Are you sure you want to Delete?";
 
 export const CREATE_CHECKLIST = "Create this checklist?";
 export const CHECKLIST_DELETED = "Checklist deleted successfully.";
+export const CHECKLIST_CREATED = "Checklist has been created.";
 
 export const CREATE_TASK = "Create this Task?";
 export const CHANGES_SAVED = "Your changes have been saved.";
@@ -32,8 +33,6 @@ export const TASK_DELETED = "Task deleted successfully.";
 export const TASK_STATUS_CHANGED_TO = "Task status changed to";
 
 export const CATEGORY_DELETED = "Category deleted successfully.";
-
-export const DEFAULT_CATEGORY_BY = "personal";
 
 export const FITER_BY_ALL = "all-tasks";
 export const FITER_BY_PENDING = "pending-tasks";
