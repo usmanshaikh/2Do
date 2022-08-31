@@ -77,7 +77,7 @@ const Category = () => {
         setCategories(categories.filter((item) => item.id !== data.id));
         snackbarAlert.showSnackbarAlert({ msg: MSG.CATEGORY_DELETED, duration: 2000 });
       })
-      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
+      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error", duration: 6000 }));
   };
   return (
     <>

@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Category } = require('../models');
+const { Category, Task, Checklist } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -211,9 +211,26 @@ const updateCategoryById = async (req, updateBody) => {
  * Delete Category by ID
  */
 const deleteCategoryById = async (req) => {
+  const tasks = await Task.find({ category: req.params.categoryId });
+  if (tasks.length) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Category contain Tasks. Please move Tasks to another category to delete this category.'
+    );
+  }
+
+  const checklists = await Checklist.find({ category: req.params.categoryId });
+  if (checklists.length) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Category contain Checklists. Please move Checklists to another category to delete this category.'
+    );
+  }
+
   const query = {
     _id: req.params.categoryId,
     createdBy: req.user._id,
+    deletable: true,
   };
   const category = await Category.findOneAndDelete(query);
   if (!category) {
