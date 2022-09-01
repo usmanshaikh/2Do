@@ -50,9 +50,8 @@ const sendEmail = async (to, subject, template, context) => {
  * @returns {Promise}
  */
 const sendResetPasswordEmail = async (to, token, req) => {
-  const origin = getOriginURL(req);
   const subject = 'Reset password';
-  const resetPasswordUrl = `${origin}/reset-password?token=${token}`;
+  const resetPasswordUrl = `${config.origin_url}/reset-password?token=${token}`;
   const templateToUse = 'resetPasswordTemplate';
   const templateContent = {
     templateTitle: 'Reset Password',
@@ -68,9 +67,8 @@ const sendResetPasswordEmail = async (to, token, req) => {
  * @returns {Promise}
  */
 const sendVerificationEmail = async (to, token, req) => {
-  const origin = getOriginURL(req);
   const subject = 'Email Verification';
-  const verificationEmailUrl = `${origin}/verify-email?token=${token}`;
+  const verificationEmailUrl = `${config.origin_url}/verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
   const templateContent = {
     templateTitle: 'Email Verification',
@@ -90,7 +88,7 @@ const sendEventReminderEmail = async (eventInfo, eventType, user) => {
   dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
-  const eventLink = `http://localhost:3001/${eventType}/add-edit-${eventType}?${eventType}Id=${eventInfo._id}&edit=true`;
+  const eventLink = `${config.origin_url}/${eventType}/add-edit-${eventType}?${eventType}Id=${eventInfo._id}&edit=true`;
   const templateToUse = 'reminderEmailTemplate';
   const templateContent = {
     templateTitle: 'Event Reminder',
@@ -99,10 +97,6 @@ const sendEventReminderEmail = async (eventInfo, eventType, user) => {
     eventDateTime: dateAndTime,
   };
   await sendEmail(to, subject, templateToUse, templateContent);
-};
-
-const getOriginURL = (req) => {
-  return req.get('origin');
 };
 
 module.exports = {
