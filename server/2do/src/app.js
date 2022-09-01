@@ -20,6 +20,8 @@ const app = express();
 // sending static files with Express
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/favicon.ico', express.static(path.join(__dirname + '/public/imgs/favicon.ico')));
+
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
   app.use(morgan.errorHandler);
@@ -60,11 +62,6 @@ if (config.env === 'production') {
 }
 
 // v1 api routes
-app.get('/', (request, response, next) => {
-  response.json({ message: 'Hey! This is your server response!' });
-  next();
-});
-
 app.use('/v1', routes);
 
 // send back a 404 error for any unknown api request
