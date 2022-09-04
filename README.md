@@ -4,8 +4,11 @@
 
 ###### Credentials:
 
+```bash
 email:test@gmail.com
+
 password:test@123
+```
 
 # Features
 
