@@ -2,6 +2,11 @@
 
 ### <h2 align="center"> ⚡️⚡️⚡️ &nbsp; [APP LINK](https://mern-2do.herokuapp.com/login) ⚡️⚡️⚡️ </h2>
 
+###### Credentials:
+
+email:test@gmail.com
+password:test@123
+
 # Features
 
 - Login <br>
