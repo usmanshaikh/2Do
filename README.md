@@ -11,18 +11,7 @@
 
 # Screenshots:
 
-<img src="/screenshots/LoginPage.jpg" height="400px"/>
-<img src="/screenshots/TaskPage.jpg" height="400px"/>
-<img src="/screenshots/AddEditTaskPage.jpg" height="400px"/>
-<img src="/screenshots/ChecklistPage.jpg" height="400px"/>
-<img src="/screenshots/AddEditChecklistPage.jpg" height="400px"/>
-<img src="/screenshots/DateTimePicker.jpg" height="400px"/>
-<img src="/screenshots/FilterModal.jpg" height="400px"/>
-<img src="/screenshots/CategoryPage.jpg" height="400px"/>
-<img src="screenshots/CreateCategoryModal.jpg" height="400px"/>
-<img src="screenshots/ProfilePage.jpg" height="400px"/>
-<img src="screenshots/EventReminder.jpg" height="400px"/>
-<img src="screenshots/VerifyEmail.jpg" height="400px"/>
+<img src="/screenshots/LoginPage.jpg" height="400px"/> <img src="/screenshots/TaskPage.jpg" height="400px"/> <img src="/screenshots/AddEditTaskPage.jpg" height="400px"/> <img src="/screenshots/ChecklistPage.jpg" height="400px"/> <img src="/screenshots/AddEditChecklistPage.jpg" height="400px"/> <img src="/screenshots/DateTimePicker.jpg" height="400px"/> <img src="/screenshots/FilterModal.jpg" height="400px"/> <img src="/screenshots/CategoryPage.jpg" height="400px"/> <img src="screenshots/CreateCategoryModal.jpg" height="400px"/> <img src="screenshots/ProfilePage.jpg" height="400px"/> <img src="screenshots/EventReminder.jpg" height="400px"/> <img src="screenshots/VerifyEmail.jpg" height="400px"/>
 
 ## Installation
 
