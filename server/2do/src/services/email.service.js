@@ -85,8 +85,8 @@ const sendVerificationEmail = async (to, token, req) => {
  */
 const sendEventReminderEmail = async (eventInfo, eventType, user) => {
   let { title, dateAndTime } = eventInfo;
-  // dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
-  dateAndTime = moment(dateAndTime).utcOffset('+05:30').format('dddd, MMMM Do YYYY, hh:mm a');
+  dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
+  // dateAndTime = moment(dateAndTime).utcOffset('+05:30').format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
   const eventLink = `${config.origin_url}/${eventType}/add-edit-${eventType}?${eventType}Id=${eventInfo._id}&edit=true`;
