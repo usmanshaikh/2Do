@@ -27,7 +27,7 @@ password: test@123
 
 1. Clone the repository
 2. Install the require packages: `npm install` for both client and server
-3. In server/2do create .env file add and config the all the details. You can refer .env.example file.
+3. In server/2do create .env file and config the all the details. You can refer .env.example file.
 4. Create list of cardColors for your app and add one of the cardColor ID in server\2do\src\services\category.service.js line no. 11 for cardColor: <CARD COLOR ID>
 5. To run Server - yarn dev
 6. To run Client - npm start
