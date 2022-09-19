@@ -1,5 +1,7 @@
-In the project directory, you can run:
+## Commands
 
-### `npm start`
+Running locally:
 
-Runs the app in the development mode.
+```bash
+npm start
+```
