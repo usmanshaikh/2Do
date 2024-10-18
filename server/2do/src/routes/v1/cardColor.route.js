@@ -6,10 +6,7 @@ const { cardColorValidation } = require('../../validations');
 
 const router = express.Router();
 
-// Admin Route
-router
-  .route('/')
-  .post(auth('createCardColor'), validate(cardColorValidation.createCardColor), cardColorController.createCardColor);
+router.route('/').post(auth(), validate(cardColorValidation.createCardColor), cardColorController.createCardColor);
 
 router.route('/').get(auth(), cardColorController.getAllCardColors);
 
