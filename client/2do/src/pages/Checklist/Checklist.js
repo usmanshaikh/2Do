@@ -59,7 +59,7 @@ const Checklist = () => {
     let payload = {};
     payload.category = filterOptions.category;
     payload.isCompleted = filterByToBoolean(filterOptions.isCompleted);
-    payload.dateAndTime = selectedDate;
+    if (selectedDate) payload.dateAndTime = selectedDate;
     if (!payload.category && !payload.isCompleted && !payload.selectedDate) return;
     ChecklistAPI.allChecklists(payload)
       .then((res) => {

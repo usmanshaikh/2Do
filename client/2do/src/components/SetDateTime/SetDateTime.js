@@ -8,39 +8,40 @@ import "./SetDateTime.scss";
 
 const SetDateTime = (props) => {
   const { isEdit, dateAndTime, onSetDateTime } = props;
-  const [dateTime, setDateTime] = useState(moment().toDate());
+  const [dateTime, setDateTime] = useState(moment());
 
   useEffect(() => {
-    if (isEdit) setDateTime(dateAndTime);
-    else defaultCompValueIfNotEdit();
-  }, [dateAndTime]);
+    if (isEdit) {
+      setDateTime(moment(dateAndTime));
+    } else {
+      defaultCompValueIfNotEdit();
+    }
+  }, [dateAndTime, isEdit]);
 
   const handleChange = (newValue) => {
     const dt = moment(newValue).toDate();
     const obj = { dateAndTime: dt };
     onSetDateTime(obj);
-    setDateTime(dt);
+    setDateTime(moment(newValue));
   };
 
   const defaultCompValueIfNotEdit = () => {
-    const obj = { dateAndTime: dateTime };
+    const obj = { dateAndTime: dateTime.toDate() };
     onSetDateTime(obj);
   };
 
   return (
-    <>
-      <div className="setDateTimeComponentWrapper">
-        <span className="commonLabel">Set Date &#38; time</span>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DateTimePicker
-            inputFormat="DD/MMM/YYYY hh:mm A"
-            value={dateTime}
-            onChange={handleChange}
-            renderInput={(params) => <TextField fullWidth {...params} />}
-          />
-        </LocalizationProvider>
-      </div>
-    </>
+    <div className="setDateTimeComponentWrapper">
+      <span className="commonLabel">Set Date &#38; Time</span>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <DateTimePicker
+          inputFormat="DD/MMM/YYYY hh:mm A"
+          value={dateTime}
+          onChange={handleChange}
+          renderInput={(params) => <TextField fullWidth {...params} />}
+        />
+      </LocalizationProvider>
+    </div>
   );
 };
 

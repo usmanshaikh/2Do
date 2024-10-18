@@ -17,8 +17,7 @@ const DatePickerControl = (props) => {
   const calendarMinDate = moment(new Date(minY), "DD/MM/YYYY");
 
   const onSelectDateHandler = (selectedData) => {
-    const dateAndTime = moment(selectedData).toDate();
-    setDatePicker(dateAndTime);
+    setDatePicker(moment(selectedData));
   };
 
   const onOkHandler = () => {

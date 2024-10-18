@@ -5,6 +5,7 @@ import { TaskCard } from "../../components/Cards";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { useDidMountEffect, useGlobalContext } from "../../utils/hooks";
 import { filterByToBoolean } from "../../utils/Helpers";
+import moment from "moment";
 import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import constants from "../../utils/constants";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
@@ -59,7 +60,7 @@ const Task = () => {
     let payload = {};
     payload.category = filterOptions.category;
     payload.isCompleted = filterByToBoolean(filterOptions.isCompleted);
-    payload.dateAndTime = selectedDate;
+    if (selectedDate) payload.dateAndTime = selectedDate;
     if (!payload.category && !payload.isCompleted && !payload.selectedDate) return;
     TaskAPI.allTasks(payload)
       .then((res) => {
