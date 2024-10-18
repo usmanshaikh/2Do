@@ -4,6 +4,9 @@ export const EMAIL_INVALID = "Enter a valid email";
 export const PASSWORD_LENGTH = 8;
 export const PASSWORD_REQUIRED = "Password is required";
 export const PASSWORD_MIN = `Password should be of minimum ${PASSWORD_LENGTH} characters length`;
+export const PASSWORD_MUST_CONTAIN_LETTER = "Password must contain at least one letter.";
+export const PASSWORD_MUST_CONTAIN_NUMBER = "Password must contain at least one number.";
+export const CONFIRM_PASSWORD_REQUIRED = "Confirm password is required.";
 
 export const NAME_REQUIRED = "Name is required";
 export const NAME_ONLY_ALPHABETS = "Only alphabets are allowed for this field";
