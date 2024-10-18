@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
-const CardColor = require('./cardColor.model');
-const Category = require('./category.model');
+import mongoose from 'mongoose';
+import { toJSON } from './plugins/index.js';
+import CardColor from './cardColor.model.js';
+import Category from './category.model.js';
 
 const taskSchema = mongoose.Schema(
   {
@@ -45,7 +45,7 @@ const taskSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 taskSchema.plugin(toJSON);
@@ -59,4 +59,4 @@ taskSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
 
 const Task = mongoose.model('Task', taskSchema);
 
-module.exports = Task;
+export default Task;

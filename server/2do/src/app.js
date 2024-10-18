@@ -1,19 +1,20 @@
-const express = require('express');
-const helmet = require('helmet');
-const xss = require('xss-clean');
-const mongoSanitize = require('express-mongo-sanitize');
-const compression = require('compression');
-const cors = require('cors');
-const passport = require('passport');
-const path = require('path');
-const httpStatus = require('http-status');
-const config = require('./config/config');
-const morgan = require('./config/morgan');
-const { jwtStrategy } = require('./config/passport');
-const { authLimiter } = require('./middlewares/rateLimiter');
-const routes = require('./routes/v1');
-const { errorConverter, errorHandler } = require('./middlewares/error');
-const ApiError = require('./utils/ApiError');
+import express from 'express';
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
+import compression from 'compression';
+import cors from 'cors';
+import passport from 'passport';
+import path from 'path';
+import httpStatus from 'http-status';
+import config from './config/config.js';
+import morgan from './config/morgan.js';
+import { jwtStrategy } from './config/passport.js';
+import { authLimiter } from './middlewares/rateLimiter.js';
+import { __dirname } from './utils/pathUtils.js';
+import { errorConverter, errorHandler } from './middlewares/error.js';
+import routes from './routes/v1/index.js';
+import ApiError from './utils/ApiError.js';
 
 const app = express();
 
@@ -70,4 +71,4 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

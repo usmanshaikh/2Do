@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const { objectId } = require('./custom.validation');
+import Joi from 'joi';
+import { objectId } from './custom.validation.js';
 
 const task = {
   title: Joi.string().required(),
@@ -50,7 +50,7 @@ const changeTaskStatus = {
   }),
 };
 
-module.exports = {
+export default {
   createTask,
   allTasks,
   getTask,

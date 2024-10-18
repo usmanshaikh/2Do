@@ -1,7 +1,7 @@
-const httpStatus = require('http-status');
-const moment = require('moment');
-const { Checklist } = require('../models');
-const ApiError = require('../utils/ApiError');
+import httpStatus from 'http-status';
+import moment from 'moment';
+import { Checklist } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
 
 /**
  * Create a Checklist
@@ -40,7 +40,7 @@ const updateChecklistById = async (req, updateBody) => {
   const checklists = await Checklist.findOneAndUpdate(
     query,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!checklists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
@@ -74,7 +74,7 @@ const changeChecklistStatus = async (req, updateBody) => {
   const checklist = await Checklist.findOneAndUpdate(
     query,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!checklist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Checklist not found');
@@ -115,7 +115,7 @@ const getChecklistByIdOnly = async (checklistId) => {
   return checklist;
 };
 
-module.exports = {
+export default {
   createChecklist,
   getChecklistById,
   updateChecklistById,

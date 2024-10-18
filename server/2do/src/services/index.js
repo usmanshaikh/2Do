@@ -1,9 +1,21 @@
-module.exports.authService = require('./auth.service');
-module.exports.emailService = require('./email.service');
-module.exports.tokenService = require('./token.service');
-module.exports.userService = require('./user.service');
-module.exports.categoryService = require('./category.service');
-module.exports.cardColorService = require('./cardColor.service');
-module.exports.taskService = require('./task.service');
-module.exports.checklistService = require('./checklist.service');
-module.exports.schedulerService = require('./scheduler.service');
+import authService from './auth.service.js';
+import emailService from './email.service.js';
+import tokenService from './token.service.js';
+import userService from './user.service.js';
+import categoryService from './category.service.js';
+import cardColorService from './cardColor.service.js';
+import taskService from './task.service.js';
+import checklistService from './checklist.service.js';
+import schedulerService from './scheduler.service.js';
+
+export {
+  authService,
+  emailService,
+  tokenService,
+  userService,
+  categoryService,
+  cardColorService,
+  taskService,
+  checklistService,
+  schedulerService,
+};

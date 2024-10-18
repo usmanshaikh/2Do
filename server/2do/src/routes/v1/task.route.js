@@ -1,9 +1,9 @@
-const express = require('express');
-const auth = require('../../middlewares/auth');
-const validate = require('../../middlewares/validate');
-const taskValidation = require('../../validations/task.validation');
-const taskController = require('../../controllers/task.controller');
-const { isDocIdExits } = require('../../middlewares/isDocIdExits');
+import express from 'express';
+import auth from '../../middlewares/auth.js';
+import validate from '../../middlewares/validate.js';
+import taskValidation from '../../validations/task.validation.js';
+import taskController from '../../controllers/task.controller.js';
+import { isDocIdExits } from '../../middlewares/isDocIdExits.js';
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router
     auth(),
     validate(taskValidation.createTask),
     isDocIdExits({ category: true, cardColor: true }),
-    taskController.createTask
+    taskController.createTask,
   );
 
 // Get, Update, Delete By ID
@@ -30,8 +30,8 @@ router
     auth(),
     validate(taskValidation.updateTask),
     isDocIdExits({ category: true, cardColor: true }),
-    taskController.updateTask
+    taskController.updateTask,
   )
   .delete(auth(), validate(taskValidation.deleteTask), taskController.deleteTask);
 
-module.exports = router;
+export default router;

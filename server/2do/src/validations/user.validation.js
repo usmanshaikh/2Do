@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const { password, objectId } = require('./custom.validation');
+import Joi from 'joi';
+import { password, objectId } from './custom.validation.js';
 
 const createUser = {
   body: Joi.object().keys({
@@ -52,7 +52,7 @@ const updateMyProfile = {
   // file: Joi.any().required(),
 };
 
-module.exports = {
+export default {
   createUser,
   getUsers,
   getUser,

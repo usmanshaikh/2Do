@@ -1,9 +1,9 @@
-const express = require('express');
-const auth = require('../../middlewares/auth');
-const validate = require('../../middlewares/validate');
-const categoryValidation = require('../../validations/category.validation');
-const categoryController = require('../../controllers/category.controller');
-const { isDocIdExits } = require('../../middlewares/isDocIdExits');
+import express from 'express';
+import auth from '../../middlewares/auth.js';
+import validate from '../../middlewares/validate.js';
+import categoryValidation from '../../validations/category.validation.js';
+import categoryController from '../../controllers/category.controller.js';
+import { isDocIdExits } from '../../middlewares/isDocIdExits.js';
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router
     auth(),
     validate(categoryValidation.createCategory),
     isDocIdExits({ categoryName: true, cardColor: true }),
-    categoryController.createCategory
+    categoryController.createCategory,
   );
 // Update, Delete By ID
 router
@@ -24,8 +24,8 @@ router
     auth(),
     validate(categoryValidation.updateCategory),
     isDocIdExits({ cardColor: true }),
-    categoryController.updateCategory
+    categoryController.updateCategory,
   )
   .delete(auth(), validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
-const CardColor = require('./cardColor.model');
-const Category = require('./category.model');
+import mongoose from 'mongoose';
+import { toJSON } from './plugins/index.js';
+import CardColor from './cardColor.model.js';
+import Category from './category.model.js';
 
 const checklistSchema = mongoose.Schema(
   {
@@ -59,7 +59,7 @@ const checklistSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 checklistSchema.plugin(toJSON);
@@ -73,4 +73,4 @@ checklistSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
 
 const Checklist = mongoose.model('Checklist', checklistSchema);
 
-module.exports = Checklist;
+export default Checklist;

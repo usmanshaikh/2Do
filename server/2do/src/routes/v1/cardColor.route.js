@@ -1,8 +1,8 @@
-const express = require('express');
-const auth = require('../../middlewares/auth');
-const validate = require('../../middlewares/validate');
-const { cardColorController } = require('../../controllers');
-const { cardColorValidation } = require('../../validations');
+import express from 'express';
+import auth from '../../middlewares/auth.js';
+import validate from '../../middlewares/validate.js';
+import { cardColorController } from '../../controllers/index.js';
+import { cardColorValidation } from '../../validations/index.js';
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.route('/').post(auth(), validate(cardColorValidation.createCardColor), ca
 
 router.route('/').get(auth(), cardColorController.getAllCardColors);
 
-module.exports = router;
+export default router;

@@ -1,9 +1,9 @@
-const express = require('express');
-const auth = require('../../middlewares/auth');
-const validate = require('../../middlewares/validate');
-const checklistValidation = require('../../validations/checklist.validation');
-const checklistController = require('../../controllers/checklist.controller');
-const { isDocIdExits } = require('../../middlewares/isDocIdExits');
+import express from 'express';
+import auth from '../../middlewares/auth.js';
+import validate from '../../middlewares/validate.js';
+import checklistValidation from '../../validations/checklist.validation.js';
+import checklistController from '../../controllers/checklist.controller.js';
+import { isDocIdExits } from '../../middlewares/isDocIdExits.js';
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router
     auth(),
     validate(checklistValidation.createChecklist),
     isDocIdExits({ category: true, cardColor: true }),
-    checklistController.createChecklist
+    checklistController.createChecklist,
   );
 
 // Get, Update, Delete By ID
@@ -30,8 +30,8 @@ router
     auth(),
     validate(checklistValidation.updateChecklist),
     isDocIdExits({ category: true, cardColor: true }),
-    checklistController.updateChecklist
+    checklistController.updateChecklist,
   )
   .delete(auth(), validate(checklistValidation.deleteChecklist), checklistController.deleteChecklist);
 
-module.exports = router;
+export default router;

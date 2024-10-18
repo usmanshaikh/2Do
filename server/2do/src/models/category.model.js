@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
-const CardColor = require('./cardColor.model');
+import mongoose from 'mongoose';
+import { toJSON } from './plugins/index.js';
+import CardColor from './cardColor.model.js';
 
 const categorySchema = mongoose.Schema(
   {
@@ -25,11 +25,11 @@ const categorySchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 categorySchema.plugin(toJSON);
 
 const Category = mongoose.model('Category', categorySchema);
 
-module.exports = Category;
+export default Category;

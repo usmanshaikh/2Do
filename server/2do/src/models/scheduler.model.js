@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+import mongoose from 'mongoose';
+import { toJSON } from './plugins/index.js';
 
 const schedulerSchema = mongoose.Schema(
   {
@@ -23,11 +23,11 @@ const schedulerSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 schedulerSchema.plugin(toJSON);
 
 const Scheduler = mongoose.model('Scheduler', schedulerSchema);
 
-module.exports = Scheduler;
+export default Scheduler;

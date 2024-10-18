@@ -1,2 +1,4 @@
-module.exports.toJSON = require('./toJSON.plugin');
-module.exports.bufferToBase64 = require('./bufferToBase64.plugin');
+import toJSON from './toJSON.plugin.js';
+import bufferToBase64 from './bufferToBase64.plugin.js';
+
+export { toJSON, bufferToBase64 };

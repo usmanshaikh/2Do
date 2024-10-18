@@ -1,7 +1,7 @@
-const httpStatus = require('http-status');
-const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');
-const { userService } = require('../services');
+import httpStatus from 'http-status';
+import ApiError from '../utils/ApiError.js';
+import catchAsync from '../utils/catchAsync.js';
+import { userService } from '../services/index.js';
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -31,7 +31,7 @@ const completedPercentage = catchAsync(async (req, res) => {
   res.send(user);
 });
 
-module.exports = {
+export default {
   createUser,
   myProfile,
   updateMyProfile,

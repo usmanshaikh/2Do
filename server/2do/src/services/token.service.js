@@ -1,12 +1,12 @@
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
-const httpStatus = require('http-status');
-const config = require('../config/config');
-const catchAsync = require('../utils/catchAsync');
-const userService = require('./user.service');
-const { Token } = require('../models');
-const ApiError = require('../utils/ApiError');
-const { tokenTypes } = require('../config/tokens');
+import jwt from 'jsonwebtoken';
+import moment from 'moment';
+import httpStatus from 'http-status';
+import config from '../config/config.js';
+import catchAsync from '../utils/catchAsync.js';
+import userService from './user.service.js';
+import { Token } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
+import { tokenTypes } from '../config/tokens.js';
 
 /**
  * Generate token
@@ -132,7 +132,7 @@ const deleteExpiredTokens = catchAsync(async () => {
   await Token.deleteMany({ _id: { $in: expiredTokens } });
 });
 
-module.exports = {
+export default {
   generateToken,
   saveToken,
   verifyToken,

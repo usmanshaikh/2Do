@@ -1,10 +1,10 @@
-const express = require('express');
-const authRoute = require('./auth.route');
-const userRoute = require('./user.route');
-const categoryRoute = require('./category.route');
-const cardColorRoute = require('./cardColor.route');
-const taskRoute = require('./task.route');
-const checklistRoute = require('./checklist.route');
+import express from 'express';
+import authRoute from './auth.route.js';
+import userRoute from './user.route.js';
+import categoryRoute from './category.route.js';
+import cardColorRoute from './cardColor.route.js';
+import taskRoute from './task.route.js';
+import checklistRoute from './checklist.route.js';
 
 const router = express.Router();
 
@@ -39,4 +39,4 @@ defaultRoutes.forEach((route) => {
   router.use(route.path, route.route);
 });
 
-module.exports = router;
+export default router;

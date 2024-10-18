@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
 const createCardColor = {
   body: Joi.object().keys({
@@ -6,6 +6,6 @@ const createCardColor = {
   }),
 };
 
-module.exports = {
+export default {
   createCardColor,
 };

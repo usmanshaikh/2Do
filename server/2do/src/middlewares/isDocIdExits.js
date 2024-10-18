@@ -1,13 +1,13 @@
-const ApiError = require('../utils/ApiError');
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const { cardColorService, categoryService } = require('../services');
+import httpStatus from 'http-status';
+import ApiError from '../utils/ApiError.js';
+import catchAsync from '../utils/catchAsync.js';
+import { cardColorService, categoryService } from '../services/index.js';
 
 /**
  * Use to check if categoryName and category or cardColor ID is exits in the database.
  * @param {{ category: Boolean, cardColor: Boolean, categoryName: Boolean }} props
  */
-exports.isDocIdExits = (props) => {
+export const isDocIdExits = (props) => {
   return catchAsync(async (req, res, next) => {
     const { category, cardColor, categoryName } = props;
 

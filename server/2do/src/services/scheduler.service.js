@@ -1,10 +1,10 @@
-const httpStatus = require('http-status');
-const schedule = require('node-schedule');
-const logger = require('../config/logger');
-const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');
-const { Scheduler } = require('../models');
-const { tokenService, taskService, userService, checklistService, emailService } = require('../services');
+import httpStatus from 'http-status';
+import schedule from 'node-schedule';
+import logger from '../config/logger.js';
+import ApiError from '../utils/ApiError.js';
+import catchAsync from '../utils/catchAsync.js';
+import { Scheduler } from '../models/index.js';
+import { tokenService, taskService, userService, checklistService, emailService } from '../services/index.js';
 
 const EVERY_SECONDS = '* * * * * *';
 const EVERY_MINUTES = '* * * * *';
@@ -43,7 +43,7 @@ const updateScheduler = async (body, schedulerType) => {
   const scheduler = await Scheduler.findOneAndUpdate(
     query,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
 
   const today = new Date();
@@ -141,7 +141,7 @@ const initializeSchedulersJob = () => {
   logger.info(`Initialized Schedulers Job`);
 };
 
-module.exports = {
+export default {
   createScheduler,
   updateScheduler,
   deleteSchedulerById,
@@ -150,6 +150,3 @@ module.exports = {
   deleteAllSchedulers,
   initializeSchedulersJob,
 };
-
-// var isoDateString = new Date().toISOString();
-// console.log(isoDateString);

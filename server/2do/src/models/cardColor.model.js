@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+import mongoose from 'mongoose';
+import { toJSON } from './plugins/index.js';
 
 const cardColorSchema = mongoose.Schema(
   {
@@ -10,11 +10,11 @@ const cardColorSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 cardColorSchema.plugin(toJSON);
 
 const CardColor = mongoose.model('CardColor', cardColorSchema);
 
-module.exports = CardColor;
+export default CardColor;

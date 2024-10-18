@@ -20,4 +20,4 @@ const convertBufferToBase64 = (doc) => {
   return Buffer.from(doc).toString('base64');
 };
 
-module.exports = bufferToBase64;
+export default bufferToBase64;

@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const app = require('./app');
-const config = require('./config/config');
-const logger = require('./config/logger');
-const { schedulerService } = require('./services');
+import mongoose from 'mongoose';
+import app from './app.js';
+import config from './config/config.js';
+import logger from './config/logger.js';
+import { schedulerService } from './services/index.js';
 
 let server;
 mongoose
@@ -15,7 +15,7 @@ mongoose
     });
     schedulerService.initializeSchedulersJob();
   })
-  .catch((err) => console.log({ err }));
+  .catch((error) => console.log({ error }));
 
 const exitHandler = () => {
   if (server) {

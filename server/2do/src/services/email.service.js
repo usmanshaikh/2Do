@@ -1,9 +1,10 @@
-const moment = require('moment');
-const path = require('path');
-const hbs = require('nodemailer-express-handlebars');
-const nodemailer = require('nodemailer');
-const config = require('../config/config');
-const logger = require('../config/logger');
+import moment from 'moment';
+import path from 'path';
+import hbs from 'nodemailer-express-handlebars';
+import nodemailer from 'nodemailer';
+import config from '../config/config.js';
+import logger from '../config/logger.js';
+import { __dirname } from '../utils/pathUtils.js';
 
 // Current Directory
 const dirPath = path.join(__dirname, '..');
@@ -100,7 +101,7 @@ const sendEventReminderEmail = async (eventInfo, eventType, user) => {
   await sendEmail(to, subject, templateToUse, templateContent);
 };
 
-module.exports = {
+export default {
   transport,
   sendEmail,
   sendResetPasswordEmail,

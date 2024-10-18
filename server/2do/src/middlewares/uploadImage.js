@@ -1,5 +1,5 @@
-const multer = require('multer');
-const ApiError = require('../utils/ApiError');
+import multer from 'multer';
+import ApiError from '../utils/ApiError.js';
 
 const multerStorage = multer.memoryStorage();
 
@@ -20,4 +20,4 @@ const uploadImage = multer({
   limits: { fileSize: 1000000 }, // 1MB
 });
 
-module.exports = uploadImage;
+export default uploadImage;

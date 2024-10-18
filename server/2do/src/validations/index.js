@@ -1,6 +1,8 @@
-module.exports.authValidation = require('./auth.validation');
-module.exports.userValidation = require('./user.validation');
-module.exports.categoryValidation = require('./category.validation');
-module.exports.cardColorValidation = require('./cardColor.validation');
-module.exports.taskValidation = require('./task.validation');
-module.exports.checklistValidation = require('./checklist.validation');
+import authValidation from './auth.validation.js';
+import userValidation from './user.validation.js';
+import categoryValidation from './category.validation.js';
+import cardColorValidation from './cardColor.validation.js';
+import taskValidation from './task.validation.js';
+import checklistValidation from './checklist.validation.js';
+
+export { authValidation, userValidation, categoryValidation, cardColorValidation, taskValidation, checklistValidation };

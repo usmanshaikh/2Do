@@ -1,7 +1,7 @@
-const httpStatus = require('http-status');
-const moment = require('moment');
-const { Task } = require('../models');
-const ApiError = require('../utils/ApiError');
+import httpStatus from 'http-status';
+import moment from 'moment';
+import { Task } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
 
 /**
  * Create a Task
@@ -40,7 +40,7 @@ const updateTaskById = async (req, updateBody) => {
   const task = await Task.findOneAndUpdate(
     query,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!task) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
@@ -74,7 +74,7 @@ const changeTaskStatus = async (req, updateBody) => {
   const task = await Task.findOneAndUpdate(
     query,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!task) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
@@ -115,7 +115,7 @@ const getTaskByIdOnly = async (taskId) => {
   return task;
 };
 
-module.exports = {
+export default {
   createTask,
   getTaskById,
   updateTaskById,

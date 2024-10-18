@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const { objectId } = require('./custom.validation');
+import Joi from 'joi';
+import { objectId } from './custom.validation.js';
 
 const checklist = {
   title: Joi.string().required(),
@@ -54,7 +54,7 @@ const changeChecklistStatus = {
   }),
 };
 
-module.exports = {
+export default {
   createChecklist,
   allChecklists,
   getChecklist,

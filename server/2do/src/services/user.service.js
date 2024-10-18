@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const { User } = require('../models');
-const ApiError = require('../utils/ApiError');
+import httpStatus from 'http-status';
+import { User } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
 
 /**
  * Create a User
@@ -82,7 +82,7 @@ const updateMyProfile = async (req) => {
   const user = await User.findByIdAndUpdate(
     id,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
@@ -413,7 +413,7 @@ const completedPercentage = async (req) => {
   return aggregateData;
 };
 
-module.exports = {
+export default {
   createUser,
   getUserById,
   getUserByEmail,

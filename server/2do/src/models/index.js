@@ -1,7 +1,9 @@
-module.exports.Token = require('./token.model');
-module.exports.User = require('./user.model');
-module.exports.Category = require('./category.model');
-module.exports.CardColor = require('./cardColor.model');
-module.exports.Task = require('./task.model');
-module.exports.Checklist = require('./checklist.model');
-module.exports.Scheduler = require('./scheduler.model');
+import Token from './token.model.js';
+import User from './user.model.js';
+import Category from './category.model.js';
+import CardColor from './cardColor.model.js';
+import Task from './task.model.js';
+import Checklist from './checklist.model.js';
+import Scheduler from './scheduler.model.js';
+
+export { Token, User, Category, CardColor, Task, Checklist, Scheduler };

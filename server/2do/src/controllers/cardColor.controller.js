@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const { cardColorService } = require('../services');
+import httpStatus from 'http-status';
+import catchAsync from '../utils/catchAsync.js';
+import { cardColorService } from '../services/index.js';
 
 const createCardColor = catchAsync(async (req, res) => {
   const cardColor = await cardColorService.createCardColor(req.body);
@@ -12,7 +12,7 @@ const getAllCardColors = catchAsync(async (req, res) => {
   res.send(cardColors);
 });
 
-module.exports = {
+export default {
   createCardColor,
   getAllCardColors,
 };

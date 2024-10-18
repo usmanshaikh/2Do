@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const { taskService, schedulerService } = require('../services');
+import httpStatus from 'http-status';
+import catchAsync from '../utils/catchAsync.js';
+import { taskService, schedulerService } from '../services/index.js';
 
 const createTask = catchAsync(async (req, res) => {
   const task = await taskService.createTask(req, req.body);
@@ -38,7 +38,7 @@ const allTasks = catchAsync(async (req, res) => {
   res.send(tasks);
 });
 
-module.exports = {
+export default {
   createTask,
   getTask,
   updateTask,

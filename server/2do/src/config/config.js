@@ -1,6 +1,7 @@
-const dotenv = require('dotenv');
-const path = require('path');
-const Joi = require('joi');
+import dotenv from 'dotenv';
+import path from 'path';
+import Joi from 'joi';
+import { __dirname } from '../utils/pathUtils.js';
 
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
@@ -40,14 +41,13 @@ if (envVars.NODE_ENV === 'production') {
   envVars.MONGODB_URL = envVars.MONGODB_URL.replace(/<DATABASE>/g, envVars.NODE_ENV);
 }
 
-module.exports = {
+export default {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   origin_url: envVars.ORIGIN_URL,
   mongoose: {
     url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
     options: {
-      useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },

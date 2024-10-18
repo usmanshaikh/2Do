@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const { Category, Task, Checklist } = require('../models');
-const ApiError = require('../utils/ApiError');
+import httpStatus from 'http-status';
+import { Category, Task, Checklist } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
 
 /**
  * Create default Category after register
@@ -199,7 +199,7 @@ const updateCategoryById = async (req, updateBody) => {
   const category = await Category.findOneAndUpdate(
     query,
     { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false }
+    { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
@@ -215,7 +215,7 @@ const deleteCategoryById = async (req) => {
   if (tasks.length) {
     throw new ApiError(
       httpStatus.NOT_FOUND,
-      'Category contain Tasks. Please move Tasks to another category to delete this category.'
+      'Category contain Tasks. Please move Tasks to another category to delete this category.',
     );
   }
 
@@ -223,7 +223,7 @@ const deleteCategoryById = async (req) => {
   if (checklists.length) {
     throw new ApiError(
       httpStatus.NOT_FOUND,
-      'Category contain Checklists. Please move Checklists to another category to delete this category.'
+      'Category contain Checklists. Please move Checklists to another category to delete this category.',
     );
   }
 
@@ -264,7 +264,7 @@ const isCategoryNameAlreadyExits = async (req) => {
   return category;
 };
 
-module.exports = {
+export default {
   createCategory,
   allCategories,
   isCategoryExits,

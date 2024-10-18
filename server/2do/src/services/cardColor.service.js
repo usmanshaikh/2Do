@@ -1,4 +1,4 @@
-const { CardColor } = require('../models');
+import { CardColor } from '../models/index.js';
 
 /**
  * Create a CardColor
@@ -22,7 +22,7 @@ const getCardColorById = async (id) => {
   return CardColor.findById(id);
 };
 
-module.exports = {
+export default {
   createCardColor,
   getAllCardColors,
   getCardColorById,

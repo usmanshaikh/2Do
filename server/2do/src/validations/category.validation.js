@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const { objectId } = require('./custom.validation');
+import Joi from 'joi';
+import { objectId } from './custom.validation.js';
 
 const category = {
   categoryName: Joi.string()
@@ -34,7 +34,7 @@ const deleteCategory = {
   }),
 };
 
-module.exports = {
+export default {
   createCategory,
   allCategories,
   updateCategory,

@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const { checklistService, schedulerService } = require('../services');
+import httpStatus from 'http-status';
+import catchAsync from '../utils/catchAsync.js';
+import { checklistService, schedulerService } from '../services/index.js';
 
 const createChecklist = catchAsync(async (req, res) => {
   const checklist = await checklistService.createChecklist(req, req.body);
@@ -38,7 +38,7 @@ const allChecklists = catchAsync(async (req, res) => {
   res.send(checklist);
 });
 
-module.exports = {
+export default {
   createChecklist,
   getChecklist,
   updateChecklist,

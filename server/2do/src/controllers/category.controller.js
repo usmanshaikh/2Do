@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const { categoryService } = require('../services');
+import httpStatus from 'http-status';
+import catchAsync from '../utils/catchAsync.js';
+import { categoryService } from '../services/index.js';
 
 const createDefaultCategoryAfterRegister = catchAsync(async (user) => {
   await categoryService.createDefaultCategoryAfterRegister(user);
@@ -31,7 +31,7 @@ const deleteCategory = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-module.exports = {
+export default {
   createCategory,
   allCategories,
   updateCategory,
