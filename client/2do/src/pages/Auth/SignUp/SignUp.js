@@ -18,13 +18,18 @@ const validationSchema = yup.object({
   name: yup
     .string()
     .required(MSG.NAME_REQUIRED)
-    .matches(/^[aA-zZ\s]+$/, MSG.NAME_ONLY_ALPHABETS),
+    .matches(/^[a-zA-Z\s]+$/, MSG.NAME_ONLY_ALPHABETS), // Correct regex for name validation
   email: yup.string().email(MSG.EMAIL_INVALID).required(MSG.EMAIL_REQUIRED),
-  password: yup.string().min(MSG.PASSWORD_LENGTH, MSG.PASSWORD_MIN).required(MSG.PASSWORD_REQUIRED),
-  confirmPassword: yup.string().when("password", {
-    is: (val) => (val && val.length > 0 ? true : false),
-    then: yup.string().oneOf([yup.ref("password")], MSG.PASSWORD_NOT_MATCH),
-  }),
+  password: yup
+    .string()
+    .min(8, MSG.PASSWORD_MIN) // Minimum length of 8
+    .matches(/[A-Za-z]/, MSG.PASSWORD_MUST_CONTAIN_LETTER) // At least one letter
+    .matches(/\d/, MSG.PASSWORD_MUST_CONTAIN_NUMBER) // At least one number
+    .required(MSG.PASSWORD_REQUIRED),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], MSG.PASSWORD_NOT_MATCH) // Must match password
+    .required(MSG.CONFIRM_PASSWORD_REQUIRED), // Make it required
 });
 
 const SignUp = () => {
