@@ -5,10 +5,10 @@ const ApiError = require('../utils/ApiError');
 /**
  * Create default Category after register
  */
-const createDefaultCategoryAfterRegister = async (user) => {
+const createDefaultCategoryAfterRegister = async (user, cardColorId) => {
   const categoryBody = {
     categoryName: 'Personal',
-    cardColor: '62de37a63393341df05a24a4', // App Main Color
+    cardColor: cardColorId,
     createdBy: user._id,
     deletable: false,
   };
