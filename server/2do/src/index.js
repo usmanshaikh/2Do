@@ -5,14 +5,17 @@ const logger = require('./config/logger');
 const { schedulerService } = require('./services');
 
 let server;
-mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
-  logger.info('Connected to MongoDB');
-  // server = app.listen(config.port, process.env.IP, () => {
-  server = app.listen(config.port, '0.0.0.0', () => {
-    logger.info(`Listening to port ${config.port}`);
-  });
-  schedulerService.initializeSchedulersJob();
-});
+mongoose
+  .connect(config.mongoose.url, config.mongoose.options)
+  .then(() => {
+    logger.info('Connected to MongoDB');
+    // server = app.listen(config.port, process.env.IP, () => {
+    server = app.listen(config.port, '0.0.0.0', () => {
+      logger.info(`Listening to port ${config.port}`);
+    });
+    schedulerService.initializeSchedulersJob();
+  })
+  .catch((err) => console.log({ err }));
 
 const exitHandler = () => {
   if (server) {
