@@ -10,7 +10,7 @@ const createTask = async (req, taskBody) => {
   taskBody.createdBy = req.user._id;
   let task = await Task.create(taskBody);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
-  task = await task.populate(populateQuery).execPopulate();
+  task = await task.populate(populateQuery);
   return task;
 };
 

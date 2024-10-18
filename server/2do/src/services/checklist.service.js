@@ -10,7 +10,7 @@ const createChecklist = async (req, checklistBody) => {
   checklistBody.createdBy = req.user._id;
   let checklists = await Checklist.create(checklistBody);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
-  checklists = await checklists.populate(populateQuery).execPopulate();
+  checklists = await checklists.populate(populateQuery);
   return checklists;
 };
 

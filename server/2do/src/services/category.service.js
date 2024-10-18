@@ -21,7 +21,7 @@ const createDefaultCategoryAfterRegister = async (user, cardColorId) => {
 const createCategory = async (req, categoryBody) => {
   categoryBody.createdBy = req.user._id;
   let category = await Category.create(categoryBody);
-  category = await category.populate(['cardColor']).execPopulate();
+  category = await category.populate(['cardColor']);
   return category;
 };
 
