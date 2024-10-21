@@ -1,6 +1,6 @@
 # MERN 2Do App
 
-### <h2 align="center"> ⚡️⚡️⚡️ &nbsp; [APP LINK](https://mern-2do.herokuapp.com/login) ⚡️⚡️⚡️ </h2>
+### <h2 align="center"> ⚡️⚡️⚡️ &nbsp; [APP LINK](http://2do-app-frontend.s3-website.ap-south-1.amazonaws.com/login) ⚡️⚡️⚡️ </h2>
 
 ### **Credentials:**
 

@@ -9,7 +9,7 @@ import AuthAPI from "./AuthAPI";
 const NO_LOADER = { headers: { noLoader: true } };
 
 const axiosInstance = axios.create({
-  // baseURL: `${process.env.REACT_APP_API_BASE_URL}/v1/`,
+  // baseURL: "http://ec2-3-108-252-93.ap-south-1.compute.amazonaws.com:3000/v1/",
   baseURL: "http://localhost:3000/v1/",
   headers: { "Content-Type": "application/json" },
 });
