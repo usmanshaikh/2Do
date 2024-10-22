@@ -5,7 +5,7 @@ const API = constants.apiPath;
 
 const CardColorAPI = {
   cardColors() {
-    return axios.get(API.CARD_COLORS);
+    return axios.get(API.CARD_COLORS, NO_LOADER);
   },
   cardColorsForModal() {
     return axios.get(API.CARD_COLORS, NO_LOADER);
