@@ -38,7 +38,7 @@ const FilterTaskModal = (props) => {
       .then((res) => {
         if (!filterOptions.category || !filterOptions.isCompleted) {
           const path = res[0];
-          const categoryColor = path.cardColor.color;
+          const categoryColor = path.cardColor;
           const categoryName = path.categoryName;
           const category = path.id;
           const isCompleted = MSG.FITER_BY_ALL;
@@ -70,7 +70,7 @@ const FilterTaskModal = (props) => {
       case "category":
         category = data.id;
         categoryName = data.categoryName;
-        categoryColor = data.cardColor.color;
+        categoryColor = data.cardColor;
         setCategoryId(data.id);
         break;
       case "filter":

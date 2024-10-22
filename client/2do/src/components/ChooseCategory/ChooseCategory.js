@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField } from "@mui/material";
 import { hideFooter, showFooter } from "../../utils/Helpers";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { CategoryAPI } from "../../api";
@@ -35,7 +35,7 @@ const ChooseCategory = (props) => {
   const handleChange = (item) => {
     const obj = { category: item.id };
     onChooseCategory(obj);
-    setSelectedCategory(item);
+    setSelectedCategory(item.id);
   };
 
   const defaultCompValueIfNotEdit = (data) => {
@@ -56,9 +56,20 @@ const ChooseCategory = (props) => {
               value={selectedCategory ? selectedCategory : " "}
               defaultValue={selectedCategory}
               isOptionEqualToValue={(option, value) => option.id === value.id}
-              getOptionLabel={(option) => (option.categoryName ? option.categoryName : "")}
+              getOptionLabel={(option) => {
+                const match = categories.find((value) => value.id === option);
+                return match ? match.categoryName : option.categoryName;
+              }}
               onFocus={hideFooter}
               onBlur={showFooter}
+              renderOption={(props, option) => {
+                const { key, ...optionProps } = props;
+                return (
+                  <Box key={option.id} component="li" {...optionProps}>
+                    {option.categoryName}
+                  </Box>
+                );
+              }}
               renderInput={(params) => <TextField {...params} />}
             />
           </div>

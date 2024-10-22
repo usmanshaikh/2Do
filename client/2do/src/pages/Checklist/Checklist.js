@@ -34,7 +34,7 @@ const Checklist = () => {
       .then((res) => {
         if (!filterOptions.category || !filterOptions.isCompleted) {
           const path = res[0];
-          const categoryColor = path.cardColor.color;
+          const categoryColor = path.cardColor;
           const categoryName = path.categoryName;
           const category = path.id;
           const isCompleted = MSG.FITER_BY_ALL;

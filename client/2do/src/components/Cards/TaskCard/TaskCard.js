@@ -63,7 +63,7 @@ const TaskCard = (props) => {
                 onClick={() => editTask(item)}>
                 <Card className="taskCardWrap">
                   <div className="taskItemWrapper">
-                    <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
+                    <span className="bgLine" style={{ backgroundColor: item?.cardColor }}></span>
                     <div className="flexContainer">
                       <div className="flexItemOne" onClick={(e) => changeStatusHandler(e, item)}>
                         <CardActionArea className="checkCircleWrap">

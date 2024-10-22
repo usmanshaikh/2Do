@@ -85,8 +85,8 @@ const AddEditChecklist = () => {
         setChecklist(res);
         const defaultCompValues = {
           title: res.title,
-          category: res.category.id,
-          cardColor: res.cardColor.id,
+          category: res.category,
+          cardColor: res.cardColor,
           dateAndTime: res.dateAndTime,
           alert: res.alert,
           isCompleted: res.isCompleted,

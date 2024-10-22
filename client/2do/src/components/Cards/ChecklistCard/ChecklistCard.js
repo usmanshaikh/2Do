@@ -15,7 +15,7 @@ const ChecklistCard = (props) => {
             <Card className="checklistCardComponentWrapper" onClick={() => editChecklist(item)}>
               <CardActionArea>
                 <div className="cardWrap">
-                  <span className="bgLine" style={{ backgroundColor: item?.cardColor?.color }}></span>
+                  <span className="bgLine" style={{ backgroundColor: item?.cardColor }}></span>
                   <span className="heading">{truncateString(item?.title, 80)}</span>
                   <ul className="listItemWrap">
                     {item?.checklistItems.slice(0, 3).map((listItem) => {
