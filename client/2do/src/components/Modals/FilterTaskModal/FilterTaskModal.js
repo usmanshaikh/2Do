@@ -100,7 +100,7 @@ const FilterTaskModal = (props) => {
       <List className="listWrap">
         {categories &&
           categories.map((item) => (
-            <ListItem key={item.id} button onClick={() => onUpdateFilterOptions(item, "category")}>
+            <ListItem key={item.id} onClick={() => onUpdateFilterOptions(item, "category")}>
               <ListItemText className="filterName" primary={item.categoryName} />
               {categoryId === item.id && <Icon className="mIcon material-icons-round mCheckIcon">check</Icon>}
             </ListItem>
@@ -109,7 +109,7 @@ const FilterTaskModal = (props) => {
       <DialogTitle className="modalHeading">Filter By</DialogTitle>
       <List>
         {FILTER_ITEM.map((item) => (
-          <ListItem key={item.label} button onClick={() => onUpdateFilterOptions(item.label, "filter")}>
+          <ListItem key={item.label} onClick={() => onUpdateFilterOptions(item.label, "filter")}>
             <ListItemText className="filterName" primary={unslugify(item.label)} />
             {filterBy === item.label && <Icon className="mIcon material-icons-round mCheckIcon">check</Icon>}
           </ListItem>

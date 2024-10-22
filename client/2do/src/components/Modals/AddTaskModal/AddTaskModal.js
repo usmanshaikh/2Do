@@ -47,7 +47,7 @@ const AddTaskModal = (props) => {
           {LIST.map((item) => {
             return (
               <Fragment key={item.title}>
-                <ListItem button onClick={() => handleListItemClick(item.url)}>
+                <ListItem onClick={() => handleListItemClick(item.url)}>
                   <ListItemText className="title" primary={item.title} />
                 </ListItem>
               </Fragment>
