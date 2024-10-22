@@ -5,10 +5,10 @@ import ApiError from '../utils/ApiError.js';
 /**
  * Create default Category after register
  */
-const createDefaultCategoryAfterRegister = async (user, cardColorId) => {
+const createDefaultCategoryAfterRegister = async (user) => {
   const categoryBody = {
     categoryName: 'Personal',
-    cardColor: cardColorId,
+    cardColor: '#f96060',
     createdBy: user._id,
     deletable: false,
   };
@@ -21,7 +21,6 @@ const createDefaultCategoryAfterRegister = async (user, cardColorId) => {
 const createCategory = async (req, categoryBody) => {
   categoryBody.createdBy = req.user._id;
   let category = await Category.create(categoryBody);
-  category = await category.populate(['cardColor']);
   return category;
 };
 
@@ -34,9 +33,9 @@ const allCategories = async (req) => {
   };
   let removedField = [];
   if (req.query.onlyCategories) {
-    removedField.push('-cardColor', '-deletable', '-createdBy');
+    removedField.push('-deletable', '-createdBy');
   }
-  const categories = await Category.find(query).populate(['cardColor']).select(removedField);
+  const categories = await Category.find(query).select(removedField);
   return categories;
 };
 
@@ -67,18 +66,10 @@ const categoryWithTaskAndChecklistCount = async (req) => {
       },
     },
     {
-      $lookup: {
-        from: 'cardcolors',
-        localField: 'cardColor',
-        foreignField: '_id',
-        as: 'cardcolorData',
-      },
-    },
-    {
       $group: {
         _id: '$_id',
         categoryName: { $first: '$categoryName' },
-        cardColor: { $first: { $arrayElemAt: ['$cardcolorData.color', 0] } },
+        cardColor: { $first: '$cardColor' },
         deletable: { $first: { $ifNull: ['$deletable', false] } },
         taskData: { $first: '$taskData' },
         checklistData: { $first: '$checklistData' },

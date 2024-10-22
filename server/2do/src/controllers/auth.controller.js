@@ -1,20 +1,11 @@
 import httpStatus from 'http-status';
 import catchAsync from '../utils/catchAsync.js';
-import {
-  authService,
-  userService,
-  tokenService,
-  emailService,
-  categoryService,
-  cardColorService,
-} from '../services/index.js';
+import { authService, userService, tokenService, emailService, categoryService } from '../services/index.js';
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
-  const cardColorPayload = { color: '#f96060' };
-  const createCardColor = await cardColorService.createCardColor(cardColorPayload);
-  await categoryService.createDefaultCategoryAfterRegister(user, createCardColor._id);
+  await categoryService.createDefaultCategoryAfterRegister(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
 

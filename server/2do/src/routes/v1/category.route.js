@@ -14,18 +14,13 @@ router
   .post(
     auth(),
     validate(categoryValidation.createCategory),
-    isDocIdExits({ categoryName: true, cardColor: true }),
+    isDocIdExits({ categoryName: true }),
     categoryController.createCategory,
   );
 // Update, Delete By ID
 router
   .route('/:categoryId')
-  .patch(
-    auth(),
-    validate(categoryValidation.updateCategory),
-    isDocIdExits({ cardColor: true }),
-    categoryController.updateCategory,
-  )
+  .patch(auth(), validate(categoryValidation.updateCategory), categoryController.updateCategory)
   .delete(auth(), validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
 
 export default router;

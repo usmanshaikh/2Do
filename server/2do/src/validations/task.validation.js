@@ -4,7 +4,7 @@ import { objectId } from './custom.validation.js';
 const task = {
   title: Joi.string().required(),
   category: Joi.required().custom(objectId),
-  cardColor: Joi.required().custom(objectId),
+  cardColor: Joi.string().required(),
   dateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
   isCompleted: Joi.boolean().required(),

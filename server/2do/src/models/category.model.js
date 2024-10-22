@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { toJSON } from './plugins/index.js';
-import CardColor from './cardColor.model.js';
 
 const categorySchema = mongoose.Schema(
   {
@@ -10,8 +9,7 @@ const categorySchema = mongoose.Schema(
       trim: true,
     },
     cardColor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: CardColor,
+      type: String,
       required: true,
     },
     createdBy: {

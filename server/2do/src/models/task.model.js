@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { toJSON } from './plugins/index.js';
-import CardColor from './cardColor.model.js';
 import Category from './category.model.js';
 
 const taskSchema = mongoose.Schema(
@@ -16,8 +15,7 @@ const taskSchema = mongoose.Schema(
       required: true,
     },
     cardColor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: CardColor,
+      type: String,
       required: true,
     },
     dateAndTime: {
@@ -49,13 +47,6 @@ const taskSchema = mongoose.Schema(
 );
 
 taskSchema.plugin(toJSON);
-
-// populate cardColor
-taskSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
-  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
-  this.populate(populateQuery);
-  next();
-});
 
 const Task = mongoose.model('Task', taskSchema);
 

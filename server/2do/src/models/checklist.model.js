@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { toJSON } from './plugins/index.js';
-import CardColor from './cardColor.model.js';
 import Category from './category.model.js';
 
 const checklistSchema = mongoose.Schema(
@@ -30,8 +29,7 @@ const checklistSchema = mongoose.Schema(
       required: true,
     },
     cardColor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: CardColor,
+      type: String,
       required: true,
     },
     dateAndTime: {
@@ -63,13 +61,6 @@ const checklistSchema = mongoose.Schema(
 );
 
 checklistSchema.plugin(toJSON);
-
-// populate cardColor
-checklistSchema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
-  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
-  this.populate(populateQuery);
-  next();
-});
 
 const Checklist = mongoose.model('Checklist', checklistSchema);
 

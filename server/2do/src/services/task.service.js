@@ -9,7 +9,7 @@ import ApiError from '../utils/ApiError.js';
 const createTask = async (req, taskBody) => {
   taskBody.createdBy = req.user._id;
   let task = await Task.create(taskBody);
-  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
+  const populateQuery = [{ path: 'category', select: 'id categoryName' }];
   task = await task.populate(populateQuery);
   return task;
 };

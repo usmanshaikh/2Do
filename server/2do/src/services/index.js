@@ -3,7 +3,6 @@ import emailService from './email.service.js';
 import tokenService from './token.service.js';
 import userService from './user.service.js';
 import categoryService from './category.service.js';
-import cardColorService from './cardColor.service.js';
 import taskService from './task.service.js';
 import checklistService from './checklist.service.js';
 import schedulerService from './scheduler.service.js';
@@ -14,7 +13,6 @@ export {
   tokenService,
   userService,
   categoryService,
-  cardColorService,
   taskService,
   checklistService,
   schedulerService,

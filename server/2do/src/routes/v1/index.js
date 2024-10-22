@@ -2,7 +2,6 @@ import express from 'express';
 import authRoute from './auth.route.js';
 import userRoute from './user.route.js';
 import categoryRoute from './category.route.js';
-import cardColorRoute from './cardColor.route.js';
 import taskRoute from './task.route.js';
 import checklistRoute from './checklist.route.js';
 
@@ -28,10 +27,6 @@ const defaultRoutes = [
   {
     path: '/checklists',
     route: checklistRoute,
-  },
-  {
-    path: '/card-colors',
-    route: cardColorRoute,
   },
 ];
 

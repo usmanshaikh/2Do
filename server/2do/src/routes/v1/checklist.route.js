@@ -18,7 +18,7 @@ router
   .post(
     auth(),
     validate(checklistValidation.createChecklist),
-    isDocIdExits({ category: true, cardColor: true }),
+    isDocIdExits({ category: true }),
     checklistController.createChecklist,
   );
 
@@ -29,7 +29,7 @@ router
   .patch(
     auth(),
     validate(checklistValidation.updateChecklist),
-    isDocIdExits({ category: true, cardColor: true }),
+    isDocIdExits({ category: true }),
     checklistController.updateChecklist,
   )
   .delete(auth(), validate(checklistValidation.deleteChecklist), checklistController.deleteChecklist);

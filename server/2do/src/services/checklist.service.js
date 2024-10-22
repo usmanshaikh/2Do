@@ -9,7 +9,7 @@ import ApiError from '../utils/ApiError.js';
 const createChecklist = async (req, checklistBody) => {
   checklistBody.createdBy = req.user._id;
   let checklists = await Checklist.create(checklistBody);
-  const populateQuery = [{ path: 'category', select: 'id categoryName' }, { path: 'cardColor' }];
+  const populateQuery = [{ path: 'category', select: 'id categoryName' }];
   checklists = await checklists.populate(populateQuery);
   return checklists;
 };

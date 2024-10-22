@@ -8,7 +8,7 @@ const category = {
     .messages({
       'string.pattern.base': 'categoryName can only contain letters',
     }),
-  cardColor: Joi.required().custom(objectId),
+  cardColor: Joi.string().required(),
 };
 
 const createCategory = {
