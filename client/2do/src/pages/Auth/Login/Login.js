@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import { AuthAPI } from "../../../api";
 import { useGlobalContext } from "../../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
-import * as Helpers from "../../../utils/Helpers";
+import { setLocalAccessToken, setLocalRefreshToken } from "../../../utils/helpers";
 import constants from "../../../utils/constants";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import "../Auth.scss";
@@ -40,8 +40,8 @@ const Login = () => {
       .then((res) => {
         const accessToken = res.tokens.access.token;
         const refreshToken = res.tokens.refresh.token;
-        Helpers.setLocalAccessToken(accessToken);
-        Helpers.setLocalRefreshToken(refreshToken);
+        setLocalAccessToken(accessToken);
+        setLocalRefreshToken(refreshToken);
         setAuthenticateHandler(true);
         navigate(`/${ROUTE.TASK}`);
       })

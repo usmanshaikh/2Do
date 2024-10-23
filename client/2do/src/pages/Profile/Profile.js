@@ -6,10 +6,10 @@ import { AuthAPI, UserAPI } from "../../api";
 import { EditProfileModal } from "../../components/Modals";
 import { useGlobalContext } from "../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
+import { getLocalRefreshToken } from "../../utils/helpers";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import StatisticChart from "../../components/StatisticChart/StatisticChart.js";
 import constants from "../../utils/constants";
-import * as Helpers from "../../utils/Helpers";
 import "./Profile.scss";
 
 const ROUTE = constants.routePath;
@@ -65,7 +65,7 @@ const Profile = () => {
   };
 
   const onLogoutHandler = async () => {
-    const refreshToken = Helpers.getLocalRefreshToken();
+    const refreshToken = getLocalRefreshToken();
     AuthAPI.logout({ refreshToken })
       .then(() => logout())
       .catch(() => logout());

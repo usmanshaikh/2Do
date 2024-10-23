@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
-import { setPageTitle } from "../../utils/Helpers";
+import { setPageTitle } from "../../utils/helpers";
 import "./Header.scss";
 
 const Header = () => {

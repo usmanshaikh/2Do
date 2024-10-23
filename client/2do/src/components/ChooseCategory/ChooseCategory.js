@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Autocomplete, Box, TextField } from "@mui/material";
-import { hideFooter, showFooter } from "../../utils/Helpers";
+import { hideFooter, showFooter } from "../../utils/helpers";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { CategoryAPI } from "../../api";
 import "./ChooseCategory.scss";

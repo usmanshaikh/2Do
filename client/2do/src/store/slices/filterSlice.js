@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setIsCompleted } from "../../utils/Helpers";
+import { setIsCompleted } from "../../utils/helpers";
 
 const initialState = {
   selectedCategory: {

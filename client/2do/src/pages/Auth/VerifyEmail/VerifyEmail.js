@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { AuthAPI } from "../../../api";
+import { getLocalAccessToken } from "../../../utils/helpers";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import constants from "../../../utils/constants";
 import Images from "../../../assets/img";
-import * as Helpers from "../../../utils/Helpers";
 import "./VerifyEmail.scss";
 
 const ROUTE = constants.routePath;
@@ -19,7 +19,7 @@ const VerifyEmail = () => {
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   useEffect(() => {
-    const isAccessToken = Helpers.getLocalAccessToken();
+    const isAccessToken = getLocalAccessToken();
     if (isAccessToken) setIsLoggedIn(true);
 
     removeTokenFromURL();

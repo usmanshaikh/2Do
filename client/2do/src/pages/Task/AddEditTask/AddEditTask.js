@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { TextField } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { ConfirmationModal, SuccessModal } from "../../../components/Modals";
-import { hideFooter, showFooter } from "../../../utils/Helpers";
+import { hideFooter, showFooter } from "../../../utils/helpers";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { TaskAPI } from "../../../api";
 import { useNavigate, useSearchParams } from "react-router-dom";

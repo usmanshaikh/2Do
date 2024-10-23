@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 // prettier-ignore
 import { LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions, Type as ListType } from "react-swipeable-list";
 import { ConfirmationModal } from "../../Modals";
-import { truncateString } from "../../../utils/Helpers";
+import { truncateString } from "../../../utils/helpers";
 import constants from "../../../utils/constants";
 import Images from "../../../assets/img";
 import DateTime from "../../DateTime/DateTime.js";

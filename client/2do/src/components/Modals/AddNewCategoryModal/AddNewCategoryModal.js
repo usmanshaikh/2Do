@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import { hideFooter, showFooter } from "../../../utils/Helpers";
+import { hideFooter, showFooter } from "../../../utils/helpers";
 import constants from "../../../utils/constants";
 import ChooseColor from "../../ChooseColor/ChooseColor";
 import "./AddNewCategoryModal.scss";

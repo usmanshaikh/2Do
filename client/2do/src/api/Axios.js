@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../utils/hooks";
 import { useNavigate } from "react-router-dom";
+import { getLocalAccessToken, setLocalAccessToken, setLocalRefreshToken, getLocalRefreshToken } from "../utils/helpers";
 import axios from "axios";
-import * as Helpers from "../utils/Helpers";
 import constants from "../utils/constants";
 import AuthAPI from "./AuthAPI";
 
@@ -59,7 +59,7 @@ const AxiosInterceptor = ({ children }) => {
       setShowLoaderHandler(true);
       addRequest(config);
     }
-    const token = Helpers.getLocalAccessToken();
+    const token = getLocalAccessToken();
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -85,14 +85,14 @@ const AxiosInterceptor = ({ children }) => {
     if ((status === 401 || status === 498) && !config.url.includes("auth/")) {
       if (!isRefreshing) {
         isRefreshing = true;
-        const refreshToken = Helpers.getLocalRefreshToken();
+        const refreshToken = getLocalRefreshToken();
         AuthAPI.refreshTokens({ refreshToken })
           .then((tk) => {
             isRefreshing = false;
             const accessToken = tk.access.token;
             const refreshToken = tk.refresh.token;
-            Helpers.setLocalAccessToken(accessToken);
-            Helpers.setLocalRefreshToken(refreshToken);
+            setLocalAccessToken(accessToken);
+            setLocalRefreshToken(refreshToken);
             onRrefreshed(accessToken);
           })
           .catch(() => {

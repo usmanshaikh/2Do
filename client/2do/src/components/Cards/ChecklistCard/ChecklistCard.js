@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Icon, CardActionArea, Card } from "@mui/material";
-import { truncateString } from "../../../utils/Helpers";
+import { truncateString } from "../../../utils/helpers";
 import DateTime from "../../DateTime/DateTime";
 import "./ChecklistCard.scss";
 

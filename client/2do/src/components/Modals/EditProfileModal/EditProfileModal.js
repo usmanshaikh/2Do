@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 // prettier-ignore
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Icon, IconButton, Input, TextField } from "@mui/material";
-import { hideFooter, showFooter } from "../../../utils/Helpers";
+import { hideFooter, showFooter } from "../../../utils/helpers";
 import constants from "../../../utils/constants";
 import "./EditProfileModal.scss";
 

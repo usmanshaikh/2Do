@@ -4,7 +4,7 @@ import { useModal } from "mui-modal-provider";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 import { TextField, Checkbox, Icon, Button } from "@mui/material";
 import { ConfirmationModal, SuccessModal } from "../../../components/Modals";
-import { hideFooter, showFooter } from "../../../utils/Helpers";
+import { hideFooter, showFooter } from "../../../utils/helpers";
 import { GlobalSnackbarAlertContext } from "../../../utils/contexts";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ChecklistAPI } from "../../../api";
