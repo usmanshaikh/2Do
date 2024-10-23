@@ -1,43 +1,27 @@
-import React from "react";
-import { Button } from "@mui/material";
-import { useModal } from "mui-modal-provider";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { FilterTaskModal } from "../Modals";
-import { useGlobalContext } from "../../utils/hooks";
-import Images from "../../assets/img";
-import constants from "../../utils/constants";
+import { Box } from "@mui/material";
+import { setPageTitle } from "../../utils/Helpers";
 import "./Header.scss";
-
-const ROUTE = constants.routePath;
 
 const Header = () => {
   const location = useLocation();
-  const { showModal } = useModal();
-  const { headerTitle: title, filterOptions } = useGlobalContext();
-  let isShowFilterBtn = false;
+  const [title, setTitle] = useState("");
 
-  const openFiterModalHandler = () => {
-    showModal(FilterTaskModal, undefined, { destroyOnClose: true });
-  };
-
-  if (location.pathname === `/${ROUTE.TASK}` || location.pathname === `/${ROUTE.CHECKLIST}`) isShowFilterBtn = true;
+  useEffect(() => {
+    const title = setPageTitle(location);
+    setTitle(title);
+  }, [location]);
 
   return (
     <>
-      <div className="headerComponentWrapper" style={{ backgroundColor: filterOptions.categoryColor }}>
-        <div className="titleBox">
-          <div>
+      <Box className="headerComponentWrapper">
+        <Box className="titleBox">
+          <Box>
             <span className="title">{title}</span>
-          </div>
-          {isShowFilterBtn && (
-            <div className="filterBtnBox">
-              <Button className="filterBtn" variant="outlined" onClick={openFiterModalHandler}>
-                <img src={Images.FilterSVG} alt="filter" className="filterImg" />
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };

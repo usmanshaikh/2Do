@@ -45,3 +45,8 @@ export const API_FAIL = "Sorry, something went wrong. Please try again.";
 
 export const INFO_ALERT =
   "If your email is verified then you will receive email notifications reminder on the above selected Date & Time.";
+
+export const STATUS_ALL = "all";
+export const STATUS_PENDING = "pending";
+export const STATUS_COMPLETED = "completed";
+export const STATUS = [STATUS_ALL, STATUS_PENDING, STATUS_COMPLETED];

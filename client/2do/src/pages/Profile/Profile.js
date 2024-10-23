@@ -17,13 +17,12 @@ const ROUTE = constants.routePath;
 const Profile = () => {
   const navigate = useNavigate();
   const { showModal } = useModal();
-  const { setHeaderTitleHandler, setAuthenticateHandler } = useGlobalContext();
+  const { setAuthenticateHandler } = useGlobalContext();
   const [profile, setProfile] = useState();
   const [report, setReport] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
 
   useEffect(() => {
-    setHeaderTitleHandler("Profile");
     myProfile();
     statisticReport();
   }, []);

@@ -59,18 +59,36 @@ export const setLocalRefreshToken = (token) => {
   return localStorage.setItem("refreshToken", token);
 };
 
-export const filterByToBoolean = (str) => {
-  let status;
-  switch (str) {
-    case MSG.FITER_BY_ALL:
-      status = undefined;
-      break;
-    case MSG.FITER_BY_PENDING:
-      status = false;
-      break;
-    case MSG.FITER_BY_COMPLETED:
-      status = true;
-      break;
+export const setIsCompleted = (status) => {
+  const completionStatusMap = {
+    [MSG.STATUS_ALL]: undefined,
+    [MSG.STATUS_PENDING]: false,
+    [MSG.STATUS_COMPLETED]: true,
+  };
+  if (status in completionStatusMap) {
+    return completionStatusMap[status];
   }
-  return status;
+  return null;
+};
+
+export const setPageTitle = (location) => {
+  const { pathname, search } = location;
+  const params = new URLSearchParams(search);
+  const editStatus = params.get("edit");
+
+  const titleMap = {
+    "/task": "Task",
+    "/checklist": "Checklist",
+    "/category": "Category",
+    "/profile": "Profile",
+  };
+
+  if (pathname.startsWith("/task/add-edit-task")) {
+    return editStatus === "true" ? "Edit Task" : "Add Task";
+  }
+  if (pathname.startsWith("/checklist/add-edit-checklist")) {
+    return editStatus === "true" ? "Edit Checklist" : "Add Checklist";
+  }
+
+  return titleMap[pathname] || "2Do";
 };

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import Icon from "@mui/material/Icon";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { CategoryCard } from "../../components/Cards";
 import { AddNewCategoryModal, ConfirmationModal } from "../../components/Modals";
-import { useGlobalContext } from "../../utils/hooks";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
 import { CategoryAPI } from "../../api";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../../store/slices/filterSlice";
 import constants from "../../utils/constants";
 import "./Category.scss";
 
@@ -17,12 +18,11 @@ const MSG = constants.message;
 const Category = () => {
   const navigate = useNavigate();
   const { showModal } = useModal();
-  const { setHeaderTitleHandler, filterOptions, filterOptionsDispatchHandler } = useGlobalContext();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
   const [categories, setCategories] = useState();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setHeaderTitleHandler("Category");
     categoryWithCount();
   }, []);
 
@@ -38,7 +38,7 @@ const Category = () => {
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
 
-  const openAddNewCategoryHandler = () => {
+  const handleOpenAddNewCategory = () => {
     const initialState = {
       onSubmitForm: (data) => createCategory(data),
     };
@@ -51,17 +51,18 @@ const Category = () => {
       .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
   };
 
-  const onNavigateToParticularTaskHandler = (data) => {
-    const categoryColor = data.cardColor;
-    const categoryName = data.categoryName;
-    const category = data.id;
-    const isCompleted = MSG.FITER_BY_ALL;
-    const dispatchPayload = { type: "setState", categoryColor, categoryName, category, isCompleted };
-    filterOptionsDispatchHandler(dispatchPayload);
-    navigate(`/${ROUTE.TASK}`);
+  const handleTaskNavigation = (data) => {
+    dispatch(setFilter({ category: data, status: MSG.STATUS_ALL }));
+    if (data.taskCount) {
+      navigate(`/${ROUTE.TASK}`);
+    } else if (data.checklistCount) {
+      navigate(`/${ROUTE.CHECKLIST}`);
+    } else {
+      navigate(`/${ROUTE.TASK}`);
+    }
   };
 
-  const onDeleteHandler = (data) => {
+  const handleDeleteTask = (data) => {
     const initialState = {
       message: MSG.CONFIRMATION_DELETE,
       onConfirm: () => deleteCategory(data),
@@ -81,25 +82,25 @@ const Category = () => {
   };
   return (
     <>
-      <div className="categoryPageWrapper">
-        <div className="flexContainer">
+      <Box className="categoryPageWrapper">
+        <Box className="flexContainer">
           {categories &&
             categories.map((item) => (
-              <div className="flexItem" key={item.id}>
+              <Box className="flexItem" key={item.id}>
                 <CategoryCard
                   cardData={item}
-                  onNavigate={() => onNavigateToParticularTaskHandler(item)}
-                  onDelete={() => onDeleteHandler(item)}
+                  onNavigate={() => handleTaskNavigation(item)}
+                  onDelete={() => handleDeleteTask(item)}
                 />
-              </div>
+              </Box>
             ))}
-        </div>
-        <div className="addCardWrapper">
-          <Button variant="contained" className="cardAction" onClick={openAddNewCategoryHandler}>
+        </Box>
+        <Box className="addCardWrapper">
+          <Button variant="contained" className="cardAction" onClick={handleOpenAddNewCategory}>
             <Icon className="addIcon">add</Icon>
           </Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 };

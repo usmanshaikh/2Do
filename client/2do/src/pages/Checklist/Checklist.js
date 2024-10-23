@@ -1,77 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { CategoryAPI, ChecklistAPI } from "../../api";
+import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
+import { ChecklistAPI } from "../../api";
 import { ChecklistCard } from "../../components/Cards";
 import { GlobalSnackbarAlertContext } from "../../utils/contexts";
-import { useDidMountEffect, useGlobalContext } from "../../utils/hooks";
-import { filterByToBoolean } from "../../utils/Helpers";
-import DatePickerControl from "../../components/DatePickerControl/DatePickerControl";
 import constants from "../../utils/constants";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
+import Filters from "../../components/Filters/Filters";
 import "./Checklist.scss";
 
 const ROUTE = constants.routePath;
-const MSG = constants.message;
 
 const Checklist = () => {
+  const filter = useSelector((state) => state.filter);
+  const [checklists, setChecklists] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const [checklists, setChecklists] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedDate, setSelectedDate] = useState();
   const snackbarAlert = useContext(GlobalSnackbarAlertContext);
-  const { filterOptions, filterOptionsDispatchHandler, filterOptionsModalOpen, setHeaderTitleHandler } =
-    useGlobalContext();
 
   useEffect(() => {
-    const headerTitle = filterOptions.categoryName;
-    if (headerTitle) setHeaderTitleHandler(headerTitle);
-    getAllCategories();
-  }, []);
+    filter.selectedCategory?.id && fetchChecklists();
+  }, [filter]);
 
-  const getAllCategories = () => {
-    CategoryAPI.allCategories()
-      .then((res) => {
-        if (!filterOptions.category || !filterOptions.isCompleted) {
-          const path = res[0];
-          const categoryColor = path.cardColor;
-          const categoryName = path.categoryName;
-          const category = path.id;
-          const isCompleted = MSG.FITER_BY_ALL;
-          const dispatchPayload = { type: "setState", categoryColor, categoryName, category, isCompleted };
-          filterOptionsDispatchHandler(dispatchPayload);
-        }
-      })
-      .catch((err) => snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" }));
-  };
-
-  useEffect(() => {
-    if (!filterOptionsModalOpen && (filterOptions.category || filterOptions.isCompleted)) {
-      allChecklists();
+  const fetchChecklists = async () => {
+    const payload = {
+      category: filter.selectedCategory?.id,
+      isCompleted: filter.selectedStatus?.isCompleted,
+    };
+    try {
+      const res = await ChecklistAPI.allChecklists(payload);
+      setChecklists(res);
+    } catch (err) {
+      setChecklists([]);
+      snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
     }
-  }, [filterOptionsModalOpen, filterOptions]);
-
-  useDidMountEffect(() => {
-    allChecklists();
-  }, [selectedDate]);
-
-  const allChecklists = () => {
-    let payload = {};
-    payload.category = filterOptions.category;
-    payload.isCompleted = filterByToBoolean(filterOptions.isCompleted);
-    if (selectedDate) payload.dateAndTime = selectedDate;
-    if (!payload.category && !payload.isCompleted && !payload.selectedDate) return;
-    ChecklistAPI.allChecklists(payload)
-      .then((res) => {
-        setChecklists(res);
-        if (!res.length) setIsLoading(true);
-        else setIsLoading(false);
-      })
-      .catch((err) => {
-        setChecklists();
-        setIsLoading(true);
-        snackbarAlert.showSnackbarAlert({ msg: err.message, type: "error" });
-      });
   };
 
   const onEditChecklistHandler = (data) => {
@@ -87,13 +50,13 @@ const Checklist = () => {
 
   return (
     <>
-      <DatePickerControl onSelectDate={(data) => setSelectedDate(data)} />
-      <div className="checklistPageWrapper">
-        {checklists && checklists.length ? (
+      <Box className="checklistPageWrapper">
+        {checklists.length ? (
           <ChecklistCard checklists={checklists} editChecklist={onEditChecklistHandler} />
-        ) : null}
-        {isLoading && <NoDataFound />}
-      </div>
+        ) : (
+          <NoDataFound />
+        )}
+      </Box>
     </>
   );
 };

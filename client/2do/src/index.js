@@ -13,23 +13,28 @@ import App from "./App";
 import theme from "./theme";
 import "./index.scss";
 
+import store from "./store/index.js";
+import { Provider } from "react-redux";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <GlobalProvider>
-      <GlobalSnackbarAlertProvider>
-        <ModalProvider>
-          <AxiosInterceptor>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <ScrollToTop />
-              <Loader />
-              <App />
-            </ThemeProvider>
-          </AxiosInterceptor>
-        </ModalProvider>
-      </GlobalSnackbarAlertProvider>
-    </GlobalProvider>
+    <Provider store={store}>
+      <GlobalProvider>
+        <GlobalSnackbarAlertProvider>
+          <ModalProvider>
+            <AxiosInterceptor>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <ScrollToTop />
+                <Loader />
+                <App />
+              </ThemeProvider>
+            </AxiosInterceptor>
+          </ModalProvider>
+        </GlobalSnackbarAlertProvider>
+      </GlobalProvider>
+    </Provider>
   </BrowserRouter>
 );
 
