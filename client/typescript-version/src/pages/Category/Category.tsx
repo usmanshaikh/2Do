@@ -9,93 +9,98 @@ import { useDispatch } from "react-redux";
 import { setFilter } from "../../store/slices/filterSlice";
 import { MSG, ROUTES } from "../../utils/constants";
 import { showSnackbar } from "../../store/slices";
+import { CategoriesWithTaskAndChecklistCount } from "../../api/types";
 import "./Category.scss";
 
+type CategoryCount = CategoriesWithTaskAndChecklistCount;
+
 const Category = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { showModal } = useModal();
-  const [categories, setCategories] = useState<any>();
-  const dispatch = useDispatch();
+  const [categories, setCategories] = useState<CategoryCount[]>([]);
 
   useEffect(() => {
-    categoryWithCount();
+    fetchCategoryWithCount();
   }, []);
 
-  const categoryWithCount = () => {
-    categoryApi.categoryWithCount().then((res: any) => {
-      const first = "personal";
-      const data = res.data.sort((x, y) =>
-        x.categoryName.toLowerCase() == first ? -1 : y.categoryName.toLowerCase() == first ? 1 : 0
-      );
-      console.log({ data });
-
-      setCategories(data);
-    });
+  const fetchCategoryWithCount = async () => {
+    try {
+      const { data } = await categoryApi.categoryWithCount();
+      const sortedCategories = data.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+      setCategories(sortedCategories);
+    } catch (error) {
+      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+    }
   };
 
   const handleOpenAddNewCategory = () => {
     const initialState = {
-      onSubmitForm: (data) => createCategory(data),
+      onSubmitForm: (item: CategoryCount) => handleCreateCategory(item),
     };
     showModal(AddNewCategoryModal, initialState, { destroyOnClose: true });
   };
 
-  const createCategory = (data) => {
-    categoryApi.createCategory(data).then((res) => categoryWithCount());
+  const handleCreateCategory = async (item: CategoryCount) => {
+    try {
+      await categoryApi.createCategory(item);
+      fetchCategoryWithCount();
+    } catch (error) {
+      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+    }
   };
 
-  const handleTaskNavigation = (data) => {
-    dispatch(setFilter({ category: data, status: MSG.STATUSES.ALL }));
-    if (data.taskCount) {
+  const handleTaskNavigation = (item: CategoryCount) => {
+    dispatch(setFilter({ category: item, status: MSG.STATUSES.ALL }));
+    if (item.taskCount) {
       navigate(`/${ROUTES.TASK}`);
-    } else if (data.checklistCount) {
+    } else if (item.checklistCount) {
       navigate(`/${ROUTES.CHECKLIST}`);
     } else {
       navigate(`/${ROUTES.TASK}`);
     }
   };
 
-  const handleDeleteTask = (data) => {
+  const handleDeleteCategory = (item: CategoryCount) => {
     const initialState = {
       message: MSG.USER_FEEDBACK.CONFIRMATION_DELETE,
-      onConfirm: () => deleteCategory(data),
+      onConfirm: () => handleConfirmDeleteCategory(item),
       type: "danger",
     };
     showModal(ConfirmationModal, initialState, { destroyOnClose: true });
   };
 
-  const deleteCategory = (data) => {
-    const categoryId = data.id;
-    categoryApi
-      .deleteCategory(categoryId)
-      .then((res) => {
-        setCategories(categories.filter((item) => item.id !== data.id));
-        dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.CATEGORY.DELETED, type: "info" }));
-      })
-      .catch((err) => dispatch(showSnackbar({ message: err.message, type: "error" })));
+  const handleConfirmDeleteCategory = async (item: CategoryCount) => {
+    try {
+      const categoryId = item.id;
+      await categoryApi.deleteCategory(categoryId);
+      setCategories(categories.filter((category) => category.id !== item.id));
+      dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.CATEGORY.DELETED, type: "info" }));
+    } catch (error) {
+      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+    }
   };
+
   return (
-    <>
-      <Box className="categoryPageWrapper">
-        <Box className="flexContainer">
-          {categories &&
-            categories.map((item) => (
-              <Box className="flexItem" key={item.id}>
-                <CategoryCard
-                  cardData={item}
-                  onNavigate={() => handleTaskNavigation(item)}
-                  onDelete={() => handleDeleteTask(item)}
-                />
-              </Box>
-            ))}
-        </Box>
-        <Box className="addCardWrapper">
-          <Button variant="contained" className="cardAction" onClick={handleOpenAddNewCategory}>
-            <Icon className="addIcon">add</Icon>
-          </Button>
-        </Box>
+    <Box className="categoryPageWrapper">
+      <Box className="flexContainer">
+        {categories &&
+          categories.map((item) => (
+            <Box className="flexItem" key={item.id}>
+              <CategoryCard
+                cardData={item}
+                onNavigate={() => handleTaskNavigation(item)}
+                onDelete={() => handleDeleteCategory(item)}
+              />
+            </Box>
+          ))}
       </Box>
-    </>
+      <Box className="addCardWrapper">
+        <Button variant="contained" className="cardAction" onClick={handleOpenAddNewCategory}>
+          <Icon className="addIcon">add</Icon>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

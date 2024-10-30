@@ -19,7 +19,7 @@ const categoryApi = {
     });
   },
   categoryWithCount() {
-    return axios.get<CategoriesWithTaskAndChecklistCount>(API.CATEGORY.WITH_TASK_AND_CHECKLIST_COUNT, NO_LOADER);
+    return axios.get<CategoriesWithTaskAndChecklistCount[]>(API.CATEGORY.WITH_TASK_AND_CHECKLIST_COUNT, NO_LOADER);
   },
   createCategory(payload: CategoryPayload) {
     return axios.post<CategoryResponse>(API.CATEGORY.CREATE, payload, NO_LOADER);
