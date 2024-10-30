@@ -3,7 +3,14 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement);
 
-const StatisticChart = ({ report }) => {
+interface Props {
+  report: {
+    label: string;
+    count: number;
+  }[];
+}
+
+const StatisticChart = ({ report }: Props) => {
   const createdIdx = report.findIndex((object) => object.label === "created");
   const completedIdx = report.findIndex((object) => object.label === "completed");
   const pendingIdx = report.findIndex((object) => object.label === "pending");
@@ -44,22 +51,26 @@ const StatisticChart = ({ report }) => {
       },
     },
   };
-  let plugins = {
-    afterDraw: (chart) => {
-      let centerConfig = chart.config.options.elements.center;
-      let ctx = chart.ctx;
-      ctx.save();
-      ctx.font = "normal 25px 'Poppins', 'Arial', sans-serif";
-      ctx.fillStyle = chartColorFill;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
-      const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
-      ctx.fillText(centerConfig.text, centerX, centerY);
-      ctx.restore();
+  const plugins = [
+    {
+      id: "centerTextPlugin",
+      afterDraw: (chart) => {
+        const centerConfig = chart.config.options.elements.center;
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.font = "normal 25px 'Poppins', 'Arial', sans-serif";
+        ctx.fillStyle = chartColorFill;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
+        const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+        ctx.fillText(centerConfig.text, centerX, centerY);
+        ctx.restore();
+      },
     },
-  };
-  return <>{/* <Doughnut data={data} options={options} plugins={[plugins]} height={null} width={null} /> */}</>;
+  ];
+
+  return <Doughnut data={data} options={options} plugins={plugins} />;
 };
 
 export default StatisticChart;
