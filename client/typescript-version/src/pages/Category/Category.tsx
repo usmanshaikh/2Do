@@ -36,45 +36,44 @@ const Category = () => {
 
   const handleOpenAddNewCategory = () => {
     const initialState = {
-      onSubmitForm: (item: CategoryCount) => handleCreateCategory(item),
+      onSubmitForm: (newCategory: CategoryCount) => handleCreateCategory(newCategory),
     };
     showModal(AddNewCategoryModal, initialState, { destroyOnClose: true });
   };
 
-  const handleCreateCategory = async (item: CategoryCount) => {
+  const handleCreateCategory = async (newCategory: CategoryCount) => {
     try {
-      await categoryApi.createCategory(item);
+      await categoryApi.createCategory(newCategory);
       fetchCategoryWithCount();
     } catch (error) {
       dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
     }
   };
 
-  const handleTaskNavigation = (item: CategoryCount) => {
-    dispatch(setFilter({ category: item, status: MSG.STATUSES.ALL }));
-    if (item.taskCount) {
+  const navigateToCategoryTasks = (category: CategoryCount) => {
+    dispatch(setFilter({ category, status: MSG.STATUSES.ALL }));
+    if (category.taskCount) {
       navigate(`/${ROUTES.TASK}`);
-    } else if (item.checklistCount) {
+    } else if (category.checklistCount) {
       navigate(`/${ROUTES.CHECKLIST}`);
     } else {
       navigate(`/${ROUTES.TASK}`);
     }
   };
 
-  const handleDeleteCategory = (item: CategoryCount) => {
+  const openDeleteCategoryConfirmation = (category: CategoryCount) => {
     const initialState = {
       message: MSG.USER_FEEDBACK.CONFIRMATION_DELETE,
-      onConfirm: () => handleConfirmDeleteCategory(item),
+      onConfirm: () => handleConfirmDeleteCategory(category),
       type: "danger",
     };
     showModal(ConfirmationModal, initialState, { destroyOnClose: true });
   };
 
-  const handleConfirmDeleteCategory = async (item: CategoryCount) => {
+  const handleConfirmDeleteCategory = async (category: CategoryCount) => {
     try {
-      const categoryId = item.id;
-      await categoryApi.deleteCategory(categoryId);
-      setCategories(categories.filter((category) => category.id !== item.id));
+      await categoryApi.deleteCategory(category.id);
+      setCategories(categories.filter((item) => item.id !== category.id));
       dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.CATEGORY.DELETED, type: "info" }));
     } catch (error) {
       dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
@@ -84,16 +83,15 @@ const Category = () => {
   return (
     <Box className="categoryPageWrapper">
       <Box className="flexContainer">
-        {categories &&
-          categories.map((item) => (
-            <Box className="flexItem" key={item.id}>
-              <CategoryCard
-                cardData={item}
-                onNavigate={() => handleTaskNavigation(item)}
-                onDelete={() => handleDeleteCategory(item)}
-              />
-            </Box>
-          ))}
+        {categories.map((category) => (
+          <Box className="flexItem" key={category.id}>
+            <CategoryCard
+              cardData={category}
+              onNavigate={() => navigateToCategoryTasks(category)}
+              onDelete={() => openDeleteCategoryConfirmation(category)}
+            />
+          </Box>
+        ))}
       </Box>
       <Box className="addCardWrapper">
         <Button variant="contained" className="cardAction" onClick={handleOpenAddNewCategory}>
