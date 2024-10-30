@@ -1,0 +1,65 @@
+$black31: #313131;
+.commonAuthWrapper {
+  padding: 15px;
+  .heading {
+    margin: 0;
+    font-size: 25px;
+    color: $black31;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .subHeading {
+    font-size: 15px;
+    color: #9b9b9b;
+  }
+  .formWrapper {
+    padding: 20px 0;
+    .commonInputWrap {
+      margin: 20px 0;
+      .commonInputFormControl {
+        .MuiInputLabel-formControl {
+          font-size: 16px;
+          color: $black31;
+          font-weight: 500;
+        }
+        label + .MuiInputBase-formControl {
+          margin-top: 25px;
+        }
+        .MuiInput-input {
+          font-size: 14px;
+          color: $black31;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  .forgotLinkWrap {
+    text-align: right;
+    .aLink {
+      font-size: 15px;
+      color: $black31;
+      font-weight: 500;
+      text-decoration: none;
+    }
+  }
+  .actionBtnWrap {
+    margin: 50px 0;
+  }
+  .backBtnWrap {
+    margin-bottom: 20px;
+    .material-icons {
+      font-size: 30px;
+      color: $black31;
+    }
+  }
+  .accountOrLoginOptWrap {
+    text-align: center;
+    .aLink {
+      font-size: 15px;
+      color: $black31;
+      font-weight: 600;
+      padding-left: 3px;
+      text-decoration: none;
+    }
+  }
+}

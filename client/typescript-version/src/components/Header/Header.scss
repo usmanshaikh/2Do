@@ -1,0 +1,33 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.headerComponentWrapper {
+  top: 0;
+  height: 70px;
+  padding: 20px;
+  z-index: $zIdxHeader;
+  @include maxFixedWidth();
+  margin-bottom: -1px;
+  background-color: $red;
+  .titleBox {
+    display: flex;
+    position: relative;
+    justify-content: center;
+  }
+  .title {
+    color: $white;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  .filterBtnBox {
+    right: -15px;
+    position: absolute;
+  }
+  .filterBtn {
+    border: none;
+    color: $white;
+    &:hover {
+      border: none;
+    }
+  }
+}

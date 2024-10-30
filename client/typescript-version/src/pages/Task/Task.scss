@@ -1,0 +1,23 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.taskPageWrapper {
+  // background-color: #fdfdfd;
+  .tabWrapper {
+    .tabHeaderbox {
+      top: 69px;
+      background-color: $red;
+      @include maxFixedWidth();
+      z-index: $zIdxMyTaskHeader;
+      button {
+        color: $white;
+      }
+    }
+    .MuiTabs-indicator {
+      height: 4px;
+      background-color: $white;
+    }
+    .tabContentbox {
+      padding: 50px 0 15px 0;
+    }
+  }
+}

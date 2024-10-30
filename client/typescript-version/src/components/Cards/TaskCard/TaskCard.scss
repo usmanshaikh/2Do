@@ -1,0 +1,120 @@
+@import "../../../assets/scss/mixin_variables.scss";
+
+.swipeListTaskWrapper {
+  &.taskCompleted {
+    .time,
+    .title {
+      color: #9e9e9e;
+      text-decoration: line-through;
+    }
+  }
+  .swipeable-list-item {
+    padding: 10px 15px;
+  }
+  .taskCardWrap {
+    width: 100%;
+    box-shadow: 1px 1px 8px 0 rgb(0 0 0 / 13%), 0 6px 20px 0 rgb(255 255 255 / 5%) !important;
+  }
+  .taskItemWrapper {
+    width: 100%;
+    min-height: 65px;
+    position: relative;
+    border-radius: 4px;
+  }
+  .bgLine {
+    top: 0;
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+    height: 2.5px;
+    position: absolute;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  .flexContainer {
+    width: 100%;
+    @include flexbox($wrap: nowrap, $align: normal);
+    .flexItemOne {
+      width: 45px;
+      display: flex;
+      justify-content: center;
+    }
+    .flexItemTwo {
+      flex: auto;
+      overflow: hidden;
+    }
+  }
+  .checkCircleWrap,
+  .infoWrap {
+    padding: 10px;
+  }
+  .infoWrap {
+    cursor: grab;
+  }
+  .title {
+    display: block;
+    color: $black1;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 25px;
+    padding-bottom: 5px;
+  }
+  .loadingImg {
+    width: 20px;
+    height: 20px;
+  }
+  .taskChecked {
+    color: #58a973;
+  }
+  .taskUnchecked {
+    color: rgb(137 137 137 / 50%);
+  }
+  .swipeListTaskActionBtnWrapper {
+    .mIcon {
+      color: $red;
+    }
+    .actionBtn {
+      display: flex;
+      cursor: pointer;
+      padding: 10px 25px;
+      align-items: center;
+      justify-content: center;
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+    }
+    .actionImg {
+      width: 22px;
+      display: block;
+    }
+  }
+  .swipeable-list-item__trailing-actions,
+  .swipeable-list-item__leading-actions {
+    top: 10px;
+    border-radius: 4px;
+    height: calc(100% - 20px);
+    box-shadow: rgb(0 0 0 / 13%) 1px 1px 8px 0px, rgb(255 255 255 / 5%) 0px 6px 20px 0px;
+  }
+  .swipeable-list-item__leading-actions {
+    left: 0;
+  }
+  .swipeListTaskActionBtnWrapper {
+    .actionContent {
+      height: 100%;
+      padding: 8px;
+      display: flex;
+      color: #eee;
+      font-size: 12px;
+      font-weight: 500;
+      user-select: none;
+      align-items: center;
+      box-sizing: border-box;
+      &.edited {
+        background-color: yellow;
+      }
+      &.deleted {
+        background-color: red;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../assets/scss/mixin_variables.scss";
+
+.alertToggleComponentWrapper {
+  margin: 30px 0 10px;
+  .flexContainer {
+    @include flexbox();
+  }
+  .labelInfoWrap {
+    @include flexbox();
+  }
+  .infoIcon {
+    color: #1976d2;
+    margin-left: 5px;
+  }
+}
+
+.infoPopoverWrapper {
+  .MuiPaper-root {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
