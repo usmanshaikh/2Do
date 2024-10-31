@@ -21,7 +21,6 @@ import {
   SuccessModal,
 } from "./Modals";
 import NoDataFound from "./NoDataFound/NoDataFound";
-import NotFound from "./NotFound/NotFound";
 import RequireAuth from "./RequireAuth/RequireAuth";
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import DateTimeSelector from "./DateTimeSelector/DateTimeSelector";
@@ -52,7 +51,6 @@ export {
   ErrorModal,
   SuccessModal,
   NoDataFound,
-  NotFound,
   RequireAuth,
   ScrollToTop,
   DateTimeSelector,

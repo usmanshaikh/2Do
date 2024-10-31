@@ -13,7 +13,7 @@ import {
   AddEditChecklist,
   VerifyEmail,
 } from "../pages";
-import { NotFound, RequireAuth } from "../components";
+import { RequireAuth } from "../components";
 import { ROUTES } from "../utils/constants";
 
 const AppRoute = () => {
@@ -110,7 +110,7 @@ const AppRoute = () => {
             </RequireAuth>
           }
         />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );
