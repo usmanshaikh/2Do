@@ -16,7 +16,7 @@ import {
 import { ProtectedRoute, GuestRoute } from "../components";
 import { ROUTES } from "../utils/constants";
 
-const AppRoute = () => {
+const AppRoutes = () => {
   return (
     <>
       <Routes>
@@ -52,4 +52,4 @@ const AppRoute = () => {
   );
 };
 
-export default AppRoute;
+export default AppRoutes;

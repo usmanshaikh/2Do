@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import AppRoute from "./routes/AppRoute";
 import { Layout } from "./components";
 import { useAxiosInterceptor } from "./hooks";
+import AppRoutes from "./routes";
 import "./App.scss";
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   return (
     <Box className="App">
       <Layout>
-        <AppRoute />
+        <AppRoutes />
       </Layout>
     </Box>
   );
