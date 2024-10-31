@@ -21,7 +21,7 @@ import {
   SuccessModal,
 } from "./Modals";
 import NoDataFound from "./NoDataFound/NoDataFound";
-import RequireAuth from "./RequireAuth/RequireAuth";
+import { ProtectedRoute, GuestRoute } from "./RouteGuards/RouteGuards";
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import DateTimeSelector from "./DateTimeSelector/DateTimeSelector";
 import SnackbarAlert from "./SnackbarAlert/SnackbarAlert";
@@ -51,7 +51,8 @@ export {
   ErrorModal,
   SuccessModal,
   NoDataFound,
-  RequireAuth,
+  ProtectedRoute,
+  GuestRoute,
   ScrollToTop,
   DateTimeSelector,
   SnackbarAlert,
