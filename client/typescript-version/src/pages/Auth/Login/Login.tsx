@@ -35,9 +35,9 @@ const Login = () => {
 
   const handleLogin = async (values: LoginPayload) => {
     try {
-      const res = await authApi.login(values);
-      const accessToken = res.data.tokens.access.token;
-      const refreshToken = res.data.tokens.refresh.token;
+      const { data } = await authApi.login(values);
+      const accessToken = data.tokens.access.token;
+      const refreshToken = data.tokens.refresh.token;
       dispatch(setTokens({ accessToken, refreshToken }));
       navigate(`/${ROUTES.TASK}`);
     } catch (error) {

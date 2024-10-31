@@ -5,7 +5,7 @@ import { UpdateCategoryPayload } from "./types";
 
 const categoryApi = {
   allCategoriesForModal(onlyCategories: boolean = false) {
-    return axios.get<CategoryResponse>(API.CATEGORY.ALL, {
+    return axios.get<CategoryResponse[]>(API.CATEGORY.ALL, {
       params: { onlyCategories: onlyCategories },
       ...NO_LOADER,
     });

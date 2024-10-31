@@ -16,9 +16,10 @@ const Filters = () => {
   const filter = useAppSelector((state: RootState) => state.filter);
   const dispatch = useAppDispatch();
 
-  const fetchCategories = () => {
-    categoryApi.allCategoriesForModal().then((res) => {
-      setCategories(res.data);
+  const fetchCategories = async () => {
+    try {
+      const { data } = await categoryApi.allCategoriesForModal();
+      setCategories(data);
       const { selectedCategory, selectedStatus } = filter;
 
       if (selectedCategory?.id) setSelectedCategory(selectedCategory.id);
@@ -26,13 +27,15 @@ const Filters = () => {
       if (selectedStatus?.label) setSelectedStatus(selectedStatus.label);
 
       if (!selectedCategory?.id || !selectedStatus?.label) {
-        const defaultCategory = res.data[0];
+        const defaultCategory = data[0];
         const defaultStatus = STATUS_ARRAY[0];
         setSelectedCategory(defaultCategory.id);
         setSelectedStatus(defaultStatus);
         dispatch(setFilter({ category: defaultCategory, status: defaultStatus }));
       }
-    });
+    } catch (error) {
+      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+    }
   };
 
   useEffect(() => {

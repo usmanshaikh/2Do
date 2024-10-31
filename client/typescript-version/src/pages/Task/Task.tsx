@@ -47,8 +47,8 @@ const Task = () => {
     const updatedTask = toggleTaskCompletion(task);
     const payload: ChangeTaskStatusPayload = { isCompleted: updatedTask.isCompleted, id: task.id };
     try {
-      const res = await taskApi.changeTaskStatus(payload);
-      const index = tasks.findIndex((item) => item.id === res.data.id);
+      const { data } = await taskApi.changeTaskStatus(payload);
+      const index = tasks.findIndex((item) => item.id === data.id);
       if (index !== -1) {
         setTasks((prevTasks) => {
           const newTasks = [...prevTasks];
