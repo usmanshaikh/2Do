@@ -1,9 +1,9 @@
 import { Fragment } from "react";
 import { Icon, CardActionArea, Card, Box } from "@mui/material";
 import { truncateString } from "../../../utils/helpers";
-import DateTime from "../../DateTime/DateTime";
 import { ChecklistResponse } from "../../../api/types";
 import "./ChecklistCard.scss";
+import { DateTimeDisplay } from "../../index";
 
 interface Props {
   checklists: ChecklistResponse[];
@@ -37,7 +37,7 @@ const ChecklistCard = ({ checklists, onEditChecklist }: Props) => {
                   </Box>
                 )}
                 <Box className="dateTimeWrap">
-                  <DateTime dateAndTime={checklist.dateAndTime} alert={checklist.alert} />
+                  <DateTimeDisplay dateAndTime={checklist.dateAndTime} alert={checklist.alert} />
                 </Box>
               </Box>
             </CardActionArea>

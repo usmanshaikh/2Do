@@ -14,7 +14,7 @@ import { truncateString } from "../../../utils/helpers";
 import { MSG } from "../../../utils/constants";
 import { TaskResponse } from "../../../api/types";
 import Images from "../../../assets/img";
-import DateTime from "../../DateTime/DateTime";
+import { DateTimeDisplay } from "../../index";
 import "react-swipeable-list/dist/styles.css";
 import "./TaskCard.scss";
 
@@ -92,7 +92,7 @@ const TaskCard = ({ tasks, onStatusChange, onDeleteTask, onEditTask }: Props) =>
                       <Box className="flexItemTwo">
                         <CardActionArea className="infoWrap">
                           <span className="title">{truncateString(task.title)}</span>
-                          <DateTime dateAndTime={task.dateAndTime} alert={task.alert} />
+                          <DateTimeDisplay dateAndTime={task.dateAndTime} alert={task.alert} />
                         </CardActionArea>
                       </Box>
                     </Box>

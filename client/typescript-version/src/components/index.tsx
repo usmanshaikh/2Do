@@ -2,8 +2,7 @@ import { CategoryCard, ChecklistCard, TaskCard } from "./Cards";
 import ChooseCategory from "./ChooseCategory/ChooseCategory";
 import ColorPicker from "./ColorPicker/ColorPicker";
 import CustomButton from "./CustomButton/CustomButton";
-import DatePickerControl from "./DatePickerControl/DatePickerControl";
-import DateTime from "./DateTime/DateTime";
+import DateTimeDisplay from "./DateTimeDisplay/DateTimeDisplay";
 import Filters from "./Filters/Filters";
 import AlertToggle from "./AlertToggle/AlertToggle";
 import Header from "./Header/Header";
@@ -34,8 +33,7 @@ export {
   ChooseCategory,
   ColorPicker,
   CustomButton,
-  DatePickerControl,
-  DateTime,
+  DateTimeDisplay,
   Filters,
   AlertToggle,
   Header,

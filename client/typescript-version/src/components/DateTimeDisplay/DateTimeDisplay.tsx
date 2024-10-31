@@ -1,18 +1,18 @@
 import { Box, Icon } from "@mui/material";
 import moment from "moment";
-import "./DateTime.scss";
+import "./DateTimeDisplay.scss";
 
 /**
  * @param {{ dateAndTime: Date, alert:boolean}} props
  */
-const DateTime = (props) => {
+const DateTimeDisplay = (props) => {
   const { dateAndTime, alert } = props;
   const time = moment(dateAndTime).format("hh:mm a");
   const date = moment(dateAndTime).format("DD MMM YYYY");
 
   return (
     <>
-      <Box className="dateTimeComponentWrapper">
+      <Box className="dateTimeDisplayComponentWrapper">
         {alert && <Icon className="alarmIcon material-icons-round">alarm</Icon>}
         <p className="dateTimeTxtWrap">
           <span className="dateTime">{time}</span>
@@ -24,4 +24,4 @@ const DateTime = (props) => {
   );
 };
 
-export default DateTime;
+export default DateTimeDisplay;
