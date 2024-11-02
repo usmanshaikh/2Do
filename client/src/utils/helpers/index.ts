@@ -1,6 +1,4 @@
-import { Dispatch } from "@reduxjs/toolkit";
 import { MSG } from "../constants";
-import { showSnackbar } from "../../store/slices";
 
 export const truncateString = (str, number = 90) => {
   let modifiedStr = str;
