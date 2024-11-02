@@ -5,12 +5,11 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ModalProvider from "mui-modal-provider";
 import reportWebVitals from "./reportWebVitals";
 import { Loader } from "./components";
-import App from "./App";
-import theme from "./theme";
-import "./index.scss";
-
-import store from "./store/index";
 import { Provider } from "react-redux";
+import theme from "./theme";
+import store from "./store/index";
+import App from "./App";
+import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(

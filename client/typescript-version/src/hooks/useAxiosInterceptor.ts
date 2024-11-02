@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 import { authApi } from "../api";
 import { ROUTES } from "../utils/constants";
 import { RootState } from "../store";
@@ -41,10 +41,8 @@ const useAxiosInterceptor = () => {
   };
 
   const removeRequest = (req) => {
-    setTimeout(() => {
-      requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
-      if (!requestsCount.length) dispatch(hideLoader());
-    }, 500);
+    requestsCount = requestsCount.filter((arr) => arr.reqIdx !== req.reqIdx);
+    if (!requestsCount.length) dispatch(hideLoader());
   };
 
   const addRequest = (config) => {
@@ -76,45 +74,38 @@ const useAxiosInterceptor = () => {
     return response;
   };
 
-  const resErrInterceptor = async (error: AxiosError) => {
+  const resErrInterceptor = async (error) => {
     removeRequest(error.config);
 
     const { config, response } = error;
-    const status = response?.status;
+    const originalRequest = config;
 
-    if ((status === 401 || status === 498) && !config?.url?.includes("auth/")) {
+    if ((response?.status === 401 || response?.status === 498) && !config.url.includes("auth/")) {
       if (!isRefreshing) {
         isRefreshing = true;
-        const refreshToken = auth.refreshToken;
-        if (refreshToken) {
-          try {
-            const { data } = await authApi.refreshTokens({ refreshToken });
+        const refreshToken = auth.refreshToken as string;
+        authApi
+          .refreshTokens({ refreshToken })
+          .then(({ data }) => {
             isRefreshing = false;
-            const accessToken = data.access.token;
+            const newAccessToken = data.access.token;
             const newRefreshToken = data.refresh.token;
-            dispatch(setTokens({ accessToken, refreshToken: newRefreshToken }));
-            onRefreshed(accessToken);
-          } catch (err) {
+            dispatch(setTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken }));
+            onRefreshed(newAccessToken);
+          })
+          .catch(() => {
             isRefreshing = false;
             logout();
-          }
-        }
+          });
       }
       const retryOrigReq = new Promise((resolve, reject) => {
         subscribeTokenRefresh((token) => {
-          if (config) {
-            const originalRequest = config;
-            if (originalRequest) {
-              originalRequest.headers["Authorization"] = `Bearer ${token}`;
-              resolve(axiosInstance(originalRequest));
-            } else {
-              reject(new Error("Original request is undefined."));
-            }
-          }
+          originalRequest.headers["Authorization"] = `Bearer ${token}`;
+          resolve(axios(originalRequest));
         });
       });
       console.clear();
-      return retryOrigReq.then((response: AxiosResponse) => response);
+      return retryOrigReq.then((response) => response);
     } else {
       return Promise.reject(error.response);
     }
