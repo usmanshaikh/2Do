@@ -8,6 +8,7 @@ import { useAppDispatch } from "../../../hooks";
 import { setTokens, showSnackbar } from "../../../store/slices";
 import { CustomButton } from "../../../components";
 import { LoginPayload } from "../../../api/types";
+import { getAxiosErrorMessage } from "../../../utils/helpers";
 import "../Auth.scss";
 
 const validationSchema = yup.object({
@@ -41,7 +42,7 @@ const Login = () => {
       dispatch(setTokens({ accessToken, refreshToken }));
       navigate(`/${ROUTES.TASK}`);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { Box } from "@mui/material";
 import { showSnackbar } from "../../../store/slices";
 import "./VerifyEmail.scss";
+import { getAxiosErrorMessage } from "../../../utils/helpers";
 
 const VerifyEmail = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ const VerifyEmail = () => {
       await authApi.verifyEmail({ token });
       setIsVerifyEmailSuccess(true);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

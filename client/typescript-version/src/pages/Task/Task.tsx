@@ -10,6 +10,7 @@ import { showSnackbar } from "../../store/slices";
 import { TaskResponse } from "../../api/types";
 import { ChangeTaskStatusPayload, TaskAllPayload } from "../../api/taskApi/types";
 import { RootState } from "../../store";
+import { getAxiosErrorMessage } from "../../utils/helpers";
 import "./Task.scss";
 
 const Task = () => {
@@ -34,7 +35,7 @@ const Task = () => {
       setTasks(data);
     } catch (error) {
       setTasks([]);
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -63,7 +64,7 @@ const Task = () => {
         })
       );
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -74,7 +75,7 @@ const Task = () => {
       setTasks((prevTasks) => prevTasks.filter((item) => item.id !== taskId));
       dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.TASK.DELETED, type: "info" }));
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

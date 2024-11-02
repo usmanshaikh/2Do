@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Autocomplete, Box, TextField } from "@mui/material";
-import { hideFooter, showFooter } from "../../utils/helpers";
+import { getAxiosErrorMessage, hideFooter, showFooter } from "../../utils/helpers";
 import { categoryApi } from "../../api";
 import { showSnackbar } from "../../store/slices/snackbarSlice";
 import { useAppDispatch } from "../../hooks";
@@ -39,7 +39,7 @@ const ChooseCategory = ({ isEdit, category, onSelectCategory }: Props) => {
       const { data } = await categoryApi.allCategories(true);
       setCategoryOptions(data);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

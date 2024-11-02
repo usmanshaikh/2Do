@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
 import { ChecklistAllPayload, ChecklistResponse } from "../../api/types";
 import { showSnackbar } from "../../store/slices";
+import { getAxiosErrorMessage } from "../../utils/helpers";
 import "./Checklist.scss";
 
 const Checklist = () => {
@@ -32,7 +33,7 @@ const Checklist = () => {
       setChecklists(data);
     } catch (error) {
       setChecklists([]);
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

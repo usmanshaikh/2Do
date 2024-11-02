@@ -9,6 +9,7 @@ import { MSG, ROUTES } from "../../../utils/constants";
 import { RegisterPayload } from "../../../api/types";
 import { useAppDispatch } from "../../../hooks";
 import { showSnackbar } from "../../../store/slices";
+import { getAxiosErrorMessage } from "../../../utils/helpers";
 import "../Auth.scss";
 
 const validationSchema = yup.object({
@@ -51,7 +52,7 @@ const SignUp = () => {
       };
       showModal(SuccessModal, initialState, { destroyOnClose: true });
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

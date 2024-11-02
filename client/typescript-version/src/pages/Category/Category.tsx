@@ -11,6 +11,7 @@ import { MSG, ROUTES } from "../../utils/constants";
 import { showSnackbar } from "../../store/slices";
 import { CategoriesWithTaskAndChecklistCount } from "../../api/types";
 import "./Category.scss";
+import { getAxiosErrorMessage } from "../../utils/helpers";
 
 type CategoryCount = CategoriesWithTaskAndChecklistCount;
 
@@ -30,7 +31,7 @@ const Category = () => {
       const sortedCategories = data.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
       setCategories(sortedCategories);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -46,7 +47,7 @@ const Category = () => {
       await categoryApi.createCategory(newCategory);
       fetchCategoryWithCount();
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -76,7 +77,7 @@ const Category = () => {
       setCategories(categories.filter((item) => item.id !== category.id));
       dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.CATEGORY.DELETED, type: "info" }));
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

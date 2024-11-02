@@ -13,7 +13,7 @@ import {
   AlertToggle,
   MarkAsComplete,
 } from "../../../components";
-import { hideFooter, showFooter } from "../../../utils/helpers";
+import { getAxiosErrorMessage, hideFooter, showFooter } from "../../../utils/helpers";
 import { taskApi } from "../../../api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { MSG, ROUTES } from "../../../utils/constants";
@@ -92,7 +92,7 @@ const AddEditTask = () => {
         isCompleted: data.isCompleted,
       });
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -121,7 +121,7 @@ const AddEditTask = () => {
         showModal(SuccessModal, initialState, { destroyOnClose: true });
       }
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -144,7 +144,7 @@ const AddEditTask = () => {
       };
       showModal(SuccessModal, initialState, { destroyOnClose: true });
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

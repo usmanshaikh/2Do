@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
 import { StatisticReportResponse, UserResponse } from "../../api/types";
 import "./Profile.scss";
+import { getAxiosErrorMessage } from "../../utils/helpers";
 
 const Profile = () => {
   const auth = useAppSelector((state: RootState) => state.auth);
@@ -29,7 +30,7 @@ const Profile = () => {
       const { data } = await userApi.myProfile();
       setUserProfile(data);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data?.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -38,7 +39,7 @@ const Profile = () => {
       const { data } = await userApi.statisticReport();
       setStatisticReport(data);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data?.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -47,7 +48,7 @@ const Profile = () => {
       const { data } = await userApi.updateMyProfile(payload);
       setUserProfile(data);
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data?.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
@@ -72,7 +73,7 @@ const Profile = () => {
         })
       );
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data?.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

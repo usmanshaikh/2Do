@@ -77,7 +77,7 @@ export const setPageTitle = (location) => {
   return titleMap[pathname] || "2Do";
 };
 
-export const handleApiError = (error: any, dispatch: Dispatch, fallbackMessage: string = "An error occurred") => {
-  const errorMessage = error?.response?.data?.message || fallbackMessage;
-  dispatch(showSnackbar({ message: errorMessage, type: "error" }));
+export const getAxiosErrorMessage = (error) => {
+  const errorMessage = error?.response?.data?.message || error?.message || MSG.ERROR_MESSAGE;
+  return errorMessage;
 };

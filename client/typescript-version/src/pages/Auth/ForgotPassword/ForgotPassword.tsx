@@ -6,9 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { authApi } from "../../../api";
 import { SuccessModal, CustomButton } from "../../../components";
 import { MSG, ROUTES } from "../../../utils/constants";
-import "../Auth.scss";
 import { showSnackbar } from "../../../store/slices";
 import { useAppDispatch } from "../../../hooks";
+import { getAxiosErrorMessage } from "../../../utils/helpers";
+import "../Auth.scss";
 
 const validationSchema = yup.object({
   email: yup.string().email(MSG.VALIDATION.EMAIL.INVALID).required(MSG.VALIDATION.EMAIL.REQUIRED),
@@ -36,7 +37,7 @@ const ForgotPassword = () => {
       };
       showModal(SuccessModal, initialState, { destroyOnClose: true });
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

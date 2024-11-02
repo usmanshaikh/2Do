@@ -6,6 +6,7 @@ import { MSG } from "../../utils/constants";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { showSnackbar, setFilter } from "../../store/slices";
 import { RootState } from "../../store";
+import { getAxiosErrorMessage } from "../../utils/helpers";
 import "./Filters.scss";
 
 const STATUS_ARRAY = [MSG.STATUSES.ALL, MSG.STATUSES.PENDING, MSG.STATUSES.COMPLETED];
@@ -34,7 +35,7 @@ const Filters = () => {
         dispatch(setFilter({ category: defaultCategory, status: defaultStatus }));
       }
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 

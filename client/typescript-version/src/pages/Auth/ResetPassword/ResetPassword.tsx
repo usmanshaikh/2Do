@@ -8,6 +8,7 @@ import { MSG, ROUTES } from "../../../utils/constants";
 import { CustomButton } from "../../../components";
 import { useAppDispatch } from "../../../hooks";
 import { showSnackbar } from "../../../store/slices";
+import { getAxiosErrorMessage } from "../../../utils/helpers";
 import "../Auth.scss";
 
 const validationSchema = yup.object({
@@ -46,7 +47,7 @@ const ResetPassword = () => {
         navigate(`/${ROUTES.RESET_PASSWORD_SUCCESS}`);
       }
     } catch (error) {
-      dispatch(showSnackbar({ message: error.data.message || MSG.ERROR_MESSAGE }));
+      dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
