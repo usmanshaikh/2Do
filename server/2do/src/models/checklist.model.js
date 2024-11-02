@@ -62,6 +62,10 @@ const checklistSchema = mongoose.Schema(
 
 checklistSchema.plugin(toJSON);
 
+checklistSchema.pre(['find', 'findOne'], function () {
+  this.populate('category', 'categoryName cardColor _id');
+});
+
 const Checklist = mongoose.model('Checklist', checklistSchema);
 
 export default Checklist;

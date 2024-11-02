@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { toJSON } from './plugins/index.js';
+import User from './user.model.js';
 
 const categorySchema = mongoose.Schema(
   {
@@ -14,6 +15,8 @@ const categorySchema = mongoose.Schema(
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: User,
+      required: true,
     },
     deletable: {
       type: Boolean,

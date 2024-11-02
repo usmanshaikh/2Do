@@ -48,6 +48,10 @@ const taskSchema = mongoose.Schema(
 
 taskSchema.plugin(toJSON);
 
+taskSchema.pre(['find', 'findOne'], function () {
+  this.populate('category', 'categoryName cardColor _id');
+});
+
 const Task = mongoose.model('Task', taskSchema);
 
 export default Task;

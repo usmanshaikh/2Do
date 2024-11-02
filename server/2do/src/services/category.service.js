@@ -90,95 +90,6 @@ const categoryWithTaskAndChecklistCount = async (req) => {
   return groupData;
 };
 
-// const categoryWithTaskAndChecklistCount = async (req) => {
-//   let groupData = await Category.aggregate([
-//     {
-//       $match: {
-//         createdBy: req.user._id,
-//       },
-//     },
-//     {
-//       $lookup: {
-//         from: 'tasks',
-//         localField: '_id',
-//         foreignField: 'category',
-//         as: 'taskData',
-//       },
-//     },
-//     {
-//       $lookup: {
-//         from: 'checklists',
-//         localField: '_id',
-//         foreignField: 'category',
-//         as: 'checklistData',
-//       },
-//     },
-//     {
-//       $facet: {
-//         checklistArray: [
-//           { $unwind: '$checklistData' },
-//           {
-//             $lookup: {
-//               from: 'categories',
-//               localField: 'checklistData.category',
-//               foreignField: '_id',
-//               as: 'categoryData',
-//             },
-//           },
-//           {
-//             $group: {
-//               _id: '$checklistData.category',
-//               categoryName: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
-//               checklistCount: { $sum: 1 },
-//             },
-//           },
-//         ],
-//         taskArray: [
-//           { $unwind: '$taskData' },
-//           {
-//             $lookup: {
-//               from: 'categories',
-//               localField: 'taskData.category',
-//               foreignField: '_id',
-//               as: 'categoryData',
-//             },
-//           },
-//           {
-//             $group: {
-//               _id: '$taskData.category',
-//               categoryName: { $first: { $arrayElemAt: ['$categoryData.categoryName', 0] } },
-//               taskCount: { $sum: 1 },
-//             },
-//           },
-//         ],
-//       },
-//     },
-//     {
-//       $project: {
-//         combine: {
-//           $concatArrays: ['$checklistArray', '$taskArray'],
-//         },
-//       },
-//     },
-//     {
-//       $unwind: '$combine',
-//     },
-//     {
-//       $group: {
-//         _id: '$combine._id',
-//         categoryName: { $first: '$combine.categoryName' },
-//         checklistCount: {
-//           $sum: '$combine.checklistCount',
-//         },
-//         taskCount: {
-//           $sum: '$combine.taskCount',
-//         },
-//       },
-//     },
-//   ]);
-//   return groupData;
-// };
-
 /**
  * Update Category by ID
  */
@@ -205,7 +116,7 @@ const deleteCategoryById = async (req) => {
   const tasks = await Task.find({ category: req.params.categoryId });
   if (tasks.length) {
     throw new ApiError(
-      httpStatus.NOT_FOUND,
+      httpStatus.CONFLICT,
       'Category contain Tasks. Please move Tasks to another category to delete this category.',
     );
   }
