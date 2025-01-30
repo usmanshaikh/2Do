@@ -32,13 +32,13 @@ export const refreshTokens = {
   }),
 };
 
-const forgotPassword = {
+export const forgotPassword = {
   body: Joi.object().keys({
     email: Joi.string().email().required(),
   }),
 };
 
-const resetPassword = {
+export const resetPassword = {
   query: Joi.object().keys({
     token: Joi.string().required(),
   }),
@@ -51,7 +51,7 @@ const resetPassword = {
   }),
 };
 
-const verifyEmail = {
+export const verifyEmail = {
   query: Joi.object().keys({
     token: Joi.string().required(),
   }),

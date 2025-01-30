@@ -1,64 +1,54 @@
 import Joi from 'joi';
-import { objectId } from './custom.validation.js';
 
-const checklist = {
+export const checklist = {
   title: Joi.string().required(),
   checklistItems: Joi.array().items({
     isChecked: Joi.boolean().required(),
     text: Joi.string().required(),
   }),
-  category: Joi.required().custom(objectId),
+  category: Joi.string().hex().length(24).required(),
   cardColor: Joi.string().required(),
   dateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
   isCompleted: Joi.boolean().required(),
 };
 
-const createChecklist = {
+export const createChecklist = {
   body: Joi.object().keys(checklist),
 };
 
-const allChecklists = {
+export const allChecklists = {
   body: Joi.object().keys({
-    category: Joi.string().custom(objectId),
+    category: Joi.string().hex().length(24).required(),
     dateAndTime: Joi.date(),
     isCompleted: Joi.boolean(),
   }),
 };
 
-const getChecklist = {
+export const getChecklist = {
   params: Joi.object().keys({
-    checklistId: Joi.string().custom(objectId),
+    checklistId: Joi.string().hex().length(24).required(),
   }),
 };
 
-const updateChecklist = {
+export const updateChecklist = {
   params: Joi.object().keys({
-    checklistId: Joi.required().custom(objectId),
+    checklistId: Joi.string().hex().length(24).required(),
   }),
   body: Joi.object().keys(checklist),
 };
 
-const deleteChecklist = {
+export const deleteChecklist = {
   params: Joi.object().keys({
-    checklistId: Joi.string().custom(objectId),
+    checklistId: Joi.string().hex().length(24).required(),
   }),
 };
 
-const changeChecklistStatus = {
+export const changeChecklistStatus = {
   params: Joi.object().keys({
-    checklistId: Joi.required().custom(objectId),
+    checklistId: Joi.string().hex().length(24).required(),
   }),
   body: Joi.object().keys({
     isCompleted: Joi.boolean().required(),
   }),
-};
-
-export default {
-  createChecklist,
-  allChecklists,
-  getChecklist,
-  updateChecklist,
-  deleteChecklist,
-  changeChecklistStatus,
 };

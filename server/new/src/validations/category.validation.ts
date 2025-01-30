@@ -1,7 +1,6 @@
 import Joi from 'joi';
-import { objectId } from './custom.validation.js';
 
-const category = {
+export const category = {
   categoryName: Joi.string()
     .regex(/^[a-zA-Z\s]*$/)
     .required()
@@ -11,32 +10,25 @@ const category = {
   cardColor: Joi.string().required(),
 };
 
-const createCategory = {
+export const createCategory = {
   body: Joi.object().keys(category),
 };
 
-const allCategories = {
+export const allCategories = {
   query: Joi.object().keys({
     onlyCategories: Joi.boolean(),
   }),
 };
 
-const updateCategory = {
+export const updateCategory = {
   params: Joi.object().keys({
-    categoryId: Joi.required().custom(objectId),
+    categoryId: Joi.string().hex().length(24).required(),
   }),
   body: Joi.object().keys(category),
 };
 
-const deleteCategory = {
+export const deleteCategory = {
   params: Joi.object().keys({
-    categoryId: Joi.string().custom(objectId),
+    categoryId: Joi.string(),
   }),
-};
-
-export default {
-  createCategory,
-  allCategories,
-  updateCategory,
-  deleteCategory,
 };

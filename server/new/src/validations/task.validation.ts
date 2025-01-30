@@ -1,60 +1,50 @@
 import Joi from 'joi';
-import { objectId } from './custom.validation.js';
 
-const task = {
+export const task = {
   title: Joi.string().required(),
-  category: Joi.required().custom(objectId),
+  category: Joi.string().hex().length(24).required(),
   cardColor: Joi.string().required(),
   dateAndTime: Joi.date().required(),
   alert: Joi.boolean().required(),
   isCompleted: Joi.boolean().required(),
 };
 
-const createTask = {
+export const createTask = {
   body: Joi.object().keys(task),
 };
 
-const allTasks = {
+export const allTasks = {
   body: Joi.object().keys({
-    category: Joi.string().required().custom(objectId),
+    category: Joi.string().hex().length(24).required(),
     dateAndTime: Joi.date(),
     isCompleted: Joi.boolean(),
   }),
 };
 
-const getTask = {
+export const getTask = {
   params: Joi.object().keys({
-    taskId: Joi.string().custom(objectId),
+    taskId: Joi.string().hex().length(24).required(),
   }),
 };
 
-const updateTask = {
+export const updateTask = {
   params: Joi.object().keys({
-    taskId: Joi.required().custom(objectId),
+    taskId: Joi.string().hex().length(24).required(),
   }),
   body: Joi.object().keys(task),
 };
 
-const deleteTask = {
+export const deleteTask = {
   params: Joi.object().keys({
-    taskId: Joi.string().custom(objectId),
+    taskId: Joi.string().hex().length(24).required(),
   }),
 };
 
-const changeTaskStatus = {
+export const changeTaskStatus = {
   params: Joi.object().keys({
-    taskId: Joi.string().custom(objectId),
+    taskId: Joi.string().hex().length(24).required(),
   }),
   body: Joi.object().keys({
     isCompleted: Joi.boolean().required(),
   }),
-};
-
-export default {
-  createTask,
-  allTasks,
-  getTask,
-  updateTask,
-  deleteTask,
-  changeTaskStatus,
 };

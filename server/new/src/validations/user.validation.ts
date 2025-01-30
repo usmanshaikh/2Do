@@ -3,13 +3,13 @@ import { MESSAGES } from '../constants';
 
 export const getUser = {
   params: Joi.object().keys({
-    userId: Joi.string().required(),
+    userId: Joi.string().hex().length(24).required(),
   }),
 };
 
 export const updateUser = {
   params: Joi.object().keys({
-    userId: Joi.string().required(),
+    userId: Joi.string().hex().length(24).required(),
   }),
   body: Joi.object()
     .keys({
@@ -27,6 +27,6 @@ export const updateUser = {
 
 export const deleteUser = {
   params: Joi.object().keys({
-    userId: Joi.string().required(),
+    userId: Joi.string().hex().length(24).required(),
   }),
 };
