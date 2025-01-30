@@ -3,7 +3,7 @@ import auth from '../../middlewares/auth.js';
 import validate from '../../middlewares/validate.js';
 import taskValidation from '../../validations/task.validation.js';
 import taskController from '../../controllers/task.controller.js';
-import { isDocIdExits } from '../../middlewares/isDocIdExits.js';
+import { isEntityExists } from '../../middlewares/isEntityExists.js';
 
 const router = express.Router();
 
@@ -15,13 +15,13 @@ router.route('/all').post(auth(), validate(taskValidation.allTasks), taskControl
 
 router
   .route('/create')
-  .post(auth(), validate(taskValidation.createTask), isDocIdExits({ category: true }), taskController.createTask);
+  .post(auth(), validate(taskValidation.createTask), isEntityExists({ category: true }), taskController.createTask);
 
 // Get, Update, Delete By ID
 router
   .route('/:taskId')
   .get(auth(), validate(taskValidation.getTask), taskController.getTask)
-  .patch(auth(), validate(taskValidation.updateTask), isDocIdExits({ category: true }), taskController.updateTask)
+  .patch(auth(), validate(taskValidation.updateTask), isEntityExists({ category: true }), taskController.updateTask)
   .delete(auth(), validate(taskValidation.deleteTask), taskController.deleteTask);
 
 export default router;

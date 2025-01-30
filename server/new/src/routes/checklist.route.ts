@@ -3,7 +3,7 @@ import auth from '../../middlewares/auth.js';
 import validate from '../../middlewares/validate.js';
 import checklistValidation from '../../validations/checklist.validation.js';
 import checklistController from '../../controllers/checklist.controller.js';
-import { isDocIdExits } from '../../middlewares/isDocIdExits.js';
+import { isEntityExists } from '../../middlewares/isEntityExists.js';
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router
   .post(
     auth(),
     validate(checklistValidation.createChecklist),
-    isDocIdExits({ category: true }),
+    isEntityExists({ category: true }),
     checklistController.createChecklist,
   );
 
@@ -29,7 +29,7 @@ router
   .patch(
     auth(),
     validate(checklistValidation.updateChecklist),
-    isDocIdExits({ category: true }),
+    isEntityExists({ category: true }),
     checklistController.updateChecklist,
   )
   .delete(auth(), validate(checklistValidation.deleteChecklist), checklistController.deleteChecklist);

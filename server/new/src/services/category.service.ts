@@ -142,7 +142,7 @@ export const deleteCategoryById = async (req) => {
 };
 
 /**
- * To check if Category ID exits. This function used in isDocIdExits Middlewares.
+ * To check if Category ID exits. This function used in isEntityExists Middlewares.
  */
 export const isCategoryExits = async (req) => {
   const query = {
@@ -154,7 +154,7 @@ export const isCategoryExits = async (req) => {
 };
 
 /**
- * To check if Category name already exits or not. This function used in isDocIdExits Middlewares.
+ * To check if Category name already exits or not. This function used in isEntityExists Middlewares.
  */
 export const isCategoryNameAlreadyExits = async (req) => {
   const categoryName = req.body.categoryName;

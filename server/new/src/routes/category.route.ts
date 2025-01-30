@@ -3,7 +3,7 @@ import auth from '../../middlewares/auth.js';
 import validate from '../../middlewares/validate.js';
 import categoryValidation from '../../validations/category.validation.js';
 import categoryController from '../../controllers/category.controller.js';
-import { isDocIdExits } from '../../middlewares/isDocIdExits.js';
+import { isEntityExists } from '../../middlewares/isEntityExists.js';
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router
   .post(
     auth(),
     validate(categoryValidation.createCategory),
-    isDocIdExits({ categoryName: true }),
+    isEntityExists({ categoryName: true }),
     categoryController.createCategory,
   );
 // Update, Delete By ID
