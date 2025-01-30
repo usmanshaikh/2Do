@@ -1,8 +1,26 @@
-import mongoose from 'mongoose';
-import { toJSON } from './plugins/index.js';
-import Category from './category.model.js';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import { ICategory } from './category.model';
 
-const checklistSchema = mongoose.Schema(
+interface IChecklistItem {
+  isChecked: boolean;
+  text: string;
+}
+
+export interface IChecklist extends Document {
+  title: string;
+  checklistItems: IChecklistItem[];
+  category: ICategory['_id'];
+  cardColor: string;
+  dateAndTime: Date;
+  alert: boolean;
+  isCompleted: boolean;
+  type: string;
+  createdBy?: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const checklistSchema: Schema<IChecklist> = new Schema(
   {
     title: {
       type: String,
@@ -24,8 +42,8 @@ const checklistSchema = mongoose.Schema(
       },
     ],
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: Category,
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
       required: true,
     },
     cardColor: {
@@ -52,7 +70,7 @@ const checklistSchema = mongoose.Schema(
       default: 'Checklist',
     },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
     },
   },
   {
@@ -60,12 +78,10 @@ const checklistSchema = mongoose.Schema(
   },
 );
 
-checklistSchema.plugin(toJSON);
-
 checklistSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');
 });
 
-const Checklist = mongoose.model('Checklist', checklistSchema);
+const Checklist: Model<IChecklist> = mongoose.model<IChecklist>('Checklist', checklistSchema);
 
 export default Checklist;

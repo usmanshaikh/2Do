@@ -1,8 +1,20 @@
-import mongoose from 'mongoose';
-import { toJSON } from './plugins/index.js';
-import Category from './category.model.js';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import { ICategory } from './category.model';
 
-const taskSchema = mongoose.Schema(
+export interface ITask extends Document {
+  title: string;
+  category: ICategory['_id'];
+  cardColor: string;
+  dateAndTime: Date;
+  alert: boolean;
+  isCompleted: boolean;
+  type: 'Task';
+  createdBy?: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const taskSchema: Schema<ITask> = new Schema(
   {
     title: {
       type: String,
@@ -10,8 +22,8 @@ const taskSchema = mongoose.Schema(
       required: true,
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: Category,
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
       required: true,
     },
     cardColor: {
@@ -38,7 +50,7 @@ const taskSchema = mongoose.Schema(
       default: 'Task',
     },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
     },
   },
   {
@@ -46,12 +58,10 @@ const taskSchema = mongoose.Schema(
   },
 );
 
-taskSchema.plugin(toJSON);
-
 taskSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');
 });
 
-const Task = mongoose.model('Task', taskSchema);
+const Task: Model<ITask> = mongoose.model<ITask>('Task', taskSchema);
 
 export default Task;

@@ -1,7 +1,15 @@
-import mongoose from 'mongoose';
-import { toJSON } from './plugins/index.js';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
-const schedulerSchema = mongoose.Schema(
+export interface IScheduler extends Document {
+  schedulerName: string;
+  schedulerDateAndTime: Date;
+  schedulerType: 'task' | 'checklist';
+  parentRefId: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const schedulerSchema: Schema<IScheduler> = new Schema(
   {
     schedulerName: {
       type: String,
@@ -17,7 +25,7 @@ const schedulerSchema = mongoose.Schema(
       required: true,
     },
     parentRefId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
     },
   },
@@ -26,8 +34,6 @@ const schedulerSchema = mongoose.Schema(
   },
 );
 
-schedulerSchema.plugin(toJSON);
-
-const Scheduler = mongoose.model('Scheduler', schedulerSchema);
+const Scheduler: Model<IScheduler> = mongoose.model<IScheduler>('Scheduler', schedulerSchema);
 
 export default Scheduler;

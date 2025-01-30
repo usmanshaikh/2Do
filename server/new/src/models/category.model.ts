@@ -1,8 +1,16 @@
-import mongoose from 'mongoose';
-import { toJSON } from './plugins/index.js';
-import User from './user.model.js';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import { IUser } from './user.model';
 
-const categorySchema = mongoose.Schema(
+export interface ICategory extends Document {
+  categoryName: string;
+  cardColor: string;
+  createdBy: IUser['_id'];
+  deletable: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const categorySchema: Schema<ICategory> = new Schema(
   {
     categoryName: {
       type: String,
@@ -14,8 +22,8 @@ const categorySchema = mongoose.Schema(
       required: true,
     },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: User,
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     deletable: {
@@ -29,8 +37,6 @@ const categorySchema = mongoose.Schema(
   },
 );
 
-categorySchema.plugin(toJSON);
-
-const Category = mongoose.model('Category', categorySchema);
+const Category: Model<ICategory> = mongoose.model<ICategory>('Category', categorySchema);
 
 export default Category;
