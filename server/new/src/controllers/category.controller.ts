@@ -5,12 +5,8 @@ import { categoryService } from '../services';
 import { sendResponse } from '../helpers';
 import { MESSAGES } from '../constants';
 
-export const createDefaultCategoryAfterRegister = catchAsync(async (user) => {
-  await categoryService.createDefaultCategoryAfterRegister(user);
-});
-
 export const createCategory = catchAsync(async (req: Request, res: Response) => {
-  const category = await categoryService.createCategory(req, req.body);
+  const category = await categoryService.createCategory(req, res, req.body);
   sendResponse({
     res,
     statusCode: StatusCodes.CREATED,
@@ -20,7 +16,7 @@ export const createCategory = catchAsync(async (req: Request, res: Response) => 
 });
 
 export const allCategories = catchAsync(async (req: Request, res: Response) => {
-  const categories = await categoryService.allCategories(req);
+  const categories = await categoryService.allCategories(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -30,7 +26,7 @@ export const allCategories = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const categoryWithTaskAndChecklistCount = catchAsync(async (req: Request, res: Response) => {
-  const category = await categoryService.categoryWithTaskAndChecklistCount(req);
+  const category = await categoryService.categoryWithTaskAndChecklistCount(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -40,7 +36,7 @@ export const categoryWithTaskAndChecklistCount = catchAsync(async (req: Request,
 });
 
 export const updateCategory = catchAsync(async (req: Request, res: Response) => {
-  const category = await categoryService.updateCategoryById(req, req.body);
+  const category = await categoryService.updateCategoryById(req, res, req.body);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -50,7 +46,7 @@ export const updateCategory = catchAsync(async (req: Request, res: Response) => 
 });
 
 export const deleteCategory = catchAsync(async (req: Request, res: Response) => {
-  await categoryService.deleteCategoryById(req);
+  await categoryService.deleteCategoryById(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.NO_CONTENT,

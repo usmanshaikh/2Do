@@ -1,26 +1,22 @@
 import express from 'express';
-import auth from '../../middlewares/auth.js';
-import validate from '../../middlewares/validate.js';
-import categoryValidation from '../../validations/category.validation.js';
-import categoryController from '../../controllers/category.controller.js';
-import { isEntityExists } from '../../middlewares/isEntityExists.js';
+import { authenticateJWT, isEntityExists, validate } from '../middlewares';
+import { categoryController } from '../controllers';
+import { categoryValidation } from '../validations';
 
 const router = express.Router();
 
-router.route('/all').get(auth(), validate(categoryValidation.allCategories), categoryController.allCategories);
-router.route('/with-task-and-checklist-count').get(auth(), categoryController.categoryWithTaskAndChecklistCount);
-router
-  .route('/create')
-  .post(
-    auth(),
-    validate(categoryValidation.createCategory),
-    isEntityExists({ categoryName: true }),
-    categoryController.createCategory,
-  );
-// Update, Delete By ID
+router.get('/all', authenticateJWT, validate(categoryValidation.allCategories), categoryController.allCategories);
+router.get('/with-task-and-checklist-count', authenticateJWT, categoryController.categoryWithTaskAndChecklistCount);
+router.post(
+  '/create',
+  authenticateJWT,
+  validate(categoryValidation.createCategory),
+  isEntityExists({ categoryName: true }),
+  categoryController.createCategory,
+);
 router
   .route('/:categoryId')
-  .patch(auth(), validate(categoryValidation.updateCategory), categoryController.updateCategory)
-  .delete(auth(), validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
+  .patch(authenticateJWT, validate(categoryValidation.updateCategory), categoryController.updateCategory)
+  .delete(authenticateJWT, validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
 
 export default router;
