@@ -1,28 +1,11 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
 import { removeFieldsPlugin } from './plugins';
 import { MESSAGES } from '../constants';
+import { userInterface } from '../interfaces';
 
-export interface IUser extends Document {
-  email: string;
-  password: string;
-  name: string;
-  isEmailVerified: boolean;
-  image: { data: Buffer; contentType: String; name: String };
-  passwordChangedAt?: Date;
-  lastLogin?: Date;
-  failedLoginAttempts: number;
-  createdAt: Date;
-  updatedAt: Date;
-  comparePassword: (candidatePassword: string) => Promise<boolean>;
-  resetPasswordToken?: string;
-  resetPasswordExpires?: Date;
-  verifyEmailToken?: string;
-  verifyEmailExpires?: Date;
-}
-
-const userSchema: Schema<IUser> = new Schema(
+const userSchema: Schema<userInterface.IUser> = new Schema(
   {
     email: {
       type: String,
@@ -100,7 +83,7 @@ const userSchema: Schema<IUser> = new Schema(
 userSchema.plugin(removeFieldsPlugin, ['__v', 'password', 'createdAt', 'updatedAt', 'passwordChangedAt']);
 
 // Middleware to hash the password before saving
-userSchema.pre<IUser>('save', async function (next) {
+userSchema.pre<userInterface.IUser>('save', async function (next) {
   if (this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -123,6 +106,6 @@ userSchema.methods.hasPasswordChangedAfter = function (JWTTimestamp: number): bo
   return false;
 };
 
-const User: Model<IUser> = mongoose.model<IUser>('User', userSchema);
+const User: Model<userInterface.IUser> = mongoose.model<userInterface.IUser>('User', userSchema);
 
 export default User;
