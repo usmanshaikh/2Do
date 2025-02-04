@@ -1,20 +1,7 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
-import { ICategory } from './category.model';
+import mongoose, { Model, Schema } from 'mongoose';
+import { taskInterface } from '../interfaces';
 
-export interface ITask extends Document {
-  title: string;
-  category: ICategory['_id'];
-  cardColor: string;
-  dateAndTime: Date;
-  alert: boolean;
-  isCompleted: boolean;
-  type: 'Task';
-  createdBy?: mongoose.Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const taskSchema: Schema<ITask> = new Schema(
+const taskSchema: Schema<taskInterface.ITask> = new Schema(
   {
     title: {
       type: String,
@@ -62,6 +49,6 @@ taskSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');
 });
 
-const Task: Model<ITask> = mongoose.model<ITask>('Task', taskSchema);
+const Task: Model<taskInterface.ITask> = mongoose.model<taskInterface.ITask>('Task', taskSchema);
 
 export default Task;

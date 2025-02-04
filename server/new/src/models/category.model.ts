@@ -1,16 +1,7 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IUser } from './user.model';
+import mongoose, { Model, Schema } from 'mongoose';
+import { categoryInterface } from '../interfaces';
 
-export interface ICategory extends Document {
-  categoryName: string;
-  cardColor: string;
-  createdBy: IUser['_id'];
-  deletable: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const categorySchema: Schema<ICategory> = new Schema(
+const categorySchema: Schema<categoryInterface.ICategory> = new Schema(
   {
     categoryName: {
       type: String,
@@ -37,6 +28,6 @@ const categorySchema: Schema<ICategory> = new Schema(
   },
 );
 
-const Category: Model<ICategory> = mongoose.model<ICategory>('Category', categorySchema);
+const Category: Model<categoryInterface.ICategory> = mongoose.model<categoryInterface.ICategory>('Category', categorySchema);
 
 export default Category;

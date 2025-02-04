@@ -1,15 +1,7 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
+import { schedulerInterface } from '../interfaces';
 
-export interface IScheduler extends Document {
-  schedulerName: string;
-  schedulerDateAndTime: Date;
-  schedulerType: 'task' | 'checklist';
-  parentRefId: mongoose.Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const schedulerSchema: Schema<IScheduler> = new Schema(
+const schedulerSchema: Schema<schedulerInterface.IScheduler> = new Schema(
   {
     schedulerName: {
       type: String,
@@ -34,6 +26,9 @@ const schedulerSchema: Schema<IScheduler> = new Schema(
   },
 );
 
-const Scheduler: Model<IScheduler> = mongoose.model<IScheduler>('Scheduler', schedulerSchema);
+const Scheduler: Model<schedulerInterface.IScheduler> = mongoose.model<schedulerInterface.IScheduler>(
+  'Scheduler',
+  schedulerSchema,
+);
 
 export default Scheduler;
