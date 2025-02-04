@@ -1,10 +1,11 @@
 import moment from 'moment';
 import path from 'path';
+import { Request, Response } from 'express';
 import hbs from 'nodemailer-express-handlebars';
 import nodemailer from 'nodemailer';
-import config from '../config/config.js';
-import logger from '../config/logger.js';
-import { __dirname } from '../utils/pathUtils.js';
+import config from '../config/config';
+import logger from '../config/logger';
+import { checklistInterface, taskInterface, userInterface } from '../interfaces';
 
 // Current Directory
 const dirPath = path.join(__dirname, '..');
@@ -31,63 +32,48 @@ const hbsOptions = {
 };
 transport.use('compile', hbs(hbsOptions));
 
-/**
- * Send an email
- * @param {string} to
- * @param {string} subject
- * @param {string} text
- * @returns {Promise}
- */
-export const sendEmail = async (to, subject, template, context) => {
-  const msg = { from: config.email.from, to, subject, template, context };
+export const sendEmail = async (
+  email: string,
+  subject: string,
+  template: string,
+  context: Record<string, any>,
+): Promise<void> => {
+  const msg = { from: config.email.from, to: email, subject, template, context };
   await transport.sendMail(msg);
-  logger.info(`${subject} => Email Send`);
+  logger.info(`${subject} => Email Sent`);
 };
 
-/**
- * Send reset password email
- * @param {string} to
- * @param {string} token
- * @returns {Promise}
- */
-export const sendResetPasswordEmail = async (to, token, req) => {
-  const subject = 'Reset password';
-  const resetPasswordUrl = `${config.origin_url}/reset-password?token=${token}`;
+export const sendResetPasswordEmail = async (email: string, token: string, req: Request): Promise<void> => {
+  const subject = 'Reset Your Password';
+  // const resetPasswordUrl = `${config.origin_url}/reset-password?token=${token}`;
+  const resetPasswordUrl = `${req.protocol}://${req.get('host')}/reset-password?token=${token}`;
   const templateToUse = 'resetPasswordTemplate';
   const templateContent = {
-    templateTitle: 'Reset Password',
+    templateTitle: 'Reset Your Password',
     resetPasswordUrl,
   };
-  await sendEmail(to, subject, templateToUse, templateContent);
+  await sendEmail(email, subject, templateToUse, templateContent);
 };
 
-/**
- * Send verification email
- * @param {string} to
- * @param {string} token
- * @returns {Promise}
- */
-export const sendVerificationEmail = async (to, token, req) => {
-  const subject = 'Email Verification';
-  const verificationEmailUrl = `${config.origin_url}/verify-email?token=${token}`;
+export const sendVerificationEmail = async (email: string, token: string, req: Request): Promise<void> => {
+  const subject = 'Verify Your Email';
+  // const verificationEmailUrl = `${config.origin_url}/verify-email?token=${token}`;
+  const verifyEmailUrl = `${req.protocol}://${req.get('host')}/verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
   const templateContent = {
-    templateTitle: 'Email Verification',
-    verificationEmailUrl,
+    templateTitle: 'Verify Your Email',
+    verifyEmailUrl,
   };
-  await sendEmail(to, subject, templateToUse, templateContent);
+  await sendEmail(email, subject, templateToUse, templateContent);
 };
 
-/**
- * Send reminder email
- * @param {object} eventInfo
- * @param {object} user
- * @returns {Promise}
- */
-export const sendEventReminderEmail = async (eventInfo, eventType, user) => {
-  let { title, dateAndTime } = eventInfo;
-  dateAndTime = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
-  // dateAndTime = moment(dateAndTime).utcOffset('+05:30').format('dddd, MMMM Do YYYY, hh:mm a');
+export const sendEventReminderEmail = async (
+  eventInfo: taskInterface.ITask | checklistInterface.IChecklist,
+  eventType: 'task' | 'checklist',
+  user: userInterface.IUser,
+) => {
+  const { title, dateAndTime } = eventInfo;
+  const formattedDate = moment(dateAndTime).format('dddd, MMMM Do YYYY, hh:mm a');
   const to = user.email;
   const subject = 'Event Reminder';
   const eventLink = `${config.origin_url}/${eventType}/add-edit-${eventType}?${eventType}Id=${eventInfo._id}&edit=true`;
@@ -96,7 +82,7 @@ export const sendEventReminderEmail = async (eventInfo, eventType, user) => {
     templateTitle: 'Event Reminder',
     eventLink,
     eventMsg: title,
-    eventDateTime: dateAndTime,
+    eventDateTime: formattedDate,
   };
   await sendEmail(to, subject, templateToUse, templateContent);
 };
