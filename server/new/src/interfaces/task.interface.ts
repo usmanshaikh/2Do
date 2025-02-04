@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-export interface ITask {
+export interface ITask extends Document {
+  _id: mongoose.Types.ObjectId;
   title: string;
   category: mongoose.Types.ObjectId;
   cardColor: string;

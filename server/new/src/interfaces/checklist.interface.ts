@@ -5,7 +5,7 @@ export interface IChecklistItem {
   text: string;
 }
 
-export interface IChecklist {
+export interface IChecklist extends Document {
   _id: mongoose.Types.ObjectId;
   title: string;
   checklistItems: IChecklistItem[];
