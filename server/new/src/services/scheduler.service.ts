@@ -1,22 +1,18 @@
-import httpStatus from 'http-status';
+import mongoose from 'mongoose';
+import { StatusCodes } from 'http-status-codes';
 import schedule from 'node-schedule';
-import logger from '../config/logger.js';
-import ApiError from '../utils/ApiError.js';
-import catchAsync from '../utils/catchAsync.js';
-import { Scheduler } from '../models/index.js';
-import { tokenService, taskService, userService, checklistService, emailService } from './index.js';
+import logger from '../config/logger';
+import { Scheduler } from '../models';
+import { taskService, userService, checklistService, emailService } from './index';
+import { ApiError } from '../helpers';
+import { taskInterface, checklistInterface, schedulerInterface } from '../interfaces';
 
 const EVERY_SECONDS = '* * * * * *';
 const EVERY_MINUTES = '* * * * *';
 const EVERY_MIDNIGHT = '0 0 * * *';
 
-/**
- * Create a Scheduler
- * @param {object} body
- * @param {('task'|'checklist')} schedulerType
- */
-export const createScheduler = async (body, schedulerType) => {
-  const { _id, dateAndTime } = body;
+export const createScheduler = async (schedulerData: any, schedulerType: 'task' | 'checklist') => {
+  const { _id, dateAndTime } = schedulerData;
   const SchedulerObj = {
     schedulerName: `scheduler_${_id}`,
     schedulerDateAndTime: dateAndTime,
@@ -28,13 +24,11 @@ export const createScheduler = async (body, schedulerType) => {
   return scheduler;
 };
 
-/**
- * Update Scheduler By ID
- * @param {object} body
- * @param {('task'|'checklist')} schedulerType
- */
-export const updateScheduler = async (body, schedulerType) => {
-  const { _id, dateAndTime } = body;
+export const updateScheduler = async (
+  schedulerData: taskInterface.ITask | checklistInterface.IChecklist,
+  schedulerType: 'task' | 'checklist',
+) => {
+  const { _id, dateAndTime } = schedulerData;
   const query = { parentRefId: _id };
   const updateBody = {
     schedulerDateAndTime: dateAndTime,
@@ -47,43 +41,53 @@ export const updateScheduler = async (body, schedulerType) => {
   );
 
   const today = new Date();
-  if (!scheduler && body.alert) {
-    if (body.dateAndTime.getTime() > today.getTime()) {
-      createScheduler(body, schedulerType);
+  if (!scheduler && schedulerData.alert) {
+    if (schedulerData.dateAndTime.getTime() > today.getTime()) {
+      createScheduler(schedulerData, schedulerType);
       return;
     }
     return;
   }
 
-  // Cancel the old scheduledJobs and then Initialize new if alert true
-  cancelSchedulerById(scheduler.parentRefId);
-  body.alert && addNewSchedulerAndInitialize(scheduler);
+  if (scheduler) {
+    // Cancel the old scheduledJobs and then Initialize new if alert true
+    cancelSchedulerById(scheduler.parentRefId);
+    schedulerData.alert && addNewSchedulerAndInitialize(scheduler);
+  }
 };
 
 /**
  *  Add new scheduler to scheduleJobs list and initialize
  */
-export const addNewSchedulerAndInitialize = catchAsync(async (body) => {
-  const { schedulerName, schedulerDateAndTime, schedulerType, parentRefId } = body;
-  export schedule.scheduleJob(schedulerName, schedulerDateAndTime, async () => {
+export const addNewSchedulerAndInitialize = (schedulerData: schedulerInterface.IScheduler) => {
+  const { schedulerName, schedulerDateAndTime, schedulerType, parentRefId } = schedulerData;
+  schedule.scheduleJob(schedulerName, schedulerDateAndTime, async () => {
     if (schedulerType === 'task') {
       const task = await taskService.getTaskByIdOnly(parentRefId);
-      const user = await userService.getUserById(task.createdBy);
-      emailService.sendEventReminderEmail(task, schedulerType, user);
+      if (task.createdBy) {
+        const user = await userService.getUserById(task.createdBy);
+        if (user) {
+          emailService.sendEventReminderEmail(task, schedulerType, user);
+        }
+      }
     } else if (schedulerType === 'checklist') {
       const checklist = await checklistService.getChecklistByIdOnly(parentRefId);
-      const user = await userService.getUserById(checklist.createdBy);
-      emailService.sendEventReminderEmail(checklist, schedulerType, user);
+      if (checklist.createdBy) {
+        const user = await userService.getUserById(checklist.createdBy);
+        if (user) {
+          emailService.sendEventReminderEmail(checklist, schedulerType, user);
+        }
+      }
     }
   });
-});
+};
 
 /**
  * If Server Stop/Restart then all old Schedulers that is initialize gets destroy. So once Server start then stop all the Schedulers and Initialize new Schedulers again.
  */
 export const runSchedulers = async () => {
   const schedulers = await Scheduler.find();
-  export schedulers.map((doc) => {
+  schedulers.map((doc) => {
     const today = new Date();
     const schedulerDT = new Date(doc.schedulerDateAndTime);
     if (schedulerDT.getTime() > today.getTime()) {
@@ -95,10 +99,10 @@ export const runSchedulers = async () => {
 /**
  * Delete Scheduler by ID
  */
-export const deleteSchedulerById = async (parentRefId) => {
+export const deleteSchedulerById = async (parentRefId: mongoose.Types.ObjectId | string) => {
   const scheduler = await Scheduler.findOneAndDelete({ parentRefId });
   if (!scheduler) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Scheduler not found');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Scheduler not found');
   }
   cancelSchedulerById(parentRefId);
 };
@@ -106,7 +110,7 @@ export const deleteSchedulerById = async (parentRefId) => {
 /**
  * Cancel Scheduler by ID
  */
-export const cancelSchedulerById = async (id) => {
+export const cancelSchedulerById = async (id: mongoose.Types.ObjectId | string) => {
   const schedulerName = `scheduler_${id}`;
   const job = schedule.scheduledJobs[schedulerName];
   job && job.cancel();
@@ -128,25 +132,10 @@ export const deleteAllSchedulers = async () => {
   return schedulers;
 };
 
-export const deleteExpiredTokensJob = () => {
-  schedule.scheduleJob(EVERY_MIDNIGHT, tokenService.deleteExpiredTokens);
-};
-
 /**
- * Once DB is connectd then 'runSchedulers() & deleteExpiredTokensJob() gets initialize'.
+ * Once DB is connectd then 'runSchedulers() gets initialize'.
  */
 export const initializeSchedulersJob = () => {
   runSchedulers();
-  deleteExpiredTokensJob();
   logger.info(`Initialized Schedulers Job`);
-};
-
-export default {
-  createScheduler,
-  updateScheduler,
-  deleteSchedulerById,
-  runSchedulers,
-  getAllSchedulers,
-  deleteAllSchedulers,
-  initializeSchedulersJob,
 };
