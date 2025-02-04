@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from 'mongoose';
-import { checklistInterfaces } from '../interfaces';
+import { checklistInterface } from '../interfaces';
 
-const checklistSchema: Schema<checklistInterfaces.IChecklist> = new Schema(
+const checklistSchema: Schema<checklistInterface.IChecklist> = new Schema(
   {
     title: {
       type: String,
@@ -63,7 +63,7 @@ checklistSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');
 });
 
-const Checklist: Model<checklistInterfaces.IChecklist> = mongoose.model<checklistInterfaces.IChecklist>(
+const Checklist: Model<checklistInterface.IChecklist> = mongoose.model<checklistInterface.IChecklist>(
   'Checklist',
   checklistSchema,
 );

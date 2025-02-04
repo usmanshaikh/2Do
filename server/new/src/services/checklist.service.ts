@@ -3,12 +3,12 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { Checklist } from '../models';
 import { ApiError } from '../helpers';
-import { checklistInterfaces } from '../interfaces';
+import { checklistInterface } from '../interfaces';
 
 /**
  * Create a Checklist
  */
-export const createChecklist = async (req: Request, res: Response, checklistData: checklistInterfaces.IChecklistBody) => {
+export const createChecklist = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
   checklistData.createdBy = res.locals.user._id;
   let checklist = await Checklist.create(checklistData);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }];
@@ -34,11 +34,7 @@ export const getChecklistById = async (req: Request, res: Response) => {
 /**
  * Update Checklist by ID
  */
-export const updateChecklistById = async (
-  req: Request,
-  res: Response,
-  checklistData: checklistInterfaces.IChecklistBody,
-) => {
+export const updateChecklistById = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
   const query = {
     _id: req.params.checklistId,
     createdBy: res.locals.user._id,

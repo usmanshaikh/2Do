@@ -1,3 +1,3 @@
-import * as checklistInterfaces from './checklist.interfaces';
+import * as checklistInterface from './checklist.interface';
 
-export { checklistInterfaces };
+export { checklistInterface };
