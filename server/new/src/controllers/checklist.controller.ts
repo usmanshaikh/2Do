@@ -6,7 +6,7 @@ import { sendResponse } from '../helpers';
 import { MESSAGES } from '../constants';
 
 export const createChecklist = catchAsync(async (req: Request, res: Response) => {
-  const checklist = await checklistService.createChecklist(req, req.body);
+  const checklist = await checklistService.createChecklist(req, res, req.body);
   const today = new Date();
   if (checklist.alert && checklist.dateAndTime.getTime() > today.getTime()) {
     await schedulerService.createScheduler(checklist, 'checklist');
@@ -20,7 +20,7 @@ export const createChecklist = catchAsync(async (req: Request, res: Response) =>
 });
 
 export const getChecklist = catchAsync(async (req: Request, res: Response) => {
-  const checklist = await checklistService.getChecklistById(req);
+  const checklist = await checklistService.getChecklistById(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -30,7 +30,7 @@ export const getChecklist = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const updateChecklist = catchAsync(async (req: Request, res: Response) => {
-  const checklist = await checklistService.updateChecklistById(req, req.body);
+  const checklist = await checklistService.updateChecklistById(req, res, req.body);
   await schedulerService.updateScheduler(checklist, 'checklist');
   sendResponse({
     res,
@@ -41,7 +41,7 @@ export const updateChecklist = catchAsync(async (req: Request, res: Response) =>
 });
 
 export const deleteChecklist = catchAsync(async (req: Request, res: Response) => {
-  await checklistService.deleteChecklistById(req);
+  await checklistService.deleteChecklistById(req, res);
   await schedulerService.deleteSchedulerById(req.params.checklistId);
   sendResponse({
     res,
@@ -51,7 +51,7 @@ export const deleteChecklist = catchAsync(async (req: Request, res: Response) =>
 });
 
 export const changeChecklistStatus = catchAsync(async (req: Request, res: Response) => {
-  const checklist = await checklistService.changeChecklistStatus(req, req.body);
+  const checklist = await checklistService.changeChecklistStatus(req, res, req.body);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -61,7 +61,7 @@ export const changeChecklistStatus = catchAsync(async (req: Request, res: Respon
 });
 
 export const allChecklists = catchAsync(async (req: Request, res: Response) => {
-  const checklist = await checklistService.allChecklists(req);
+  const checklist = await checklistService.allChecklists(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
