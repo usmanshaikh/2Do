@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { authService, emailService, userService } from '../services';
+import { authService, categoryService, emailService, userService } from '../services';
 import { catchAsync } from '../middlewares';
 import { sendResponse, jwtHelper } from '../helpers';
 import { MESSAGES } from '../constants';
 
 export const register = catchAsync(async (req: Request, res: Response) => {
   const user = await userService.createUser(req.body);
+  await categoryService.createDefaultCategoryAfterRegister(user._id as string);
   sendResponse({
     res,
     statusCode: StatusCodes.CREATED,
@@ -59,7 +60,15 @@ export const forgotPassword = catchAsync(async (req: Request, res: Response) => 
 });
 
 export const resetPassword = catchAsync(async (req: Request, res: Response) => {
-  await authService.resetPassword(req.query.token, req.body.password);
+  const token = req.query.token;
+  if (typeof token !== 'string') {
+    return sendResponse({
+      res,
+      statusCode: StatusCodes.BAD_REQUEST,
+      message: MESSAGES.INVALID_TOKEN,
+    });
+  }
+  await authService.resetPassword(token, req.body.password);
   sendResponse({
     res,
     statusCode: StatusCodes.NO_CONTENT,
@@ -78,8 +87,16 @@ export const sendVerificationEmail = catchAsync(async (req: Request, res: Respon
 });
 
 export const verifyEmail = catchAsync(async (req: Request, res: Response) => {
-  await authService.verifyEmail(req.query.token);
-  sendResponse({
+  const token = req.query.token;
+  if (typeof token !== 'string') {
+    return sendResponse({
+      res,
+      statusCode: StatusCodes.BAD_REQUEST,
+      message: MESSAGES.INVALID_TOKEN,
+    });
+  }
+  await authService.verifyEmail(token);
+  return sendResponse({
     res,
     statusCode: StatusCodes.NO_CONTENT,
     message: MESSAGES.EMAIL_VERIFIED_SUCCESS,
