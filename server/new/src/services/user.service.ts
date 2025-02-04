@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { User } from '../models';
@@ -14,7 +15,7 @@ export const createUser = async (userData: { email: string; password: string; na
   return newUser;
 };
 
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: mongoose.Types.ObjectId | string) => {
   const user = User.findById(id);
   if (!user) {
     throw new ApiError(StatusCodes.NOT_FOUND, MESSAGES.USER_NOT_FOUND);

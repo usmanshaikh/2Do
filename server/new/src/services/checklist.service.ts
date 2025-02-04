@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import moment from 'moment';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
@@ -105,7 +106,7 @@ export const allChecklists = async (req: Request, res: Response) => {
 /**
  * Get Checklist by ID only
  */
-export const getChecklistByIdOnly = async (_id: string) => {
+export const getChecklistByIdOnly = async (_id: mongoose.Types.ObjectId | string) => {
   const checklist = await Checklist.findById(_id);
   if (!checklist) {
     throw new ApiError(StatusCodes.NOT_FOUND, 'Checklist not found');

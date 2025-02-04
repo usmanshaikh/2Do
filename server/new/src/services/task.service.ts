@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import moment from 'moment';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
@@ -91,7 +92,7 @@ export const allTasks = async (req: Request, res: Response) => {
   return tasks;
 };
 
-export const getTaskByIdOnly = async (_id: string) => {
+export const getTaskByIdOnly = async (_id: mongoose.Types.ObjectId | string) => {
   const task = await Task.findById(_id);
   if (!task) {
     throw new ApiError(StatusCodes.NOT_FOUND, 'Task not found');
