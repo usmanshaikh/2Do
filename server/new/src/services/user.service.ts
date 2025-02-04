@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { User } from '../models';
 import { ApiError } from '../helpers';
@@ -54,45 +55,7 @@ export const deleteUserById = async (id: string) => {
   return user;
 };
 
-/**
- * Update user by id
- * @param {ObjectId} userId
- * @param {Object} updateBody
- * @returns {Promise<User>}
- */
-export const updateUserPassword = async (userId, updateBody) => {
-  const user = await getUserById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-  }
-  Object.assign(user, updateBody);
-  await user.save();
-  return user;
-};
-
-/**
- * Update user by id
- * @param {ObjectId} userId
- * @param {Object} updateBody
- * @returns {Promise<User>}
- */
-export const verifyUserEmail = async (userId, updateBody) => {
-  const user = await getUserById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-  }
-  if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  }
-  Object.assign(user, updateBody);
-  await user.save();
-  return user;
-};
-
-/**
- * Statistic Report
- */
-export const statisticReport = async (req) => {
+export const statisticReport = async (req: Request, res: Response) => {
   let aggregateData = await User.aggregate([
     {
       $match: {
@@ -223,11 +186,11 @@ export const statisticReport = async (req) => {
     },
   ]);
   const allLabels = ['created', 'completed', 'pending'];
-  const taskLabels = [];
-  const checklistLabels = [];
+  const taskLabels: any[] = [];
+  const checklistLabels: any[] = [];
 
-  aggregateData[0].taskStatistic.map((item) => taskLabels.push(item.label));
-  aggregateData[0].checklistStatistic.map((item) => checklistLabels.push(item.label));
+  aggregateData[0].taskStatistic.map((item: any) => taskLabels.push(item.label));
+  aggregateData[0].checklistStatistic.map((item: any) => checklistLabels.push(item.label));
 
   let tl = allLabels.filter((obj) => taskLabels.indexOf(obj) == -1);
   let cl = allLabels.filter((obj) => checklistLabels.indexOf(obj) == -1);
@@ -241,7 +204,7 @@ export const statisticReport = async (req) => {
 /**
  * Task & Checklist Completed Percentage
  */
-export const completedPercentage = async (req) => {
+export const completedPercentage = async (req: Request, res: Response) => {
   let aggregateData = await User.aggregate([
     {
       $match: {
