@@ -1,83 +1,70 @@
-import httpStatus from 'http-status';
 import moment from 'moment';
-import { Task } from '../models/index.js';
-import ApiError from '../utils/ApiError.js';
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { Task } from '../models';
+import { ApiError } from '../helpers';
+import { taskInterface } from '../interfaces';
 
-/**
- * Create a Task
- */
-export const createTask = async (req, taskBody) => {
-  taskBody.createdBy = res.locals.user._id;
-  let task = await Task.create(taskBody);
+export const createTask = async (req: Request, res: Response, taskData: taskInterface.ITaskBody) => {
+  taskData.createdBy = res.locals.user._id;
+  let task = await Task.create(taskData);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }];
   task = await task.populate(populateQuery);
   return task;
 };
 
-/**
- * Get Task by ID
- */
-export const getTaskById = async (req) => {
+export const getTaskById = async (req: Request, res: Response) => {
   const query = {
     _id: req.params.taskId,
     createdBy: res.locals.user._id,
   };
   const tasks = await Task.findOne(query);
   if (!tasks) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Task not found');
   }
   return tasks;
 };
 
-/**
- * Update Task by ID
- */
-export const updateTaskById = async (req, updateBody) => {
+export const updateTaskById = async (req: Request, res: Response, taskData: taskInterface.ITaskBody) => {
   const query = {
     _id: req.params.taskId,
     createdBy: res.locals.user._id,
   };
   const task = await Task.findOneAndUpdate(
     query,
-    { $set: updateBody },
+    { $set: taskData },
     { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!task) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Task not found');
   }
   return task;
 };
 
-/**
- * Delete Task by ID
- */
-export const deleteTaskById = async (req) => {
+export const deleteTaskById = async (req: Request, res: Response) => {
   const query = {
     _id: req.params.taskId,
     createdBy: res.locals.user._id,
   };
   const task = await Task.findOneAndDelete(query);
   if (!task) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Task not found');
   }
   return task;
 };
 
-/**
- * Change Task status by ID
- */
-export const changeTaskStatus = async (req, updateBody) => {
+export const changeTaskStatus = async (req: Request, res: Response, updateData: { isCompleted: boolean }) => {
   const query = {
     _id: req.params.taskId,
     createdBy: res.locals.user._id,
   };
   const task = await Task.findOneAndUpdate(
     query,
-    { $set: updateBody },
+    { $set: updateData },
     { runValidators: true, new: true, useFindAndModify: false },
   );
   if (!task) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Task not found');
   }
   return task;
 };
@@ -85,7 +72,7 @@ export const changeTaskStatus = async (req, updateBody) => {
 /**
  * Get all Task with filter query (category, isCompleted, dateAndTime)
  */
-export const allTasks = async (req) => {
+export const allTasks = async (req: Request, res: Response) => {
   const query = req.body;
   if (query.dateAndTime) {
     const dt = query.dateAndTime;
@@ -99,28 +86,15 @@ export const allTasks = async (req) => {
   query.createdBy = res.locals.user._id;
   const tasks = await Task.find(query);
   if (!tasks) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Sorry, something went wrong. Please try again.');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Sorry, something went wrong. Please try again.');
   }
   return tasks;
 };
 
-/**
- * Get Task by ID only
- */
-export const getTaskByIdOnly = async (taskId) => {
-  const task = await Task.findById(taskId);
+export const getTaskByIdOnly = async (_id: string) => {
+  const task = await Task.findById(_id);
   if (!task) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Task not found');
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Task not found');
   }
   return task;
-};
-
-export default {
-  createTask,
-  getTaskById,
-  updateTaskById,
-  deleteTaskById,
-  changeTaskStatus,
-  allTasks,
-  getTaskByIdOnly,
 };

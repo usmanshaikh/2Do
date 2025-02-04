@@ -6,7 +6,7 @@ import { sendResponse } from '../helpers';
 import { MESSAGES } from '../constants';
 
 export const createTask = catchAsync(async (req: Request, res: Response) => {
-  const task = await taskService.createTask(req, req.body);
+  const task = await taskService.createTask(req, res, req.body);
   const today = new Date();
   if (task.alert && task.dateAndTime.getTime() > today.getTime()) {
     await schedulerService.createScheduler(task, 'task');
@@ -20,7 +20,7 @@ export const createTask = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getTask = catchAsync(async (req: Request, res: Response) => {
-  const task = await taskService.getTaskById(req);
+  const task = await taskService.getTaskById(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -30,7 +30,7 @@ export const getTask = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const updateTask = catchAsync(async (req: Request, res: Response) => {
-  const task = await taskService.updateTaskById(req, req.body);
+  const task = await taskService.updateTaskById(req, res, req.body);
   await schedulerService.updateScheduler(task, 'task');
   sendResponse({
     res,
@@ -41,7 +41,7 @@ export const updateTask = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const deleteTask = catchAsync(async (req: Request, res: Response) => {
-  await taskService.deleteTaskById(req);
+  await taskService.deleteTaskById(req, res);
   await schedulerService.deleteSchedulerById(req.params.taskId);
   sendResponse({
     res,
@@ -51,7 +51,7 @@ export const deleteTask = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const changeTaskStatus = catchAsync(async (req: Request, res: Response) => {
-  const task = await taskService.changeTaskStatus(req, req.body);
+  const task = await taskService.changeTaskStatus(req, res, req.body);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -61,7 +61,7 @@ export const changeTaskStatus = catchAsync(async (req: Request, res: Response) =
 });
 
 export const allTasks = catchAsync(async (req: Request, res: Response) => {
-  const tasks = await taskService.allTasks(req);
+  const tasks = await taskService.allTasks(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,

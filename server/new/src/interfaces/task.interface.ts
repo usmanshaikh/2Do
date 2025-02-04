@@ -12,3 +12,5 @@ export interface ITask {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type ITaskBody = Omit<ITask, 'type' | 'createdAt' | 'updatedAt'>;
