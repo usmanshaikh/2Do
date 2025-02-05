@@ -28,7 +28,7 @@ export const updateUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const statisticReport = catchAsync(async (req: Request, res: Response) => {
-  const user = await userService.statisticReport(req);
+  const user = await userService.statisticReport(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -38,7 +38,7 @@ export const statisticReport = catchAsync(async (req: Request, res: Response) =>
 });
 
 export const completedPercentage = catchAsync(async (req: Request, res: Response) => {
-  const user = await userService.completedPercentage(req);
+  const user = await userService.completedPercentage(req, res);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,

@@ -7,7 +7,7 @@ import { MESSAGES } from '../constants';
 
 export const register = catchAsync(async (req: Request, res: Response) => {
   const user = await userService.createUser(req.body);
-  await categoryService.createDefaultCategoryAfterRegister(user._id as string);
+  await categoryService.createDefaultCategoryAfterRegister(user._id);
   sendResponse({
     res,
     statusCode: StatusCodes.CREATED,

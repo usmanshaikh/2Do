@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { Category, Task, Checklist } from '../models';
@@ -6,7 +7,7 @@ import { ApiError } from '../helpers';
 /**
  * Create default Category after register
  */
-export const createDefaultCategoryAfterRegister = async (_id: string) => {
+export const createDefaultCategoryAfterRegister = async (_id: mongoose.Types.ObjectId | string) => {
   const categoryBody = {
     categoryName: 'Personal',
     cardColor: '#f96060',

@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
 import { catchAsync } from '../middlewares';
-import { checklistService, schedulerService } from '../services/index.js';
+import { checklistService, schedulerService } from '../services';
 import { sendResponse } from '../helpers';
 import { MESSAGES } from '../constants';
 
