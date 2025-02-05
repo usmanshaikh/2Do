@@ -49,51 +49,103 @@ export const allCategories = async (req: Request, res: Response) => {
  * Get Category with task & checklist counts
  */
 export const categoryWithTaskAndChecklistCount = async (req: Request, res: Response) => {
-  let groupData = await Category.aggregate([
+  const userId = res.locals.user.userId;
+
+  // Fetch only categories created by the logged-in user
+  const categories = await Category.find({ createdBy: userId });
+  const categoryIds = categories.map((category) => category._id);
+
+  const taskCounts = await Task.aggregate([
     {
       $match: {
-        createdBy: res.locals.user.userId,
+        category: { $in: categoryIds },
+        // createdBy: mongoose.Types.ObjectId.createFromHexString(userId),
       },
     },
     {
-      $lookup: {
-        from: 'tasks',
-        localField: '_id',
-        foreignField: 'category',
-        as: 'taskData',
-      },
-    },
-    {
-      $lookup: {
-        from: 'checklists',
-        localField: '_id',
-        foreignField: 'category',
-        as: 'checklistData',
-      },
-    },
-    {
-      $group: {
-        _id: '$_id',
-        categoryName: { $first: '$categoryName' },
-        cardColor: { $first: '$cardColor' },
-        deletable: { $first: { $ifNull: ['$deletable', false] } },
-        taskData: { $first: '$taskData' },
-        checklistData: { $first: '$checklistData' },
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        id: '$_id',
-        categoryName: 1,
-        cardColor: 1,
-        deletable: 1,
-        taskCount: { $cond: { if: { $isArray: '$taskData' }, then: { $size: '$taskData' }, else: 'NA' } },
-        checklistCount: { $cond: { if: { $isArray: '$checklistData' }, then: { $size: '$checklistData' }, else: 'NA' } },
-      },
+      $group: { _id: '$category', count: { $sum: 1 } },
     },
   ]);
-  return groupData;
+
+  const checklistCounts = await Checklist.aggregate([
+    {
+      $match: {
+        category: { $in: categoryIds },
+        // createdBy: mongoose.Types.ObjectId.createFromHexString(userId),
+      },
+    },
+    {
+      $group: { _id: '$category', count: { $sum: 1 } },
+    },
+  ]);
+
+  // Convert aggregation result into a key-value map for easier lookup
+  const taskCountMap = taskCounts.reduce((acc, cur) => {
+    acc[cur._id.toString()] = cur.count;
+    return acc;
+  }, {});
+
+  const checklistCountMap = checklistCounts.reduce((acc, cur) => {
+    acc[cur._id.toString()] = cur.count;
+    return acc;
+  }, {});
+
+  const result = categories.map((category) => ({
+    categoryName: category.categoryName,
+    cardColor: category.cardColor,
+    deletable: category.deletable,
+    id: category.id,
+    taskCount: taskCountMap[category._id.toString()] || 0,
+    checklistCount: checklistCountMap[category._id.toString()] || 0,
+  }));
+
+  return result;
+
+  // let groupData = await Category.aggregate([
+  //   {
+  //     $match: {
+  //       createdBy: res.locals.user.userId,
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: 'tasks',
+  //       localField: '_id',
+  //       foreignField: 'category',
+  //       as: 'taskData',
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: 'checklists',
+  //       localField: '_id',
+  //       foreignField: 'category',
+  //       as: 'checklistData',
+  //     },
+  //   },
+  //   {
+  //     $group: {
+  //       _id: '$_id',
+  //       categoryName: { $first: '$categoryName' },
+  //       cardColor: { $first: '$cardColor' },
+  //       deletable: { $first: { $ifNull: ['$deletable', false] } },
+  //       taskData: { $first: '$taskData' },
+  //       checklistData: { $first: '$checklistData' },
+  //     },
+  //   },
+  //   {
+  //     $project: {
+  //       _id: 0,
+  //       id: '$_id',
+  //       categoryName: 1,
+  //       cardColor: 1,
+  //       deletable: 1,
+  //       taskCount: { $cond: { if: { $isArray: '$taskData' }, then: { $size: '$taskData' }, else: 'NA' } },
+  //       checklistCount: { $cond: { if: { $isArray: '$checklistData' }, then: { $size: '$checklistData' }, else: 'NA' } },
+  //     },
+  //   },
+  // ]);
+  // return groupData;
 };
 
 /**
