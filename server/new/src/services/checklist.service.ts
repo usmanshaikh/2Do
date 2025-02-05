@@ -6,9 +6,6 @@ import { Checklist } from '../models';
 import { ApiError } from '../helpers';
 import { checklistInterface } from '../interfaces';
 
-/**
- * Create a Checklist
- */
 export const createChecklist = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
   checklistData.createdBy = res.locals.user.userId;
   let checklist = await Checklist.create(checklistData);
@@ -17,9 +14,6 @@ export const createChecklist = async (req: Request, res: Response, checklistData
   return checklist;
 };
 
-/**
- * Get Checklist by ID
- */
 export const getChecklistById = async (req: Request, res: Response) => {
   const query = {
     _id: req.params.checklistId,
@@ -32,9 +26,6 @@ export const getChecklistById = async (req: Request, res: Response) => {
   return checklists;
 };
 
-/**
- * Update Checklist by ID
- */
 export const updateChecklistById = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
   const query = {
     _id: req.params.checklistId,
@@ -51,9 +42,6 @@ export const updateChecklistById = async (req: Request, res: Response, checklist
   return checklists;
 };
 
-/**
- * Delete Checklist by ID
- */
 export const deleteChecklistById = async (req: Request, res: Response) => {
   const query = {
     _id: req.params.checklistId,
@@ -66,9 +54,6 @@ export const deleteChecklistById = async (req: Request, res: Response) => {
   return checklists;
 };
 
-/**
- * Change Checklist status by ID
- */
 export const changeChecklistStatus = async (req: Request, res: Response, updateData: { isCompleted: boolean }) => {
   const query = {
     _id: req.params.checklistId,
@@ -103,9 +88,6 @@ export const allChecklists = async (req: Request, res: Response) => {
   return checklist;
 };
 
-/**
- * Get Checklist by ID only
- */
 export const getChecklistByIdOnly = async (_id: mongoose.Types.ObjectId | string) => {
   const checklist = await Checklist.findById(_id);
   if (!checklist) {

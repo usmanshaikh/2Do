@@ -17,9 +17,6 @@ export const createDefaultCategoryAfterRegister = async (_id: mongoose.Types.Obj
   await Category.create(categoryBody);
 };
 
-/**
- * Create a Category
- */
 export const createCategory = async (
   req: Request,
   res: Response,
@@ -30,9 +27,6 @@ export const createCategory = async (
   return category;
 };
 
-/**
- * Get all Categories
- */
 export const allCategories = async (req: Request, res: Response) => {
   const query = {
     createdBy: res.locals.user.userId,
@@ -45,9 +39,6 @@ export const allCategories = async (req: Request, res: Response) => {
   return categories;
 };
 
-/**
- * Get Category with task & checklist counts
- */
 export const categoryWithTaskAndChecklistCount = async (req: Request, res: Response) => {
   const userId = res.locals.user.userId;
 
@@ -148,9 +139,6 @@ export const categoryWithTaskAndChecklistCount = async (req: Request, res: Respo
   // return groupData;
 };
 
-/**
- * Update Category by ID
- */
 export const updateCategoryById = async (
   req: Request,
   res: Response,
@@ -171,9 +159,6 @@ export const updateCategoryById = async (
   return category;
 };
 
-/**
- * Delete Category by ID
- */
 export const deleteCategoryById = async (req: Request, res: Response) => {
   const tasks = await Task.find({ category: req.params.categoryId });
   if (tasks.length) {
