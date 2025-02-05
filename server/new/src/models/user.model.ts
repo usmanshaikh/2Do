@@ -43,9 +43,9 @@ const userSchema: Schema<userInterface.IUser> = new Schema(
       default: false,
     },
     image: {
-      data: { type: Buffer, required: true },
-      contentType: { type: String, required: true },
-      name: { type: String, required: true },
+      data: { type: Buffer },
+      contentType: { type: String },
+      name: { type: String },
     },
     // image: {
     //   url: { type: String, required: true },
