@@ -7,7 +7,8 @@
   "scripts": {
     "start": "npm run build && npm run serve",
     "serve": "node -r dotenv/config build/server.js",
-    "build": "npm run clean && npm run build-ts",
+    "build": "npm run clean && npm run build-ts && npm run copy-assets",
+    "copy-assets": "npx cpy \"src/public/**/*\" build/public/ --parents && npx cpy \"src/views/**/*\" build/views/ --parents",
     "watch": "npx concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon -r dotenv/config build/server.js",
     "clean": "rimraf ./build",
@@ -66,6 +67,7 @@
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
     "colors": "^1.4.0",
+    "cpy-cli": "^5.0.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "eslint": "^9.19.0",
