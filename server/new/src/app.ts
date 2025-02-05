@@ -41,7 +41,7 @@ app.use('/', router);
 
 // Basic route for testing API accessibility
 app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to the Node Express TypeScript server!');
+  res.send('Welcome');
 });
 
 // Error Handling Middleware (catch and handle errors globally)
