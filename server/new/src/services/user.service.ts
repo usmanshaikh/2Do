@@ -60,7 +60,7 @@ export const statisticReport = async (req: Request, res: Response) => {
   let aggregateData = await User.aggregate([
     {
       $match: {
-        _id: res.locals.user._id,
+        _id: res.locals.user.userId,
       },
     },
     {
@@ -209,7 +209,7 @@ export const completedPercentage = async (req: Request, res: Response) => {
   let aggregateData = await User.aggregate([
     {
       $match: {
-        _id: res.locals.user._id,
+        _id: res.locals.user.userId,
       },
     },
     {

@@ -25,7 +25,7 @@ export const createCategory = async (
   res: Response,
   categoryData: { categoryName: string; cardColor: string },
 ) => {
-  const categoryBody = { ...categoryData, createdBy: res.locals.user._id };
+  const categoryBody = { ...categoryData, createdBy: res.locals.user.userId };
   const category = await Category.create(categoryBody);
   return category;
 };
@@ -35,7 +35,7 @@ export const createCategory = async (
  */
 export const allCategories = async (req: Request, res: Response) => {
   const query = {
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   let removedField = [];
   if (req.query.onlyCategories) {
@@ -52,7 +52,7 @@ export const categoryWithTaskAndChecklistCount = async (req: Request, res: Respo
   let groupData = await Category.aggregate([
     {
       $match: {
-        createdBy: res.locals.user._id,
+        createdBy: res.locals.user.userId,
       },
     },
     {
@@ -106,7 +106,7 @@ export const updateCategoryById = async (
 ) => {
   const query = {
     _id: req.params.categoryId,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const category = await Category.findOneAndUpdate(
     query,
@@ -141,7 +141,7 @@ export const deleteCategoryById = async (req: Request, res: Response) => {
 
   const query = {
     _id: req.params.categoryId,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
     deletable: true,
   };
   const category = await Category.findOneAndDelete(query);
@@ -157,7 +157,7 @@ export const deleteCategoryById = async (req: Request, res: Response) => {
 export const isCategoryExits = async (req: Request, res: Response) => {
   const query = {
     _id: req.body.category,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const category = await Category.findOne(query);
   return category;
@@ -170,7 +170,7 @@ export const isCategoryNameAlreadyExits = async (req: Request, res: Response) =>
   const categoryName = req.body.categoryName;
   const query = {
     categoryName: { $regex: new RegExp(categoryName, 'i') },
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const category = await Category.findOne(query);
   return category;

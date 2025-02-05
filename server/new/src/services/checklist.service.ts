@@ -10,7 +10,7 @@ import { checklistInterface } from '../interfaces';
  * Create a Checklist
  */
 export const createChecklist = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
-  checklistData.createdBy = res.locals.user._id;
+  checklistData.createdBy = res.locals.user.userId;
   let checklist = await Checklist.create(checklistData);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }];
   checklist = await checklist.populate(populateQuery);
@@ -23,7 +23,7 @@ export const createChecklist = async (req: Request, res: Response, checklistData
 export const getChecklistById = async (req: Request, res: Response) => {
   const query = {
     _id: req.params.checklistId,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const checklists = await Checklist.findOne(query);
   if (!checklists) {
@@ -38,7 +38,7 @@ export const getChecklistById = async (req: Request, res: Response) => {
 export const updateChecklistById = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
   const query = {
     _id: req.params.checklistId,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const checklists = await Checklist.findOneAndUpdate(
     query,
@@ -57,7 +57,7 @@ export const updateChecklistById = async (req: Request, res: Response, checklist
 export const deleteChecklistById = async (req: Request, res: Response) => {
   const query = {
     _id: req.params.checklistId,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const checklists = await Checklist.findOneAndDelete(query);
   if (!checklists) {
@@ -72,7 +72,7 @@ export const deleteChecklistById = async (req: Request, res: Response) => {
 export const changeChecklistStatus = async (req: Request, res: Response, updateData: { isCompleted: boolean }) => {
   const query = {
     _id: req.params.checklistId,
-    createdBy: res.locals.user._id,
+    createdBy: res.locals.user.userId,
   };
   const checklist = await Checklist.findOneAndUpdate(query, { $set: updateData }, { runValidators: true, new: true });
   if (!checklist) {
@@ -95,7 +95,7 @@ export const allChecklists = async (req: Request, res: Response) => {
       $lte: endOfDay,
     };
   }
-  query.createdBy = res.locals.user._id;
+  query.createdBy = res.locals.user.userId;
   const checklist = await Checklist.find(query);
   if (!checklist) {
     throw new ApiError(StatusCodes.NOT_FOUND, 'Sorry, something went wrong. Please try again.');
