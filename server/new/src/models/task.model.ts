@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema } from 'mongoose';
 import { taskInterface } from '../interfaces';
+import { removeFieldsPlugin } from './plugins';
 
 const taskSchema: Schema<taskInterface.ITask> = new Schema(
   {
@@ -44,6 +45,8 @@ const taskSchema: Schema<taskInterface.ITask> = new Schema(
     timestamps: true,
   },
 );
+
+taskSchema.plugin(removeFieldsPlugin, ['__v']);
 
 taskSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');

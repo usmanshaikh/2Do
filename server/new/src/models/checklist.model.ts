@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema } from 'mongoose';
 import { checklistInterface } from '../interfaces';
+import { removeFieldsPlugin } from './plugins';
 
 const checklistSchema: Schema<checklistInterface.IChecklist> = new Schema(
   {
@@ -58,6 +59,8 @@ const checklistSchema: Schema<checklistInterface.IChecklist> = new Schema(
     timestamps: true,
   },
 );
+
+checklistSchema.plugin(removeFieldsPlugin, ['__v']);
 
 checklistSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');

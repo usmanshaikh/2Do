@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema } from 'mongoose';
 import { categoryInterface } from '../interfaces';
+import { removeFieldsPlugin } from './plugins';
 
 const categorySchema: Schema<categoryInterface.ICategory> = new Schema(
   {
@@ -27,6 +28,8 @@ const categorySchema: Schema<categoryInterface.ICategory> = new Schema(
     timestamps: true,
   },
 );
+
+categorySchema.plugin(removeFieldsPlugin, ['__v']);
 
 const Category: Model<categoryInterface.ICategory> = mongoose.model<categoryInterface.ICategory>('Category', categorySchema);
 
