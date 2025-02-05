@@ -25,7 +25,7 @@ const authenticateJWT = (req: Request, res: Response, next: NextFunction): void 
     return;
   }
 
-  res.locals.user = new Types.ObjectId(payload.sub);
+  res.locals.user = payload;
 
   next();
 };

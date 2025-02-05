@@ -4,6 +4,7 @@ import { User } from '../models';
 import redisClient from '../config/redisClient';
 import { ApiError, jwtHelper } from '../helpers';
 import { MESSAGES } from '../constants';
+import { userInterface } from '../interfaces';
 
 export const loginUserWithEmailAndPassword = async (email: string, password: string) => {
   const user = await User.findOne({ email }).select('+password');
@@ -32,7 +33,7 @@ export const refreshAuth = async (refreshToken: string) => {
   }
 
   // Generate new access and refresh tokens
-  const newTokens = await jwtHelper.generateAuthTokens(payload.sub);
+  const newTokens = await jwtHelper.generateAuthTokens(payload as userInterface.UserJwtDetails);
 
   // Blacklist the old refresh token
   await redisClient.set(refreshToken, 'blacklisted', {

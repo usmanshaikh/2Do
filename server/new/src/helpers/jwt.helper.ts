@@ -1,17 +1,21 @@
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
-import { Types } from 'mongoose';
 import config from '../config/config';
 import redisClient from '../config/redisClient';
+import { userInterface } from 'src/interfaces';
 
 export const generateToken = (
-  userId: Types.ObjectId,
+  userDetails: userInterface.UserJwtDetails,
   expires: moment.Moment,
   type: string,
   secret: string = config.jwt.secret,
 ): string => {
   const payload = {
-    sub: userId,
+    sub: userDetails._id,
+    userId: userDetails._id,
+    email: userDetails.email,
+    name: userDetails.name,
+    isEmailVerified: userDetails.isEmailVerified,
     iat: moment().unix(),
     exp: expires.unix(),
     type,
@@ -30,16 +34,16 @@ export const verifyJwtToken = (token: string) => {
 };
 
 export const generateAuthTokens = async (
-  userId: any,
+  userDetails: userInterface.UserJwtDetails,
 ): Promise<{
   access: { token: string; expires: Date };
   refresh: { token: string; expires: Date };
 }> => {
   const accessTokenExpires = moment().add(parseInt(config.jwt.accessExpirationMinutes!), 'minutes');
-  const accessToken = generateToken(userId, accessTokenExpires, 'ACCESS');
+  const accessToken = generateToken(userDetails, accessTokenExpires, 'ACCESS');
 
   const refreshTokenExpires = moment().add(parseInt(config.jwt.refreshExpirationDays!), 'days');
-  const refreshToken = generateToken(userId, refreshTokenExpires, 'REFRESH');
+  const refreshToken = generateToken(userDetails, refreshTokenExpires, 'REFRESH');
 
   await redisClient.set(refreshToken, 'valid', { EX: 7 * 24 * 60 * 60 }); // 7 days in seconds
 
@@ -66,10 +70,10 @@ export const generateResetPasswordToken = (email: string): string => {
   return jwt.sign(payload, config.jwt.secret);
 };
 
-export const generateVerifyEmailToken = (user: any): string => {
+export const generateVerifyEmailToken = (userId: string): string => {
   const expires = moment().add(config.jwt.verifyEmailExpirationMinutes, 'minutes');
   const payload = {
-    sub: user._id,
+    sub: userId,
     iat: moment().unix(),
     exp: expires.unix(),
     type: 'VERIFY_EMAIL',

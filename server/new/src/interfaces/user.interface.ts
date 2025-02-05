@@ -18,3 +18,10 @@ export interface IUser extends Document {
   verifyEmailToken?: string;
   verifyEmailExpires?: Date;
 }
+
+export interface UserJwtDetails {
+  _id: mongoose.Types.ObjectId;
+  email: string;
+  name: string;
+  isEmailVerified: boolean;
+}

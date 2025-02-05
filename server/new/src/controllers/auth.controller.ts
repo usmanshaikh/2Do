@@ -19,7 +19,13 @@ export const register = catchAsync(async (req: Request, res: Response) => {
 export const login = catchAsync(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await authService.loginUserWithEmailAndPassword(email, password);
-  const tokens = await jwtHelper.generateAuthTokens(user.id);
+  const userDetails = {
+    _id: user._id,
+    email: user.email,
+    name: user.name,
+    isEmailVerified: user.isEmailVerified,
+  };
+  const tokens = await jwtHelper.generateAuthTokens(userDetails);
   sendResponse({
     res,
     statusCode: StatusCodes.OK,
@@ -77,7 +83,7 @@ export const resetPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const sendVerificationEmail = catchAsync(async (req: Request, res: Response) => {
-  const verifyEmailToken = jwtHelper.generateVerifyEmailToken(res.locals.user);
+  const verifyEmailToken = jwtHelper.generateVerifyEmailToken(res.locals.user.userId);
   await emailService.sendVerificationEmail(res.locals.user.email, verifyEmailToken, req);
   sendResponse({
     res,
