@@ -7,10 +7,6 @@ import { taskService, userService, checklistService, emailService } from './inde
 import { ApiError } from '../helpers';
 import { taskInterface, checklistInterface, schedulerInterface } from '../interfaces';
 
-const EVERY_SECONDS = '* * * * * *';
-const EVERY_MINUTES = '* * * * *';
-const EVERY_MIDNIGHT = '0 0 * * *';
-
 export const createScheduler = async (schedulerData: any, schedulerType: 'task' | 'checklist') => {
   const { _id, dateAndTime } = schedulerData;
   const SchedulerObj = {
@@ -28,55 +24,91 @@ export const updateScheduler = async (
   schedulerData: taskInterface.ITask | checklistInterface.IChecklist,
   schedulerType: 'task' | 'checklist',
 ) => {
-  const { _id, dateAndTime } = schedulerData;
-  const query = { parentRefId: _id };
-  const updateBody = {
-    schedulerDateAndTime: dateAndTime,
-  };
+  const { _id, dateAndTime, alert } = schedulerData;
 
-  const scheduler = await Scheduler.findOneAndUpdate(
-    query,
-    { $set: updateBody },
-    { runValidators: true, new: true, useFindAndModify: false },
-  );
+  // Find the existing scheduler for this task/checklist
+  const scheduler = await Scheduler.findOne({ parentRefId: _id });
 
-  const today = new Date();
-  if (!scheduler && schedulerData.alert) {
-    if (schedulerData.dateAndTime.getTime() > today.getTime()) {
-      createScheduler(schedulerData, schedulerType);
-      return;
+  // Scenario 1: If the task/checklist alert is on and the date/time is updated, we need to update the scheduler.
+  if (alert) {
+    if (scheduler) {
+      // Cancel old scheduled job
+      cancelSchedulerById(scheduler.parentRefId);
+
+      // Update scheduler with the new date and time
+      scheduler.schedulerDateAndTime = dateAndTime;
+      await scheduler.save();
+
+      // Initialize a new job with the updated time
+      addNewSchedulerAndInitialize(scheduler);
+    } else {
+      // If no existing scheduler found create a new one
+      await createScheduler(schedulerData, schedulerType);
     }
-    return;
-  }
-
-  if (scheduler) {
-    // Cancel the old scheduledJobs and then Initialize new if alert true
-    cancelSchedulerById(scheduler.parentRefId);
-    schedulerData.alert && addNewSchedulerAndInitialize(scheduler);
+  } else {
+    // Scenario 2: If the alert is turned off, cancel the scheduler and stop the email.
+    if (scheduler) {
+      await deleteSchedulerById(_id);
+    }
   }
 };
 
-/**
- *  Add new scheduler to scheduleJobs list and initialize
- */
+export const deleteSchedulerById = async (parentRefId: mongoose.Types.ObjectId | string) => {
+  const scheduler = await Scheduler.findOneAndDelete({ parentRefId });
+  if (!scheduler) {
+    throw new ApiError(StatusCodes.NOT_FOUND, `Scheduler for task/checklist with ID ${parentRefId} not found.`);
+  }
+  logger.info(`Scheduler for parentRefId ${parentRefId} deleted successfully.`);
+  cancelSchedulerById(parentRefId);
+};
+
+export const cancelSchedulerById = async (id: mongoose.Types.ObjectId | string) => {
+  const schedulerName = `scheduler_${id}`;
+  const job = schedule.scheduledJobs[schedulerName];
+  if (job) {
+    job.cancel();
+    logger.info(`Job with schedulerName ${schedulerName} cancelled successfully.`);
+  } else {
+    logger.warn(
+      `No job found with schedulerName ${schedulerName}. It might have already been cancelled or never scheduled.`,
+    );
+  }
+};
+
 export const addNewSchedulerAndInitialize = (schedulerData: schedulerInterface.IScheduler) => {
   const { schedulerName, schedulerDateAndTime, schedulerType, parentRefId } = schedulerData;
+
+  // Check if the job already exists, and if it does, cancel the previous job
+  if (schedule.scheduledJobs[schedulerName]) {
+    schedule.scheduledJobs[schedulerName].cancel();
+  }
+
   schedule.scheduleJob(schedulerName, schedulerDateAndTime, async () => {
     if (schedulerType === 'task') {
       const task = await taskService.getTaskByIdOnly(parentRefId);
-      if (task.createdBy) {
+      if (task) {
         const user = await userService.getUserById(task.createdBy);
         if (user) {
-          emailService.sendEventReminderEmail(task, schedulerType, user);
+          // Send the email reminder for the task
+          await emailService.sendEventReminderEmail(task, schedulerType, user);
+        } else {
+          logger.error(`User with ID ${task.createdBy} not found for task ${parentRefId}`);
         }
+      } else {
+        logger.error(`Task with ID ${parentRefId} not found`);
       }
     } else if (schedulerType === 'checklist') {
       const checklist = await checklistService.getChecklistByIdOnly(parentRefId);
-      if (checklist.createdBy) {
+      if (checklist) {
         const user = await userService.getUserById(checklist.createdBy);
         if (user) {
-          emailService.sendEventReminderEmail(checklist, schedulerType, user);
+          // Send the email reminder for the checklist
+          await emailService.sendEventReminderEmail(checklist, schedulerType, user);
+        } else {
+          logger.error(`User with ID ${checklist.createdBy} not found for checklist ${parentRefId}`);
         }
+      } else {
+        logger.error(`Checklist with ID ${parentRefId} not found`);
       }
     }
   });
@@ -85,57 +117,38 @@ export const addNewSchedulerAndInitialize = (schedulerData: schedulerInterface.I
 /**
  * If Server Stop/Restart then all old Schedulers that is initialize gets destroy. So once Server start then stop all the Schedulers and Initialize new Schedulers again.
  */
-export const runSchedulers = async () => {
-  const schedulers = await Scheduler.find();
-  schedulers.map((doc) => {
-    const today = new Date();
-    const schedulerDT = new Date(doc.schedulerDateAndTime);
-    if (schedulerDT.getTime() > today.getTime()) {
-      addNewSchedulerAndInitialize(doc);
-    }
-  });
-};
-
-/**
- * Delete Scheduler by ID
- */
-export const deleteSchedulerById = async (parentRefId: mongoose.Types.ObjectId | string) => {
-  const scheduler = await Scheduler.findOneAndDelete({ parentRefId });
-  if (!scheduler) {
-    throw new ApiError(StatusCodes.NOT_FOUND, 'Scheduler not found');
+export const initializeSchedulersOnStart = async () => {
+  try {
+    // Fetch all scheduled tasks/checklists from the database
+    const allSchedulers = await Scheduler.find();
+    // Loop through each scheduler and re-initialize it
+    allSchedulers.forEach((schedulerData) => {
+      const { schedulerName, schedulerDateAndTime, schedulerType } = schedulerData;
+      const currentTime = new Date();
+      // Check if the scheduler date/time is in the future
+      if (schedulerDateAndTime.getTime() > currentTime.getTime()) {
+        addNewSchedulerAndInitialize(schedulerData);
+        logger.info(`Re-initialized scheduler job: ${schedulerName}`);
+      } else {
+        logger.info(`Skipping past scheduler job: ${schedulerName}`);
+      }
+    });
+  } catch (error) {
+    logger.error('Error initializing schedulers on server start:', error);
   }
-  cancelSchedulerById(parentRefId);
 };
 
-/**
- * Cancel Scheduler by ID
- */
-export const cancelSchedulerById = async (id: mongoose.Types.ObjectId | string) => {
-  const schedulerName = `scheduler_${id}`;
-  const job = schedule.scheduledJobs[schedulerName];
-  job && job.cancel();
-};
-
-/**
- * Get all Schedulers
- */
-export const getAllSchedulers = async () => {
-  const schedulers = await Scheduler.find();
-  return schedulers;
-};
-
-/**
- * Delete all Schedulers
- */
-export const deleteAllSchedulers = async () => {
-  const schedulers = await Scheduler.deleteMany({});
-  return schedulers;
-};
-
-/**
- * Once DB is connectd then 'runSchedulers() gets initialize'.
- */
 export const initializeSchedulersJob = () => {
-  runSchedulers();
+  initializeSchedulersOnStart();
   logger.info(`Initialized Schedulers Job`);
 };
+
+// export const getAllSchedulers = async () => {
+//   const schedulers = await Scheduler.find();
+//   return schedulers;
+// };
+
+// export const deleteAllSchedulers = async () => {
+//   const schedulers = await Scheduler.deleteMany({});
+//   return schedulers;
+// };

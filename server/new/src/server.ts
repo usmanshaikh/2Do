@@ -5,6 +5,7 @@ import logger from './config/logger';
 import connectDB from './database';
 import mongoose from 'mongoose';
 import redisClient from './config/redisClient';
+import { schedulerService } from './services';
 
 let server: Server;
 
@@ -37,6 +38,9 @@ const initializeServer = async () => {
 
     await redisClient.connect();
     logger.info('Connected to Redis');
+
+    await schedulerService.initializeSchedulersOnStart();
+    logger.info('Schedulers initialized successfully');
 
     server = app.listen(config.port, () => {
       logger.info(`Server is running on http://localhost:${config.port}`);
