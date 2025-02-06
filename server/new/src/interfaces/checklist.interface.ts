@@ -15,7 +15,7 @@ export interface IChecklist extends Document {
   alert: boolean;
   isCompleted: boolean;
   type: string;
-  createdBy?: mongoose.Types.ObjectId;
+  createdBy: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }

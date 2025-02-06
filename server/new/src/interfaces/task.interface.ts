@@ -9,7 +9,7 @@ export interface ITask extends Document {
   alert: boolean;
   isCompleted: boolean;
   type: 'Task';
-  createdBy?: mongoose.Types.ObjectId;
+  createdBy: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }

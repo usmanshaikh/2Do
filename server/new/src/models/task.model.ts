@@ -39,6 +39,8 @@ const taskSchema: Schema<taskInterface.ITask> = new Schema(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
   },
   {

@@ -53,6 +53,8 @@ const checklistSchema: Schema<checklistInterface.IChecklist> = new Schema(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
   },
   {

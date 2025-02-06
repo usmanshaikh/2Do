@@ -15,8 +15,8 @@ const categorySchema: Schema<categoryInterface.ICategory> = new Schema(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
       required: true,
+      ref: 'User',
     },
     deletable: {
       type: Boolean,
