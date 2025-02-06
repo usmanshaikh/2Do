@@ -10,7 +10,7 @@ export const createChecklist = async (req: Request, res: Response, checklistData
   const checklistDate = new Date(checklistData.dateAndTime);
   const now = new Date();
   // Add a 10-second buffer to prevent microsecond mismatches
-  if (checklistDate.getTime() < now.getTime() + 10000) {
+  if (checklistData.alert && checklistDate.getTime() < now.getTime() + 10000) {
     throw new ApiError(StatusCodes.BAD_REQUEST, 'Checklist date cannot be in the past or too close to the current time.');
   }
   checklistData.createdBy = res.locals.user.userId;
@@ -33,6 +33,12 @@ export const getChecklistById = async (req: Request, res: Response) => {
 };
 
 export const updateChecklistById = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
+  const checklistDate = new Date(checklistData.dateAndTime);
+  const now = new Date();
+  // Add a 10-second buffer to prevent microsecond mismatches
+  if (checklistData.alert && checklistDate.getTime() < now.getTime() + 10000) {
+    throw new ApiError(StatusCodes.BAD_REQUEST, 'Checklist date cannot be in the past or too close to the current time.');
+  }
   const query = {
     _id: req.params.checklistId,
     createdBy: res.locals.user.userId,

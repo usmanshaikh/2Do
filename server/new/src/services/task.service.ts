@@ -10,7 +10,7 @@ export const createTask = async (req: Request, res: Response, taskData: taskInte
   const taskDate = new Date(taskData.dateAndTime);
   const now = new Date();
   // Add a 10-second buffer to prevent microsecond mismatches
-  if (taskDate.getTime() < now.getTime() + 10000) {
+  if (taskData.alert && taskDate.getTime() < now.getTime() + 10000) {
     throw new ApiError(StatusCodes.BAD_REQUEST, 'Task date cannot be in the past or too close to the current time.');
   }
   taskData.createdBy = res.locals.user.userId;
@@ -33,6 +33,12 @@ export const getTaskById = async (req: Request, res: Response) => {
 };
 
 export const updateTaskById = async (req: Request, res: Response, taskData: taskInterface.ITaskBody) => {
+  const taskDate = new Date(taskData.dateAndTime);
+  const now = new Date();
+  // Add a 10-second buffer to prevent microsecond mismatches
+  if (taskData.alert && taskDate.getTime() < now.getTime() + 10000) {
+    throw new ApiError(StatusCodes.BAD_REQUEST, 'Task date cannot be in the past or too close to the current time.');
+  }
   const query = {
     _id: req.params.taskId,
     createdBy: res.locals.user.userId,
