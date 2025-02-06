@@ -19,10 +19,8 @@ export const updateUser = {
         .pattern(/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/)
         .message(MESSAGES.PASSWORD_REQUIREMENTS),
       name: Joi.string(),
-      image: Joi.any(),
     })
     .min(1),
-  file: Joi.any(), // Optional
 };
 
 export const deleteUser = {

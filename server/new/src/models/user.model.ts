@@ -42,36 +42,10 @@ const userSchema: Schema<userInterface.IUser> = new Schema(
       type: Boolean,
       default: false,
     },
-    image: {
-      data: { type: Buffer },
-      contentType: { type: String },
-      name: { type: String },
-    },
     // image: {
-    //   url: { type: String, required: true },
+    //   url: { type: String, required: true }, // upload it to AWS S3 or Firebase Storage and save the URL in your database.
     // },
     passwordChangedAt: {
-      type: Date,
-    },
-    lastLogin: {
-      type: Date,
-    },
-    failedLoginAttempts: {
-      type: Number,
-      default: 0,
-    },
-    // Reset Password Token
-    resetPasswordToken: {
-      type: String,
-    },
-    resetPasswordExpires: {
-      type: Date,
-    },
-    // Email Verification Token
-    verifyEmailToken: {
-      type: String,
-    },
-    verifyEmailExpires: {
       type: Date,
     },
   },

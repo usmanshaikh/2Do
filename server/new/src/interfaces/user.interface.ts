@@ -6,7 +6,7 @@ export interface IUser extends Document {
   password: string;
   name: string;
   isEmailVerified: boolean;
-  image: { data: Buffer; contentType: string; name: string };
+  // image: string;
   passwordChangedAt?: Date;
   lastLogin?: Date;
   failedLoginAttempts: number;
