@@ -7,6 +7,12 @@ import { ApiError } from '../helpers';
 import { taskInterface } from '../interfaces';
 
 export const createTask = async (req: Request, res: Response, taskData: taskInterface.ITaskBody) => {
+  const taskDate = new Date(taskData.dateAndTime);
+  const now = new Date();
+  // Add a 10-second buffer to prevent microsecond mismatches
+  if (taskDate.getTime() < now.getTime() + 10000) {
+    throw new ApiError(StatusCodes.BAD_REQUEST, 'Task date cannot be in the past or too close to the current time.');
+  }
   taskData.createdBy = res.locals.user.userId;
   let task = await Task.create(taskData);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }];

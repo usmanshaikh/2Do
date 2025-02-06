@@ -7,6 +7,12 @@ import { ApiError } from '../helpers';
 import { checklistInterface } from '../interfaces';
 
 export const createChecklist = async (req: Request, res: Response, checklistData: checklistInterface.IChecklistBody) => {
+  const checklistDate = new Date(checklistData.dateAndTime);
+  const now = new Date();
+  // Add a 10-second buffer to prevent microsecond mismatches
+  if (checklistDate.getTime() < now.getTime() + 10000) {
+    throw new ApiError(StatusCodes.BAD_REQUEST, 'Checklist date cannot be in the past or too close to the current time.');
+  }
   checklistData.createdBy = res.locals.user.userId;
   let checklist = await Checklist.create(checklistData);
   const populateQuery = [{ path: 'category', select: 'id categoryName' }];

@@ -7,8 +7,7 @@ import { MESSAGES } from '../constants';
 
 export const createChecklist = catchAsync(async (req: Request, res: Response) => {
   const checklist = await checklistService.createChecklist(req, res, req.body);
-  const today = new Date();
-  if (checklist.alert && checklist.dateAndTime.getTime() > today.getTime()) {
+  if (checklist.alert) {
     await schedulerService.createScheduler(checklist, 'checklist');
   }
   sendResponse({

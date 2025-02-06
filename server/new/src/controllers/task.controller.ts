@@ -7,8 +7,7 @@ import { MESSAGES } from '../constants';
 
 export const createTask = catchAsync(async (req: Request, res: Response) => {
   const task = await taskService.createTask(req, res, req.body);
-  const today = new Date();
-  if (task.alert && task.dateAndTime.getTime() > today.getTime()) {
+  if (task.alert) {
     await schedulerService.createScheduler(task, 'task');
   }
   sendResponse({
