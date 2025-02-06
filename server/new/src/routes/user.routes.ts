@@ -6,7 +6,6 @@ import { userValidation } from '../validations';
 const router = express.Router();
 
 router.get('/statistic-report', authenticateJWT, userController.statisticReport);
-router.get('/completed-percentage', authenticateJWT, userController.completedPercentage);
 router
   .route('/:userId')
   .get(authenticateJWT, validate(userValidation.getUser), userController.getUser)

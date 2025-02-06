@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { User } from '../models';
+import { Checklist, Task, User } from '../models';
 import { ApiError } from '../helpers';
 import { MESSAGES } from '../constants';
 
@@ -57,321 +57,44 @@ export const deleteUserById = async (id: string) => {
 };
 
 export const statisticReport = async (req: Request, res: Response) => {
-  let aggregateData = await User.aggregate([
-    {
-      $match: {
-        _id: res.locals.user.userId,
-      },
-    },
-    {
-      $lookup: {
-        from: 'tasks',
-        localField: '_id',
-        foreignField: 'createdBy',
-        as: 'taskData',
-      },
-    },
-    {
-      $lookup: {
-        from: 'checklists',
-        localField: '_id',
-        foreignField: 'createdBy',
-        as: 'checklistData',
-      },
-    },
-    {
-      $facet: {
-        taskCreatedCount: [
-          { $unwind: '$taskData' },
-          {
-            $addFields: {
-              'taskData.status': 'created',
-            },
-          },
-          {
-            $group: {
-              _id: null,
-              label: { $first: '$taskData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: { _id: 0, label: 1, count: 1 },
-          },
-        ],
-        taskCPCount: [
-          { $unwind: '$taskData' },
-          {
-            $addFields: {
-              'taskData.status': {
-                $cond: {
-                  if: {
-                    $eq: ['$taskData.isCompleted', true],
-                  },
-                  then: 'completed',
-                  else: 'pending',
-                },
-              },
-            },
-          },
-          {
-            $group: {
-              _id: '$taskData.status',
-              label: { $first: '$taskData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: { _id: 0, label: 1, count: 1 },
-          },
-        ],
-        checklistCreatedCount: [
-          { $unwind: '$checklistData' },
-          {
-            $addFields: {
-              'checklistData.status': 'created',
-            },
-          },
-          {
-            $group: {
-              _id: null,
-              label: { $first: '$checklistData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: { _id: 0, label: 1, count: 1 },
-          },
-        ],
-        checklistCPCount: [
-          { $unwind: '$checklistData' },
-          {
-            $addFields: {
-              'checklistData.status': {
-                $cond: {
-                  if: {
-                    $eq: ['$checklistData.isCompleted', true],
-                  },
-                  then: 'completed',
-                  else: 'pending',
-                },
-              },
-            },
-          },
-          {
-            $group: {
-              _id: '$checklistData.status',
-              label: { $first: '$checklistData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              label: 1,
-              count: 1,
-            },
-          },
-        ],
-      },
-    },
-    {
-      $project: {
-        taskStatistic: {
-          $concatArrays: ['$taskCreatedCount', '$taskCPCount'],
-        },
-        checklistStatistic: {
-          $concatArrays: ['$checklistCreatedCount', '$checklistCPCount'],
-        },
-      },
-    },
+  const userId = res.locals.user.userId;
+
+  const taskCounts = await Task.aggregate([
+    { $match: { createdBy: mongoose.Types.ObjectId.createFromHexString(userId) } },
+    { $group: { _id: '$isCompleted', count: { $sum: 1 } } },
   ]);
-  const allLabels = ['created', 'completed', 'pending'];
-  const taskLabels: any[] = [];
-  const checklistLabels: any[] = [];
 
-  aggregateData[0].taskStatistic.map((item: any) => taskLabels.push(item.label));
-  aggregateData[0].checklistStatistic.map((item: any) => checklistLabels.push(item.label));
-
-  let tl = allLabels.filter((obj) => taskLabels.indexOf(obj) == -1);
-  let cl = allLabels.filter((obj) => checklistLabels.indexOf(obj) == -1);
-
-  tl.map((label) => aggregateData[0].taskStatistic.push({ label, count: 0 }));
-  cl.map((label) => aggregateData[0].checklistStatistic.push({ label, count: 0 }));
-
-  return aggregateData[0];
-};
-
-/**
- * Task & Checklist Completed Percentage
- */
-export const completedPercentage = async (req: Request, res: Response) => {
-  let aggregateData = await User.aggregate([
-    {
-      $match: {
-        _id: res.locals.user.userId,
-      },
-    },
-    {
-      $lookup: {
-        from: 'tasks',
-        localField: '_id',
-        foreignField: 'createdBy',
-        as: 'taskData',
-      },
-    },
-    {
-      $lookup: {
-        from: 'checklists',
-        localField: '_id',
-        foreignField: 'createdBy',
-        as: 'checklistData',
-      },
-    },
-    {
-      $facet: {
-        taskTotalCount: [
-          { $unwind: '$taskData' },
-          {
-            $addFields: {
-              'taskData.status': 'created',
-            },
-          },
-          {
-            $group: {
-              _id: null,
-              label: { $first: '$taskData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: { _id: 0, label: 1, count: 1 },
-          },
-        ],
-        taskCompletedCount: [
-          { $unwind: '$taskData' },
-          {
-            $addFields: {
-              'taskData.status': {
-                $cond: {
-                  if: {
-                    $eq: ['$taskData.isCompleted', true],
-                  },
-                  then: 'completed',
-                  else: '',
-                },
-              },
-            },
-          },
-          {
-            $match: {
-              'taskData.status': 'completed',
-            },
-          },
-          {
-            $group: {
-              _id: '$taskData.status',
-              label: { $first: '$taskData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: { _id: 0, label: 1, count: 1 },
-          },
-        ],
-        checklistTotalCount: [
-          { $unwind: '$checklistData' },
-          {
-            $addFields: {
-              'checklistData.status': 'created',
-            },
-          },
-          {
-            $group: {
-              _id: null,
-              label: { $first: '$checklistData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: { _id: 0, label: 1, count: 1 },
-          },
-        ],
-        checklistCompletedCount: [
-          { $unwind: '$checklistData' },
-          {
-            $addFields: {
-              'checklistData.status': {
-                $cond: {
-                  if: {
-                    $eq: ['$checklistData.isCompleted', true],
-                  },
-                  then: 'completed',
-                  else: '',
-                },
-              },
-            },
-          },
-          {
-            $match: {
-              'checklistData.status': 'completed',
-            },
-          },
-          {
-            $group: {
-              _id: '$checklistData.status',
-              label: { $first: '$checklistData.status' },
-              count: { $sum: 1 },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              label: 1,
-              count: 1,
-            },
-          },
-        ],
-      },
-    },
-    {
-      $addFields: {
-        taskTotal_Count: { $arrayElemAt: ['$taskTotalCount', 0] },
-        taskCompleted_Count: { $arrayElemAt: ['$taskCompletedCount', 0] },
-        checklistTotal_Count: { $arrayElemAt: ['$checklistTotalCount', 0] },
-        checklistCompleted_Count: { $arrayElemAt: ['$checklistCompletedCount', 0] },
-      },
-    },
-    {
-      $project: {
-        taskCompletedPercentage: {
-          $round: [
-            {
-              $multiply: [
-                100,
-                {
-                  $divide: ['$taskCompleted_Count.count', '$taskTotal_Count.count'],
-                },
-              ],
-            },
-            0,
-          ],
-        },
-        checklistCompletedPercentage: {
-          $round: [
-            {
-              $multiply: [
-                100,
-                {
-                  $divide: ['$checklistCompleted_Count.count', '$checklistTotal_Count.count'],
-                },
-              ],
-            },
-            0,
-          ],
-        },
-      },
-    },
+  const checklistCounts = await Checklist.aggregate([
+    { $match: { createdBy: mongoose.Types.ObjectId.createFromHexString(userId) } },
+    { $group: { _id: '$isCompleted', count: { $sum: 1 } } },
   ]);
-  return aggregateData;
+
+  const formatStatistics = (counts: any[]) => {
+    const stats = { created: 0, completed: 0, pending: 0 };
+    counts.forEach(({ _id, count }) => {
+      if (_id === true) stats.completed = count;
+      else stats.pending = count;
+    });
+    stats.created = stats.completed + stats.pending;
+    return [
+      { label: 'created', count: stats.created },
+      { label: 'completed', count: stats.completed },
+      { label: 'pending', count: stats.pending },
+    ];
+  };
+
+  const taskStats = formatStatistics(taskCounts);
+  const checklistStats = formatStatistics(checklistCounts);
+
+  const calculatePercentage = (completed: number, created: number) => {
+    return created > 0 ? ((completed / created) * 100).toFixed(2) : '0.00';
+  };
+
+  const result = {
+    taskStatistic: taskStats,
+    checklistStatistic: checklistStats,
+    taskCompletedPercentage: calculatePercentage(taskStats[1].count, taskStats[0].count),
+    checklistCompletedPercentage: calculatePercentage(checklistStats[1].count, checklistStats[0].count),
+  };
+  return result;
 };
