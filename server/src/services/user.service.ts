@@ -83,18 +83,9 @@ export const statisticReport = async (req: Request, res: Response) => {
     ];
   };
 
-  const taskStats = formatStatistics(taskCounts);
-  const checklistStats = formatStatistics(checklistCounts);
-
-  const calculatePercentage = (completed: number, created: number) => {
-    return created > 0 ? ((completed / created) * 100).toFixed(2) : '0.00';
-  };
-
   const result = {
-    taskStatistic: taskStats,
-    checklistStatistic: checklistStats,
-    taskCompletedPercentage: calculatePercentage(taskStats[1].count, taskStats[0].count),
-    checklistCompletedPercentage: calculatePercentage(checklistStats[1].count, checklistStats[0].count),
+    taskStatistic: formatStatistics(taskCounts),
+    checklistStatistic: formatStatistics(checklistCounts),
   };
   return result;
 };

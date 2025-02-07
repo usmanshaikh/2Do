@@ -6,7 +6,7 @@ import { sendResponse } from '../helpers';
 import { MESSAGES } from '../constants';
 
 export const getUser = catchAsync(async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const userId = res.locals.user.userId;
   const user = await userService.getUserById(userId);
   sendResponse({
     res,
@@ -17,7 +17,7 @@ export const getUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const updateUser = catchAsync(async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const userId = res.locals.user.userId;
   const user = await userService.updateUserById(userId, req.body);
   sendResponse({
     res,

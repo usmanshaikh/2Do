@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/statistic-report', authenticateJWT, userController.statisticReport);
 router
-  .route('/:userId')
-  .get(authenticateJWT, validate(userValidation.getUser), userController.getUser)
+  .route('/')
+  .get(authenticateJWT, userController.getUser)
   .patch(authenticateJWT, validate(userValidation.updateUser), userController.updateUser);
 export default router;
