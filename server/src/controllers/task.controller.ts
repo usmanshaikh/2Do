@@ -44,7 +44,7 @@ export const deleteTask = catchAsync(async (req: Request, res: Response) => {
   await schedulerService.deleteSchedulerById(req.params.taskId);
   sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.TASK_DELETED,
   });
 });

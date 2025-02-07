@@ -60,7 +60,7 @@ export const forgotPassword = catchAsync(async (req: Request, res: Response) => 
   await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken, req);
   sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.PASSWORD_RESET_EMAIL_SENT,
   });
 });
@@ -77,7 +77,7 @@ export const resetPassword = catchAsync(async (req: Request, res: Response) => {
   await authService.resetPassword(token, req.body.password);
   sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.PASSWORD_RESET_SUCCESS,
   });
 });
@@ -87,7 +87,7 @@ export const sendVerificationEmail = catchAsync(async (req: Request, res: Respon
   await emailService.sendVerificationEmail(res.locals.user.email, verifyEmailToken, req);
   sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.VERIFICATION_EMAIL_SENT,
   });
 });
@@ -104,7 +104,7 @@ export const verifyEmail = catchAsync(async (req: Request, res: Response) => {
   await authService.verifyEmail(token);
   return sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.EMAIL_VERIFIED_SUCCESS,
   });
 });

@@ -44,7 +44,7 @@ export const deleteChecklist = catchAsync(async (req: Request, res: Response) =>
   await schedulerService.deleteSchedulerById(req.params.checklistId);
   sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.CHECKLIST_DELETED,
   });
 });
