@@ -28,7 +28,7 @@ const Category = () => {
   const fetchCategoryWithCount = async () => {
     try {
       const { data } = await categoryApi.categoryWithCount();
-      const sortedCategories = data.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+      const sortedCategories = data.data.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
       setCategories(sortedCategories);
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -73,8 +73,8 @@ const Category = () => {
 
   const handleConfirmDeleteCategory = async (category: CategoryCount) => {
     try {
-      await categoryApi.deleteCategory(category.id);
-      setCategories(categories.filter((item) => item.id !== category.id));
+      await categoryApi.deleteCategory(category._id);
+      setCategories(categories.filter((item) => item._id !== category._id));
       dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.CATEGORY.DELETED, type: "info" }));
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -85,7 +85,7 @@ const Category = () => {
     <Box className="categoryPageWrapper">
       <Box className="flexContainer">
         {categories.map((category) => (
-          <Box className="flexItem" key={category.id}>
+          <Box className="flexItem" key={category._id}>
             <CategoryCard
               cardData={category}
               onNavigate={() => navigateToCategoryTasks(category)}

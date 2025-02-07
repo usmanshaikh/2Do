@@ -82,14 +82,15 @@ const AddEditTask = () => {
   const fetchTask = async (taskId: string) => {
     try {
       const { data } = await taskApi.getTask(taskId);
-      setTask(data);
+      const task = data.data;
+      setTask(data.data);
       formik.setValues({
-        title: data.title,
-        category: data.category.id,
-        cardColor: data.cardColor,
-        dateAndTime: moment(data.dateAndTime).toDate(),
-        alert: data.alert,
-        isCompleted: data.isCompleted,
+        title: task.title,
+        category: task.category._id,
+        cardColor: task.cardColor,
+        dateAndTime: moment(task.dateAndTime).toDate(),
+        alert: task.alert,
+        isCompleted: task.isCompleted,
       });
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -105,8 +106,8 @@ const AddEditTask = () => {
     console.log({ payload });
     try {
       if (isEdit) {
-        const id = searchParams.get("taskId") as string;
-        await taskApi.updateTask({ ...formik.values, id });
+        const _id = searchParams.get("taskId") as string;
+        await taskApi.updateTask({ ...formik.values, _id });
         const initialState = {
           message: MSG.USER_FEEDBACK.CHANGES_SAVED,
           onClose: () => navigateTo(),

@@ -7,7 +7,7 @@ interface InitialState {
     cardColor: string;
     createdBy: string;
     deletable: boolean;
-    id: string;
+    _id: string;
   };
   selectedStatus: {
     label: string;
@@ -22,7 +22,7 @@ const initialState: InitialState = {
     cardColor: "",
     createdBy: "",
     deletable: true,
-    id: "",
+    _id: "",
   },
   selectedStatus: {
     label: "",

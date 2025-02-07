@@ -20,17 +20,17 @@ const Checklist = () => {
   const [checklists, setChecklists] = useState<ChecklistResponse[]>([]);
 
   useEffect(() => {
-    filter.selectedCategory?.id && fetchChecklists();
+    filter.selectedCategory?._id && fetchChecklists();
   }, [filter]);
 
   const fetchChecklists = async () => {
     const payload: ChecklistAllPayload = {
-      category: filter.selectedCategory?.id,
+      category: filter.selectedCategory?._id,
       isCompleted: filter.selectedStatus?.isCompleted,
     };
     try {
       const { data } = await checklistApi.allChecklists(payload);
-      setChecklists(data);
+      setChecklists(data.data);
     } catch (error) {
       setChecklists([]);
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -38,7 +38,7 @@ const Checklist = () => {
   };
 
   const handleEditChecklist = (data: ChecklistResponse) => {
-    const checklistId = data.id;
+    const checklistId = data._id;
     navigate({
       pathname: `${location.pathname}/${ROUTES.ADD_EDIT_CHECKLIST}`,
       search: createSearchParams({

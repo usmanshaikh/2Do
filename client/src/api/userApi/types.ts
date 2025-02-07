@@ -20,6 +20,4 @@ export interface StatisticItem {
 export interface StatisticReportResponse {
   taskStatistic: StatisticItem[];
   checklistStatistic: StatisticItem[];
-  taskCompletedPercentage: string;
-  checklistCompletedPercentage: string;
 }

@@ -70,7 +70,7 @@ const TaskCard = ({ tasks, onStatusChange, onDeleteTask, onEditTask }: Props) =>
     <>
       {tasks.map((task: TaskResponse) => {
         return (
-          <Fragment key={task.id}>
+          <Fragment key={task._id}>
             <SwipeableList className="swipeListTaskWrapper taskPending" type={ListType.IOS}>
               <SwipeableListItem
                 leadingActions={renderLeadingActions(task)}

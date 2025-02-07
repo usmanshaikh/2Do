@@ -14,7 +14,7 @@ const ChecklistCard = ({ checklists, onEditChecklist }: Props) => {
   return (
     <>
       {checklists.map((checklist) => (
-        <Fragment key={checklist.id}>
+        <Fragment key={checklist._id}>
           <Card className="checklistCardComponentWrapper" onClick={() => onEditChecklist(checklist)}>
             <CardActionArea>
               <Box className="cardWrap">
@@ -22,7 +22,7 @@ const ChecklistCard = ({ checklists, onEditChecklist }: Props) => {
                 <span className="heading">{truncateString(checklist.title, 80)}</span>
                 <ul className="listItemWrap">
                   {checklist.checklistItems.slice(0, 3).map((item) => (
-                    <li key={item.id} className={`item searchDiv ${item.isChecked ? "complete" : null}`}>
+                    <li key={item._id} className={`item searchDiv ${item.isChecked ? "complete" : null}`}>
                       <Icon className={`checkboxIcon ${item.isChecked ? "checked" : "unChecked"}`}>
                         {item.isChecked ? "check_box" : "check_box_outline_blank"}
                       </Icon>

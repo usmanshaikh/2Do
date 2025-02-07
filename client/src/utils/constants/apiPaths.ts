@@ -22,8 +22,7 @@ export const API_PATHS = {
     CHANGE_STATUS: "checklists/change-status",
   },
   USER: {
-    MY_PROFILE: "users/my-profile",
-    UPDATE_MY_PROFILE: "users/update-my-profile",
+    USER: "users",
     STATISTIC_REPORT: "users/statistic-report",
   },
   CATEGORY: {

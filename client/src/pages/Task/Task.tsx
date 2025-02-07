@@ -22,17 +22,17 @@ const Task = () => {
   const [tasks, setTasks] = useState<TaskResponse[]>([]);
 
   useEffect(() => {
-    filter.selectedCategory?.id && fetchTasks();
+    filter.selectedCategory?._id && fetchTasks();
   }, [filter]);
 
   const fetchTasks = async () => {
     const payload: TaskAllPayload = {
-      category: filter.selectedCategory?.id,
+      category: filter.selectedCategory?._id,
       isCompleted: filter.selectedStatus?.isCompleted as boolean,
     };
     try {
       const { data } = await taskApi.allTasks(payload);
-      setTasks(data);
+      setTasks(data.data);
     } catch (error) {
       setTasks([]);
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -46,10 +46,10 @@ const Task = () => {
 
   const handleTaskStatusChange = async (task: TaskResponse) => {
     const updatedTask = toggleTaskCompletion(task);
-    const payload: ChangeTaskStatusPayload = { isCompleted: updatedTask.isCompleted, id: task.id };
+    const payload: ChangeTaskStatusPayload = { isCompleted: updatedTask.isCompleted, _id: task._id };
     try {
       const { data } = await taskApi.changeTaskStatus(payload);
-      const index = tasks.findIndex((item) => item.id === data.id);
+      const index = tasks.findIndex((item) => item._id === data.data._id);
       if (index !== -1) {
         setTasks((prevTasks) => {
           const newTasks = [...prevTasks];
@@ -69,10 +69,10 @@ const Task = () => {
   };
 
   const handleTaskDeletion = async (task: TaskResponse) => {
-    const taskId = task.id;
+    const taskId = task._id;
     try {
       await taskApi.deleteTask(taskId);
-      setTasks((prevTasks) => prevTasks.filter((item) => item.id !== taskId));
+      setTasks((prevTasks) => prevTasks.filter((item) => item._id !== taskId));
       dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.TASK.DELETED, type: "info" }));
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -82,7 +82,7 @@ const Task = () => {
   const handleTaskEdit = (task: TaskResponse) => {
     navigate({
       pathname: `${location.pathname}/${ROUTES.ADD_EDIT_TASK}`,
-      search: createSearchParams({ taskId: task.id, edit: "true" }).toString(),
+      search: createSearchParams({ taskId: task._id, edit: "true" }).toString(),
     });
   };
 

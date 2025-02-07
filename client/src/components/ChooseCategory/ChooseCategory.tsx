@@ -28,7 +28,7 @@ const ChooseCategory = ({ isEdit, category, onSelectCategory }: Props) => {
       if (isEdit && category) {
         setSelectedCategory(category);
       } else {
-        onSelectCategory(categoryOptions[0].id);
+        onSelectCategory(categoryOptions[0]._id);
         setSelectedCategory(categoryOptions[0]);
       }
     }
@@ -37,14 +37,14 @@ const ChooseCategory = ({ isEdit, category, onSelectCategory }: Props) => {
   const loadCategories = async () => {
     try {
       const { data } = await categoryApi.allCategories(true);
-      setCategoryOptions(data);
+      setCategoryOptions(data.data);
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
   const handleCategoryChange = (selected: CategoryResponse) => {
-    onSelectCategory(selected.id);
+    onSelectCategory(selected._id);
     setSelectedCategory(selected);
   };
 
@@ -59,14 +59,14 @@ const ChooseCategory = ({ isEdit, category, onSelectCategory }: Props) => {
               onChange={(e, value: CategoryResponse) => handleCategoryChange(value)}
               options={categoryOptions}
               value={selectedCategory}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
+              isOptionEqualToValue={(option, value) => option._id === value._id}
               getOptionLabel={(option) => option.categoryName}
               onFocus={hideFooter}
               onBlur={showFooter}
               renderOption={(props, option) => {
                 const { key, ...optionProps } = props;
                 return (
-                  <Box key={option.id} component="li" {...optionProps}>
+                  <Box key={option._id} component="li" {...optionProps}>
                     {option.categoryName}
                   </Box>
                 );
@@ -79,9 +79,9 @@ const ChooseCategory = ({ isEdit, category, onSelectCategory }: Props) => {
               options={categoryOptions}
               value={selectedCategory ? selectedCategory : " "}
               defaultValue={selectedCategory}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
+              isOptionEqualToValue={(option, value) => option._id === value._id}
               getOptionLabel={(option: any) => {
-                const match = categoryOptions.find((value) => value.id === option);
+                const match = categoryOptions.find((value) => value._id === option);
                 return match ? match.categoryName : option.categoryName;
               }}
               onFocus={hideFooter}
@@ -89,7 +89,7 @@ const ChooseCategory = ({ isEdit, category, onSelectCategory }: Props) => {
               renderOption={(props, option) => {
                 const { key, ...optionProps } = props;
                 return (
-                  <Box key={option.id} component="li" {...optionProps}>
+                  <Box key={option._id} component="li" {...optionProps}>
                     {option.categoryName}
                   </Box>
                 );

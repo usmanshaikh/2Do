@@ -7,11 +7,12 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { showSnackbar, setFilter } from "../../store/slices";
 import { RootState } from "../../store";
 import { getAxiosErrorMessage } from "../../utils/helpers";
+import { CategoryResponse } from "../../api/types";
 import "./Filters.scss";
 
 const STATUS_ARRAY = [MSG.STATUSES.ALL, MSG.STATUSES.PENDING, MSG.STATUSES.COMPLETED];
 const Filters = () => {
-  const [categories, setCategories] = useState<any>([]);
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const filter = useAppSelector((state: RootState) => state.filter);
@@ -20,17 +21,18 @@ const Filters = () => {
   const fetchCategories = async () => {
     try {
       const { data } = await categoryApi.allCategoriesForModal();
-      setCategories(data);
+      setCategories(data.data);
+
       const { selectedCategory, selectedStatus } = filter;
 
-      if (selectedCategory?.id) setSelectedCategory(selectedCategory.id);
+      if (selectedCategory?._id) setSelectedCategory(selectedCategory._id);
 
       if (selectedStatus?.label) setSelectedStatus(selectedStatus.label);
 
-      if (!selectedCategory?.id || !selectedStatus?.label) {
-        const defaultCategory = data[0];
+      if (!selectedCategory?._id || !selectedStatus?.label) {
+        const defaultCategory = data.data[0];
         const defaultStatus = STATUS_ARRAY[0];
-        setSelectedCategory(defaultCategory.id);
+        setSelectedCategory(defaultCategory._id);
         setSelectedStatus(defaultStatus);
         dispatch(setFilter({ category: defaultCategory, status: defaultStatus }));
       }
@@ -45,7 +47,7 @@ const Filters = () => {
 
   const handleFilterChange = (value, type) => {
     if (type === "category") {
-      const selectedCategory = categories.find((category) => category.id === value);
+      const selectedCategory = categories.find((category) => category._id === value);
       setSelectedCategory(value);
       dispatch(setFilter({ category: selectedCategory }));
     } else if (type === "status") {
@@ -67,7 +69,7 @@ const Filters = () => {
                 onChange={(e) => handleFilterChange(e.target.value, "category")}>
                 {categories &&
                   categories.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
+                    <MenuItem key={item._id} value={item._id}>
                       {item.categoryName}
                     </MenuItem>
                   ))}

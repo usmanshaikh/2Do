@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Icon, Avatar, IconButton, Button, Box } from "@mui/material";
+import { Icon, IconButton, Button, Box } from "@mui/material";
 import { useModal } from "mui-modal-provider";
 import { useNavigate } from "react-router-dom";
 import { authApi, userApi } from "../../api";
@@ -9,8 +9,8 @@ import { clearTokens, showSnackbar } from "../../store/slices";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
 import { StatisticReportResponse, UserResponse } from "../../api/types";
-import "./Profile.scss";
 import { getAxiosErrorMessage } from "../../utils/helpers";
+import "./Profile.scss";
 
 const Profile = () => {
   const auth = useAppSelector((state: RootState) => state.auth);
@@ -28,7 +28,7 @@ const Profile = () => {
   const loadUserProfile = async () => {
     try {
       const { data } = await userApi.myProfile();
-      setUserProfile(data);
+      setUserProfile(data.data);
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
@@ -37,16 +37,16 @@ const Profile = () => {
   const loadStatisticReport = async () => {
     try {
       const { data } = await userApi.statisticReport();
-      setStatisticReport(data);
+      setStatisticReport(data.data);
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
   };
 
-  const handleProfileUpdate = async (payload: FormData) => {
+  const handleProfileUpdate = async (payload) => {
     try {
       const { data } = await userApi.updateMyProfile(payload);
-      setUserProfile(data);
+      setUserProfile(data.data);
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
@@ -55,10 +55,7 @@ const Profile = () => {
   const openEditProfileModal = () => {
     showModal(
       EditProfileModal,
-      {
-        name: userProfile?.name,
-        onSubmitForm: (data: FormData) => handleProfileUpdate(data),
-      },
+      { name: userProfile?.name, onSubmitForm: (data) => handleProfileUpdate(data) },
       { destroyOnClose: true }
     );
   };
@@ -66,12 +63,7 @@ const Profile = () => {
   const handleSendVerifyEmail = async () => {
     try {
       await authApi.sendVerificationEmail();
-      dispatch(
-        showSnackbar({
-          message: MSG.USER_FEEDBACK.VERIFICATION_LINK_SENT,
-          type: "info",
-        })
-      );
+      dispatch(showSnackbar({ message: MSG.USER_FEEDBACK.VERIFICATION_LINK_SENT, type: "info" }));
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
     }
@@ -97,15 +89,7 @@ const Profile = () => {
     <Box className="profileCardWrap">
       <Box className="userInfo flexContainer">
         <Box className="flexItemOne">
-          {userProfile?.image?.data ? (
-            <Avatar
-              alt="Avatar"
-              src={`data:image/png;base64,${userProfile.image.data}`}
-              sx={{ width: 60, height: 60 }}
-            />
-          ) : (
-            <Box className="nameInitial">{userProfile?.name.charAt(0)}</Box>
-          )}
+          <Box className="nameInitial">{userProfile?.name.charAt(0)}</Box>
         </Box>
         <Box className="flexItemTwo">
           <p className="name">{userProfile?.name}</p>

@@ -92,15 +92,16 @@ const AddEditChecklist = () => {
   const fetchChecklist = async (checklistId: string) => {
     try {
       const { data } = await checklistApi.getChecklist(checklistId);
-      setChecklist(data);
+      const checklist = data.data;
+      setChecklist(checklist);
       formik.setValues({
-        title: data.title,
-        category: data.category.id,
-        cardColor: data.cardColor,
-        dateAndTime: moment(data.dateAndTime).toDate(),
-        alert: data.alert,
-        isCompleted: data.isCompleted,
-        checklistItems: data.checklistItems,
+        title: checklist.title,
+        category: checklist.category._id,
+        cardColor: checklist.cardColor,
+        dateAndTime: moment(checklist.dateAndTime).toDate(),
+        alert: checklist.alert,
+        isCompleted: checklist.isCompleted,
+        checklistItems: checklist.checklistItems,
       });
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));
@@ -122,14 +123,14 @@ const AddEditChecklist = () => {
     // Filter out items with empty text values
     const filteredChecklistItems = formik.values.checklistItems
       .filter((item) => item.text.trim() !== "")
-      .map(({ id, ...rest }) => rest); // Remove `id` property here
+      .map(({ _id, ...rest }) => rest); // Remove `_id` property here
 
     const payload = { ...formik.values, checklistItems: filteredChecklistItems };
 
     try {
       if (isEdit) {
-        const id = searchParams.get("checklistId") as string;
-        await checklistApi.updateChecklist({ ...payload, id });
+        const _id = searchParams.get("checklistId") as string;
+        await checklistApi.updateChecklist({ ...payload, _id });
         const initialState = {
           message: MSG.USER_FEEDBACK.CHANGES_SAVED,
           onClose: () => navigateTo(),
@@ -251,7 +252,7 @@ const AddEditChecklist = () => {
                     {() => (
                       <>
                         {formik.values.checklistItems.map((checklistItem, index) => (
-                          <Box className="listItemWrap" key={checklistItem.id}>
+                          <Box className="listItemWrap" key={checklistItem._id}>
                             <Box className="flexContainer">
                               <Checkbox
                                 checked={checklistItem.isChecked}

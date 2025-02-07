@@ -4,10 +4,10 @@ import { API } from "../../utils/constants";
 
 const userApi = {
   myProfile() {
-    return axios.get<ApiResponse<UserResponse>>(API.USER.MY_PROFILE);
+    return axios.get<ApiResponse<UserResponse>>(API.USER.USER);
   },
   updateMyProfile(payload: UpdateUserPayload) {
-    return axios.patch<ApiResponse<UserResponse>>(API.USER.UPDATE_MY_PROFILE, payload);
+    return axios.patch<ApiResponse<UserResponse>>(API.USER.USER, payload);
   },
   statisticReport() {
     return axios.get<ApiResponse<StatisticReportResponse>>(API.USER.STATISTIC_REPORT);
