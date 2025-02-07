@@ -10,7 +10,7 @@ import { clearTokens, hideLoader, setTokens, showLoader } from "../store/slices"
 const NO_LOADER = { headers: { noLoader: true } };
 
 const axiosInstance = axios.create({
-  // baseURL: "http://ec2-3-108-252-93.ap-south-1.compute.amazonaws.com:3000/v1/", // Live
+  // baseURL: "http://ec2-3-108-252-93.ap-south-1.compute.amazonaws.com:3000/v1/", // Prod
   baseURL: "http://localhost:3000/", // Local
   headers: { "Content-Type": "application/json" },
 });
@@ -87,8 +87,8 @@ const useAxiosInterceptor = () => {
           .refreshTokens({ refreshToken })
           .then(({ data }) => {
             isRefreshing = false;
-            const newAccessToken = data.access.token;
-            const newRefreshToken = data.refresh.token;
+            const newAccessToken = data.data.access.token;
+            const newRefreshToken = data.data.refresh.token;
             dispatch(setTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken }));
             onRefreshed(newAccessToken);
           })

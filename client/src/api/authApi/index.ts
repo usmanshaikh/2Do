@@ -26,17 +26,17 @@ const authApi = {
     const { password, token } = payload;
     return axios.post<BasicResponse>(API.AUTH.RESET_PASSWORD, { password }, { params: { token } });
   },
-  verifyEmail(token: { token: string }) {
-    return axios.post<NoContentResponse>(API.AUTH.VERIFY_EMAIL, undefined, { params: { token } });
-  },
   sendVerificationEmail() {
-    return axios.post<NoContentResponse>(API.AUTH.SEND_VERIFICATION_EMAIL);
+    return axios.post<BasicResponse>(API.AUTH.SEND_VERIFICATION_EMAIL);
+  },
+  verifyEmail(token: { token: string }) {
+    return axios.post<BasicResponse>(API.AUTH.VERIFY_EMAIL, undefined, { params: { token } });
   },
   logout(payload: { refreshToken: string }) {
     return axios.post<BasicResponse>(API.AUTH.LOGOUT, payload);
   },
   refreshTokens(payload: { refreshToken: string }) {
-    return axios.post<RefreshResponse>(API.AUTH.REFRESH_TOKENS, payload, NO_LOADER);
+    return axios.post<ApiResponse<RefreshResponse>>(API.AUTH.REFRESH_TOKENS, payload, NO_LOADER);
   },
 };
 
