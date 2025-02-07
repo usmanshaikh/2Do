@@ -11,7 +11,7 @@ const NO_LOADER = { headers: { noLoader: true } };
 
 const axiosInstance = axios.create({
   // baseURL: "http://ec2-3-108-252-93.ap-south-1.compute.amazonaws.com:3000/v1/", // Live
-  baseURL: "http://localhost:3000/v1/", // Local
+  baseURL: "http://localhost:3000/", // Local
   headers: { "Content-Type": "application/json" },
 });
 

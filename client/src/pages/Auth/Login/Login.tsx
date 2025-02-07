@@ -26,7 +26,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: "shaikhusman57@gmail.com",
-      password: "test@123",
+      password: "test123",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -37,8 +37,8 @@ const Login = () => {
   const handleLogin = async (values: LoginPayload) => {
     try {
       const { data } = await authApi.login(values);
-      const accessToken = data.tokens.access.token;
-      const refreshToken = data.tokens.refresh.token;
+      const accessToken = data.data.tokens.access.token;
+      const refreshToken = data.data.tokens.refresh.token;
       dispatch(setTokens({ accessToken, refreshToken }));
       navigate(`/${ROUTES.TASK}`);
     } catch (error) {

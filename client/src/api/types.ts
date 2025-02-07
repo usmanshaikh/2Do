@@ -20,7 +20,20 @@ import { UserResponse, StatisticReportResponse } from "./userApi/types";
 
 type NoContentResponse = void;
 
+interface ApiResponse<T> {
+  status: string;
+  message: string;
+  data: T;
+}
+
+interface BasicResponse {
+  status: string;
+  message: string;
+}
+
 export type {
+  ApiResponse,
+  BasicResponse,
   NoContentResponse,
   LoginResponse,
   RefreshResponse,

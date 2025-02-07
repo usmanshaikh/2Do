@@ -16,8 +16,10 @@ interface Tokens {
 }
 
 export interface RegisterResponse {
-  user: User;
-  tokens: Tokens;
+  email: string;
+  name: string;
+  isEmailVerified: boolean;
+  _id: string;
 }
 
 export interface LoginResponse {

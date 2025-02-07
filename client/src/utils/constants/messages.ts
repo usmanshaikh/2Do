@@ -6,8 +6,8 @@ export const MESSAGES = {
     },
     PASSWORD: {
       REQUIRED: "Password is required",
-      MIN_LENGTH: 8,
-      LENGTH_ERROR: "Password should be at least 8 characters long.",
+      MIN_LENGTH: 6,
+      LENGTH_ERROR: "Password should be at least 6 characters long.",
       MUST_CONTAIN: {
         LETTER: "Password must contain at least one letter.",
         NUMBER: "Password must contain at least one number.",
