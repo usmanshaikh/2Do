@@ -4,10 +4,6 @@ import { categoryService } from '../services';
 import { ApiError } from '../helpers';
 import { catchAsync } from '.';
 
-/**
- * Use to check if categoryName and category is exits in the database.
- * @param {{ category: Boolean, categoryName: Boolean }} props
- */
 const isEntityExists = (props: { category?: boolean; categoryName?: boolean }) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { category, categoryName } = props;

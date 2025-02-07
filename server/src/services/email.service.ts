@@ -1,6 +1,6 @@
 import moment from 'moment';
 import path from 'path';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import hbs from 'nodemailer-express-handlebars';
 import nodemailer from 'nodemailer';
 import config from '../config/config';
@@ -45,7 +45,6 @@ export const sendEmail = async (
 
 export const sendResetPasswordEmail = async (email: string, token: string, req: Request): Promise<void> => {
   const subject = 'Reset Your Password';
-  // const resetPasswordUrl = `${config.origin_url}/reset-password?token=${token}`;
   const resetPasswordUrl = `${req.protocol}://${req.get('host')}/reset-password?token=${token}`;
   const templateToUse = 'resetPasswordTemplate';
   const templateContent = {
@@ -57,7 +56,6 @@ export const sendResetPasswordEmail = async (email: string, token: string, req: 
 
 export const sendVerificationEmail = async (email: string, token: string, req: Request): Promise<void> => {
   const subject = 'Verify Your Email';
-  // const verificationEmailUrl = `${config.origin_url}/verify-email?token=${token}`;
   const verifyEmailUrl = `${req.protocol}://${req.get('host')}/verify-email?token=${token}`;
   const templateToUse = 'emailVerificationTemplate';
   const templateContent = {

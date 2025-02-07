@@ -89,7 +89,6 @@ export const addNewSchedulerAndInitialize = (schedulerData: schedulerInterface.I
       if (task) {
         const user = await userService.getUserById(task.createdBy);
         if (user) {
-          // Send the email reminder for the task
           await emailService.sendEventReminderEmail(task, schedulerType, user);
         } else {
           logger.error(`User with ID ${task.createdBy} not found for task ${parentRefId}`);
@@ -102,7 +101,6 @@ export const addNewSchedulerAndInitialize = (schedulerData: schedulerInterface.I
       if (checklist) {
         const user = await userService.getUserById(checklist.createdBy);
         if (user) {
-          // Send the email reminder for the checklist
           await emailService.sendEventReminderEmail(checklist, schedulerType, user);
         } else {
           logger.error(`User with ID ${checklist.createdBy} not found for checklist ${parentRefId}`);

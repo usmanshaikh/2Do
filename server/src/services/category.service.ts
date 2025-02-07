@@ -70,7 +70,6 @@ export const categoryWithTaskAndChecklistCount = async (req: Request, res: Respo
     },
   ]);
 
-  // Convert aggregation result into a key-value map for easier lookup
   const taskCountMap = taskCounts.reduce((acc, cur) => {
     acc[cur._id.toString()] = cur.count;
     return acc;
