@@ -1,16 +1,16 @@
 import { axios } from "../../hooks/useAxiosInterceptor";
-import { StatisticReportResponse, UserResponse } from "../types";
+import { ApiResponse, StatisticReportResponse, UpdateUserPayload, UserResponse } from "../types";
 import { API } from "../../utils/constants";
 
 const userApi = {
   myProfile() {
-    return axios.get<UserResponse>(API.USER.MY_PROFILE);
+    return axios.get<ApiResponse<UserResponse>>(API.USER.MY_PROFILE);
   },
-  updateMyProfile(payload: FormData) {
-    return axios.post<UserResponse>(API.USER.UPDATE_MY_PROFILE, payload);
+  updateMyProfile(payload: UpdateUserPayload) {
+    return axios.patch<ApiResponse<UserResponse>>(API.USER.UPDATE_MY_PROFILE, payload);
   },
   statisticReport() {
-    return axios.get<StatisticReportResponse>(API.USER.STATISTIC_REPORT);
+    return axios.get<ApiResponse<StatisticReportResponse>>(API.USER.STATISTIC_REPORT);
   },
 };
 

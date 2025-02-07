@@ -1,23 +1,22 @@
 export interface TaskResponse {
+  _id: string;
   title: string;
-  category: { categoryName: string; cardColor: string; id: string };
+  category: { categoryName: string; cardColor: string; _id: string };
   cardColor: string;
   dateAndTime: string;
   alert: boolean;
   isCompleted: boolean;
   type: string;
   createdBy: string;
-  id: string;
 }
 
 export interface TaskAllPayload {
   category: string;
-  isCompleted: boolean;
-  dateAndTime?: string;
+  isCompleted?: boolean | null | undefined;
 }
 
 export interface ChangeTaskStatusPayload {
-  id: string;
+  _id: string;
   isCompleted: boolean;
 }
 
@@ -30,12 +29,6 @@ export interface CreateTaskPayload {
   isCompleted: boolean;
 }
 
-export interface UpdateTaskPayload {
-  title: string;
-  category: string;
-  cardColor: string;
-  dateAndTime: Date;
-  alert: boolean;
-  isCompleted: boolean;
-  id?: string;
+export interface UpdateTaskPayload extends CreateTaskPayload {
+  _id: string;
 }

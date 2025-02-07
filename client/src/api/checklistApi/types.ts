@@ -1,20 +1,20 @@
 export interface ChecklistResponse {
+  _id: string;
   title: string;
   checklistItems: ChecklistItem[];
-  category: { categoryName: string; cardColor: string; id: string };
+  category: { categoryName: string; cardColor: string; _id: string };
   cardColor: string;
   dateAndTime: string;
   alert: boolean;
   isCompleted: boolean;
   type: string;
   createdBy: string;
-  id: string;
 }
 
 export interface ChecklistItem {
   isChecked: boolean;
   text: string;
-  id: string;
+  _id: string;
 }
 
 export interface ChecklistAllPayload {
@@ -22,17 +22,14 @@ export interface ChecklistAllPayload {
   isCompleted?: boolean | null | undefined;
 }
 
-export interface UpdateChecklistStatusPayload {
-  id: string;
+export interface ChangeChecklistStatusPayload {
+  _id: string;
   isCompleted: boolean;
 }
 
 export interface CreateChecklistPayload {
   title: string;
-  checklistItems: {
-    isChecked: boolean;
-    text: string;
-  }[];
+  checklistItems: { isChecked: boolean; text: string }[];
   category: string;
   cardColor: string;
   dateAndTime: Date;
@@ -41,5 +38,5 @@ export interface CreateChecklistPayload {
 }
 
 export interface UpdateChecklistPayload extends CreateChecklistPayload {
-  id: string;
+  _id: string;
 }

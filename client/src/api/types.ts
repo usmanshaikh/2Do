@@ -6,17 +6,22 @@ import {
   LoginPayload,
   ResetPasswordPayload,
 } from "./authApi/types";
-import { CategoriesWithTaskAndChecklistCount, CategoryResponse, CategoryPayload } from "./categoryApi/types";
+import {
+  CategoriesWithTaskAndChecklistCount,
+  CategoryResponse,
+  CategoryPayload,
+  UpdateCategoryPayload,
+} from "./categoryApi/types";
 import {
   ChecklistItem,
   ChecklistResponse,
   ChecklistAllPayload,
-  UpdateChecklistStatusPayload,
+  ChangeChecklistStatusPayload,
   CreateChecklistPayload,
   UpdateChecklistPayload,
 } from "./checklistApi/types";
 import { TaskResponse, ChangeTaskStatusPayload, CreateTaskPayload, UpdateTaskPayload } from "./taskApi/types";
-import { UserResponse, StatisticReportResponse } from "./userApi/types";
+import { UserResponse, StatisticReportResponse, UpdateUserPayload } from "./userApi/types";
 
 type NoContentResponse = void;
 
@@ -45,12 +50,14 @@ export type {
   TaskResponse,
   UserResponse,
   StatisticReportResponse,
+  UpdateUserPayload,
   RegisterPayload,
   LoginPayload,
   ResetPasswordPayload,
   CategoryPayload,
+  UpdateCategoryPayload,
   ChecklistAllPayload,
-  UpdateChecklistStatusPayload,
+  ChangeChecklistStatusPayload,
   CreateChecklistPayload,
   UpdateChecklistPayload,
   ChangeTaskStatusPayload,

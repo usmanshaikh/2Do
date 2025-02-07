@@ -3,7 +3,7 @@ export interface CategoryResponse {
   cardColor: string;
   createdBy: string;
   deletable: boolean;
-  id: string;
+  _id: string;
 }
 
 export interface CategoriesWithTaskAndChecklistCount extends CategoryResponse {
@@ -17,5 +17,5 @@ export interface CategoryPayload {
 }
 
 export interface UpdateCategoryPayload extends CategoryPayload {
-  id: string;
+  _id: string;
 }
