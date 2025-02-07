@@ -49,7 +49,7 @@ export const deleteCategory = catchAsync(async (req: Request, res: Response) => 
   await categoryService.deleteCategoryById(req, res);
   sendResponse({
     res,
-    statusCode: StatusCodes.NO_CONTENT,
+    statusCode: StatusCodes.OK,
     message: MESSAGES.CATEGORY_DELETED,
   });
 });
