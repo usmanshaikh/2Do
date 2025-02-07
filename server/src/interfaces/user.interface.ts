@@ -8,15 +8,15 @@ export interface IUser extends Document {
   isEmailVerified: boolean;
   // image: string;
   passwordChangedAt?: Date;
-  lastLogin?: Date;
-  failedLoginAttempts: number;
+  // lastLogin?: Date;
+  // failedLoginAttempts: number;
   createdAt: Date;
   updatedAt: Date;
   comparePassword: (candidatePassword: string) => Promise<boolean>;
-  resetPasswordToken?: string;
-  resetPasswordExpires?: Date;
-  verifyEmailToken?: string;
-  verifyEmailExpires?: Date;
+  // resetPasswordToken?: string;
+  // resetPasswordExpires?: Date;
+  // verifyEmailToken?: string;
+  // verifyEmailExpires?: Date;
 }
 
 export interface UserJwtDetails {

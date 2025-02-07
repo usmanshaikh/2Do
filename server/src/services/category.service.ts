@@ -84,7 +84,7 @@ export const categoryWithTaskAndChecklistCount = async (req: Request, res: Respo
     categoryName: category.categoryName,
     cardColor: category.cardColor,
     deletable: category.deletable,
-    id: category.id,
+    _id: category.id,
     taskCount: taskCountMap[category._id.toString()] || 0,
     checklistCount: checklistCountMap[category._id.toString()] || 0,
   }));

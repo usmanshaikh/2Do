@@ -48,7 +48,7 @@ const taskSchema: Schema<taskInterface.ITask> = new Schema(
   },
 );
 
-taskSchema.plugin(removeFieldsPlugin, ['__v']);
+taskSchema.plugin(removeFieldsPlugin, ['__v', 'createdAt', 'updatedAt']);
 
 taskSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');

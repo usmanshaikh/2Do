@@ -62,7 +62,7 @@ const checklistSchema: Schema<checklistInterface.IChecklist> = new Schema(
   },
 );
 
-checklistSchema.plugin(removeFieldsPlugin, ['__v']);
+checklistSchema.plugin(removeFieldsPlugin, ['__v', 'createdAt', 'updatedAt']);
 
 checklistSchema.pre(['find', 'findOne'], function () {
   this.populate('category', 'categoryName cardColor _id');

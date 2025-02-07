@@ -29,7 +29,7 @@ const categorySchema: Schema<categoryInterface.ICategory> = new Schema(
   },
 );
 
-categorySchema.plugin(removeFieldsPlugin, ['__v']);
+categorySchema.plugin(removeFieldsPlugin, ['__v', 'createdAt', 'updatedAt']);
 
 const Category: Model<categoryInterface.ICategory> = mongoose.model<categoryInterface.ICategory>('Category', categorySchema);
 
