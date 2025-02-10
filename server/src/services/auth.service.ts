@@ -15,8 +15,8 @@ export const loginUserWithEmailAndPassword = async (email: string, password: str
 };
 
 export const logoutUser = async (refreshToken: string) => {
-  // Blacklist the token by setting it in Redis with a 'blacklisted' flag
-  await redisClient.set(refreshToken, 'blacklisted', { EX: 7 * 24 * 60 * 60 }); // same expiry as the token
+  // Blacklist the token by settinasdg it in Redis with a 'blacklisted' flag
+  await redisClient.set(refreshToken, 'blacklisted', 'EX', 7 * 24 * 60 * 60); // same expiry as the token
 };
 
 export const refreshAuth = async (refreshToken: string) => {
@@ -36,14 +36,12 @@ export const refreshAuth = async (refreshToken: string) => {
   const newTokens = await jwtHelper.generateAuthTokens(payload as userInterface.UserJwtDetails);
 
   // Blacklist the old refresh token
-  await redisClient.set(refreshToken, 'blacklisted', {
-    EX: 24 * 60 * 60, // Set 1 day expiration
-  });
+  // Set 1 day expiration
+  await redisClient.set(refreshToken, 'blacklisted', 'EX', 24 * 60 * 60);
 
   // Save the new refresh token in Redis as valid
-  await redisClient.set(newTokens.refresh.token, 'valid', {
-    EX: 7 * 24 * 60 * 60, // Set 7 days expiration
-  });
+  // Set 7 days expiration
+  await redisClient.set(newTokens.refresh.token, 'valid', 'EX', 7 * 24 * 60 * 60);
 
   return newTokens;
 };

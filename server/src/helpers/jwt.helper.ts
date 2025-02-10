@@ -45,7 +45,7 @@ export const generateAuthTokens = async (
   const refreshTokenExpires = moment().add(parseInt(config.jwt.refreshExpirationDays!), 'days');
   const refreshToken = generateToken(userDetails, refreshTokenExpires, 'REFRESH');
 
-  await redisClient.set(refreshToken, 'valid', { EX: 7 * 24 * 60 * 60 }); // 7 days in seconds
+  await redisClient.set(refreshToken, 'valid', 'EX', 7 * 24 * 60 * 60); // 7 days in seconds
 
   return {
     access: {
