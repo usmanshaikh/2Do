@@ -1,7 +1,16 @@
 {
   "editor.formatOnSave": true,
+  // Enables TypeScript and JavaScript validation in VS Code to catch errors early.
+  "javascript.validate.enable": true,
+  // Ensures imports use relative paths instead of absolute module paths (@utils/... → ../../utils/...).
+  "typescript.preferences.importModuleSpecifier": "relative",
+  // Default formatter Prettier.
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.tabSize": 2,
+  // Uses spaces instead of tabs for indentation.
   "editor.insertSpaces": true,
-  "editor.detectIndentation": false
+  // Prevents VS Code from auto-adjusting indentation, enforcing tabSize.
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  // Ensures VS Code uses the project's installed TypeScript version instead of the global one, preventing version mismatches.
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

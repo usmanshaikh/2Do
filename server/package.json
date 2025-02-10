@@ -16,8 +16,6 @@
     "watch-ts": "tsc -w",
     "check": "tsc --noEmit",
     "eslint": "eslint . --ext .js,.ts",
-    "upgrade": "npm update --save-dev && npm update --save",
-    "upgrade-latest": "npx npm-check-updates -u && npm install ",
     "test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles --coverage --verbose"
   },
   "dependencies": {
