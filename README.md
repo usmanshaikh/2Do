@@ -35,18 +35,43 @@ password: test@123
 
 ## **Installation**
 
+### **Clone the Repository**
+
 1. Clone the repository to your local machine.
-2. Navigate to the project directory and install the required packages:
-   ```bash
+
+### **Run Client (React.js) Locally**
+
+2. Navigate to the project directory:
+   ```sh
+   cd 2Do/client
+   ```
+3. Install dependencies:
+   ```sh
    npm install
    ```
-   Do this for both the client and server directories.
-3. In the `server/2do` directory, create a `.env` file and configure all the necessary details. You can refer to the `.env.example` file for guidance.
-4. To start the server, run:
-   ```bash
-   yarn dev
+4. Start the development server:
+   ```sh
+   npm run start
    ```
-5. To start the client, run:
-   ```bash
-   npm start
+5. The client will be available at:  
+   [http://localhost:3001](http://localhost:3001)
+
+### **Run Server (Node.js) Locally**
+
+6. Create a `.env` file by referring to `.env.example` and add the necessary configurations.
+7. Install dependencies:
+   ```sh
+   npm install
    ```
+8. **Redis Setup:**
+
+   - This project requires Redis. Install and run Redis before proceeding.
+   - For detailed Redis setup steps, refer to:  
+     [Redis Installation Guide](https://github.com/usmanshaikh/node-express-typescript-starter?tab=readme-ov-file#installation)
+
+9. If Redis is configured, start the server in watch mode:
+   ```sh
+   npm run watch
+   ```
+10. The server will be available at:  
+    [http://localhost:3000](http://localhost:3000)
