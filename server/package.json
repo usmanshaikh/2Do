@@ -5,11 +5,11 @@
   "description": "Node Express TypeScript Starter is a boilerplate for building scalable applications with Node.js and Express. It includes essential packages like Axios, Mongoose, JWT, and testing support using Jest and Supertest. The project is also configured with ESLint and Prettier for consistent code quality.",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start": "cross-env NODE_ENV=production npm run build && npm run serve",
     "serve": "pm2 start build/server.js --name NETS --env production",
     "build": "npm run clean && npm run build-ts && npm run copy-assets",
     "copy-assets": "npx cpy \"src/public/**/*\" build/public/ --parents && npx cpy \"src/views/**/*\" build/views/ --parents",
-    "watch": "npx concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch": "cross-env NODE_ENV=development npx concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon -r dotenv/config build/server.js",
     "clean": "rimraf ./build",
     "build-ts": "tsc",
