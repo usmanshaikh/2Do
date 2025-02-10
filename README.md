@@ -58,20 +58,16 @@ password: test@123
 
 ### **Run Server (Node.js) Locally**
 
-6. Create a `.env` file by referring to `.env.example` and add the necessary configurations.
+6. Create a `.env` file by referring to `.env.example` and add the necessary configurations like MONGODB, REDIS (upstash), SMPT (Gmail) etc.
 7. Install dependencies:
+
    ```sh
    npm install
    ```
-8. **Redis Setup:**
 
-   - This project requires Redis. Install and run Redis before proceeding.
-   - For detailed Redis setup steps, refer to:  
-     [Redis Installation Guide](https://github.com/usmanshaikh/node-express-typescript-starter?tab=readme-ov-file#installation)
-
-9. If Redis is configured, start the server in watch mode:
+8. Once configuration is done:
    ```sh
    npm run watch
    ```
-10. The server will be available at:  
-    [http://localhost:3000](http://localhost:3000)
+9. The server will be available at:  
+   [http://localhost:3000](http://localhost:3000)
