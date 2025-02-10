@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { authApi } from "../api";
-import { ROUTES } from "../utils/constants";
-import { RootState } from "../store";
-import { useAppDispatch, useAppSelector } from "./useReduxHooks";
-import { clearTokens, hideLoader, setTokens, showLoader } from "../store/slices";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { authApi } from '../api';
+import { ROUTES } from '../utils/constants';
+import { RootState } from '../store';
+import { useAppDispatch, useAppSelector } from './useReduxHooks';
+import { clearTokens, hideLoader, setTokens, showLoader } from '../store/slices';
 
 const NO_LOADER = { headers: { noLoader: true } };
 
 const axiosInstance = axios.create({
-  // baseURL: "http://ec2-3-108-252-93.ap-south-1.compute.amazonaws.com:3000/v1/", // Prod
-  baseURL: "http://localhost:3000/", // Local
-  headers: { "Content-Type": "application/json" },
+  baseURL: 'http://ec2-3-108-252-93.ap-south-1.compute.amazonaws.com:3000/', // Prod
+  // baseURL: "http://localhost:3000/", // Local
+  headers: { 'Content-Type': 'application/json' },
 });
 
 const useAxiosInterceptor = () => {
@@ -79,7 +79,7 @@ const useAxiosInterceptor = () => {
     const { config, response } = error;
     const originalRequest = config;
 
-    if ([401, 498].includes(response?.status) && !config.url.includes("auth/")) {
+    if ([401, 498].includes(response?.status) && !config.url.includes('auth/')) {
       if (!isRefreshing) {
         isRefreshing = true;
         const refreshToken = auth.refreshToken as string;
