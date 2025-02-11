@@ -20,12 +20,12 @@ password: test@123
 
 ## **Screenshots**
 
-<img src="/screenshots/01-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/02-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/03-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/04-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/EventReminder.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/VerifyEmail.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/>
+![Page 1](screenshots/01-Page.png)
+![Page 2](screenshots/02-Page.png)
+![Page 3](screenshots/03-Page.png)
+![Page 4](screenshots/04-Page.png)
+![Event Reminder](screenshots/EventReminder.jpg)
+![Verify Email](screenshots/VerifyEmail.jpg)
 
 ## **Installation**
 
