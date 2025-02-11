@@ -24,8 +24,7 @@ password: test@123
 ![Page 2](screenshots/02-Page.png)
 ![Page 3](screenshots/03-Page.png)
 ![Page 4](screenshots/04-Page.png)
-![Event Reminder](screenshots/EventReminder.jpg)
-![Verify Email](screenshots/VerifyEmail.jpg)
+![Page 5](screenshots/05-Page.png)
 
 ## **Installation**
 
