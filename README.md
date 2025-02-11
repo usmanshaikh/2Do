@@ -20,16 +20,10 @@ password: test@123
 
 ## **Screenshots**
 
-<img src="/screenshots/LoginPage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/TaskPage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/AddEditTaskPage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/ChecklistPage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/AddEditChecklistPage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/DateTimePicker.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/FilterModal.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/CategoryPage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/CreateCategoryModal.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
-<img src="/screenshots/ProfilePage.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
+<img src="/screenshots/01-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
+<img src="/screenshots/02-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
+<img src="/screenshots/03-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
+<img src="/screenshots/04-Page.png" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
 <img src="/screenshots/EventReminder.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/> 
 <img src="/screenshots/VerifyEmail.jpg" height="400px" style="border: 1px solid #ebebeb; margin: 5px;"/>
 
