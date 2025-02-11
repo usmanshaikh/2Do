@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { authApi } from "../../../api";
-import { CustomButton } from "../../../components";
-import { MSG, ROUTES } from "../../../utils/constants";
-import Images from "../../../assets/img";
-import { RootState } from "../../../store";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { Box } from "@mui/material";
-import { showSnackbar } from "../../../store/slices";
-import "./VerifyEmail.scss";
-import { getAxiosErrorMessage } from "../../../utils/helpers";
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { authApi } from '../../../api';
+import { CustomButton } from '../../../components';
+import { MSG, ROUTES } from '../../../utils/constants';
+import Images from '../../../assets/img';
+import { RootState } from '../../../store';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { Box } from '@mui/material';
+import { showSnackbar } from '../../../store/slices';
+import './VerifyEmail.scss';
+import { getAxiosErrorMessage } from '../../../utils/helpers';
 
 const VerifyEmail = () => {
   const dispatch = useAppDispatch();
@@ -20,9 +20,9 @@ const VerifyEmail = () => {
   const tokenRef = useRef<string | null>(null);
 
   useEffect(() => {
-    tokenRef.current = searchParams.get("token");
+    tokenRef.current = searchParams.get('token');
     if (tokenRef.current) {
-      searchParams.delete("token");
+      searchParams.delete('token');
       setSearchParams(searchParams);
       verifyEmail(tokenRef.current);
     }
@@ -30,7 +30,7 @@ const VerifyEmail = () => {
 
   const verifyEmail = async (token: string) => {
     try {
-      await authApi.verifyEmail({ token });
+      await authApi.verifyEmail(token);
       setIsVerifyEmailSuccess(true);
     } catch (error) {
       dispatch(showSnackbar({ message: getAxiosErrorMessage(error) }));

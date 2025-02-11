@@ -1,5 +1,5 @@
-import { axios, NO_LOADER } from "../../hooks/useAxiosInterceptor";
-import { API } from "../../utils/constants";
+import { axios, NO_LOADER } from '../../hooks/useAxiosInterceptor';
+import { API } from '../../utils/constants';
 import {
   LoginResponse,
   NoContentResponse,
@@ -10,7 +10,7 @@ import {
   ResetPasswordPayload,
   ApiResponse,
   BasicResponse,
-} from "../types";
+} from '../types';
 
 const authApi = {
   register(payload: RegisterPayload) {
@@ -29,7 +29,7 @@ const authApi = {
   sendVerificationEmail() {
     return axios.post<BasicResponse>(API.AUTH.SEND_VERIFICATION_EMAIL);
   },
-  verifyEmail(token: { token: string }) {
+  verifyEmail(token: string) {
     return axios.post<BasicResponse>(API.AUTH.VERIFY_EMAIL, undefined, { params: { token } });
   },
   logout(payload: { refreshToken: string }) {

@@ -1,15 +1,15 @@
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, TextField } from "@mui/material";
-import { authApi } from "../../../api";
-import { MSG, ROUTES } from "../../../utils/constants";
-import { useAppDispatch } from "../../../hooks";
-import { setTokens, showSnackbar } from "../../../store/slices";
-import { CustomButton } from "../../../components";
-import { LoginPayload } from "../../../api/types";
-import { getAxiosErrorMessage } from "../../../utils/helpers";
-import "../Auth.scss";
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+import { Box, TextField } from '@mui/material';
+import { authApi } from '../../../api';
+import { MSG, ROUTES } from '../../../utils/constants';
+import { useAppDispatch } from '../../../hooks';
+import { setTokens, showSnackbar } from '../../../store/slices';
+import { CustomButton } from '../../../components';
+import { LoginPayload } from '../../../api/types';
+import { getAxiosErrorMessage } from '../../../utils/helpers';
+import '../Auth.scss';
 
 const validationSchema = yup.object({
   email: yup.string().email(MSG.VALIDATION.EMAIL.INVALID).required(MSG.VALIDATION.EMAIL.REQUIRED),
@@ -25,8 +25,8 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "shaikhusman57@gmail.com",
-      password: "test123",
+      email: '',
+      password: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
